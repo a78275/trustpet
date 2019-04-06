@@ -1,0 +1,161 @@
+@import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
+body {
+  font-family: "Poppins", sans-serif;
+  background: #f7eceb;
+}
+body .wrapper {
+  display: flex;
+  width: 100%;
+}
+body .wrapper #sidebar {
+  width: 250px;
+  height: 100vh;
+  transition: all 0.3s;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #545871;
+}
+body .wrapper #sidebar ul.components {
+  padding: 20px 0;
+}
+body .wrapper #sidebar .sec2 {
+  transform: translate(0%, 60%);
+}
+body .wrapper #sidebar .sec3 {
+  transform: translate(0%, 100%);
+}
+body .wrapper #sidebar a:hover, body .wrapper #sidebar a:focus {
+  color: inherit;
+  text-decoration: none;
+  color: #f7eceb;
+  transition: all 0.3s;
+}
+body .wrapper #sidebar a {
+  padding-top: 10px;
+  font-size: 1em;
+  display: block;
+  color: white;
+}
+body .wrapper #sidebar a[data-toggle=collapse] {
+  position: relative;
+}
+body .wrapper #sidebar #dadosSubmenu {
+  font-size: 0.9em !important;
+  padding-left: 30px !important;
+}
+body .wrapper #sidebar .dropdown-toggle::after {
+  display: block;
+  position: absolute;
+  top: 60%;
+  right: 70px;
+}
+body .wrapper #sidebar.active {
+  margin-left: -250px;
+}
+body #content {
+  width: calc(100% - 250px);
+  min-height: 100vh;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #f7eceb;
+  transition: all 0.3s;
+}
+body #content header {
+  text-align: center;
+  color: white;
+  background-image: url("../img/paginicial.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+}
+body #content header button {
+  background-color: #545871;
+  box-shadow: none;
+  outline: none !important;
+  border: none;
+  background-color: #545871;
+  color: white;
+  float: left;
+}
+body #content header button :hover {
+  color: #f7eceb;
+}
+body #content header .intro-text {
+  padding-top: 250px;
+  padding-bottom: 250px;
+  text-align: right;
+}
+body #content header .intro-text .intro-lead-in {
+  font-size: 2.5em;
+  font-style: italic;
+  line-height: 22px;
+  margin-bottom: 25px;
+  padding: 10px;
+}
+body #content header .intro-text .btn {
+  color: #545871;
+  background-color: white;
+  border: none;
+}
+body #content #services {
+  background-color: white;
+}
+body #content #services .section-subheading {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #545871;
+}
+body #content #services .col-md-4 {
+  padding: 10px;
+  color: #545871;
+  font-size: 1em;
+}
+body #content #services .col-md-4 .fa-circle {
+  color: #ebd0ce;
+}
+body #content .service-heading {
+  margin: 15px 0;
+  text-transform: none;
+}
+body #content .contacts {
+  background-color: #f7eceb;
+}
+body #content .contacts h3 {
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 2.5em;
+  color: #545871;
+  text-align: center;
+}
+body #content.active {
+  width: 100%;
+}
+body main .container-fluid {
+  background-color: #f7eceb;
+}
+@media (max-width: 768px) {
+  body #sidebar {
+    margin-left: -250px;
+  }
+  body #sidebar.active {
+    margin-left: 0;
+  }
+  body #content {
+    width: 100%;
+  }
+  body #content.active {
+    width: calc(100% - 250px);
+  }
+  body #sidebarCollapse span {
+    display: none;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
