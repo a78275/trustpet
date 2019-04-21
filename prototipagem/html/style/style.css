@@ -54,6 +54,23 @@ body .wrapper #sidebar .dropdown-toggle::after {
 body .wrapper #sidebar.active {
   margin-left: -250px;
 }
+@media (max-width: 768px) {
+  body .wrapper #sidebar {
+    margin-left: -250px;
+  }
+  body .wrapper #sidebar.active {
+    margin-left: 0;
+  }
+  body .wrapper #content {
+    width: 100%;
+  }
+  body .wrapper #content.active {
+    width: calc(100% - 250px);
+  }
+  body .wrapper #sidebarCollapse span {
+    display: none;
+  }
+}
 body #content {
   width: calc(100% - 250px);
   min-height: 100vh;
@@ -100,6 +117,7 @@ body #content header .intro-text .btn {
   color: #545871;
   background-color: white;
   border: none;
+  opacity: 0.8;
 }
 body #content #services {
   background-color: white;
@@ -140,22 +158,26 @@ body #content.active {
 body main .container-fluid {
   background-color: #f7eceb;
 }
-@media (max-width: 768px) {
-  body #sidebar {
-    margin-left: -250px;
-  }
-  body #sidebar.active {
-    margin-left: 0;
-  }
-  body #content {
-    width: 100%;
-  }
-  body #content.active {
-    width: calc(100% - 250px);
-  }
-  body #sidebarCollapse span {
-    display: none;
-  }
+body .row #side {
+  height: 100vh;
+  background-image: url("../img/side.png");
+  /* The image used */
+  background-color: #545871;
+  /* Used if the image is unavailable */
+  background-position: center;
+  /* Center the image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+}
+body .row #login_form {
+  height: 100vh;
+  background-color: #f7eceb;
+}
+body .row .footer {
+  position: fixed;
+  bottom: 0;
+  background-color: white;
 }
 
 /*# sourceMappingURL=style.css.map */
