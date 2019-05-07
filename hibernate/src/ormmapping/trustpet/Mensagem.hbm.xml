@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Joana(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="trustpet.Mensagem" table="Mensagem" lazy="false">
+		<id name="id" column="Id" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="dono" column="DonoId" class="trustpet.Dono" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="petsitter" column="PetsitterId" class="trustpet.Petsitter" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="conteudo" column="Conteudo" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="origem" column="Origem" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="timestamp" column="Timestamp" type="string" length="255" not-null="false" lazy="false"/>
+	</class>
+</hibernate-mapping>

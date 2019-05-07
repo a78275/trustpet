@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: Joana(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="trustpet.Petsitter" table="Petsitter" lazy="false">
+		<id name="id" column="Id" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="horario" column="HorarioId" class="trustpet.Horario" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="photo" column="Photo" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="ativo" column="Ativo" type="boolean" not-null="true" lazy="false"/>
+		<property name="nome" column="Nome" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="email" column="Email" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="data_nascimento" column="Data_nascimento" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="contacto" column="Contacto" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="residencia" column="Residencia" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="jardim" column="Jardim" type="boolean" not-null="true" lazy="false"/>
+		<property name="morada" column="Morada" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="password" column="Password" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="descricao" column="Descricao" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_Servicos" lazy="true" cascade="save-update,lock" inverse="false">
+			<key column="PetsitterId" not-null="true"/>
+			<one-to-many class="trustpet.Servico"/>
+		</set>
+		<set name="ORM_Animais" lazy="true" cascade="save-update,lock" inverse="false">
+			<key column="PetsitterId" not-null="true"/>
+			<one-to-many class="trustpet.Tipo_Animal"/>
+		</set>
+	</class>
+</hibernate-mapping>
