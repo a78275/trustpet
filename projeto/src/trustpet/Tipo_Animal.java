@@ -21,6 +21,14 @@ public class Tipo_Animal {
 	
 	private String tipo;
 	
+	public void setTipo(String value) {
+		this.tipo = value;
+	}
+	
+	public String getTipo() {
+		return tipo;
+	}
+	
 	private void setId(int value) {
 		this.id = value;
 	}
@@ -31,14 +39,6 @@ public class Tipo_Animal {
 	
 	public int getORMID() {
 		return getId();
-	}
-	
-	public void setTipo(String value) {
-		this.tipo = value;
-	}
-	
-	public String getTipo() {
-		return tipo;
 	}
 	
 	public String toString() {

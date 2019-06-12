@@ -19,10 +19,10 @@ import org.hibernate.LockMode;
 import java.util.List;
 
 public class PetsitterDAO {
-	public static Petsitter loadPetsitterByORMID(int id) throws PersistentException {
+	public static Petsitter loadPetsitterByORMID(String email) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return loadPetsitterByORMID(session, id);
+			return loadPetsitterByORMID(session, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -30,10 +30,10 @@ public class PetsitterDAO {
 		}
 	}
 	
-	public static Petsitter getPetsitterByORMID(int id) throws PersistentException {
+	public static Petsitter getPetsitterByORMID(String email) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return getPetsitterByORMID(session, id);
+			return getPetsitterByORMID(session, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -41,10 +41,10 @@ public class PetsitterDAO {
 		}
 	}
 	
-	public static Petsitter loadPetsitterByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Petsitter loadPetsitterByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return loadPetsitterByORMID(session, id, lockMode);
+			return loadPetsitterByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -52,10 +52,10 @@ public class PetsitterDAO {
 		}
 	}
 	
-	public static Petsitter getPetsitterByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Petsitter getPetsitterByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return getPetsitterByORMID(session, id, lockMode);
+			return getPetsitterByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -63,9 +63,9 @@ public class PetsitterDAO {
 		}
 	}
 	
-	public static Petsitter loadPetsitterByORMID(PersistentSession session, int id) throws PersistentException {
+	public static Petsitter loadPetsitterByORMID(PersistentSession session, String email) throws PersistentException {
 		try {
-			return (Petsitter) session.load(trustpet.Petsitter.class, new Integer(id));
+			return (Petsitter) session.load(trustpet.Petsitter.class, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -73,9 +73,9 @@ public class PetsitterDAO {
 		}
 	}
 	
-	public static Petsitter getPetsitterByORMID(PersistentSession session, int id) throws PersistentException {
+	public static Petsitter getPetsitterByORMID(PersistentSession session, String email) throws PersistentException {
 		try {
-			return (Petsitter) session.get(trustpet.Petsitter.class, new Integer(id));
+			return (Petsitter) session.get(trustpet.Petsitter.class, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -83,9 +83,9 @@ public class PetsitterDAO {
 		}
 	}
 	
-	public static Petsitter loadPetsitterByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Petsitter loadPetsitterByORMID(PersistentSession session, String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Petsitter) session.load(trustpet.Petsitter.class, new Integer(id), lockMode);
+			return (Petsitter) session.load(trustpet.Petsitter.class, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -93,9 +93,9 @@ public class PetsitterDAO {
 		}
 	}
 	
-	public static Petsitter getPetsitterByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Petsitter getPetsitterByORMID(PersistentSession session, String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Petsitter) session.get(trustpet.Petsitter.class, new Integer(id), lockMode);
+			return (Petsitter) session.get(trustpet.Petsitter.class, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

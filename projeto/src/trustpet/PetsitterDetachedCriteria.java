@@ -19,13 +19,12 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
-	public final IntegerExpression id;
+	public final StringExpression email;
 	public final IntegerExpression horarioId;
 	public final AssociationExpression horario;
 	public final StringExpression photo;
 	public final BooleanExpression ativo;
 	public final StringExpression nome;
-	public final StringExpression email;
 	public final StringExpression data_nascimento;
 	public final StringExpression contacto;
 	public final StringExpression residencia;
@@ -38,13 +37,12 @@ public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
 	
 	public PetsitterDetachedCriteria() {
 		super(trustpet.Petsitter.class, trustpet.PetsitterCriteria.class);
-		id = new IntegerExpression("id", this.getDetachedCriteria());
+		email = new StringExpression("email", this.getDetachedCriteria());
 		horarioId = new IntegerExpression("horario.id", this.getDetachedCriteria());
 		horario = new AssociationExpression("horario", this.getDetachedCriteria());
 		photo = new StringExpression("photo", this.getDetachedCriteria());
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
-		email = new StringExpression("email", this.getDetachedCriteria());
 		data_nascimento = new StringExpression("data_nascimento", this.getDetachedCriteria());
 		contacto = new StringExpression("contacto", this.getDetachedCriteria());
 		residencia = new StringExpression("residencia", this.getDetachedCriteria());
@@ -58,13 +56,12 @@ public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
 	
 	public PetsitterDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, trustpet.PetsitterCriteria.class);
-		id = new IntegerExpression("id", this.getDetachedCriteria());
+		email = new StringExpression("email", this.getDetachedCriteria());
 		horarioId = new IntegerExpression("horario.id", this.getDetachedCriteria());
 		horario = new AssociationExpression("horario", this.getDetachedCriteria());
 		photo = new StringExpression("photo", this.getDetachedCriteria());
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
-		email = new StringExpression("email", this.getDetachedCriteria());
 		data_nascimento = new StringExpression("data_nascimento", this.getDetachedCriteria());
 		contacto = new StringExpression("contacto", this.getDetachedCriteria());
 		residencia = new StringExpression("residencia", this.getDetachedCriteria());

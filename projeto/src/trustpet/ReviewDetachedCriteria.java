@@ -20,9 +20,9 @@ import org.orm.criteria.*;
 
 public class ReviewDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id;
-	public final IntegerExpression petsitterId;
+	public final StringExpression petsitterId;
 	public final AssociationExpression petsitter;
-	public final IntegerExpression donoId;
+	public final StringExpression donoId;
 	public final AssociationExpression dono;
 	public final IntegerExpression pontuacao;
 	public final StringExpression comentario;
@@ -31,9 +31,9 @@ public class ReviewDetachedCriteria extends AbstractORMDetachedCriteria {
 	public ReviewDetachedCriteria() {
 		super(trustpet.Review.class, trustpet.ReviewCriteria.class);
 		id = new IntegerExpression("id", this.getDetachedCriteria());
-		petsitterId = new IntegerExpression("petsitter.id", this.getDetachedCriteria());
+		petsitterId = new StringExpression("petsitter.email", this.getDetachedCriteria());
 		petsitter = new AssociationExpression("petsitter", this.getDetachedCriteria());
-		donoId = new IntegerExpression("dono.id", this.getDetachedCriteria());
+		donoId = new StringExpression("dono.email", this.getDetachedCriteria());
 		dono = new AssociationExpression("dono", this.getDetachedCriteria());
 		pontuacao = new IntegerExpression("pontuacao", this.getDetachedCriteria());
 		comentario = new StringExpression("comentario", this.getDetachedCriteria());
@@ -43,9 +43,9 @@ public class ReviewDetachedCriteria extends AbstractORMDetachedCriteria {
 	public ReviewDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, trustpet.ReviewCriteria.class);
 		id = new IntegerExpression("id", this.getDetachedCriteria());
-		petsitterId = new IntegerExpression("petsitter.id", this.getDetachedCriteria());
+		petsitterId = new StringExpression("petsitter.email", this.getDetachedCriteria());
 		petsitter = new AssociationExpression("petsitter", this.getDetachedCriteria());
-		donoId = new IntegerExpression("dono.id", this.getDetachedCriteria());
+		donoId = new StringExpression("dono.email", this.getDetachedCriteria());
 		dono = new AssociationExpression("dono", this.getDetachedCriteria());
 		pontuacao = new IntegerExpression("pontuacao", this.getDetachedCriteria());
 		comentario = new StringExpression("comentario", this.getDetachedCriteria());

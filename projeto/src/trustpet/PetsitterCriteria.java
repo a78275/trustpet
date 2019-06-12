@@ -19,13 +19,12 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class PetsitterCriteria extends AbstractORMCriteria {
-	public final IntegerExpression id;
+	public final StringExpression email;
 	public final IntegerExpression horarioId;
 	public final AssociationExpression horario;
 	public final StringExpression photo;
 	public final BooleanExpression ativo;
 	public final StringExpression nome;
-	public final StringExpression email;
 	public final StringExpression data_nascimento;
 	public final StringExpression contacto;
 	public final StringExpression residencia;
@@ -38,13 +37,12 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 	
 	public PetsitterCriteria(Criteria criteria) {
 		super(criteria);
-		id = new IntegerExpression("id", this);
+		email = new StringExpression("email", this);
 		horarioId = new IntegerExpression("horario.id", this);
 		horario = new AssociationExpression("horario", this);
 		photo = new StringExpression("photo", this);
 		ativo = new BooleanExpression("ativo", this);
 		nome = new StringExpression("nome", this);
-		email = new StringExpression("email", this);
 		data_nascimento = new StringExpression("data_nascimento", this);
 		contacto = new StringExpression("contacto", this);
 		residencia = new StringExpression("residencia", this);

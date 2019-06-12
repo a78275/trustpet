@@ -17,6 +17,23 @@ public class Dono {
 	public Dono() {
 	}
 	
+	public boolean equals(Object aObj) {
+		if (aObj == this)
+			return true;
+		if (!(aObj instanceof Dono))
+			return false;
+		Dono dono = (Dono)aObj;
+		if ((getEmail() != null && !getEmail().equals(dono.getEmail())) || (getEmail() == null && dono.getEmail() != null))
+			return false;
+		return true;
+	}
+	
+	public int hashCode() {
+		int hashcode = 0;
+		hashcode = hashcode + (getEmail() == null ? 0 : getEmail().hashCode());
+		return hashcode;
+	}
+	
 	private java.util.Set this_getSet (int key) {
 		if (key == ORMConstants.KEY_DONO_ANIMAIS) {
 			return ORM_animais;
@@ -32,15 +49,13 @@ public class Dono {
 		
 	};
 	
-	private int id;
+	private String email;
 	
 	private boolean ativo;
 	
 	private String nome;
 	
 	private String photo;
-	
-	private String email;
 	
 	private String contacto;
 	
@@ -53,18 +68,6 @@ public class Dono {
 	private String password;
 	
 	private java.util.Set ORM_animais = new java.util.HashSet();
-	
-	private void setId(int value) {
-		this.id = value;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-	public int getORMID() {
-		return getId();
-	}
 	
 	public void setAtivo(boolean value) {
 		this.ativo = value;
@@ -96,6 +99,10 @@ public class Dono {
 	
 	public String getEmail() {
 		return email;
+	}
+	
+	public String getORMID() {
+		return getEmail();
 	}
 	
 	public void setContacto(String value) {
@@ -149,7 +156,7 @@ public class Dono {
 	public final trustpet.AnimalSetCollection animais = new trustpet.AnimalSetCollection(this, _ormAdapter, ORMConstants.KEY_DONO_ANIMAIS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
-		return String.valueOf(getId());
+		return String.valueOf(getEmail());
 	}
 	
 }

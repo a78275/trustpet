@@ -19,10 +19,10 @@ import org.hibernate.LockMode;
 import java.util.List;
 
 public class HoraDAO {
-	public static Hora loadHoraByORMID(int id) throws PersistentException {
+	public static Hora loadHoraByORMID(int hora) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return loadHoraByORMID(session, id);
+			return loadHoraByORMID(session, hora);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -30,10 +30,10 @@ public class HoraDAO {
 		}
 	}
 	
-	public static Hora getHoraByORMID(int id) throws PersistentException {
+	public static Hora getHoraByORMID(int hora) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return getHoraByORMID(session, id);
+			return getHoraByORMID(session, hora);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -41,10 +41,10 @@ public class HoraDAO {
 		}
 	}
 	
-	public static Hora loadHoraByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Hora loadHoraByORMID(int hora, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return loadHoraByORMID(session, id, lockMode);
+			return loadHoraByORMID(session, hora, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -52,10 +52,10 @@ public class HoraDAO {
 		}
 	}
 	
-	public static Hora getHoraByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Hora getHoraByORMID(int hora, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return getHoraByORMID(session, id, lockMode);
+			return getHoraByORMID(session, hora, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -63,9 +63,9 @@ public class HoraDAO {
 		}
 	}
 	
-	public static Hora loadHoraByORMID(PersistentSession session, int id) throws PersistentException {
+	public static Hora loadHoraByORMID(PersistentSession session, int hora) throws PersistentException {
 		try {
-			return (Hora) session.load(trustpet.Hora.class, new Integer(id));
+			return (Hora) session.load(trustpet.Hora.class, new Integer(hora));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -73,9 +73,9 @@ public class HoraDAO {
 		}
 	}
 	
-	public static Hora getHoraByORMID(PersistentSession session, int id) throws PersistentException {
+	public static Hora getHoraByORMID(PersistentSession session, int hora) throws PersistentException {
 		try {
-			return (Hora) session.get(trustpet.Hora.class, new Integer(id));
+			return (Hora) session.get(trustpet.Hora.class, new Integer(hora));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -83,9 +83,9 @@ public class HoraDAO {
 		}
 	}
 	
-	public static Hora loadHoraByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Hora loadHoraByORMID(PersistentSession session, int hora, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Hora) session.load(trustpet.Hora.class, new Integer(id), lockMode);
+			return (Hora) session.load(trustpet.Hora.class, new Integer(hora), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -93,9 +93,9 @@ public class HoraDAO {
 		}
 	}
 	
-	public static Hora getHoraByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Hora getHoraByORMID(PersistentSession session, int hora, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Hora) session.get(trustpet.Hora.class, new Integer(id), lockMode);
+			return (Hora) session.get(trustpet.Hora.class, new Integer(hora), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

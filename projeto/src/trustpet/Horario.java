@@ -18,8 +18,8 @@ public class Horario {
 	}
 	
 	private java.util.Set this_getSet (int key) {
-		if (key == ORMConstants.KEY_HORARIO_DIAS) {
-			return ORM_dias;
+		if (key == ORMConstants.KEY_HORARIO_HORAS) {
+			return ORM_horas;
 		}
 		
 		return null;
@@ -34,7 +34,7 @@ public class Horario {
 	
 	private int id;
 	
-	private java.util.Set ORM_dias = new java.util.HashSet();
+	private java.util.Set ORM_horas = new java.util.HashSet();
 	
 	private void setId(int value) {
 		this.id = value;
@@ -48,15 +48,15 @@ public class Horario {
 		return getId();
 	}
 	
-	private void setORM_Dias(java.util.Set value) {
-		this.ORM_dias = value;
+	private void setORM_Horas(java.util.Set value) {
+		this.ORM_horas = value;
 	}
 	
-	private java.util.Set getORM_Dias() {
-		return ORM_dias;
+	private java.util.Set getORM_Horas() {
+		return ORM_horas;
 	}
 	
-	public final trustpet.DiaSetCollection dias = new trustpet.DiaSetCollection(this, _ormAdapter, ORMConstants.KEY_HORARIO_DIAS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final trustpet.HoraSetCollection horas = new trustpet.HoraSetCollection(this, _ormAdapter, ORMConstants.KEY_HORARIO_HORAS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

@@ -17,6 +17,23 @@ public class Petsitter {
 	public Petsitter() {
 	}
 	
+	public boolean equals(Object aObj) {
+		if (aObj == this)
+			return true;
+		if (!(aObj instanceof Petsitter))
+			return false;
+		Petsitter petsitter = (Petsitter)aObj;
+		if ((getEmail() != null && !getEmail().equals(petsitter.getEmail())) || (getEmail() == null && petsitter.getEmail() != null))
+			return false;
+		return true;
+	}
+	
+	public int hashCode() {
+		int hashcode = 0;
+		hashcode = hashcode + (getEmail() == null ? 0 : getEmail().hashCode());
+		return hashcode;
+	}
+	
 	private java.util.Set this_getSet (int key) {
 		if (key == ORMConstants.KEY_PETSITTER_SERVICOS) {
 			return ORM_servicos;
@@ -35,7 +52,7 @@ public class Petsitter {
 		
 	};
 	
-	private int id;
+	private String email;
 	
 	private trustpet.Horario horario;
 	
@@ -44,8 +61,6 @@ public class Petsitter {
 	private boolean ativo;
 	
 	private String nome;
-	
-	private String email;
 	
 	private String data_nascimento;
 	
@@ -64,18 +79,6 @@ public class Petsitter {
 	private java.util.Set ORM_servicos = new java.util.HashSet();
 	
 	private java.util.Set ORM_animais = new java.util.HashSet();
-	
-	private void setId(int value) {
-		this.id = value;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-	public int getORMID() {
-		return getId();
-	}
 	
 	public void setPhoto(String value) {
 		this.photo = value;
@@ -107,6 +110,10 @@ public class Petsitter {
 	
 	public String getEmail() {
 		return email;
+	}
+	
+	public String getORMID() {
+		return getEmail();
 	}
 	
 	public void setData_nascimento(String value) {
@@ -194,7 +201,7 @@ public class Petsitter {
 	}
 	
 	public String toString() {
-		return String.valueOf(getId());
+		return String.valueOf(getEmail());
 	}
 	
 }

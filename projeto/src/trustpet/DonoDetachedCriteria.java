@@ -19,11 +19,10 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
-	public final IntegerExpression id;
+	public final StringExpression email;
 	public final BooleanExpression ativo;
 	public final StringExpression nome;
 	public final StringExpression photo;
-	public final StringExpression email;
 	public final StringExpression contacto;
 	public final StringExpression residencia;
 	public final BooleanExpression jardim;
@@ -33,11 +32,10 @@ public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
 	
 	public DonoDetachedCriteria() {
 		super(trustpet.Dono.class, trustpet.DonoCriteria.class);
-		id = new IntegerExpression("id", this.getDetachedCriteria());
+		email = new StringExpression("email", this.getDetachedCriteria());
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
 		photo = new StringExpression("photo", this.getDetachedCriteria());
-		email = new StringExpression("email", this.getDetachedCriteria());
 		contacto = new StringExpression("contacto", this.getDetachedCriteria());
 		residencia = new StringExpression("residencia", this.getDetachedCriteria());
 		jardim = new BooleanExpression("jardim", this.getDetachedCriteria());
@@ -48,11 +46,10 @@ public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
 	
 	public DonoDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, trustpet.DonoCriteria.class);
-		id = new IntegerExpression("id", this.getDetachedCriteria());
+		email = new StringExpression("email", this.getDetachedCriteria());
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
 		photo = new StringExpression("photo", this.getDetachedCriteria());
-		email = new StringExpression("email", this.getDetachedCriteria());
 		contacto = new StringExpression("contacto", this.getDetachedCriteria());
 		residencia = new StringExpression("residencia", this.getDetachedCriteria());
 		jardim = new BooleanExpression("jardim", this.getDetachedCriteria());

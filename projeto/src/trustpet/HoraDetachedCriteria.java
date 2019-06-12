@@ -19,22 +19,16 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class HoraDetachedCriteria extends AbstractORMDetachedCriteria {
-	public final IntegerExpression id;
 	public final IntegerExpression hora;
-	public final BooleanExpression disponivel;
 	
 	public HoraDetachedCriteria() {
 		super(trustpet.Hora.class, trustpet.HoraCriteria.class);
-		id = new IntegerExpression("id", this.getDetachedCriteria());
 		hora = new IntegerExpression("hora", this.getDetachedCriteria());
-		disponivel = new BooleanExpression("disponivel", this.getDetachedCriteria());
 	}
 	
 	public HoraDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, trustpet.HoraCriteria.class);
-		id = new IntegerExpression("id", this.getDetachedCriteria());
 		hora = new IntegerExpression("hora", this.getDetachedCriteria());
-		disponivel = new BooleanExpression("disponivel", this.getDetachedCriteria());
 	}
 	
 	public Hora uniqueHora(PersistentSession session) {

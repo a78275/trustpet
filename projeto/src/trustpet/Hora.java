@@ -17,25 +17,9 @@ public class Hora {
 	public Hora() {
 	}
 	
-	private int id;
-	
 	private int hora;
 	
-	private boolean disponivel;
-	
-	private void setId(int value) {
-		this.id = value;
-	}
-	
-	public int getId() {
-		return id;
-	}
-	
-	public int getORMID() {
-		return getId();
-	}
-	
-	public void setHora(int value) {
+	private void setHora(int value) {
 		this.hora = value;
 	}
 	
@@ -43,16 +27,12 @@ public class Hora {
 		return hora;
 	}
 	
-	public void setDisponivel(boolean value) {
-		this.disponivel = value;
-	}
-	
-	public boolean getDisponivel() {
-		return disponivel;
+	public int getORMID() {
+		return getHora();
 	}
 	
 	public String toString() {
-		return String.valueOf(getId());
+		return String.valueOf(getHora());
 	}
 	
 }

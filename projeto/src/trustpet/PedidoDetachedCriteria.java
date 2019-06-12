@@ -20,9 +20,9 @@ import org.orm.criteria.*;
 
 public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id;
-	public final IntegerExpression petsitterId;
+	public final StringExpression petsitterId;
 	public final AssociationExpression petsitter;
-	public final IntegerExpression donoId;
+	public final StringExpression donoId;
 	public final AssociationExpression dono;
 	public final StringExpression data;
 	public final FloatExpression preco;
@@ -31,9 +31,9 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public PedidoDetachedCriteria() {
 		super(trustpet.Pedido.class, trustpet.PedidoCriteria.class);
 		id = new IntegerExpression("id", this.getDetachedCriteria());
-		petsitterId = new IntegerExpression("petsitter.id", this.getDetachedCriteria());
+		petsitterId = new StringExpression("petsitter.email", this.getDetachedCriteria());
 		petsitter = new AssociationExpression("petsitter", this.getDetachedCriteria());
-		donoId = new IntegerExpression("dono.id", this.getDetachedCriteria());
+		donoId = new StringExpression("dono.email", this.getDetachedCriteria());
 		dono = new AssociationExpression("dono", this.getDetachedCriteria());
 		data = new StringExpression("data", this.getDetachedCriteria());
 		preco = new FloatExpression("preco", this.getDetachedCriteria());
@@ -43,9 +43,9 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public PedidoDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, trustpet.PedidoCriteria.class);
 		id = new IntegerExpression("id", this.getDetachedCriteria());
-		petsitterId = new IntegerExpression("petsitter.id", this.getDetachedCriteria());
+		petsitterId = new StringExpression("petsitter.email", this.getDetachedCriteria());
 		petsitter = new AssociationExpression("petsitter", this.getDetachedCriteria());
-		donoId = new IntegerExpression("dono.id", this.getDetachedCriteria());
+		donoId = new StringExpression("dono.email", this.getDetachedCriteria());
 		dono = new AssociationExpression("dono", this.getDetachedCriteria());
 		data = new StringExpression("data", this.getDetachedCriteria());
 		preco = new FloatExpression("preco", this.getDetachedCriteria());

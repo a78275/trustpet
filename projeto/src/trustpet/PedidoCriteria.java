@@ -20,9 +20,9 @@ import org.orm.criteria.*;
 
 public class PedidoCriteria extends AbstractORMCriteria {
 	public final IntegerExpression id;
-	public final IntegerExpression petsitterId;
+	public final StringExpression petsitterId;
 	public final AssociationExpression petsitter;
-	public final IntegerExpression donoId;
+	public final StringExpression donoId;
 	public final AssociationExpression dono;
 	public final StringExpression data;
 	public final FloatExpression preco;
@@ -31,9 +31,9 @@ public class PedidoCriteria extends AbstractORMCriteria {
 	public PedidoCriteria(Criteria criteria) {
 		super(criteria);
 		id = new IntegerExpression("id", this);
-		petsitterId = new IntegerExpression("petsitter.id", this);
+		petsitterId = new StringExpression("petsitter.email", this);
 		petsitter = new AssociationExpression("petsitter", this);
-		donoId = new IntegerExpression("dono.id", this);
+		donoId = new StringExpression("dono.email", this);
 		dono = new AssociationExpression("dono", this);
 		data = new StringExpression("data", this);
 		preco = new FloatExpression("preco", this);

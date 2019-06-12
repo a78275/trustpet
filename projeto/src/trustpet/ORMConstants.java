@@ -16,15 +16,9 @@ package trustpet;
 public interface ORMConstants extends org.orm.util.ORMBaseConstants {
 	final int KEY_ANIMAL_TIPO = -1718975625;
 	
-	final int KEY_DIA_HORAS = -1328581606;
-	
 	final int KEY_DONO_ANIMAIS = 890242055;
 	
-	final int KEY_HORARIO_DIAS = 1732931028;
-	
-	final int KEY_MENSAGEM_DONO = 361261312;
-	
-	final int KEY_MENSAGEM_PETSITTER = 2062651246;
+	final int KEY_HORARIO_HORAS = -2109824256;
 	
 	final int KEY_PEDIDO_DONO = -615829466;
 	

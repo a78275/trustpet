@@ -19,11 +19,10 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class DonoCriteria extends AbstractORMCriteria {
-	public final IntegerExpression id;
+	public final StringExpression email;
 	public final BooleanExpression ativo;
 	public final StringExpression nome;
 	public final StringExpression photo;
-	public final StringExpression email;
 	public final StringExpression contacto;
 	public final StringExpression residencia;
 	public final BooleanExpression jardim;
@@ -33,11 +32,10 @@ public class DonoCriteria extends AbstractORMCriteria {
 	
 	public DonoCriteria(Criteria criteria) {
 		super(criteria);
-		id = new IntegerExpression("id", this);
+		email = new StringExpression("email", this);
 		ativo = new BooleanExpression("ativo", this);
 		nome = new StringExpression("nome", this);
 		photo = new StringExpression("photo", this);
-		email = new StringExpression("email", this);
 		contacto = new StringExpression("contacto", this);
 		residencia = new StringExpression("residencia", this);
 		jardim = new BooleanExpression("jardim", this);

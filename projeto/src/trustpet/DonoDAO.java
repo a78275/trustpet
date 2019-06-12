@@ -19,10 +19,10 @@ import org.hibernate.LockMode;
 import java.util.List;
 
 public class DonoDAO {
-	public static Dono loadDonoByORMID(int id) throws PersistentException {
+	public static Dono loadDonoByORMID(String email) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return loadDonoByORMID(session, id);
+			return loadDonoByORMID(session, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -30,10 +30,10 @@ public class DonoDAO {
 		}
 	}
 	
-	public static Dono getDonoByORMID(int id) throws PersistentException {
+	public static Dono getDonoByORMID(String email) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return getDonoByORMID(session, id);
+			return getDonoByORMID(session, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -41,10 +41,10 @@ public class DonoDAO {
 		}
 	}
 	
-	public static Dono loadDonoByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Dono loadDonoByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return loadDonoByORMID(session, id, lockMode);
+			return loadDonoByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -52,10 +52,10 @@ public class DonoDAO {
 		}
 	}
 	
-	public static Dono getDonoByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Dono getDonoByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = ClassPersistentManager.instance().getSession();
-			return getDonoByORMID(session, id, lockMode);
+			return getDonoByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -63,9 +63,9 @@ public class DonoDAO {
 		}
 	}
 	
-	public static Dono loadDonoByORMID(PersistentSession session, int id) throws PersistentException {
+	public static Dono loadDonoByORMID(PersistentSession session, String email) throws PersistentException {
 		try {
-			return (Dono) session.load(trustpet.Dono.class, new Integer(id));
+			return (Dono) session.load(trustpet.Dono.class, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -73,9 +73,9 @@ public class DonoDAO {
 		}
 	}
 	
-	public static Dono getDonoByORMID(PersistentSession session, int id) throws PersistentException {
+	public static Dono getDonoByORMID(PersistentSession session, String email) throws PersistentException {
 		try {
-			return (Dono) session.get(trustpet.Dono.class, new Integer(id));
+			return (Dono) session.get(trustpet.Dono.class, email);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -83,9 +83,9 @@ public class DonoDAO {
 		}
 	}
 	
-	public static Dono loadDonoByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Dono loadDonoByORMID(PersistentSession session, String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Dono) session.load(trustpet.Dono.class, new Integer(id), lockMode);
+			return (Dono) session.load(trustpet.Dono.class, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -93,9 +93,9 @@ public class DonoDAO {
 		}
 	}
 	
-	public static Dono getDonoByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Dono getDonoByORMID(PersistentSession session, String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Dono) session.get(trustpet.Dono.class, new Integer(id), lockMode);
+			return (Dono) session.get(trustpet.Dono.class, email, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

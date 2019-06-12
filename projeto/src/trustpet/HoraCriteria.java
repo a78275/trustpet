@@ -19,15 +19,11 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class HoraCriteria extends AbstractORMCriteria {
-	public final IntegerExpression id;
 	public final IntegerExpression hora;
-	public final BooleanExpression disponivel;
 	
 	public HoraCriteria(Criteria criteria) {
 		super(criteria);
-		id = new IntegerExpression("id", this);
 		hora = new IntegerExpression("hora", this);
-		disponivel = new BooleanExpression("disponivel", this);
 	}
 	
 	public HoraCriteria(PersistentSession session) {
