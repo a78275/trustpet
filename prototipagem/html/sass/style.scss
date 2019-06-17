@@ -206,7 +206,7 @@ body {
         }
     }
 
-    .btn {
+    #button {
         font-weight: 500;
         border: none;
         border-radius: 45px;
@@ -236,6 +236,48 @@ body {
         background-position: center; /* Center the image */
         background-repeat: no-repeat; /* Do not repeat the image */
         background-size: cover;
+
+        .content-element {
+            margin: auto;
+            margin-top: 10%;
+            width: 35%;
+        }
+
+        .circles-list ol {
+            list-style-type: none;
+            margin-left: 1.25em;
+            padding-left: 2.5em;
+            border-left: 1px solid white;
+            position: relative;
+            counter-reset: li-counter;
+        }
+
+        .circles-list ol>li {
+            position: relative;
+            margin-bottom: 3.125em;
+            clear: both;
+            color: white;
+            font-weight: 600;
+        }
+
+        .circles-list ol>li:before {
+            position: absolute;
+            top: 0em;
+            left: -3.5em;
+            width: 1.85em;
+            height: 1.85em;
+            line-height: 2.2em;
+            color: white;
+            border: 2px solid white;
+            border-radius: 50%;
+            content: counter(li-counter);
+            background-color: white;
+        }
+
+        #step {
+            font-weight: 700;
+            color: $pink;
+        }
     }
 
     #side2 {
@@ -279,21 +321,55 @@ body {
             background-color: white;
 
             #voltar {
+                font-weight: 500;
+                border: none;
+                border-radius: 45px;
+                box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease 0s;
+                cursor: pointer;
+                outline: none;
+                font-size: 1.2em;
+                text-align: center;
+                margin-left: 2%;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-right: 40px;
+                padding-left: 40px;
                 color: $dark-blue;
                 background-color: white;
 
                 &:hover{
                     background-color: $pink;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 5px rgba(2, 29, 44, 0.705);
+                    transform: translateY(-5px);
                 }
             }
 
             #seguinte {
+                font-weight: 500;
+                border: none;
+                border-radius: 45px;
+                box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+                transition: all 0.3s ease 0s;
+                cursor: pointer;
+                outline: none;
+                font-size: 1.2em;
+                text-align: center;
+                margin-left: 2%;
+                padding-top: 10px;
+                padding-bottom: 10px;
+                padding-right: 40px;
+                padding-left: 40px;
                 background-color: $dark-blue;
                 color: #fff;
 
                 &:hover{
                     color: $dark-blue;
                     background-color: $pink;
+                    text-decoration: none;
+                    box-shadow: 0px 5px 5px rgba(2, 29, 44, 0.705);
+                    transform: translateY(-5px);
                 }
             }
             
@@ -301,17 +377,6 @@ body {
     }
 
     #userRegister {
-        background-color: $dark-blue;
-        min-height: 100vh;
-
-        #registerForm {
-            background-color: $light-pink;
-        }
-
-        #datepicker {
-            .btn {
-                background-color: $dark-blue;
-            }
-        }
+        background-color: $light-pink;
     }
 }
