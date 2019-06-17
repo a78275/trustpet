@@ -13,13 +13,21 @@
  */
 package trustpet;
 
-public class Tipo_Animal {
-	public Tipo_Animal() {
+public class Preco_Petsitter_Servico {
+	public Preco_Petsitter_Servico() {
 	}
 	
 	private int id;
 	
-	private String tipo;
+	private float preco;
+	
+	public void setPreco(float value) {
+		this.preco = value;
+	}
+	
+	public float getPreco() {
+		return preco;
+	}
 	
 	private void setId(int value) {
 		this.id = value;
@@ -31,14 +39,6 @@ public class Tipo_Animal {
 	
 	public int getORMID() {
 		return getId();
-	}
-	
-	public void setTipo(String value) {
-		this.tipo = value;
-	}
-	
-	public String getTipo() {
-		return tipo;
 	}
 	
 	public String toString() {

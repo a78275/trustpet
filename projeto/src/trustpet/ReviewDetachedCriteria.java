@@ -27,6 +27,7 @@ public class ReviewDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression pontuacao;
 	public final StringExpression comentario;
 	public final StringExpression alvo;
+	public final StringExpression data;
 	
 	public ReviewDetachedCriteria() {
 		super(trustpet.Review.class, trustpet.ReviewCriteria.class);
@@ -38,6 +39,7 @@ public class ReviewDetachedCriteria extends AbstractORMDetachedCriteria {
 		pontuacao = new IntegerExpression("pontuacao", this.getDetachedCriteria());
 		comentario = new StringExpression("comentario", this.getDetachedCriteria());
 		alvo = new StringExpression("alvo", this.getDetachedCriteria());
+		data = new StringExpression("data", this.getDetachedCriteria());
 	}
 	
 	public ReviewDetachedCriteria(DetachedCriteria aDetachedCriteria) {
@@ -50,6 +52,7 @@ public class ReviewDetachedCriteria extends AbstractORMDetachedCriteria {
 		pontuacao = new IntegerExpression("pontuacao", this.getDetachedCriteria());
 		comentario = new StringExpression("comentario", this.getDetachedCriteria());
 		alvo = new StringExpression("alvo", this.getDetachedCriteria());
+		data = new StringExpression("data", this.getDetachedCriteria());
 	}
 	
 	public PetsitterDetachedCriteria createPetsitterCriteria() {

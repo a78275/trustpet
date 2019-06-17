@@ -27,6 +27,7 @@ public class ReviewCriteria extends AbstractORMCriteria {
 	public final IntegerExpression pontuacao;
 	public final StringExpression comentario;
 	public final StringExpression alvo;
+	public final StringExpression data;
 	
 	public ReviewCriteria(Criteria criteria) {
 		super(criteria);
@@ -38,6 +39,7 @@ public class ReviewCriteria extends AbstractORMCriteria {
 		pontuacao = new IntegerExpression("pontuacao", this);
 		comentario = new StringExpression("comentario", this);
 		alvo = new StringExpression("alvo", this);
+		data = new StringExpression("data", this);
 	}
 	
 	public ReviewCriteria(PersistentSession session) {

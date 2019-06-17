@@ -23,7 +23,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression tipoId;
 	public final AssociationExpression tipo;
 	public final StringExpression nome;
-	public final StringExpression photo;
+	public final StringExpression avatar;
 	public final IntegerExpression idade;
 	public final StringExpression porte;
 	public final StringExpression sexo;
@@ -34,7 +34,6 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final BooleanExpression desparasitacao;
 	public final BooleanExpression esterilizacao;
 	public final StringExpression raca;
-	public final StringExpression descricao;
 	
 	public AnimalDetachedCriteria() {
 		super(trustpet.Animal.class, trustpet.AnimalCriteria.class);
@@ -42,7 +41,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 		tipoId = new IntegerExpression("tipo.id", this.getDetachedCriteria());
 		tipo = new AssociationExpression("tipo", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
-		photo = new StringExpression("photo", this.getDetachedCriteria());
+		avatar = new StringExpression("avatar", this.getDetachedCriteria());
 		idade = new IntegerExpression("idade", this.getDetachedCriteria());
 		porte = new StringExpression("porte", this.getDetachedCriteria());
 		sexo = new StringExpression("sexo", this.getDetachedCriteria());
@@ -53,7 +52,6 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 		desparasitacao = new BooleanExpression("desparasitacao", this.getDetachedCriteria());
 		esterilizacao = new BooleanExpression("esterilizacao", this.getDetachedCriteria());
 		raca = new StringExpression("raca", this.getDetachedCriteria());
-		descricao = new StringExpression("descricao", this.getDetachedCriteria());
 	}
 	
 	public AnimalDetachedCriteria(DetachedCriteria aDetachedCriteria) {
@@ -62,7 +60,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 		tipoId = new IntegerExpression("tipo.id", this.getDetachedCriteria());
 		tipo = new AssociationExpression("tipo", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
-		photo = new StringExpression("photo", this.getDetachedCriteria());
+		avatar = new StringExpression("avatar", this.getDetachedCriteria());
 		idade = new IntegerExpression("idade", this.getDetachedCriteria());
 		porte = new StringExpression("porte", this.getDetachedCriteria());
 		sexo = new StringExpression("sexo", this.getDetachedCriteria());
@@ -73,7 +71,6 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 		desparasitacao = new BooleanExpression("desparasitacao", this.getDetachedCriteria());
 		esterilizacao = new BooleanExpression("esterilizacao", this.getDetachedCriteria());
 		raca = new StringExpression("raca", this.getDetachedCriteria());
-		descricao = new StringExpression("descricao", this.getDetachedCriteria());
 	}
 	
 	public Tipo_AnimalDetachedCriteria createTipoCriteria() {

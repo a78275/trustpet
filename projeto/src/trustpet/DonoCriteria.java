@@ -20,27 +20,31 @@ import org.orm.criteria.*;
 
 public class DonoCriteria extends AbstractORMCriteria {
 	public final StringExpression email;
-	public final BooleanExpression ativo;
+	public final StringExpression password;
 	public final StringExpression nome;
-	public final StringExpression photo;
+	public final StringExpression avatar;
+	public final StringExpression data_nasc;
 	public final StringExpression contacto;
-	public final StringExpression residencia;
 	public final BooleanExpression jardim;
 	public final StringExpression morada;
-	public final StringExpression password;
+	public final BooleanExpression ativo;
+	public final StringExpression concelho;
+	public final StringExpression distrito;
 	public final CollectionExpression animais;
 	
 	public DonoCriteria(Criteria criteria) {
 		super(criteria);
 		email = new StringExpression("email", this);
-		ativo = new BooleanExpression("ativo", this);
+		password = new StringExpression("password", this);
 		nome = new StringExpression("nome", this);
-		photo = new StringExpression("photo", this);
+		avatar = new StringExpression("avatar", this);
+		data_nasc = new StringExpression("data_nasc", this);
 		contacto = new StringExpression("contacto", this);
-		residencia = new StringExpression("residencia", this);
 		jardim = new BooleanExpression("jardim", this);
 		morada = new StringExpression("morada", this);
-		password = new StringExpression("password", this);
+		ativo = new BooleanExpression("ativo", this);
+		concelho = new StringExpression("concelho", this);
+		distrito = new StringExpression("distrito", this);
 		animais = new CollectionExpression("ORM_Animais", this);
 	}
 	

@@ -21,13 +21,13 @@ import org.orm.criteria.*;
 public class ServicoCriteria extends AbstractORMCriteria {
 	public final IntegerExpression id;
 	public final StringExpression designacao;
-	public final FloatExpression preço;
+	public final CollectionExpression preco_servico;
 	
 	public ServicoCriteria(Criteria criteria) {
 		super(criteria);
 		id = new IntegerExpression("id", this);
 		designacao = new StringExpression("designacao", this);
-		preço = new FloatExpression("preço", this);
+		preco_servico = new CollectionExpression("ORM_Preco_servico", this);
 	}
 	
 	public ServicoCriteria(PersistentSession session) {
@@ -36,6 +36,10 @@ public class ServicoCriteria extends AbstractORMCriteria {
 	
 	public ServicoCriteria() throws PersistentException {
 		this(ClassPersistentManager.instance().getSession());
+	}
+	
+	public Preco_Petsitter_ServicoCriteria createPreco_servicoCriteria() {
+		return new Preco_Petsitter_ServicoCriteria(createCriteria("ORM_Preco_servico"));
 	}
 	
 	public Servico uniqueServico() {

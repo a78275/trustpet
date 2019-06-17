@@ -7,18 +7,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e91a6e38-1c94-4e3a-9639-ce27662231b5" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/orm.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/trustpet/TrustPet.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/web/Index.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/index.jsp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/web/WEB-INF/public/head.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/projeto_war_exploded/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/artifacts/projeto_war_exploded/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/artifacts/projeto_war_exploded/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../diagramas/.hibernate.vpp.lck" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../diagramas/hibernate.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../diagramas/hibernate.vpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Java_EE_6_Java_EE_6.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/projeto.iml" beforeDir="false" afterPath="$PROJECT_DIR$/projeto.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/web/WEB-INF/web.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/web/index.jsp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AnimalCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AnimalCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AnimalDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AnimalDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AnimalSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AnimalSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Dono.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Dono.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/DonoCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/DonoCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/DonoDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/DonoDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ORMConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ORMConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Petsitter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Petsitter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PetsitterCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PetsitterCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PetsitterDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PetsitterDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ReviewCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ReviewCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ReviewDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ReviewDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Servico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Servico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ServicoCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ServicoCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ServicoDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ServicoDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ServicoSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ServicoSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Tipo_Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Tipo_Animal.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -87,6 +98,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -126,7 +138,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -137,6 +148,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -243,24 +255,24 @@
       <workItem from="1557221747401" duration="65000" />
       <workItem from="1557234139587" duration="2613000" />
       <workItem from="1557507153663" duration="44000" />
+      <workItem from="1560787915132" duration="57000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2722000" />
+    <option name="totallyTimeSpent" value="2779000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="825" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49795362" visible="true" weight="0.25679544" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.49658936" visible="true" weight="0.26037195" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
       <window_info id="Capture Tool" order="4" />
       <window_info id="UI Designer" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info id="Web" order="7" sideWeight="0.5020464" side_tool="true" visible="true" weight="0.25679544" />
+      <window_info id="Web" order="7" sideWeight="0.50341064" side_tool="true" visible="true" weight="0.26037195" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3287858" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.28922236" />
@@ -409,7 +421,6 @@
             <option name="proportions">
               <list>
                 <option value="0.29988465" />
-                <option value="0.6" />
               </list>
             </option>
           </splitter-proportions>
@@ -429,7 +440,7 @@
       </state>
       <state key="ProjectLibrariesConfigurable.UI">
         <settings>
-          <last-edited>orm</last-edited>
+          <last-edited>javax.ejb</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

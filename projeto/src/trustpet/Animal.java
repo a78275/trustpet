@@ -36,7 +36,7 @@ public class Animal {
 	
 	private String nome;
 	
-	private String photo;
+	private String avatar;
 	
 	private int idade;
 	
@@ -58,8 +58,6 @@ public class Animal {
 	
 	private String raca;
 	
-	private String descricao;
-	
 	private void setId(int value) {
 		this.id = value;
 	}
@@ -80,12 +78,12 @@ public class Animal {
 		return nome;
 	}
 	
-	public void setPhoto(String value) {
-		this.photo = value;
+	public void setAvatar(String value) {
+		this.avatar = value;
 	}
 	
-	public String getPhoto() {
-		return photo;
+	public String getAvatar() {
+		return avatar;
 	}
 	
 	public void setIdade(int value) {
@@ -166,14 +164,6 @@ public class Animal {
 	
 	public String getRaca() {
 		return raca;
-	}
-	
-	public void setDescricao(String value) {
-		this.descricao = value;
-	}
-	
-	public String getDescricao() {
-		return descricao;
 	}
 	
 	public void setTipo(trustpet.Tipo_Animal value) {

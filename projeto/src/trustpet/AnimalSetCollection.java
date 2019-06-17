@@ -72,7 +72,7 @@ public class AnimalSetCollection extends org.orm.util.ORMSet {
 	 * @param propertyName Name of the property for sorting:<ul>
 	 * <li>id</li>
 	 * <li>nome</li>
-	 * <li>photo</li>
+	 * <li>avatar</li>
 	 * <li>idade</li>
 	 * <li>porte</li>
 	 * <li>sexo</li>
@@ -83,7 +83,6 @@ public class AnimalSetCollection extends org.orm.util.ORMSet {
 	 * <li>desparasitacao</li>
 	 * <li>esterilizacao</li>
 	 * <li>raca</li>
-	 * <li>descricao</li>
 	 * </ul>
 	 * @return The persistent objects sorted array
 	 */
@@ -96,7 +95,7 @@ public class AnimalSetCollection extends org.orm.util.ORMSet {
 	 * @param propertyName Name of the property for sorting:<ul>
 	 * <li>id</li>
 	 * <li>nome</li>
-	 * <li>photo</li>
+	 * <li>avatar</li>
 	 * <li>idade</li>
 	 * <li>porte</li>
 	 * <li>sexo</li>
@@ -107,7 +106,6 @@ public class AnimalSetCollection extends org.orm.util.ORMSet {
 	 * <li>desparasitacao</li>
 	 * <li>esterilizacao</li>
 	 * <li>raca</li>
-	 * <li>descricao</li>
 	 * </ul>
 	 * @param ascending true for ascending, false for descending
 	 * @return The persistent objects sorted array

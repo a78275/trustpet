@@ -23,7 +23,7 @@ public class AnimalCriteria extends AbstractORMCriteria {
 	public final IntegerExpression tipoId;
 	public final AssociationExpression tipo;
 	public final StringExpression nome;
-	public final StringExpression photo;
+	public final StringExpression avatar;
 	public final IntegerExpression idade;
 	public final StringExpression porte;
 	public final StringExpression sexo;
@@ -34,7 +34,6 @@ public class AnimalCriteria extends AbstractORMCriteria {
 	public final BooleanExpression desparasitacao;
 	public final BooleanExpression esterilizacao;
 	public final StringExpression raca;
-	public final StringExpression descricao;
 	
 	public AnimalCriteria(Criteria criteria) {
 		super(criteria);
@@ -42,7 +41,7 @@ public class AnimalCriteria extends AbstractORMCriteria {
 		tipoId = new IntegerExpression("tipo.id", this);
 		tipo = new AssociationExpression("tipo", this);
 		nome = new StringExpression("nome", this);
-		photo = new StringExpression("photo", this);
+		avatar = new StringExpression("avatar", this);
 		idade = new IntegerExpression("idade", this);
 		porte = new StringExpression("porte", this);
 		sexo = new StringExpression("sexo", this);
@@ -53,7 +52,6 @@ public class AnimalCriteria extends AbstractORMCriteria {
 		desparasitacao = new BooleanExpression("desparasitacao", this);
 		esterilizacao = new BooleanExpression("esterilizacao", this);
 		raca = new StringExpression("raca", this);
-		descricao = new StringExpression("descricao", this);
 	}
 	
 	public AnimalCriteria(PersistentSession session) {

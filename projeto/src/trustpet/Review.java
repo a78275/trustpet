@@ -29,6 +29,8 @@ public class Review {
 	
 	private String alvo;
 	
+	private String data;
+	
 	private void setId(int value) {
 		this.id = value;
 	}
@@ -63,6 +65,14 @@ public class Review {
 	
 	public String getAlvo() {
 		return alvo;
+	}
+	
+	public void setData(String value) {
+		this.data = value;
+	}
+	
+	public String getData() {
+		return data;
 	}
 	
 	public void setDono(trustpet.Dono value) {

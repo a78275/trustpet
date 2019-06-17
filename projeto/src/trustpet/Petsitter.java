@@ -13,33 +13,16 @@
  */
 package trustpet;
 
-public class Petsitter {
+public class Petsitter extends trustpet.Utilizador {
 	public Petsitter() {
 	}
 	
-	public boolean equals(Object aObj) {
-		if (aObj == this)
-			return true;
-		if (!(aObj instanceof Petsitter))
-			return false;
-		Petsitter petsitter = (Petsitter)aObj;
-		if ((getEmail() != null && !getEmail().equals(petsitter.getEmail())) || (getEmail() == null && petsitter.getEmail() != null))
-			return false;
-		return true;
-	}
-	
-	public int hashCode() {
-		int hashcode = 0;
-		hashcode = hashcode + (getEmail() == null ? 0 : getEmail().hashCode());
-		return hashcode;
-	}
-	
 	private java.util.Set this_getSet (int key) {
-		if (key == ORMConstants.KEY_PETSITTER_SERVICOS) {
-			return ORM_servicos;
-		}
-		else if (key == ORMConstants.KEY_PETSITTER_ANIMAIS) {
+		if (key == ORMConstants.KEY_PETSITTER_ANIMAIS) {
 			return ORM_animais;
+		}
+		else if (key == ORMConstants.KEY_PETSITTER_PRECO_SERVICO) {
+			return ORM_preco_servico;
 		}
 		
 		return null;
@@ -52,135 +35,11 @@ public class Petsitter {
 		
 	};
 	
-	private String email;
-	
 	private trustpet.Horario horario;
-	
-	private String photo;
-	
-	private boolean ativo;
-	
-	private String nome;
-	
-	private String data_nascimento;
-	
-	private String contacto;
-	
-	private String residencia;
-	
-	private boolean jardim;
-	
-	private String morada;
-	
-	private String password;
-	
-	private String descricao;
-	
-	private java.util.Set ORM_servicos = new java.util.HashSet();
 	
 	private java.util.Set ORM_animais = new java.util.HashSet();
 	
-	public void setPhoto(String value) {
-		this.photo = value;
-	}
-	
-	public String getPhoto() {
-		return photo;
-	}
-	
-	public void setAtivo(boolean value) {
-		this.ativo = value;
-	}
-	
-	public boolean getAtivo() {
-		return ativo;
-	}
-	
-	public void setNome(String value) {
-		this.nome = value;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public void setEmail(String value) {
-		this.email = value;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public String getORMID() {
-		return getEmail();
-	}
-	
-	public void setData_nascimento(String value) {
-		this.data_nascimento = value;
-	}
-	
-	public String getData_nascimento() {
-		return data_nascimento;
-	}
-	
-	public void setContacto(String value) {
-		this.contacto = value;
-	}
-	
-	public String getContacto() {
-		return contacto;
-	}
-	
-	public void setResidencia(String value) {
-		this.residencia = value;
-	}
-	
-	public String getResidencia() {
-		return residencia;
-	}
-	
-	public void setJardim(boolean value) {
-		this.jardim = value;
-	}
-	
-	public boolean getJardim() {
-		return jardim;
-	}
-	
-	public void setMorada(String value) {
-		this.morada = value;
-	}
-	
-	public String getMorada() {
-		return morada;
-	}
-	
-	public void setPassword(String value) {
-		this.password = value;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setDescricao(String value) {
-		this.descricao = value;
-	}
-	
-	public String getDescricao() {
-		return descricao;
-	}
-	
-	private void setORM_Servicos(java.util.Set value) {
-		this.ORM_servicos = value;
-	}
-	
-	private java.util.Set getORM_Servicos() {
-		return ORM_servicos;
-	}
-	
-	public final trustpet.ServicoSetCollection servicos = new trustpet.ServicoSetCollection(this, _ormAdapter, ORMConstants.KEY_PETSITTER_SERVICOS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	private java.util.Set ORM_preco_servico = new java.util.HashSet();
 	
 	private void setORM_Animais(java.util.Set value) {
 		this.ORM_animais = value;
@@ -200,8 +59,18 @@ public class Petsitter {
 		return horario;
 	}
 	
+	private void setORM_Preco_servico(java.util.Set value) {
+		this.ORM_preco_servico = value;
+	}
+	
+	private java.util.Set getORM_Preco_servico() {
+		return ORM_preco_servico;
+	}
+	
+	public final trustpet.Preco_Petsitter_ServicoSetCollection preco_servico = new trustpet.Preco_Petsitter_ServicoSetCollection(this, _ormAdapter, ORMConstants.KEY_PETSITTER_PRECO_SERVICO, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	
 	public String toString() {
-		return String.valueOf(getEmail());
+		return super.toString();
 	}
 	
 }

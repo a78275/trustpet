@@ -30,10 +30,12 @@ public interface ORMConstants extends org.orm.util.ORMBaseConstants {
 	
 	final int KEY_PETSITTER_HORARIO = 1593194725;
 	
-	final int KEY_PETSITTER_SERVICOS = -425508623;
+	final int KEY_PETSITTER_PRECO_SERVICO = 475607954;
 	
 	final int KEY_REVIEW_DONO = -1267637261;
 	
 	final int KEY_REVIEW_PETSITTER = 658404443;
+	
+	final int KEY_SERVICO_PRECO_SERVICO = 195297071;
 	
 }

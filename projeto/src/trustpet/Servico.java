@@ -17,11 +17,26 @@ public class Servico {
 	public Servico() {
 	}
 	
+	private java.util.Set this_getSet (int key) {
+		if (key == ORMConstants.KEY_SERVICO_PRECO_SERVICO) {
+			return ORM_preco_servico;
+		}
+		
+		return null;
+	}
+	
+	org.orm.util.ORMAdapter _ormAdapter = new org.orm.util.AbstractORMAdapter() {
+		public java.util.Set getSet(int key) {
+			return this_getSet(key);
+		}
+		
+	};
+	
 	private int id;
 	
 	private String designacao;
 	
-	private float preço;
+	private java.util.Set ORM_preco_servico = new java.util.HashSet();
 	
 	private void setId(int value) {
 		this.id = value;
@@ -43,13 +58,15 @@ public class Servico {
 		return designacao;
 	}
 	
-	public void setPreço(float value) {
-		this.preço = value;
+	private void setORM_Preco_servico(java.util.Set value) {
+		this.ORM_preco_servico = value;
 	}
 	
-	public float getPreço() {
-		return preço;
+	private java.util.Set getORM_Preco_servico() {
+		return ORM_preco_servico;
 	}
+	
+	public final trustpet.Preco_Petsitter_ServicoSetCollection preco_servico = new trustpet.Preco_Petsitter_ServicoSetCollection(this, _ormAdapter, ORMConstants.KEY_SERVICO_PRECO_SERVICO, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

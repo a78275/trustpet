@@ -21,20 +21,24 @@ import org.orm.criteria.*;
 public class ServicoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id;
 	public final StringExpression designacao;
-	public final FloatExpression preço;
+	public final CollectionExpression preco_servico;
 	
 	public ServicoDetachedCriteria() {
 		super(trustpet.Servico.class, trustpet.ServicoCriteria.class);
 		id = new IntegerExpression("id", this.getDetachedCriteria());
 		designacao = new StringExpression("designacao", this.getDetachedCriteria());
-		preço = new FloatExpression("preço", this.getDetachedCriteria());
+		preco_servico = new CollectionExpression("ORM_Preco_servico", this.getDetachedCriteria());
 	}
 	
 	public ServicoDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, trustpet.ServicoCriteria.class);
 		id = new IntegerExpression("id", this.getDetachedCriteria());
 		designacao = new StringExpression("designacao", this.getDetachedCriteria());
-		preço = new FloatExpression("preço", this.getDetachedCriteria());
+		preco_servico = new CollectionExpression("ORM_Preco_servico", this.getDetachedCriteria());
+	}
+	
+	public Preco_Petsitter_ServicoDetachedCriteria createPreco_servicoCriteria() {
+		return new Preco_Petsitter_ServicoDetachedCriteria(createCriteria("ORM_Preco_servico"));
 	}
 	
 	public Servico uniqueServico(PersistentSession session) {

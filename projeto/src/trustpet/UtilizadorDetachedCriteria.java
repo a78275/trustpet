@@ -18,7 +18,7 @@ import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
-public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
+public class UtilizadorDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression email;
 	public final StringExpression password;
 	public final StringExpression nome;
@@ -30,10 +30,9 @@ public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final BooleanExpression ativo;
 	public final StringExpression concelho;
 	public final StringExpression distrito;
-	public final CollectionExpression animais;
 	
-	public DonoDetachedCriteria() {
-		super(trustpet.Dono.class, trustpet.DonoCriteria.class);
+	public UtilizadorDetachedCriteria() {
+		super(trustpet.Utilizador.class, trustpet.UtilizadorCriteria.class);
 		email = new StringExpression("email", this.getDetachedCriteria());
 		password = new StringExpression("password", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
@@ -45,11 +44,10 @@ public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
 		concelho = new StringExpression("concelho", this.getDetachedCriteria());
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
-		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
 	}
 	
-	public DonoDetachedCriteria(DetachedCriteria aDetachedCriteria) {
-		super(aDetachedCriteria, trustpet.DonoCriteria.class);
+	public UtilizadorDetachedCriteria(DetachedCriteria aDetachedCriteria) {
+		super(aDetachedCriteria, trustpet.UtilizadorCriteria.class);
 		email = new StringExpression("email", this.getDetachedCriteria());
 		password = new StringExpression("password", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
@@ -61,20 +59,15 @@ public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
 		concelho = new StringExpression("concelho", this.getDetachedCriteria());
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
-		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
 	}
 	
-	public AnimalDetachedCriteria createAnimaisCriteria() {
-		return new AnimalDetachedCriteria(createCriteria("ORM_Animais"));
+	public Utilizador uniqueUtilizador(PersistentSession session) {
+		return (Utilizador) super.createExecutableCriteria(session).uniqueResult();
 	}
 	
-	public Dono uniqueDono(PersistentSession session) {
-		return (Dono) super.createExecutableCriteria(session).uniqueResult();
-	}
-	
-	public Dono[] listDono(PersistentSession session) {
+	public Utilizador[] listUtilizador(PersistentSession session) {
 		List list = super.createExecutableCriteria(session).list();
-		return (Dono[]) list.toArray(new Dono[list.size()]);
+		return (Utilizador[]) list.toArray(new Utilizador[list.size()]);
 	}
 }
 

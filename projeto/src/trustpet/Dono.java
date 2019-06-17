@@ -13,25 +13,8 @@
  */
 package trustpet;
 
-public class Dono {
+public class Dono extends trustpet.Utilizador {
 	public Dono() {
-	}
-	
-	public boolean equals(Object aObj) {
-		if (aObj == this)
-			return true;
-		if (!(aObj instanceof Dono))
-			return false;
-		Dono dono = (Dono)aObj;
-		if ((getEmail() != null && !getEmail().equals(dono.getEmail())) || (getEmail() == null && dono.getEmail() != null))
-			return false;
-		return true;
-	}
-	
-	public int hashCode() {
-		int hashcode = 0;
-		hashcode = hashcode + (getEmail() == null ? 0 : getEmail().hashCode());
-		return hashcode;
 	}
 	
 	private java.util.Set this_getSet (int key) {
@@ -49,101 +32,7 @@ public class Dono {
 		
 	};
 	
-	private String email;
-	
-	private boolean ativo;
-	
-	private String nome;
-	
-	private String photo;
-	
-	private String contacto;
-	
-	private String residencia;
-	
-	private boolean jardim;
-	
-	private String morada;
-	
-	private String password;
-	
 	private java.util.Set ORM_animais = new java.util.HashSet();
-	
-	public void setAtivo(boolean value) {
-		this.ativo = value;
-	}
-	
-	public boolean getAtivo() {
-		return ativo;
-	}
-	
-	public void setNome(String value) {
-		this.nome = value;
-	}
-	
-	public String getNome() {
-		return nome;
-	}
-	
-	public void setPhoto(String value) {
-		this.photo = value;
-	}
-	
-	public String getPhoto() {
-		return photo;
-	}
-	
-	public void setEmail(String value) {
-		this.email = value;
-	}
-	
-	public String getEmail() {
-		return email;
-	}
-	
-	public String getORMID() {
-		return getEmail();
-	}
-	
-	public void setContacto(String value) {
-		this.contacto = value;
-	}
-	
-	public String getContacto() {
-		return contacto;
-	}
-	
-	public void setResidencia(String value) {
-		this.residencia = value;
-	}
-	
-	public String getResidencia() {
-		return residencia;
-	}
-	
-	public void setJardim(boolean value) {
-		this.jardim = value;
-	}
-	
-	public boolean getJardim() {
-		return jardim;
-	}
-	
-	public void setMorada(String value) {
-		this.morada = value;
-	}
-	
-	public String getMorada() {
-		return morada;
-	}
-	
-	public void setPassword(String value) {
-		this.password = value;
-	}
-	
-	public String getPassword() {
-		return password;
-	}
 	
 	private void setORM_Animais(java.util.Set value) {
 		this.ORM_animais = value;
@@ -156,7 +45,7 @@ public class Dono {
 	public final trustpet.AnimalSetCollection animais = new trustpet.AnimalSetCollection(this, _ormAdapter, ORMConstants.KEY_DONO_ANIMAIS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
-		return String.valueOf(getEmail());
+		return super.toString();
 	}
 	
 }

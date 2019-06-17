@@ -18,7 +18,7 @@ import org.orm.PersistentException;
 import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
-public class PetsitterCriteria extends AbstractORMCriteria {
+public class UtilizadorCriteria extends AbstractORMCriteria {
 	public final StringExpression email;
 	public final StringExpression password;
 	public final StringExpression nome;
@@ -30,12 +30,8 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 	public final BooleanExpression ativo;
 	public final StringExpression concelho;
 	public final StringExpression distrito;
-	public final IntegerExpression horarioId;
-	public final AssociationExpression horario;
-	public final CollectionExpression animais;
-	public final CollectionExpression preco_servico;
 	
-	public PetsitterCriteria(Criteria criteria) {
+	public UtilizadorCriteria(Criteria criteria) {
 		super(criteria);
 		email = new StringExpression("email", this);
 		password = new StringExpression("password", this);
@@ -48,39 +44,23 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 		ativo = new BooleanExpression("ativo", this);
 		concelho = new StringExpression("concelho", this);
 		distrito = new StringExpression("distrito", this);
-		horarioId = new IntegerExpression("horario.id", this);
-		horario = new AssociationExpression("horario", this);
-		animais = new CollectionExpression("ORM_Animais", this);
-		preco_servico = new CollectionExpression("ORM_Preco_servico", this);
 	}
 	
-	public PetsitterCriteria(PersistentSession session) {
-		this(session.createCriteria(Petsitter.class));
+	public UtilizadorCriteria(PersistentSession session) {
+		this(session.createCriteria(Utilizador.class));
 	}
 	
-	public PetsitterCriteria() throws PersistentException {
+	public UtilizadorCriteria() throws PersistentException {
 		this(ClassPersistentManager.instance().getSession());
 	}
 	
-	public HorarioCriteria createHorarioCriteria() {
-		return new HorarioCriteria(createCriteria("horario"));
+	public Utilizador uniqueUtilizador() {
+		return (Utilizador) super.uniqueResult();
 	}
 	
-	public Tipo_AnimalCriteria createAnimaisCriteria() {
-		return new Tipo_AnimalCriteria(createCriteria("ORM_Animais"));
-	}
-	
-	public Preco_Petsitter_ServicoCriteria createPreco_servicoCriteria() {
-		return new Preco_Petsitter_ServicoCriteria(createCriteria("ORM_Preco_servico"));
-	}
-	
-	public Petsitter uniquePetsitter() {
-		return (Petsitter) super.uniqueResult();
-	}
-	
-	public Petsitter[] listPetsitter() {
+	public Utilizador[] listUtilizador() {
 		java.util.List list = super.list();
-		return (Petsitter[]) list.toArray(new Petsitter[list.size()]);
+		return (Utilizador[]) list.toArray(new Utilizador[list.size()]);
 	}
 }
 
