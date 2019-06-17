@@ -236,12 +236,6 @@ body {
         background-position: center; /* Center the image */
         background-repeat: no-repeat; /* Do not repeat the image */
         background-size: cover;
-
-        @media (max-width: 768px) {
-            #logo {
-                width: 150px;
-            }
-        }
     }
 
     #side2 {
@@ -265,12 +259,59 @@ body {
             }
         }
 
+        #radio {
+            color: $dark-blue;
+            font-weight: 600;
+            font-size: 1.2em;
+        }
+
+        @media (max-width: 768px) {
+            #avatar {
+                width: 100px;
+            }
+        }
+
         #footer {
             text-align: center;
             position: absolute;
             bottom: 0;
             width: 100%;
             background-color: white;
+
+            #voltar {
+                color: $dark-blue;
+                background-color: white;
+
+                &:hover{
+                    background-color: $pink;
+                }
+            }
+
+            #seguinte {
+                background-color: $dark-blue;
+                color: #fff;
+
+                &:hover{
+                    color: $dark-blue;
+                    background-color: $pink;
+                }
+            }
+            
+        }
+    }
+
+    #userRegister {
+        background-color: $dark-blue;
+        min-height: 100vh;
+
+        #registerForm {
+            background-color: $light-pink;
+        }
+
+        #datepicker {
+            .btn {
+                background-color: $dark-blue;
+            }
         }
     }
 }

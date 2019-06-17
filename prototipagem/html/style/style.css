@@ -209,11 +209,6 @@ body #side {
   /* Do not repeat the image */
   background-size: cover;
 }
-@media (max-width: 768px) {
-  body #side #logo {
-    width: 150px;
-  }
-}
 body #side2 {
   height: 100vh;
   background-color: #f7eceb;
@@ -230,12 +225,47 @@ body #side2 #login_form .btn:hover {
   background-color: #545871;
   color: #fff;
 }
+body #side2 #radio {
+  color: #545871;
+  font-weight: 600;
+  font-size: 1.2em;
+}
+@media (max-width: 768px) {
+  body #side2 #avatar {
+    width: 100px;
+  }
+}
 body #side2 #footer {
   text-align: center;
   position: absolute;
   bottom: 0;
   width: 100%;
   background-color: white;
+}
+body #side2 #footer #voltar {
+  color: #545871;
+  background-color: white;
+}
+body #side2 #footer #voltar:hover {
+  background-color: #ebd0ce;
+}
+body #side2 #footer #seguinte {
+  background-color: #545871;
+  color: #fff;
+}
+body #side2 #footer #seguinte:hover {
+  color: #545871;
+  background-color: #ebd0ce;
+}
+body #userRegister {
+  background-color: #545871;
+  min-height: 100vh;
+}
+body #userRegister #registerForm {
+  background-color: #f7eceb;
+}
+body #userRegister #datepicker .btn {
+  background-color: #545871;
 }
 
 /*# sourceMappingURL=style.css.map */
