@@ -7,7 +7,81 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e91a6e38-1c94-4e3a-9639-ce27662231b5" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../diagramas/hibernate.vpp" beforeDir="false" afterPath="$PROJECT_DIR$/../diagramas/hibernate.vpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/artifacts/projeto_war_exploded.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/artifacts/projeto_war_exploded.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/projeto.iml" beforeDir="false" afterPath="$PROJECT_DIR$/TrustPet.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/AutenticarBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/AutenticarBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/AutenticarBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/AutenticarBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/DonoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/DonoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/DonoBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/DonoBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/PedidoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/PedidoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/PedidoBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/PedidoBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/PetsitterBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/PetsitterBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/PetsitterBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/PetsitterBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/UtilizadorBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/UtilizadorBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/beans/UtilizadorBeanLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/beans/UtilizadorBeanLocal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Administrador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Administrador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AdministradorCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AdministradorCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AdministradorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AdministradorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AdministradorDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AdministradorDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Animal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Animal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AnimalCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AnimalCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AnimalDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AnimalDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AnimalDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AnimalDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/AnimalSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/AnimalSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Dono.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Dono.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/DonoCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/DonoCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/DonoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/DonoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/DonoDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/DonoDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Hora.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Hora.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/HoraCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/HoraCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/HoraDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/HoraDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/HoraDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/HoraDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/HoraSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/HoraSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Horario.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Horario.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/HorarioCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/HorarioCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/HorarioDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/HorarioDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/HorarioDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/HorarioDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ORMConstants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ORMConstants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Pedido.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Pedido.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PedidoCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PedidoCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PedidoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PedidoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PedidoDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PedidoDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Petsitter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Petsitter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PetsitterCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PetsitterCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PetsitterDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PetsitterDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PetsitterDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PetsitterDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PrecoPetsitterServico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PrecoPetsitterServico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PrecoPetsitterServicoCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PrecoPetsitterServicoCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PrecoPetsitterServicoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PrecoPetsitterServicoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/PrecoPetsitterServicoDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/PrecoPetsitterServicoDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Review.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Review.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ReviewCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ReviewCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ReviewDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ReviewDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ReviewDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ReviewDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Servico.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Servico.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ServicoCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ServicoCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ServicoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ServicoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ServicoDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ServicoDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/ServicoSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/ServicoSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/TipoAnimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/TipoAnimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/TipoAnimalCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/TipoAnimalCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/TipoAnimalDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/TipoAnimalDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/TipoAnimalDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/TipoAnimalDetachedCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/TipoAnimalSetCollection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/TipoAnimalSetCollection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/TrustpetPersistentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/TrustpetPersistentManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/Utilizador.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/Utilizador.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/UtilizadorCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/UtilizadorCriteria.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/UtilizadorDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/UtilizadorDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/trustpet/UtilizadorDetachedCriteria.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/trustpet/UtilizadorDetachedCriteria.java" afterDir="false" />
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,20 +96,92 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+<<<<<<< HEAD
       <file leaf-file-name="FacadeDAOs.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/FacadeDAOs.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
               <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/beans/PetsitterBeanLocal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="FacadeBeans.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/FacadeBeans.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="300">
               <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+=======
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/beans/PedidoBeanLocal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/beans/PetsitterBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="105">
+              <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#305#306#0" expanded="true" />
+                <element signature="e#333#334#0" expanded="true" />
+                <element signature="e#439#440#0" expanded="true" />
+                <element signature="e#467#468#0" expanded="true" />
+                <element signature="e#576#577#0" expanded="true" />
+                <element signature="e#604#605#0" expanded="true" />
+                <element signature="e#683#684#0" expanded="true" />
+                <element signature="e#710#711#0" expanded="true" />
+                <element signature="e#814#815#0" expanded="true" />
+                <element signature="e#842#843#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/beans/UtilizadorBeanLocal.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="345">
+              <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/beans/UtilizadorBean.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="120">
+              <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#560#561#0" expanded="true" />
+                <element signature="e#588#589#0" expanded="true" />
+                <element signature="e#657#658#0" expanded="true" />
+                <element signature="e#684#685#0" expanded="true" />
+              </folding>
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
             </state>
           </provider>
         </entry>
@@ -50,6 +196,14 @@
       </list>
     </option>
   </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>string</find>
+    </findStrings>
+    <replaceStrings>
+      <replace>String</replace>
+    </replaceStrings>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -62,9 +216,23 @@
         <option value="$PROJECT_DIR$/src/web/Index.java" />
         <option value="$PROJECT_DIR$/web/WEB-INF/index.jsp" />
         <option value="$PROJECT_DIR$/web/WEB-INF/public/head.jsp" />
+        <option value="$PROJECT_DIR$/src/FacadeBeans.java" />
+        <option value="$PROJECT_DIR$/src/beans/AutenticarLocal.java" />
+        <option value="$PROJECT_DIR$/src/trustpet/Util.java" />
+        <option value="$PROJECT_DIR$/src/beans/AutenticarBean.java" />
+        <option value="$PROJECT_DIR$/src/beans/AutenticarBeanLocal.java" />
+        <option value="$PROJECT_DIR$/src/beans/DonoBeanLocal.java" />
+        <option value="$PROJECT_DIR$/src/beans/DonoBean.java" />
+        <option value="$PROJECT_DIR$/src/beans/PedidoBeanLocal.java" />
+        <option value="$PROJECT_DIR$/src/beans/PedidoBean.java" />
+        <option value="$PROJECT_DIR$/src/beans/PetsitterBeanLocal.java" />
+        <option value="$PROJECT_DIR$/src/beans/PetsitterBean.java" />
+        <option value="$PROJECT_DIR$/src/beans/UtilizadorBeanLocal.java" />
+        <option value="$PROJECT_DIR$/src/beans/UtilizadorBean.java" />
       </list>
     </option>
   </component>
+<<<<<<< HEAD
   <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
   <component name="JsGulpfileManager">
@@ -75,6 +243,9 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
+=======
+  <component name="ProjectFrameBounds" fullScreen="true">
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
     <option name="y" value="23" />
     <option name="width" value="1440" />
     <option name="height" value="825" />
@@ -85,9 +256,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scope" />
+=======
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -103,18 +277,30 @@
             <path>
               <item name="trustpet" type="b2602c69:ProjectViewProjectNode" />
               <item name="projeto" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
               <item name="web" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="beans" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
             </path>
             <path>
               <item name="trustpet" type="b2602c69:ProjectViewProjectNode" />
               <item name="projeto" type="462c0819:PsiDirectoryNode" />
+<<<<<<< HEAD
               <item name="web" type="462c0819:PsiDirectoryNode" />
               <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+=======
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="trustpet" type="462c0819:PsiDirectoryNode" />
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -217,6 +403,53 @@
         </option>
       </method>
     </configuration>
+    <configuration default="true" type="JetRunConfigurationType" factoryName="Kotlin">
+      <module name="TrustPet" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType" factoryName="Kotlin script">
+      <module name="TrustPet" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <option name="filePath" />
+      <option name="vmParameters" />
+      <option name="alternativeJrePath" />
+      <option name="programParameters" />
+      <option name="passParentEnvs" value="true" />
+      <option name="workingDirectory" />
+      <option name="isAlternativeJrePathEnabled" value="false" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="WORKING_DIRECTORY" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -232,11 +465,17 @@
       <workItem from="1557234139587" duration="2613000" />
       <workItem from="1557507153663" duration="44000" />
       <workItem from="1560787915132" duration="57000" />
+<<<<<<< HEAD
       <workItem from="1560866075987" duration="339000" />
+=======
+      <workItem from="1560853523901" duration="1713000" />
+      <workItem from="1560865697853" duration="569000" />
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
+<<<<<<< HEAD
     <option name="totallyTimeSpent" value="3118000" />
   </component>
   <component name="ToolWindowManager">
@@ -246,6 +485,17 @@
       <window_info anchor="right" id="Palette" order="4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="7" />
+=======
+    <option name="totallyTimeSpent" value="5061000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.87108433" visible="true" weight="0.26752505" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Designer" order="2" />
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
       <window_info id="Image Layers" order="3" />
       <window_info anchor="bottom" id="Java Enterprise" order="12" />
       <window_info anchor="right" id="Capture Analysis" order="5" />
@@ -264,7 +514,15 @@
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info id="UI Designer" order="5" />
+<<<<<<< HEAD
       <window_info anchor="right" id="Theme Preview" order="8" />
+=======
+      <window_info id="Favorites" order="6" side_tool="true" />
+      <window_info id="Web" order="7" sideWeight="0.12891567" side_tool="true" visible="true" weight="0.26752505" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.3287858" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.28922236" />
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Messages" order="11" weight="0.3287858" />
@@ -285,6 +543,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/public/head.jsp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -299,6 +558,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
     <entry file="file://$PROJECT_DIR$/src/trustpet/Tipo_AnimalDAO.java" />
     <entry file="file://$PROJECT_DIR$/web/index.jsp" />
     <entry file="file://$PROJECT_DIR$/web/WEB-INF/web.xml">
@@ -308,13 +569,14 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/projeto.iml">
+    <entry file="file://$PROJECT_DIR$/TrustPet.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="345">
           <caret line="23" column="14" lean-forward="true" selection-start-line="23" selection-start-column="14" selection-end-line="23" selection-end-column="14" />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/trustpet/ClassPersistentManager.java" />
     <entry file="file://$PROJECT_DIR$/src/trustpet/TrustPet.java" />
     <entry file="file://$PROJECT_DIR$/src/web/Index.java" />
@@ -336,13 +598,178 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+=======
+    <entry file="file://$PROJECT_DIR$/src/trustpet/TrustPet.java" />
+    <entry file="file://$PROJECT_DIR$/src/web/Index.java" />
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/public/head.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/web/WEB-INF/index.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="73" selection-start-line="14" selection-start-column="73" selection-end-line="14" selection-end-column="73" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/Autenticar.java" />
+    <entry file="file://$PROJECT_DIR$/src/beans/AutenticarLocal.java" />
+    <entry file="file://$PROJECT_DIR$/src/trustpet/ORMConstants.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="17" column="4" lean-forward="true" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/DonoBeanLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="23" lean-forward="true" selection-start-line="4" selection-start-column="23" selection-end-line="4" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/DonoBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#535#536#0" expanded="true" />
+            <element signature="e#562#563#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/AutenticarBeanLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="7" lean-forward="true" selection-start-line="11" selection-start-column="7" selection-end-line="11" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/AutenticarBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="54" selection-start-line="7" selection-start-column="54" selection-end-line="7" selection-end-column="54" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/trustpet/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="30">
+          <caret line="2" column="7" lean-forward="true" selection-start-line="2" selection-start-column="7" selection-end-line="2" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/trustpet/TrustPetPersistentManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="45" column="4" selection-start-line="45" selection-start-column="4" selection-end-line="45" selection-end-column="4" />
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/FacadeBeans.java">
+<<<<<<< HEAD
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+=======
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/PedidoBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="8" selection-start-line="14" selection-start-column="8" selection-end-line="14" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#325#326#0" expanded="true" />
+            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#435#436#0" expanded="true" />
+            <element signature="e#463#464#0" expanded="true" />
+            <element signature="e#677#678#0" expanded="true" />
+            <element signature="e#705#706#0" expanded="true" />
+            <element signature="e#777#778#0" expanded="true" />
+            <element signature="e#804#805#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/PetsitterBeanLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="19" lean-forward="true" selection-start-line="14" selection-start-column="19" selection-end-line="14" selection-end-column="19" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/PedidoBeanLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="7" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/PetsitterBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" lean-forward="true" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#305#306#0" expanded="true" />
+            <element signature="e#333#334#0" expanded="true" />
+            <element signature="e#439#440#0" expanded="true" />
+            <element signature="e#467#468#0" expanded="true" />
+            <element signature="e#576#577#0" expanded="true" />
+            <element signature="e#604#605#0" expanded="true" />
+            <element signature="e#683#684#0" expanded="true" />
+            <element signature="e#710#711#0" expanded="true" />
+            <element signature="e#814#815#0" expanded="true" />
+            <element signature="e#842#843#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/UtilizadorBeanLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="42" selection-start-line="23" selection-start-column="42" selection-end-line="23" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/beans/UtilizadorBean.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="26" selection-start-line="8" selection-start-column="26" selection-end-line="8" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#560#561#0" expanded="true" />
+            <element signature="e#588#589#0" expanded="true" />
+            <element signature="e#657#658#0" expanded="true" />
+            <element signature="e#684#685#0" expanded="true" />
+          </folding>
+>>>>>>> 7b2d384a50d2a4b25161027e6ff2af67991401cf
         </state>
       </provider>
     </entry>

@@ -7,6 +7,7 @@ import java.util.Date;
 
 @Stateless(name="Utilizador")
 public class UtilizadorBean implements UtilizadorBeanLocal {
+
     @Override
     public boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
         return false;
@@ -18,12 +19,12 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     }
 
     @Override
-    public boolean inativarUtilizador(String emailUtilizador) {
-        return false;
+    public Utilizador consultarPerfil(String email) {
+        return null;
     }
 
     @Override
-    public Utilizador consultarPerfil(String email) {
-        return null;
+    public void editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
+
     }
 }

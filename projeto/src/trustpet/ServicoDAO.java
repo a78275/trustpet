@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -21,7 +21,7 @@ import java.util.List;
 public class ServicoDAO {
 	public static Servico loadServicoByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadServicoByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class ServicoDAO {
 	
 	public static Servico getServicoByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getServicoByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class ServicoDAO {
 	
 	public static Servico loadServicoByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadServicoByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class ServicoDAO {
 	
 	public static Servico getServicoByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getServicoByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class ServicoDAO {
 	
 	public static List queryServico(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryServico(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class ServicoDAO {
 	
 	public static List queryServico(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryServico(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class ServicoDAO {
 	
 	public static Servico[] listServicoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listServicoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class ServicoDAO {
 	
 	public static Servico[] listServicoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listServicoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class ServicoDAO {
 	
 	public static Servico loadServicoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadServicoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class ServicoDAO {
 	
 	public static Servico loadServicoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadServicoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class ServicoDAO {
 	
 	public static java.util.Iterator iterateServicoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateServicoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class ServicoDAO {
 	
 	public static java.util.Iterator iterateServicoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateServicoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class ServicoDAO {
 	
 	public static boolean save(trustpet.Servico servico) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().saveObject(servico);
+			TrustPetPersistentManager.instance().saveObject(servico);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class ServicoDAO {
 	
 	public static boolean delete(trustpet.Servico servico) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().deleteObject(servico);
+			TrustPetPersistentManager.instance().deleteObject(servico);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class ServicoDAO {
 	
 	public static boolean refresh(trustpet.Servico servico) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().refresh(servico);
+			TrustPetPersistentManager.instance().getSession().refresh(servico);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class ServicoDAO {
 	
 	public static boolean evict(trustpet.Servico servico) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().evict(servico);
+			TrustPetPersistentManager.instance().getSession().evict(servico);
 			return true;
 		}
 		catch (Exception e) {

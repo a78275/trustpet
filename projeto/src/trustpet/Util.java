@@ -29,7 +29,7 @@ public class Util {
                 session = (PersistentSession) hsession;
             } else {
                 System.out.println("Creating new persistent session");
-                session = TrustpetPersistentManager.instance().getSession();
+                session = TrustPetPersistentManager.instance().getSession();
                 request.getSession().setAttribute("hsession", session);
             }
         } catch (Exception e) {

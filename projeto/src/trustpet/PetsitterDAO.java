@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -21,7 +21,7 @@ import java.util.List;
 public class PetsitterDAO {
 	public static Petsitter loadPetsitterByORMID(String email) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadPetsitterByORMID(session, email);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class PetsitterDAO {
 	
 	public static Petsitter getPetsitterByORMID(String email) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getPetsitterByORMID(session, email);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class PetsitterDAO {
 	
 	public static Petsitter loadPetsitterByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadPetsitterByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class PetsitterDAO {
 	
 	public static Petsitter getPetsitterByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getPetsitterByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class PetsitterDAO {
 	
 	public static List queryPetsitter(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryPetsitter(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class PetsitterDAO {
 	
 	public static List queryPetsitter(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryPetsitter(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class PetsitterDAO {
 	
 	public static Petsitter[] listPetsitterByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listPetsitterByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class PetsitterDAO {
 	
 	public static Petsitter[] listPetsitterByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listPetsitterByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class PetsitterDAO {
 	
 	public static Petsitter loadPetsitterByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadPetsitterByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class PetsitterDAO {
 	
 	public static Petsitter loadPetsitterByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadPetsitterByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class PetsitterDAO {
 	
 	public static java.util.Iterator iteratePetsitterByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iteratePetsitterByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class PetsitterDAO {
 	
 	public static java.util.Iterator iteratePetsitterByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iteratePetsitterByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class PetsitterDAO {
 	
 	public static boolean save(trustpet.Petsitter petsitter) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().saveObject(petsitter);
+			TrustPetPersistentManager.instance().saveObject(petsitter);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class PetsitterDAO {
 	
 	public static boolean delete(trustpet.Petsitter petsitter) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().deleteObject(petsitter);
+			TrustPetPersistentManager.instance().deleteObject(petsitter);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class PetsitterDAO {
 	
 	public static boolean refresh(trustpet.Petsitter petsitter) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().refresh(petsitter);
+			TrustPetPersistentManager.instance().getSession().refresh(petsitter);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class PetsitterDAO {
 	
 	public static boolean evict(trustpet.Petsitter petsitter) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().evict(petsitter);
+			TrustPetPersistentManager.instance().getSession().evict(petsitter);
 			return true;
 		}
 		catch (Exception e) {
