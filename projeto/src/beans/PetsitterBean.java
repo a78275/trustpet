@@ -1,7 +1,30 @@
 package beans;
 
-@javax.ejb.Stateless(name="Petsitter")
-@javax.ejb.Remote(Petsitter.class)
-@javax.ejb.Local(PetsitterLocal.class)
-public class PetsitterBean implements PetsitterBeanLocal, Petsitter, PetsitterLocal {
+import trustpet.Petsitter;
+
+import javax.ejb.Stateless;
+import java.util.List;
+import java.util.Map;
+
+@Stateless(name="Petsitter")
+public class PetsitterBean implements PetsitterBeanLocal {
+    @Override
+    public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
+        return false;
+    }
+
+    @Override
+    public boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos) {
+        return false;
+    }
+
+    @Override
+    public boolean registarHorario(String emailPetsitter, Map<String, List<Integer>> horario) {
+        return false;
+    }
+
+    @Override
+    public List<Petsitter> consultarPetsitters(String filtro) {
+        return null;
+    }
 }

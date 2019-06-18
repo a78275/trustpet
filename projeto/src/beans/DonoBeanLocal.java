@@ -1,5 +1,11 @@
 package beans;
 
+import trustpet.Animal;
+
+import javax.ejb.Local;
+import java.util.List;
+
+@Local
 public interface DonoBeanLocal {
 
 	/**
@@ -18,12 +24,12 @@ public interface DonoBeanLocal {
 	 * @param raca
 	 * @param avatar
 	 */
-	boolean registarAnimal(string emailDono, string nome, int idade, string porte, string sexo, string alergias, string doencas, string comportamento, boolean vacinas, boolean desparazitacao, boolean esterilizacao, string raca, string avatar);
+	boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparazitacao, boolean esterilizacao, String raca, String avatar);
 
 	/**
 	 * 
 	 * @param emailDono
 	 */
-	List<Animal> consultarAnimais(string emailDono);
+	List<Animal> consultarAnimais(String emailDono);
 
 }

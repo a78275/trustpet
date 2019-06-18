@@ -1,5 +1,11 @@
 package beans;
 
+import trustpet.Utilizador;
+
+import javax.ejb.Local;
+import java.util.Date;
+
+@Local
 public interface UtilizadorBeanLocal {
 
 	/**
@@ -16,7 +22,7 @@ public interface UtilizadorBeanLocal {
 	 * @param concelho
 	 * @param distrito
 	 */
-	boolean registarUtilizador(string nome, string email, Date dataNasc, string contacto, boolean jardim, string morada, string password, string avatar, string tipoUtilizador, string concelho, string distrito);
+	boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito);
 
 	/**
 	 * 
@@ -25,18 +31,18 @@ public interface UtilizadorBeanLocal {
 	 * @param avaliacao
 	 * @param comentario
 	 */
-	boolean avaliarUtilizador(string de, string para, int avaliacao, string comentario);
+	boolean avaliarUtilizador(String de, String para, int avaliacao, String comentario);
 
 	/**
 	 * 
 	 * @param emailUtilizador
 	 */
-	boolean inativarUtilizador(string emailUtilizador);
+	boolean inativarUtilizador(String emailUtilizador);
 
 	/**
 	 * 
 	 * @param email
 	 */
-	Utilizador consultarPerfil(string email);
+	Utilizador consultarPerfil(String email);
 
 }

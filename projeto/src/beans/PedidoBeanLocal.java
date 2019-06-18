@@ -1,5 +1,13 @@
 package beans;
 
+import trustpet.Pedido;
+import trustpet.Petsitter;
+
+import javax.ejb.Local;
+import java.util.Date;
+import java.util.List;
+
+@Local
 public interface PedidoBeanLocal {
 
 	/**
@@ -15,7 +23,7 @@ public interface PedidoBeanLocal {
 	 * @param emailPetsitter
 	 * @param idPedido
 	 */
-	boolean selPetsitter(string emailPetsitter, int idPedido);
+	boolean selPetsitter(String emailPetsitter, int idPedido);
 
 	/**
 	 * 
@@ -35,6 +43,6 @@ public interface PedidoBeanLocal {
 	 * 
 	 * @param email
 	 */
-	List<Pedido> consultarPedidos(string email);
+	List<Pedido> consultarPedidos(String email);
 
 }
