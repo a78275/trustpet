@@ -1,0 +1,15 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ear" name="TrustPet:ear exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/TrustPet_ear_exploded</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="TrustPet/javaeeApplication/javaEEApplication" />
+      <element id="directory" name="ejb.jar">
+        <element id="artifact" artifact-name="TrustPet:ejb exploded" />
+      </element>
+      <element id="directory" name="lib">
+        <element id="library" level="project" name="orm" />
+        <element id="library" level="project" name="com.google.code.gson:gson:2.8.5" />
+      </element>
+    </root>
+  </artifact>
+</component>

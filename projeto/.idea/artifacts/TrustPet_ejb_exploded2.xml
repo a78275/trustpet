@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-ejb" name="TrustPet:ejb exploded2">
+    <output-path>$PROJECT_DIR$/out/artifacts/TrustPet_ejb_exploded2</output-path>
+    <root id="root">
+      <element id="javaee-facet-resources" facet="TrustPet/ejb/EJB" />
+      <element id="module-output" name="TrustPet" />
+    </root>
+  </artifact>
+</component>

@@ -2,3 +2,5 @@
 .DS_Store
 *.vpp.bak*
 projeto/.idea/workspace.xml
+projeto/META-INF/application.xml
+projeto/TrustPet.iml
