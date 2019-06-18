@@ -1,5 +1,5 @@
 package web;
 import javax.servlet.http.HttpServlet;
 
-public class AutenticarServlet extends HTTPServlet {
+public class AutenticarServlet extends HttpServlet {
 }

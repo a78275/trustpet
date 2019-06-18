@@ -27,20 +27,22 @@ public interface UtilizadorBeanLocal {
 
 	/**
 	 *
-	 * @param de
-	 * @param para
+	 * @param emailDono
+	 * @param emailPetsitter
 	 * @param avaliacao
 	 * @param comentario
+	 * @param alvo
 	 * @param session
 	 */
-	boolean avaliarUtilizador(String de, String para, int avaliacao, String comentario, PersistentSession session);
+	boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo, PersistentSession session);
 
 	/**
 	 *
 	 * @param email
+	 * @param tipoUtilizador
 	 * @param session
 	 */
-	Utilizador consultarPerfil(String email, PersistentSession session);
+	Utilizador consultarPerfil(String email, String tipoUtilizador, PersistentSession session);
 
 	/**
 	 *
