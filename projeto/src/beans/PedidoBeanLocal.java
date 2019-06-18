@@ -1,7 +1,13 @@
 package beans;
 
+<<<<<<< HEAD
 import main.Pedido;
 import main.Petsitter;
+=======
+import org.orm.PersistentSession;
+import trustpet.Pedido;
+import trustpet.Petsitter;
+>>>>>>> 6159788eb5380f8d7fb89ad498811e7c0f72246b
 
 import javax.ejb.Local;
 import java.util.Date;
@@ -15,33 +21,38 @@ public interface PedidoBeanLocal {
 	 * @param data
 	 * @param servicos
 	 * @param animais
+	 * @param session
 	 */
-	int registarPedido(Date data, List<Integer> servicos, List<Integer> animais);
+	int registarPedido(Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session);
 
 	/**
 	 *
 	 * @param emailPetsitter
 	 * @param idPedido
+	 * @param session
 	 */
-	boolean selPetsitter(String emailPetsitter, int idPedido);
+	boolean selPetsitter(String emailPetsitter, int idPedido, PersistentSession session);
 
 	/**
 	 *
 	 * @param data
 	 * @param servicos
 	 * @param animais
+	 * @param session
 	 */
-	List<Petsitter> getPetsittersPedido(Date data, List<Integer> servicos, List<Integer> animais);
+	List<Petsitter> getPetsittersPedido(Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session);
 
 	/**
 	 *
 	 * @param idPedido
+	 * @param session
 	 */
-	boolean cancelarPedido(int idPedido);
+	boolean cancelarPedido(int idPedido, PersistentSession session);
 
 	/**
 	 *
 	 * @param email
+	 * @param session
 	 */
-	List<Pedido> consultarPedidos(String email);
+	List<Pedido> consultarPedidos(String email, PersistentSession session);
 }
