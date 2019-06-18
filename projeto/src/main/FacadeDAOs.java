@@ -27,6 +27,14 @@ public class FacadeDAOs {
         }
 	}
 
+    /**
+     *
+     * @param review
+     */
+    public static boolean saveReview(Review review) throws PersistentException {
+        return ReviewDAO.save(review);
+    }
+
 	/**
 	 * 
 	 * @param petsitter
@@ -264,5 +272,19 @@ public class FacadeDAOs {
             return AdministradorDAO.getAdministradorByORMID(session, email);
         }
 	}
+
+    /**
+     *
+     * @param session
+     * @param id
+     */
+    public static Servico getServico(PersistentSession session, int id) throws PersistentException {
+        if(session == null) {
+            return ServicoDAO.getServicoByORMID(id);
+        }
+        else {
+            return ServicoDAO.getServicoByORMID(session, id);
+        }
+    }
 
 }
