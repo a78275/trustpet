@@ -1,13 +1,8 @@
 package beans;
 
-<<<<<<< HEAD
 import main.Pedido;
 import main.Petsitter;
-=======
 import org.orm.PersistentSession;
-import trustpet.Pedido;
-import trustpet.Petsitter;
->>>>>>> 6159788eb5380f8d7fb89ad498811e7c0f72246b
 
 import javax.ejb.Local;
 import java.util.Date;
