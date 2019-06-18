@@ -38,22 +38,20 @@ public class DonoBean implements DonoBeanLocal {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
-        }
-        if (dono!=null) {
-            dono.animais.add(animal);
-            try {
-                FacadeDAOs.saveDono(dono);
-            } catch (PersistentException e) {
-                e.printStackTrace();
-                //Erro ao guardar dono
-                return false;
-            }
-            return true;
-        }
-        else {
             //Dono não existe
             return false;
         }
+        dono.animais.add(animal);
+
+        try {
+            FacadeDAOs.saveDono(dono);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            //Erro ao guardar dono
+            return false;
+        }
+        return true;
+
     }
 
     @Override
@@ -63,21 +61,16 @@ public class DonoBean implements DonoBeanLocal {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
-        }
-        if (dono!=null) {
-            List<Animal> animais = Arrays.asList(dono.animais.toArray());
-            List<Animal> animaisAtivos = new ArrayList<>();
-            for(Animal a : animais) {
-                if(a.getAtivo()) {
-                    animaisAtivos.add(a);
-                }
-            }
-            return animaisAtivos;
-        }
-        else {
             //Dono não existe
             return null;
         }
+        List<Animal> animaisAtivos = new ArrayList<>();
+        for(Animal a : dono.animais.toArray()) {
+            if(a.getAtivo()) {
+                animaisAtivos.add(a);
+            }
+        }
+        return animaisAtivos;
     }
 
     @Override
