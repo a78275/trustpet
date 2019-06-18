@@ -1,4 +1,5 @@
-import beans.*;
+package beans;
+
 import trustpet.*;
 
 import javax.naming.Context;
@@ -184,7 +185,7 @@ public class FacadeBeans {
 	 * @param concelho
 	 * @param distrito
 	 */
-	public void editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
+	public static void editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
 		utilizadorBean.editarDados(nome,email,dataNasc,contacto,jardim,morada,password,avatar,tipoUtilizador,concelho,distrito);
 	}
 
@@ -193,7 +194,7 @@ public class FacadeBeans {
 	 * @param emailPetsitter
 	 * @param servicos
 	 */
-	public boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos) {
+	public static boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos) {
 		return petsitterBean.editarServicos(emailPetsitter,servicos);
 	}
 
@@ -213,7 +214,7 @@ public class FacadeBeans {
 	 * @param raca
 	 * @param avatar
 	 */
-	public boolean editarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar) {
+	public static boolean editarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar) {
 		return donoBean.editarAnimal(emailDono,nome,idade,porte,sexo,alergias,doencas,comportamento,vacinas,desparasitacao,esterilizacao,raca,avatar);
 	}
 

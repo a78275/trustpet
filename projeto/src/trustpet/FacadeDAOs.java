@@ -1,3 +1,5 @@
+package trustpet;
+
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 import trustpet.*;
