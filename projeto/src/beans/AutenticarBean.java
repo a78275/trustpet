@@ -1,5 +1,7 @@
 package beans;
 
+import org.orm.PersistentSession;
+
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 
@@ -7,7 +9,7 @@ import javax.ejb.Stateless;
 @Stateless(name="Autenticar")
 public class AutenticarBean implements AutenticarBeanLocal {
     @Override
-    public boolean autenticar(String email, String password) {
-
+    public boolean autenticar(String email, String password, PersistentSession session) {
+        return false;
     }
 }

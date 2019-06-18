@@ -1,5 +1,6 @@
 package beans;
 
+import org.orm.PersistentSession;
 import trustpet.Petsitter;
 
 import javax.ejb.Local;
@@ -12,27 +13,27 @@ import java.util.Map;
 public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
-    public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
+    public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos, PersistentSession session) {
         return false;
     }
 
     @Override
-    public boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos) {
+    public boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session) {
         return false;
     }
 
     @Override
-    public boolean editarHorario(String emailPetsitter, Map<String, List<Integer>> horario) {
+    public boolean editarHorario(String emailPetsitter, Map<String, List<Integer>> horario, PersistentSession session) {
         return false;
     }
 
     @Override
-    public List<Petsitter> consultarPetsitters(String filtro) {
+    public List<Petsitter> consultarPetsitters(String filtro, PersistentSession session) {
         return null;
     }
 
     @Override
-    public boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos) {
+    public boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session) {
         return false;
     }
 }

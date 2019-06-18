@@ -1,5 +1,6 @@
 package beans;
 
+import org.orm.PersistentSession;
 import trustpet.Animal;
 
 import javax.ejb.Local;
@@ -19,18 +20,20 @@ public interface DonoBeanLocal {
 	 * @param doencas
 	 * @param comportamento
 	 * @param vacinas
-	 * @param desparazitacao
+	 * @param desparasitacao
 	 * @param esterilizacao
 	 * @param raca
 	 * @param avatar
+	 * @param session
 	 */
-	boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparazitacao, boolean esterilizacao, String raca, String avatar);
+	boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, PersistentSession session);
 
 	/**
 	 *
 	 * @param emailDono
+	 * @param session
 	 */
-	List<Animal> consultarAnimais(String emailDono);
+	List<Animal> consultarAnimais(String emailDono, PersistentSession session);
 
 	/**
 	 *
@@ -47,8 +50,9 @@ public interface DonoBeanLocal {
 	 * @param esterilizacao
 	 * @param raca
 	 * @param avatar
+	 * @param session
 	 */
-	boolean editarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar);
+	boolean editarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, PersistentSession session);
 
 
 }

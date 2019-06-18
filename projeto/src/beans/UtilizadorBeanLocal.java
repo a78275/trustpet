@@ -1,5 +1,6 @@
 package beans;
 
+import org.orm.PersistentSession;
 import trustpet.Utilizador;
 
 import javax.ejb.Local;
@@ -20,8 +21,9 @@ public interface UtilizadorBeanLocal {
 	 * @param tipoUtilizador
 	 * @param concelho
 	 * @param distrito
+	 * @param session
 	 */
-	boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito);
+	boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, PersistentSession session);
 
 	/**
 	 *
@@ -29,14 +31,16 @@ public interface UtilizadorBeanLocal {
 	 * @param para
 	 * @param avaliacao
 	 * @param comentario
+	 * @param session
 	 */
-	boolean avaliarUtilizador(String de, String para, int avaliacao, String comentario);
+	boolean avaliarUtilizador(String de, String para, int avaliacao, String comentario, PersistentSession session);
 
 	/**
 	 *
 	 * @param email
+	 * @param session
 	 */
-	Utilizador consultarPerfil(String email);
+	Utilizador consultarPerfil(String email, PersistentSession session);
 
 	/**
 	 *
@@ -51,8 +55,9 @@ public interface UtilizadorBeanLocal {
 	 * @param tipoUtilizador
 	 * @param concelho
 	 * @param distrito
+	 * @param session
 	 */
-	void editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito);
+	boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, PersistentSession session);
 
 
 }
