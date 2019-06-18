@@ -10,6 +10,6 @@ public interface AutenticarBeanLocal {
 	 * @param email
 	 * @param password
 	 */
-	void autenticar(String email, String password);
+	boolean autenticar(String email, String password);
 
 }

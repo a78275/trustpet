@@ -2,9 +2,11 @@ package beans;
 
 import trustpet.Utilizador;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.util.Date;
 
+@Local(UtilizadorBeanLocal.class)
 @Stateless(name="Utilizador")
 public class UtilizadorBean implements UtilizadorBeanLocal {
 

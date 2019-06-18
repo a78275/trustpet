@@ -3,10 +3,12 @@ package beans;
 import trustpet.Pedido;
 import trustpet.Petsitter;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.util.Date;
 import java.util.List;
 
+@Local(PedidoBeanLocal.class)
 @Stateless(name="Pedido")
 public class PedidoBean implements PedidoBeanLocal {
 

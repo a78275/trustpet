@@ -2,10 +2,12 @@ package beans;
 
 import trustpet.Petsitter;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.util.List;
 import java.util.Map;
 
+@Local(PetsitterBeanLocal.class)
 @Stateless(name="Petsitter")
 public class PetsitterBean implements PetsitterBeanLocal {
 

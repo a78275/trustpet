@@ -43,12 +43,12 @@ public interface DonoBeanLocal {
 	 * @param doencas
 	 * @param comportamento
 	 * @param vacinas
-	 * @param desparazitacao
+	 * @param desparasitacao
 	 * @param esterilizacao
 	 * @param raca
 	 * @param avatar
 	 */
-	boolean editarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparazitacao, boolean esterilizacao, String raca, String avatar);
+	boolean editarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar);
 
 
 }

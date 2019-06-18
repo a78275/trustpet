@@ -1,11 +1,13 @@
 package beans;
 
+import javax.ejb.Local;
 import javax.ejb.Stateless;
 
+@Local(AutenticarBeanLocal.class)
 @Stateless(name="Autenticar")
 public class AutenticarBean implements AutenticarBeanLocal {
     @Override
-    public void autenticar(String email, String password) {
+    public boolean autenticar(String email, String password) {
 
     }
 }
