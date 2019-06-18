@@ -109,25 +109,27 @@ public class FacadeBeans {
 
     /**
      *
-     * @param de
-     * @param para
+     * @param emailDono
+     * @param emailPetsitter
      * @param avaliacao
      * @param comentario
+     * @param alvo
      * @param session
      */
-    public static boolean avaliarUtilizador(String de, String para, int avaliacao, String comentario, PersistentSession session) {
-        return utilizadorBean.avaliarUtilizador(de,para,avaliacao,comentario,session);
+    boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo, PersistentSession session) {
+        return utilizadorBean.avaliarUtilizador(emailDono,emailPetsitter,avaliacao,comentario,alvo,session);
     }
 
     /**
      *
+     * @param emailDono
      * @param data
      * @param servicos
      * @param animais
      * @param session
      */
-    public static int registarPedido(Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session) {
-        return pedidoBean.registarPedido(data,servicos,animais,session);
+    public static int registarPedido(String emailDono, Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session) {
+        return pedidoBean.registarPedido(emailDono,data,servicos,animais,session);
     }
 
     /**
@@ -147,8 +149,8 @@ public class FacadeBeans {
      * @param idPedido
      * @param session
      */
-    public static boolean selPetsitter(String emailPetsitter, int idPedido, PersistentSession session) {
-        return pedidoBean.selPetsitter(emailPetsitter,idPedido,session);
+    public static boolean concluirPedido(String emailPetsitter, int idPedido, PersistentSession session) {
+        return pedidoBean.concluirPedido(emailPetsitter,idPedido,session);
     }
 
     /**
@@ -163,10 +165,11 @@ public class FacadeBeans {
     /**
      *
      * @param email
+     * @param tipoUtilizador
      * @param session
      */
-    public static Utilizador consultarPerfil(String email, PersistentSession session) {
-        return utilizadorBean.consultarPerfil(email,session);
+    public static Utilizador consultarPerfil(String email, String tipoUtilizador, PersistentSession session) {
+        return utilizadorBean.consultarPerfil(email,tipoUtilizador,session);
     }
 
     /**
@@ -218,7 +221,7 @@ public class FacadeBeans {
 
     /**
      *
-     * @param emailDono
+     * @param id
      * @param nome
      * @param idade
      * @param porte
@@ -231,6 +234,7 @@ public class FacadeBeans {
      * @param esterilizacao
      * @param raca
      * @param avatar
+     * @param ativo
      * @param session
      */
     public static boolean editarAnimal(int id, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo, PersistentSession session) {

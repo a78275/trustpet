@@ -13,12 +13,13 @@ public interface PedidoBeanLocal {
 
 	/**
 	 *
+	 * @param emailDono
 	 * @param data
 	 * @param servicos
 	 * @param animais
 	 * @param session
 	 */
-	int registarPedido(Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session);
+	int registarPedido(String emailDono, Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session);
 
 	/**
 	 *
@@ -26,7 +27,7 @@ public interface PedidoBeanLocal {
 	 * @param idPedido
 	 * @param session
 	 */
-	boolean selPetsitter(String emailPetsitter, int idPedido, PersistentSession session);
+	boolean concluirPedido(String emailPetsitter, int idPedido, PersistentSession session);
 
 	/**
 	 *
