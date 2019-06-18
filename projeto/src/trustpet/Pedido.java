@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -45,6 +45,8 @@ public class Pedido {
 	
 	private float preco;
 	
+	private boolean ativo;
+	
 	private java.util.Set ORM_animais = new java.util.HashSet();
 	
 	private java.util.Set ORM_servicos = new java.util.HashSet();
@@ -75,6 +77,14 @@ public class Pedido {
 	
 	public float getPreco() {
 		return preco;
+	}
+	
+	public void setAtivo(boolean value) {
+		this.ativo = value;
+	}
+	
+	public boolean getAtivo() {
+		return ativo;
 	}
 	
 	public void setDono(trustpet.Dono value) {

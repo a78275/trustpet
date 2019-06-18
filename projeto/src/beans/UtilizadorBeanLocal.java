@@ -7,9 +7,8 @@ import java.util.Date;
 
 @Local
 public interface UtilizadorBeanLocal {
-
 	/**
-	 * 
+	 *
 	 * @param nome
 	 * @param email
 	 * @param dataNasc
@@ -25,7 +24,7 @@ public interface UtilizadorBeanLocal {
 	boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito);
 
 	/**
-	 * 
+	 *
 	 * @param de
 	 * @param para
 	 * @param avaliacao
@@ -34,15 +33,26 @@ public interface UtilizadorBeanLocal {
 	boolean avaliarUtilizador(String de, String para, int avaliacao, String comentario);
 
 	/**
-	 * 
-	 * @param emailUtilizador
-	 */
-	boolean inativarUtilizador(String emailUtilizador);
-
-	/**
-	 * 
+	 *
 	 * @param email
 	 */
 	Utilizador consultarPerfil(String email);
+
+	/**
+	 *
+	 * @param nome
+	 * @param email
+	 * @param dataNasc
+	 * @param contacto
+	 * @param jardim
+	 * @param morada
+	 * @param password
+	 * @param avatar
+	 * @param tipoUtilizador
+	 * @param concelho
+	 * @param distrito
+	 */
+	void editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito);
+
 
 }

@@ -11,7 +11,7 @@ import java.util.List;
 public interface PedidoBeanLocal {
 
 	/**
-	 * 
+	 *
 	 * @param data
 	 * @param servicos
 	 * @param animais
@@ -19,14 +19,14 @@ public interface PedidoBeanLocal {
 	int registarPedido(Date data, List<Integer> servicos, List<Integer> animais);
 
 	/**
-	 * 
+	 *
 	 * @param emailPetsitter
 	 * @param idPedido
 	 */
 	boolean selPetsitter(String emailPetsitter, int idPedido);
 
 	/**
-	 * 
+	 *
 	 * @param data
 	 * @param servicos
 	 * @param animais
@@ -34,15 +34,14 @@ public interface PedidoBeanLocal {
 	List<Petsitter> getPetsittersPedido(Date data, List<Integer> servicos, List<Integer> animais);
 
 	/**
-	 * 
+	 *
 	 * @param idPedido
 	 */
 	boolean cancelarPedido(int idPedido);
 
 	/**
-	 * 
+	 *
 	 * @param email
 	 */
 	List<Pedido> consultarPedidos(String email);
-
 }

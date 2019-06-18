@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -31,6 +31,7 @@ public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression concelho;
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
+	public final IntegerExpression nrAvaliacoes;
 	public final CollectionExpression animais;
 	
 	public DonoDetachedCriteria() {
@@ -47,6 +48,7 @@ public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
 		concelho = new StringExpression("concelho", this.getDetachedCriteria());
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this.getDetachedCriteria());
+		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this.getDetachedCriteria());
 		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
 	}
 	
@@ -64,6 +66,7 @@ public class DonoDetachedCriteria extends AbstractORMDetachedCriteria {
 		concelho = new StringExpression("concelho", this.getDetachedCriteria());
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this.getDetachedCriteria());
+		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this.getDetachedCriteria());
 		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
 	}
 	

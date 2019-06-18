@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -31,6 +31,7 @@ public class UtilizadorCriteria extends AbstractORMCriteria {
 	public final StringExpression concelho;
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
+	public final IntegerExpression nrAvaliacoes;
 	
 	public UtilizadorCriteria(Criteria criteria) {
 		super(criteria);
@@ -46,6 +47,7 @@ public class UtilizadorCriteria extends AbstractORMCriteria {
 		concelho = new StringExpression("concelho", this);
 		distrito = new StringExpression("distrito", this);
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this);
+		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this);
 	}
 	
 	public UtilizadorCriteria(PersistentSession session) {
@@ -53,7 +55,7 @@ public class UtilizadorCriteria extends AbstractORMCriteria {
 	}
 	
 	public UtilizadorCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public Utilizador uniqueUtilizador() {

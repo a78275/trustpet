@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -61,7 +61,7 @@ public class AnimalCriteria extends AbstractORMCriteria {
 	}
 	
 	public AnimalCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public TipoAnimalCriteria createTipoCriteria() {

@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -26,6 +26,7 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final AssociationExpression dono;
 	public final StringExpression data;
 	public final FloatExpression preco;
+	public final BooleanExpression ativo;
 	public final CollectionExpression animais;
 	public final CollectionExpression servicos;
 	
@@ -38,6 +39,7 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 		dono = new AssociationExpression("dono", this.getDetachedCriteria());
 		data = new StringExpression("data", this.getDetachedCriteria());
 		preco = new FloatExpression("preco", this.getDetachedCriteria());
+		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
 		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
 		servicos = new CollectionExpression("ORM_Servicos", this.getDetachedCriteria());
 	}
@@ -51,6 +53,7 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 		dono = new AssociationExpression("dono", this.getDetachedCriteria());
 		data = new StringExpression("data", this.getDetachedCriteria());
 		preco = new FloatExpression("preco", this.getDetachedCriteria());
+		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
 		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
 		servicos = new CollectionExpression("ORM_Servicos", this.getDetachedCriteria());
 	}

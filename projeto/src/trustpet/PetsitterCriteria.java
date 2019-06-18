@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -31,6 +31,7 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 	public final StringExpression concelho;
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
+	public final IntegerExpression nrAvaliacoes;
 	public final IntegerExpression horarioId;
 	public final AssociationExpression horario;
 	public final CollectionExpression animais;
@@ -49,6 +50,7 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 		concelho = new StringExpression("concelho", this);
 		distrito = new StringExpression("distrito", this);
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this);
+		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this);
 		horarioId = new IntegerExpression("horario.id", this);
 		horario = new AssociationExpression("horario", this);
 		animais = new CollectionExpression("ORM_Animais", this);
@@ -59,7 +61,7 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 	}
 	
 	public PetsitterCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public HorarioCriteria createHorarioCriteria() {
