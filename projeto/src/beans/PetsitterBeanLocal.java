@@ -10,30 +10,37 @@ import java.util.Map;
 public interface PetsitterBeanLocal {
 
 	/**
-	 * 
+	 *
 	 * @param emailPetsitter
 	 * @param tipos
 	 */
 	boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos);
 
 	/**
-	 * 
+	 *
 	 * @param emailPetsitter
 	 * @param servicos
 	 */
 	boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos);
 
 	/**
-	 * 
+	 *
 	 * @param emailPetsitter
 	 * @param horario
 	 */
-	boolean registarHorario(String emailPetsitter, Map<String, List<Integer>> horario);
+	boolean editarHorario(String emailPetsitter, Map<String, List<Integer>> horario);
 
 	/**
-	 * 
+	 *
 	 * @param filtro
 	 */
 	List<Petsitter> consultarPetsitters(String filtro);
+
+	/**
+	 *
+	 * @param emailPetsitter
+	 * @param servicos
+	 */
+	boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos);
 
 }

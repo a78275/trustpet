@@ -9,6 +9,7 @@ import java.util.List;
 
 @Stateless(name="Pedido")
 public class PedidoBean implements PedidoBeanLocal {
+
     @Override
     public int registarPedido(Date data, List<Integer> servicos, List<Integer> animais) {
         return 0;

@@ -8,8 +8,8 @@ public interface AutenticarBeanLocal {
 	/**
 	 * 
 	 * @param email
-	 * @param passowrd
+	 * @param password
 	 */
-	void autenticar(String email, String passowrd);
+	void autenticar(String email, String password);
 
 }

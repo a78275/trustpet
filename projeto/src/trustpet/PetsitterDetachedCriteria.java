@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -31,6 +31,7 @@ public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression concelho;
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
+	public final IntegerExpression nrAvaliacoes;
 	public final IntegerExpression horarioId;
 	public final AssociationExpression horario;
 	public final CollectionExpression animais;
@@ -49,6 +50,7 @@ public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
 		concelho = new StringExpression("concelho", this.getDetachedCriteria());
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this.getDetachedCriteria());
+		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this.getDetachedCriteria());
 		horarioId = new IntegerExpression("horario.id", this.getDetachedCriteria());
 		horario = new AssociationExpression("horario", this.getDetachedCriteria());
 		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
@@ -68,6 +70,7 @@ public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
 		concelho = new StringExpression("concelho", this.getDetachedCriteria());
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this.getDetachedCriteria());
+		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this.getDetachedCriteria());
 		horarioId = new IntegerExpression("horario.id", this.getDetachedCriteria());
 		horario = new AssociationExpression("horario", this.getDetachedCriteria());
 		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());

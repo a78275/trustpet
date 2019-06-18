@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: Joana(Universidade do Minho)
  * License Type: Academic
  */
 package trustpet;
@@ -57,6 +57,8 @@ public class Utilizador {
 	private String distrito;
 	
 	private float avaliacaoMedia;
+	
+	private int nrAvaliacoes;
 	
 	public void setEmail(String value) {
 		this.email = value;
@@ -156,6 +158,14 @@ public class Utilizador {
 	
 	public float getAvaliacaoMedia() {
 		return avaliacaoMedia;
+	}
+	
+	public void setNrAvaliacoes(int value) {
+		this.nrAvaliacoes = value;
+	}
+	
+	public int getNrAvaliacoes() {
+		return nrAvaliacoes;
 	}
 	
 	public String toString() {
