@@ -13,28 +13,32 @@
  */
 package main;
 
-public class Horario {
-	public Horario() {
+public class AnimalServico {
+	public AnimalServico() {
 	}
 	
-	private java.util.Set this_getSet (int key) {
-		if (key == ORMConstants.KEY_HORARIO_DIAS) {
-			return ORM_dias;
+	private void this_setOwner(Object owner, int key) {
+		if (key == ORMConstants.KEY_ANIMALSERVICO_ANIMAL) {
+			this.animal = (main.Animal) owner;
 		}
 		
-		return null;
+		else if (key == ORMConstants.KEY_ANIMALSERVICO_SERVICO) {
+			this.servico = (main.Servico) owner;
+		}
 	}
 	
 	org.orm.util.ORMAdapter _ormAdapter = new org.orm.util.AbstractORMAdapter() {
-		public java.util.Set getSet(int key) {
-			return this_getSet(key);
+		public void setOwner(Object owner, int key) {
+			this_setOwner(owner, key);
 		}
 		
 	};
 	
 	private int id;
 	
-	private java.util.Set ORM_dias = new java.util.HashSet();
+	private main.Servico servico;
+	
+	private main.Animal animal;
 	
 	private void setId(int value) {
 		this.id = value;
@@ -48,15 +52,21 @@ public class Horario {
 		return getId();
 	}
 	
-	private void setORM_Dias(java.util.Set value) {
-		this.ORM_dias = value;
+	public void setAnimal(main.Animal value) {
+		this.animal = value;
 	}
 	
-	private java.util.Set getORM_Dias() {
-		return ORM_dias;
+	public main.Animal getAnimal() {
+		return animal;
 	}
 	
-	public final main.DiaSetCollection dias = new main.DiaSetCollection(this, _ormAdapter, ORMConstants.KEY_HORARIO_DIAS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public void setServico(main.Servico value) {
+		this.servico = value;
+	}
+	
+	public main.Servico getServico() {
+		return servico;
+	}
 	
 	public String toString() {
 		return String.valueOf(getId());

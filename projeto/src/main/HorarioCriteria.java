@@ -20,12 +20,12 @@ import org.orm.criteria.*;
 
 public class HorarioCriteria extends AbstractORMCriteria {
 	public final IntegerExpression id;
-	public final CollectionExpression horas;
+	public final CollectionExpression dias;
 	
 	public HorarioCriteria(Criteria criteria) {
 		super(criteria);
 		id = new IntegerExpression("id", this);
-		horas = new CollectionExpression("ORM_Horas", this);
+		dias = new CollectionExpression("ORM_Dias", this);
 	}
 	
 	public HorarioCriteria(PersistentSession session) {
@@ -36,8 +36,8 @@ public class HorarioCriteria extends AbstractORMCriteria {
 		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
-	public HoraCriteria createHorasCriteria() {
-		return new HoraCriteria(createCriteria("ORM_Horas"));
+	public DiaCriteria createDiasCriteria() {
+		return new DiaCriteria(createCriteria("ORM_Dias"));
 	}
 	
 	public Horario uniqueHorario() {

@@ -18,8 +18,8 @@ public class Pedido {
 	}
 	
 	private java.util.Set this_getSet (int key) {
-		if (key == ORMConstants.KEY_PEDIDO_ANIMAIS) {
-			return ORM_animais;
+		if (key == ORMConstants.KEY_PEDIDO_ANIMALSERVICOS) {
+			return ORM_animalServicos;
 		}
 		else if (key == ORMConstants.KEY_PEDIDO_SERVICOS) {
 			return ORM_servicos;
@@ -47,7 +47,7 @@ public class Pedido {
 	
 	private boolean ativo;
 	
-	private java.util.Set ORM_animais = new java.util.HashSet();
+	private java.util.Set ORM_animalServicos = new java.util.HashSet();
 	
 	private java.util.Set ORM_servicos = new java.util.HashSet();
 	
@@ -103,15 +103,15 @@ public class Pedido {
 		return petsitter;
 	}
 	
-	private void setORM_Animais(java.util.Set value) {
-		this.ORM_animais = value;
+	private void setORM_AnimalServicos(java.util.Set value) {
+		this.ORM_animalServicos = value;
 	}
 	
-	private java.util.Set getORM_Animais() {
-		return ORM_animais;
+	private java.util.Set getORM_AnimalServicos() {
+		return ORM_animalServicos;
 	}
 	
-	public final main.AnimalSetCollection animais = new main.AnimalSetCollection(this, _ormAdapter, ORMConstants.KEY_PEDIDO_ANIMAIS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final main.AnimalServicoSetCollection animalServicos = new main.AnimalServicoSetCollection(this, _ormAdapter, ORMConstants.KEY_PEDIDO_ANIMALSERVICOS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	private void setORM_Servicos(java.util.Set value) {
 		this.ORM_servicos = value;
@@ -121,7 +121,7 @@ public class Pedido {
 		return ORM_servicos;
 	}
 	
-	public final main.ServicoSetCollection servicos = new main.ServicoSetCollection(this, _ormAdapter, ORMConstants.KEY_PEDIDO_SERVICOS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final main.PrecoPetsitterServicoSetCollection servicos = new main.PrecoPetsitterServicoSetCollection(this, _ormAdapter, ORMConstants.KEY_PEDIDO_SERVICOS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

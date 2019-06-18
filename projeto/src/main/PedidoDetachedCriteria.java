@@ -13,10 +13,11 @@
  */
 package main;
 
-import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
 import org.orm.criteria.*;
+
+import java.util.List;
 
 public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id;
@@ -27,7 +28,7 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression data;
 	public final FloatExpression preco;
 	public final BooleanExpression ativo;
-	public final CollectionExpression animais;
+	public final CollectionExpression animalServicos;
 	public final CollectionExpression servicos;
 	
 	public PedidoDetachedCriteria() {
@@ -40,7 +41,7 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 		data = new StringExpression("data", this.getDetachedCriteria());
 		preco = new FloatExpression("preco", this.getDetachedCriteria());
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
-		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
+		animalServicos = new CollectionExpression("ORM_AnimalServicos", this.getDetachedCriteria());
 		servicos = new CollectionExpression("ORM_Servicos", this.getDetachedCriteria());
 	}
 	
@@ -54,7 +55,7 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 		data = new StringExpression("data", this.getDetachedCriteria());
 		preco = new FloatExpression("preco", this.getDetachedCriteria());
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
-		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
+		animalServicos = new CollectionExpression("ORM_AnimalServicos", this.getDetachedCriteria());
 		servicos = new CollectionExpression("ORM_Servicos", this.getDetachedCriteria());
 	}
 	
@@ -66,12 +67,12 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 		return new DonoDetachedCriteria(createCriteria("dono"));
 	}
 	
-	public AnimalDetachedCriteria createAnimaisCriteria() {
-		return new AnimalDetachedCriteria(createCriteria("ORM_Animais"));
+	public AnimalServicoDetachedCriteria createAnimalServicosCriteria() {
+		return new AnimalServicoDetachedCriteria(createCriteria("ORM_AnimalServicos"));
 	}
 	
-	public ServicoDetachedCriteria createServicosCriteria() {
-		return new ServicoDetachedCriteria(createCriteria("ORM_Servicos"));
+	public PrecoPetsitterServicoDetachedCriteria createServicosCriteria() {
+		return new PrecoPetsitterServicoDetachedCriteria(createCriteria("ORM_Servicos"));
 	}
 	
 	public Pedido uniquePedido(PersistentSession session) {

@@ -13,29 +13,32 @@
  */
 package main;
 
-import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
-import org.orm.criteria.*;
+import org.orm.criteria.AbstractORMDetachedCriteria;
+import org.orm.criteria.CollectionExpression;
+import org.orm.criteria.IntegerExpression;
+
+import java.util.List;
 
 public class HorarioDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id;
-	public final CollectionExpression horas;
+	public final CollectionExpression dias;
 	
 	public HorarioDetachedCriteria() {
 		super(main.Horario.class, main.HorarioCriteria.class);
 		id = new IntegerExpression("id", this.getDetachedCriteria());
-		horas = new CollectionExpression("ORM_Horas", this.getDetachedCriteria());
+		dias = new CollectionExpression("ORM_Dias", this.getDetachedCriteria());
 	}
 	
 	public HorarioDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, main.HorarioCriteria.class);
 		id = new IntegerExpression("id", this.getDetachedCriteria());
-		horas = new CollectionExpression("ORM_Horas", this.getDetachedCriteria());
+		dias = new CollectionExpression("ORM_Dias", this.getDetachedCriteria());
 	}
 	
-	public HoraDetachedCriteria createHorasCriteria() {
-		return new HoraDetachedCriteria(createCriteria("ORM_Horas"));
+	public DiaDetachedCriteria createDiasCriteria() {
+		return new DiaDetachedCriteria(createCriteria("ORM_Dias"));
 	}
 	
 	public Horario uniqueHorario(PersistentSession session) {

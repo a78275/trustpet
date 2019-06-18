@@ -38,7 +38,7 @@ public class TrustPetPersistentManager extends PersistentManager {
 	
 	public static synchronized final PersistentManager instance() throws PersistentException {
 		if (_instance == null) {
-			_instance = new TrustPetPersistentManager();
+			_instance = new main.TrustPetPersistentManager();
 		}
 		
 		return _instance;

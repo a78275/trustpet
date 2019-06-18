@@ -14,13 +14,19 @@
 package main;
 
 public interface ORMConstants extends org.orm.util.ORMBaseConstants {
+	final int KEY_ANIMALSERVICO_ANIMAL = -874847048;
+	
+	final int KEY_ANIMALSERVICO_SERVICO = 1490634627;
+	
 	final int KEY_ANIMAL_TIPO = -1718975625;
+	
+	final int KEY_DIA_HORAS = -1328581606;
 	
 	final int KEY_DONO_ANIMAIS = 890242055;
 	
-	final int KEY_HORARIO_HORAS = -2109824256;
+	final int KEY_HORARIO_DIAS = 1732931028;
 	
-	final int KEY_PEDIDO_ANIMAIS = -771053888;
+	final int KEY_PEDIDO_ANIMALSERVICOS = 57007050;
 	
 	final int KEY_PEDIDO_DONO = -615829466;
 	
@@ -39,5 +45,7 @@ public interface ORMConstants extends org.orm.util.ORMBaseConstants {
 	final int KEY_REVIEW_DONO = -1267637261;
 	
 	final int KEY_REVIEW_PETSITTER = 658404443;
+	
+	final int KEY_SERVICO_TIPOANIMAIS = 1554315814;
 	
 }

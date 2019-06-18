@@ -27,7 +27,7 @@ public class PedidoCriteria extends AbstractORMCriteria {
 	public final StringExpression data;
 	public final FloatExpression preco;
 	public final BooleanExpression ativo;
-	public final CollectionExpression animais;
+	public final CollectionExpression animalServicos;
 	public final CollectionExpression servicos;
 	
 	public PedidoCriteria(Criteria criteria) {
@@ -40,7 +40,7 @@ public class PedidoCriteria extends AbstractORMCriteria {
 		data = new StringExpression("data", this);
 		preco = new FloatExpression("preco", this);
 		ativo = new BooleanExpression("ativo", this);
-		animais = new CollectionExpression("ORM_Animais", this);
+		animalServicos = new CollectionExpression("ORM_AnimalServicos", this);
 		servicos = new CollectionExpression("ORM_Servicos", this);
 	}
 	
@@ -60,12 +60,12 @@ public class PedidoCriteria extends AbstractORMCriteria {
 		return new DonoCriteria(createCriteria("dono"));
 	}
 	
-	public AnimalCriteria createAnimaisCriteria() {
-		return new AnimalCriteria(createCriteria("ORM_Animais"));
+	public AnimalServicoCriteria createAnimalServicosCriteria() {
+		return new AnimalServicoCriteria(createCriteria("ORM_AnimalServicos"));
 	}
 	
-	public ServicoCriteria createServicosCriteria() {
-		return new ServicoCriteria(createCriteria("ORM_Servicos"));
+	public PrecoPetsitterServicoCriteria createServicosCriteria() {
+		return new PrecoPetsitterServicoCriteria(createCriteria("ORM_Servicos"));
 	}
 	
 	public Pedido uniquePedido() {

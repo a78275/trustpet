@@ -21,11 +21,13 @@ import org.orm.criteria.*;
 public class ServicoCriteria extends AbstractORMCriteria {
 	public final IntegerExpression id;
 	public final StringExpression designacao;
+	public final CollectionExpression tipoAnimais;
 	
 	public ServicoCriteria(Criteria criteria) {
 		super(criteria);
 		id = new IntegerExpression("id", this);
 		designacao = new StringExpression("designacao", this);
+		tipoAnimais = new CollectionExpression("ORM_TipoAnimais", this);
 	}
 	
 	public ServicoCriteria(PersistentSession session) {
@@ -34,6 +36,10 @@ public class ServicoCriteria extends AbstractORMCriteria {
 	
 	public ServicoCriteria() throws PersistentException {
 		this(TrustPetPersistentManager.instance().getSession());
+	}
+	
+	public TipoAnimalCriteria createTipoAnimaisCriteria() {
+		return new TipoAnimalCriteria(createCriteria("ORM_TipoAnimais"));
 	}
 	
 	public Servico uniqueServico() {
