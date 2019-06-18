@@ -1,7 +1,7 @@
 package beans;
 
-import trustpet.Pedido;
-import trustpet.Petsitter;
+import main.Pedido;
+import main.Petsitter;
 
 import javax.ejb.Stateless;
 import java.util.Date;

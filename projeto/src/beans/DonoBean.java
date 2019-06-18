@@ -1,6 +1,6 @@
 package beans;
 
-import trustpet.Animal;
+import main.Animal;
 
 import javax.ejb.Stateless;
 import java.util.List;

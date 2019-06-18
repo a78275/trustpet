@@ -1,6 +1,6 @@
 package beans;
 
-import trustpet.Utilizador;
+import main.Utilizador;
 
 import javax.ejb.Stateless;
 import java.util.Date;

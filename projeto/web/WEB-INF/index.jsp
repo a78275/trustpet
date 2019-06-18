@@ -63,7 +63,7 @@
                 <div class="row">
                     <div class="col-12">
                         <p id="contacttext" class="section-subheading">Contacte-nos!</p>
-                        <p id="email">trustpet@email.com</p>
+                        <p id="email">main@email.com</p>
                     </div>
                 </div>
             </div>

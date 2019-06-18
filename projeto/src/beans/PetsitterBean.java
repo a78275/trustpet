@@ -1,6 +1,6 @@
 package beans;
 
-import trustpet.Petsitter;
+import main.Petsitter;
 
 import javax.ejb.Stateless;
 import java.util.List;
