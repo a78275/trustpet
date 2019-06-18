@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: claudia(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="trustpet.Utilizador" table="Utilizador" lazy="false">
+		<id name="email" column="Email" type="string">
+			<generator class="assigned">
+			</generator>
+		</id>
+		<property name="password" column="Password" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="nome" column="Nome" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="avatar" column="Avatar" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="dataNasc" column="DataNasc" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="contacto" column="Contacto" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="jardim" column="Jardim" type="boolean" not-null="true" lazy="false"/>
+		<property name="morada" column="Morada" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="ativo" column="Ativo" type="boolean" not-null="true" lazy="false"/>
+		<property name="concelho" column="Concelho" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="distrito" column="Distrito" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="avaliacaoMedia" column="AvaliacaoMedia" type="float" not-null="true" lazy="false"/>
+		<joined-subclass name="trustpet.Dono" table="Dono" lazy="false">
+			<key>
+				<column name="UtilizadorEmail"/>
+			</key>
+			<set name="ORM_Animais" lazy="true" cascade="save-update,lock" inverse="false">
+				<key column="DonoUtilizadorEmail" not-null="true"/>
+				<one-to-many class="trustpet.Animal"/>
+			</set>
+		</joined-subclass>
+		<joined-subclass name="trustpet.Petsitter" table="Petsitter" lazy="false">
+			<key>
+				<column name="UtilizadorEmail"/>
+			</key>
+			<set name="ORM_Animais" lazy="true" cascade="save-update,lock" inverse="false">
+				<key column="PetsitterUtilizadorEmail" not-null="true"/>
+				<one-to-many class="trustpet.TipoAnimal"/>
+			</set>
+			<many-to-one name="horario" column="HorarioId" class="trustpet.Horario" cascade="save-update,lock,delete" unique="true" not-null="true" lazy="proxy" access="field">
+			</many-to-one>
+		</joined-subclass>
+	</class>
+</hibernate-mapping>
