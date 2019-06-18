@@ -1,4 +1,11 @@
-import trustpet.*;
+import trustpet.Animal;
+import trustpet.Pedido;
+import trustpet.Petsitter;
+import trustpet.Utilizador;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 public class FacadeBeans {
 
@@ -16,7 +23,7 @@ public class FacadeBeans {
 	 * @param concelho
 	 * @param distrito
 	 */
-	public boolean registarUtilizador(string nome, string email, Date dataNasc, string contacto, boolean jardim, string morada, string password, string avatar, string tipoUtilizador, string concelho, string distrito) {
+	public boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
 		// TODO - implement FacadeBeans.registarUtilizador
 		throw new UnsupportedOperationException();
 	}
@@ -26,7 +33,7 @@ public class FacadeBeans {
 	 * @param email
 	 * @param passowrd
 	 */
-	public void autenticar(string email, string passowrd) {
+	public void autenticar(String email, String passowrd) {
 		// TODO - implement FacadeBeans.autenticar
 		throw new UnsupportedOperationException();
 	}
@@ -48,7 +55,7 @@ public class FacadeBeans {
 	 * @param avatar
 	 * @param ativo
 	 */
-	public boolean registarAnimal(string emailDono, string nome, int idade, string porte, string sexo, string alergias, string doencas, string comportamento, boolean vacinas, boolean desparazitacao, boolean esterilizacao, string raca, string avatar, boolean ativo) {
+	public boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparazitacao, boolean esterilizacao, String raca, String avatar, boolean ativo) {
 		// TODO - implement FacadeBeans.registarAnimal
 		throw new UnsupportedOperationException();
 	}
@@ -58,7 +65,7 @@ public class FacadeBeans {
 	 * @param emailPetsitter
 	 * @param tipos
 	 */
-	public boolean registarTiposAnimais(string emailPetsitter, List<Integer> tipos) {
+	public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
 		// TODO - implement FacadeBeans.registarTiposAnimais
 		throw new UnsupportedOperationException();
 	}
@@ -68,7 +75,7 @@ public class FacadeBeans {
 	 * @param emailPetsitter
 	 * @param servicos
 	 */
-	public boolean registarServicos(string emailPetsitter, Map<Integer, Float> servicos) {
+	public boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos) {
 		// TODO - implement FacadeBeans.registarServicos
 		throw new UnsupportedOperationException();
 	}
@@ -78,7 +85,7 @@ public class FacadeBeans {
 	 * @param emailPetsitter
 	 * @param horario
 	 */
-	public boolean registarHorario(string emailPetsitter, Map<String, List<Integer>> horario) {
+	public boolean registarHorario(String emailPetsitter, Map<String, List<Integer>> horario) {
 		// TODO - implement FacadeBeans.registarHorario
 		throw new UnsupportedOperationException();
 	}
@@ -87,7 +94,7 @@ public class FacadeBeans {
 	 * 
 	 * @param filtro
 	 */
-	public List<Petsitter> consultarPetsitters(string filtro) {
+	public List<Petsitter> consultarPetsitters(String filtro) {
 		// TODO - implement FacadeBeans.consultarPetsitters
 		throw new UnsupportedOperationException();
 	}
@@ -99,7 +106,7 @@ public class FacadeBeans {
 	 * @param avaliacao
 	 * @param comentario
 	 */
-	public boolean avaliarUtilizador(string de, string para, int avaliacao, string comentario) {
+	public boolean avaliarUtilizador(String de, String para, int avaliacao, String comentario) {
 		// TODO - implement FacadeBeans.avaliarUtilizador
 		throw new UnsupportedOperationException();
 	}
@@ -131,7 +138,7 @@ public class FacadeBeans {
 	 * @param emailPetsitter
 	 * @param idPedido
 	 */
-	public boolean selPetsitter(string emailPetsitter, int idPedido) {
+	public boolean selPetsitter(String emailPetsitter, int idPedido) {
 		// TODO - implement FacadeBeans.selPetsitter
 		throw new UnsupportedOperationException();
 	}
@@ -140,7 +147,7 @@ public class FacadeBeans {
 	 * 
 	 * @param emailDono
 	 */
-	public List<Animal> consultarAnimais(string emailDono) {
+	public List<Animal> consultarAnimais(String emailDono) {
 		// TODO - implement FacadeBeans.consultarAnimais
 		throw new UnsupportedOperationException();
 	}
@@ -149,7 +156,7 @@ public class FacadeBeans {
 	 * 
 	 * @param email
 	 */
-	public Utilizador consultarPerfil(string email) {
+	public Utilizador consultarPerfil(String email) {
 		// TODO - implement FacadeBeans.consultarPerfil
 		throw new UnsupportedOperationException();
 	}
@@ -167,7 +174,7 @@ public class FacadeBeans {
 	 * 
 	 * @param email
 	 */
-	public List<Pedido> consultarPedidos(string email) {
+	public List<Pedido> consultarPedidos(String email) {
 		// TODO - implement FacadeBeans.consultarPedidos
 		throw new UnsupportedOperationException();
 	}
