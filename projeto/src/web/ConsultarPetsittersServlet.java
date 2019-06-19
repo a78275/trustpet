@@ -32,6 +32,6 @@ public class ConsultarPetsittersServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("\n\n\n\n\nREQUEST: " + request + "\n\n\n\n");
+        System.out.println("\n\n\n\n\nREQUEST: " + request.getParameter("email") + "\n\n\n\n");
     }
 }

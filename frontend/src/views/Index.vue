@@ -13,7 +13,7 @@
                             <b>Cuidamos dos seus animais enquanto está fora!</b>
                         </div>
                         <a id="whitebtn" class="btn btn-xl" @click="login()">Login</a>
-                        <p id="registerask">Ainda não tem conta? <a href="#">Registe-se!</a></p>
+                        <p id="registerask">Ainda não tem conta? <a @click="registar()">Registe-se!</a></p>
                     </div>
                 </div>
             </section>
@@ -78,7 +78,10 @@
 export default {
     methods: {
         login: function () {
-            this.$router.push('/login')
+            this.$router.push('/Autenticar')
+        },
+        registar: function () {
+            this.$router.push('/Registar')
         }
     }
 }

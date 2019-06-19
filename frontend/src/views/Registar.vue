@@ -1,32 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <link rel="icon" href="favicon.ico">
-    <title>Trust Pet</title>
-    <link rel="stylesheet" type="text/css" href="style/reset.css">
-    <link rel="stylesheet" type="text/css" href="style/style.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-        crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-        crossorigin="anonymous"></script>
-</head>
-
-<body>
+<template>
     <div class="wrapper">
         <div class="d-none d-sm-block" id="side">
-            <a href="index.html"><img src="img/logo.png" class="mt-5 mx-auto d-block" width="250" id="logo" /></a>
+            <img @click="index()" src="../assets/logo.png" class="mt-5 mx-auto d-block" width="250" id="logo"/>
         </div>
         <div id="side2">
             <div class="row">
@@ -41,10 +16,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-6">
-                                    <img src="img/dono.png" id="avatar" class="mx-3 d-block" width="200" />
+                                    <img src="../assets/dono.png" id="avatar" class="mx-3 d-block" width="200" />
                                 </div>
                                 <div class="col-6">
-                                    <img src="img/petsitter.png" id="avatar" class="mx-3 d-block" width="200" />
+                                    <img src="../assets/petsitter.png" id="avatar" class="mx-3 d-block" width="200" />
                                 </div>
                             </div>
                             <div class="form-check">
@@ -67,15 +42,25 @@
             </div>
             <footer class="row">
                 <div class="col-6 text-center my-3">
-                    <a href="login.html"><button id="voltar" type="submit" class="btn border">Voltar</button></a>
+                    <button @click="login()" id="#whitebtn" type="submit" class="btn border">Voltar</button>
                 </div>
                 <div class="col-6 text-center my-3">
-                    <a href="registoPerfilDono.html"><button id="seguinte" stype="submit"
-                            class="btn">Seguinte</button></a>
+                    <button id="darkbluebtn" class="btn">Seguinte</button>
                 </div>
             </footer>
         </div>
     </div>
-</body>
+</template>
 
-</html>
+<script>
+export default {
+    methods: {
+        index: function () {
+            this.$router.push('/')
+        },
+        login: function () {
+            this.$router.push('/Autenticar')
+        }
+    }
+}
+</script>

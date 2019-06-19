@@ -241,6 +241,7 @@ public class PedidoBean implements PedidoBeanLocal {
 
     private boolean checkPetsitterHorario(Petsitter petsitter, Date dataInicio, Date dataFim) {
         //TODO: acabar
+        return false;
     }
 
     private Set<String> getPetsittersServico(Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
