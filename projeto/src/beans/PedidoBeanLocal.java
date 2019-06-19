@@ -7,6 +7,7 @@ import org.orm.PersistentSession;
 import javax.ejb.Local;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Local
 public interface PedidoBeanLocal {
@@ -14,13 +15,12 @@ public interface PedidoBeanLocal {
 	/**
 	 *
 	 * @param emailDono
-	 * @param data
-	 * @param servicos
-	 * @param animais
+	 * @param dataInicio
+	 * @param dataFim
+	 * @param animalServicos
 	 * @param session
 	 */
-	int registarPedido(String emailDono, Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session);
-
+	public int registarPedido(String emailDono, Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session);
 	/**
 	 *
 	 * @param emailPetsitter
@@ -31,12 +31,12 @@ public interface PedidoBeanLocal {
 
 	/**
 	 *
-	 * @param data
-	 * @param servicos
-	 * @param animais
+	 * @param dataInicio
+	 * @param dataFim
+	 * @param animalServicos
 	 * @param session
 	 */
-	List<Petsitter> getPetsittersPedido(Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session);
+	List<Petsitter> getPetsittersPedido(Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session);
 
 	/**
 	 *

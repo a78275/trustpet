@@ -38,7 +38,7 @@ public class DonoBean implements DonoBeanLocal {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
-            //Dono não existe
+            // Dono não existe
             return false;
         }
         dono.animais.add(animal);
@@ -47,7 +47,7 @@ public class DonoBean implements DonoBeanLocal {
             FacadeDAOs.saveDono(dono);
         } catch (PersistentException e) {
             e.printStackTrace();
-            //Erro ao guardar dono
+            // Erro ao guardar dono
             return false;
         }
         return true;
@@ -61,7 +61,7 @@ public class DonoBean implements DonoBeanLocal {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
-            //Dono não existe
+            // Dono não existe
             return null;
         }
         List<Animal> animaisAtivos = new ArrayList<>();
@@ -80,7 +80,7 @@ public class DonoBean implements DonoBeanLocal {
             animal= FacadeDAOs.getAnimal(session,id);
         } catch (PersistentException e) {
             e.printStackTrace();
-            //Animal não existe
+            // Animal não existe
             return false;
         }
         animal.setNome(nome);
@@ -99,7 +99,7 @@ public class DonoBean implements DonoBeanLocal {
             FacadeDAOs.saveAnimal(animal);
         } catch (PersistentException e) {
             e.printStackTrace();
-            //Erro ao guardar animal
+            // Erro ao guardar animal
             return false;
         }
         return true;

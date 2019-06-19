@@ -41,11 +41,13 @@ public class Pedido {
 	
 	private main.Dono dono;
 	
-	private String data;
-	
 	private float preco;
 	
 	private boolean ativo;
+	
+	private String dataInicio;
+	
+	private String dataFim;
 	
 	private java.util.Set ORM_animalServicos = new java.util.HashSet();
 	
@@ -63,14 +65,6 @@ public class Pedido {
 		return getId();
 	}
 	
-	public void setData(String value) {
-		this.data = value;
-	}
-	
-	public String getData() {
-		return data;
-	}
-	
 	public void setPreco(float value) {
 		this.preco = value;
 	}
@@ -85,6 +79,22 @@ public class Pedido {
 	
 	public boolean getAtivo() {
 		return ativo;
+	}
+	
+	public void setDataInicio(String value) {
+		this.dataInicio = value;
+	}
+	
+	public String getDataInicio() {
+		return dataInicio;
+	}
+	
+	public void setDataFim(String value) {
+		this.dataFim = value;
+	}
+	
+	public String getDataFim() {
+		return dataFim;
 	}
 	
 	public void setDono(main.Dono value) {

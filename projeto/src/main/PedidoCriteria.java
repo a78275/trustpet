@@ -24,9 +24,10 @@ public class PedidoCriteria extends AbstractORMCriteria {
 	public final AssociationExpression petsitter;
 	public final StringExpression donoId;
 	public final AssociationExpression dono;
-	public final StringExpression data;
 	public final FloatExpression preco;
 	public final BooleanExpression ativo;
+	public final StringExpression dataInicio;
+	public final StringExpression dataFim;
 	public final CollectionExpression animalServicos;
 	public final CollectionExpression servicos;
 	
@@ -37,9 +38,10 @@ public class PedidoCriteria extends AbstractORMCriteria {
 		petsitter = new AssociationExpression("petsitter", this);
 		donoId = new StringExpression("dono.", this);
 		dono = new AssociationExpression("dono", this);
-		data = new StringExpression("data", this);
 		preco = new FloatExpression("preco", this);
 		ativo = new BooleanExpression("ativo", this);
+		dataInicio = new StringExpression("dataInicio", this);
+		dataFim = new StringExpression("dataFim", this);
 		animalServicos = new CollectionExpression("ORM_AnimalServicos", this);
 		servicos = new CollectionExpression("ORM_Servicos", this);
 	}
@@ -49,7 +51,7 @@ public class PedidoCriteria extends AbstractORMCriteria {
 	}
 	
 	public PedidoCriteria() throws PersistentException {
-		this(TrustPetPersistentManager.instance().getSession());
+		this(ClassPersistentManager.instance().getSession());
 	}
 	
 	public PetsitterCriteria createPetsitterCriteria() {

@@ -13,9 +13,8 @@
  */
 package main;
 
+import org.orm.*;
 import org.hibernate.Query;
-import org.orm.PersistentException;
-import org.orm.PersistentSession;
 
 import java.util.List;
 

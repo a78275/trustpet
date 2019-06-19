@@ -9,14 +9,16 @@ import javax.ejb.Stateless;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Local(PedidoBeanLocal.class)
 @Stateless(name="Pedido")
 public class PedidoBean implements PedidoBeanLocal {
 
     @Override
-    public int registarPedido(String emailDono, Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session) {
+    public int registarPedido(String emailDono, Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
         // Criar pedido
         Pedido pedido = FacadeDAOs.createPedido();
 
@@ -30,33 +32,18 @@ public class PedidoBean implements PedidoBeanLocal {
         }
         pedido.setDono(dono);
 
-        // Set da data
+        // Set das datas
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm");
-        String parsedData = format.format(data);
-        pedido.setData(parsedData);
+        String parsedDataInicio = format.format(dataInicio);
+        pedido.setDataInicio(parsedDataInicio);
+        String parsedDataFim = format.format(dataInicio);
+        pedido.setDataFim(parsedDataFim);
 
-        // Set dos servicos
-        for(int idServico : servicos){
-            Servico newServico = null;
-            try {
-                newServico = FacadeDAOs.getServico(session, idServico);
-            } catch (PersistentException e) {
-                e.printStackTrace();
-                return -1;
-            }
-            pedido.servicos.add(newServico);
-        }
+        // Set dos animalServicos
+        boolean sucesso = setAnimalServicos(session, pedido, animalServicos);
 
-        // Set dos animais
-        for(int idAnimal : animais){
-            Animal newAnimal = null;
-            try {
-                newAnimal = FacadeDAOs.getAnimal(session, idAnimal);
-                pedido.animais.add(newAnimal);
-            } catch (PersistentException e) {
-                e.printStackTrace();
-                return -1;
-            }
+        if(!sucesso){
+            return -1;
         }
 
         // Set do estado
@@ -101,31 +88,124 @@ public class PedidoBean implements PedidoBeanLocal {
             return false;
         }
 
-        // Set do preço
+        // Get dos precoPetsitterServicos
+        Map<Integer, Float> servicoPreco = null;
         try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter = '" + petsitter.getEmail() + "'", null);
-            //TODO: continuar
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + petsitter.getEmail() + "'", null);
+            servicoPreco = new HashMap<>();
+            for(PrecoPetsitterServico precoPetsitterServico : precoPetsitterServicos){
+                servicoPreco.put(precoPetsitterServico.getServico().getId(), precoPetsitterServico.getPreco());
+            }
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
         }
 
-        return false;
+        // Set do preço
+        float preco = 0;
+        for(AnimalServico animalServico : pedido.animalServicos.toArray()){
+            preco += servicoPreco.get(animalServico.getServico().getId());
+        }
+        pedido.setPreco(preco);
+
+        // Save do pedido na BD
+        boolean save = false;
+        try {
+            save = FacadeDAOs.savePedido(pedido);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // Se for bem sucedido retornar ID senão retornar -1
+        return save;
     }
 
     @Override
-    public List<Petsitter> getPetsittersPedido(Date data, List<Integer> servicos, List<Integer> animais, PersistentSession session) {
+    public List<Petsitter> getPetsittersPedido(Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
         //TODO: fazer
         return null;
     }
 
     @Override
     public boolean cancelarPedido(int idPedido, PersistentSession session) {
-        return false;
+        // Get do pedido
+        Pedido pedido = null;
+        try {
+            pedido = FacadeDAOs.getPedido(session, idPedido);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // Tornar o pedido inativo
+        pedido.setAtivo(false);
+
+        // Save do pedido
+        try {
+            FacadeDAOs.savePedido(pedido);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        return true;
     }
 
     @Override
     public List<Pedido> consultarPedidos(String email, PersistentSession session) {
-        return null;
+        try {
+            // Get dos pedidos do utilizador
+            return FacadeDAOs.listPedido(session, "dono='" + email + "' OR petsitter='" + email + "'", null);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    private boolean setAnimalServicos(PersistentSession session, Pedido pedido, Map<Integer, List<Integer>> animalServicos){
+        for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
+            // Get do animal
+            Animal animal = null;
+            try {
+                animal = FacadeDAOs.getAnimal(session, e.getKey());
+            } catch (PersistentException e1) {
+                e1.printStackTrace();
+                return false;
+            }
+
+            // Get do servico
+            Servico servico = null;
+            for(int idServico : e.getValue()){
+                try {
+                    servico = FacadeDAOs.getServico(session, idServico);
+                } catch (PersistentException e1) {
+                    e1.printStackTrace();
+                    return false;
+                }
+            }
+
+            // Create do animalServico
+            AnimalServico animalServico = FacadeDAOs.createAnimalServico();
+            animalServico.setAnimal(animal);
+            animalServico.setServico(servico);
+
+            // Save do animalServico
+            try {
+                boolean save = FacadeDAOs.saveAnimalServico(animalServico);
+
+                if(!save){
+                    return false;
+                }
+            } catch (PersistentException e1) {
+                e1.printStackTrace();
+                return false;
+            }
+
+            // Add do animalServico aos animalServicos do Pedido
+            pedido.animalServicos.add(animalServico);
+        }
+
+        return true;
     }
 }

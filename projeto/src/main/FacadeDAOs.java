@@ -287,4 +287,69 @@ public class FacadeDAOs {
         }
     }
 
+    /**
+     *
+     * @param session
+     * @param id
+     */
+    public static TipoAnimal getTipoAnimal(PersistentSession session, int id) throws PersistentException {
+        if(session == null) {
+            return TipoAnimalDAO.getTipoAnimalByORMID(id);
+        }
+        else {
+            return TipoAnimalDAO.getTipoAnimalByORMID(session, id);
+        }
+    }
+
+    /**
+     *
+     * @param animalServico
+     */
+    public static boolean saveAnimalServico(AnimalServico animalServico) throws PersistentException {
+        return AnimalServicoDAO.save(animalServico);
+    }
+
+    public static AnimalServico createAnimalServico() {
+        return AnimalServicoDAO.createAnimalServico();
+    }
+
+    /**
+     *
+     * @param session
+     * @param condition
+     * @param orderBy
+     */
+    public static List<AnimalServico> listAnimalServico(PersistentSession session, String condition, String orderBy) throws PersistentException {
+        if (session == null) {
+            return Arrays.asList(AnimalServicoDAO.listAnimalServicoByQuery(condition, orderBy));
+        } else {
+            return Arrays.asList(AnimalServicoDAO.listAnimalServicoByQuery(session, condition, orderBy));
+        }
+    }
+
+    public static Dia createDia() {
+        return DiaDAO.createDia();
+    }
+
+    /**
+     *
+     * @param dia
+     */
+    public static boolean saveDia(Dia dia) throws PersistentException {
+        return DiaDAO.save(dia);
+    }
+
+    /**
+     *
+     * @param session
+     * @param id
+     */
+    public static Hora getHora(PersistentSession session, int id) throws PersistentException {
+        if(session == null) {
+            return HoraDAO.getHoraByORMID(id);
+        }
+        else {
+            return HoraDAO.getHoraByORMID(session, id);
+        }
+    }
 }
