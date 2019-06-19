@@ -8,10 +8,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Local(PedidoBeanLocal.class)
 @Stateless(name="Pedido")
@@ -123,8 +120,146 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public List<Petsitter> getPetsittersPedido(Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
-        //TODO: fazer
-        return null;
+        // Buscar Petsitters que fazem os serviços pretendidos
+        Set<String> emailsPetsitters = getPetsittersServico(animalServicos, session);
+
+        // Buscar Petsitters que trabalham neste horário
+        if(emailsPetsitters != null) {
+            emailsPetsitters = getPetsittersHorario(dataInicio, dataFim, session, emailsPetsitters);
+        }
+
+        // Remover Petsitters que têm pedidos neste horário
+        if(emailsPetsitters != null) {
+            emailsPetsitters = removePetsittersComPedidos(session, emailsPetsitters, dataInicio, dataFim);
+        }
+
+        // Buscar Petsitters
+        return getPetsitters(session, emailsPetsitters);
+    }
+
+    private List<Petsitter> getPetsitters(PersistentSession session, Set<String> emailsPetsitters) {
+        List<Petsitter> petsitters = new ArrayList<>();
+        if(emailsPetsitters != null) {
+            for(String emailPetsitter : emailsPetsitters){
+                try {
+                    Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+                    if(!petsitters.add(petsitter)){
+                        return null;
+                    }
+                } catch (PersistentException e) {
+                    e.printStackTrace();
+                    return null;
+                }
+            }
+        }
+
+        if(petsitters.isEmpty()){
+            return null;
+        }
+        else {
+            return petsitters;
+        }
+    }
+
+    private Set<String> removePetsittersComPedidos(PersistentSession session, Set<String> emailsPetsitters, Date dataInicio, Date dataFim) {
+        try {
+            List<Pedido> pedidos = FacadeDAOs.listPedido(session, null, null);
+            for (Pedido pedido : pedidos) {
+                if (checkPedidoNoHorario(pedido, dataInicio, dataFim)) {
+                    String emailPetsitter = pedido.getPetsitter().getEmail();
+
+                    if (!emailsPetsitters.remove(emailPetsitter)) {
+                        return null;
+                    }
+                }
+            }
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        return emailsPetsitters;
+    }
+
+    private boolean checkPedidoNoHorario(Pedido pedido, Date dataInicio, Date dataFim) {
+        
+    }
+
+    private Set<String> getPetsittersHorario(Date dataInicio, Date dataFim, PersistentSession session, Set<String> emailsPetsitters) {
+        Set<String> emailsPetsittersAux = new HashSet<>();
+        for(String emailPetsitter : emailsPetsitters){
+            try {
+                Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+                if(checkPetsitterHorario(petsitter, dataInicio, dataFim)){
+                    if(!emailsPetsittersAux.add(petsitter.getEmail())){
+                        return null;
+                    }
+                }
+
+                if(!emailsPetsitters.retainAll(emailsPetsittersAux)){
+                    return null;
+                }
+            } catch (PersistentException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        return emailsPetsitters;
+    }
+
+    private boolean checkPetsitterHorario(Petsitter petsitter, Date dataInicio, Date dataFim) {
+        //TODO: acabar
+    }
+
+    private Set<String> getPetsittersServico(Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+        Set<String> emailsPetsitters = new HashSet<>();
+        boolean firstIter = true;
+        for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
+            // Primeira iteração do ciclo
+            if(firstIter){
+                for (int servico : e.getValue()) {
+                    try {
+                        // Get precoPetsitterServicos do serviço
+                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servico='" + servico + "'", null);
+                        // Get dos petsitters que fazem esse serviço
+                        for (PrecoPetsitterServico pps : precoPetsitterServicos) {
+                            if(!emailsPetsitters.add(pps.getPetsitter().getEmail())){
+                                return null;
+                            }
+                        }
+                    } catch (PersistentException e1) {
+                        e1.printStackTrace();
+                        return null;
+                    }
+                }
+            }
+            // Próximas iterações
+            else {
+                for (int servico : e.getValue()) {
+                    try {
+                        // Get precoPetsitterServicos do serviço
+                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servico='" + servico + "'", null);
+                        Set<String> emailsPetsittersAux = new HashSet<>();
+                        // Get dos petsitters que fazem esse serviço
+                        for(PrecoPetsitterServico pps : precoPetsitterServicos){
+                            if(!emailsPetsittersAux.add(pps.getPetsitter().getEmail())){
+                                return null;
+                            }
+                        }
+                        // Interseção dos dois sets
+                        if(!emailsPetsitters.retainAll(emailsPetsittersAux)){
+                            return null;
+                        }
+                    } catch (PersistentException e1) {
+                        e1.printStackTrace();
+                        return null;
+                    }
+                }
+            }
+        }
+
+        return emailsPetsitters;
     }
 
     @Override
