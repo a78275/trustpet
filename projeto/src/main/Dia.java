@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: claudia(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -34,15 +34,15 @@ public class Dia {
 	
 	private int id;
 	
-	private String dia;
+	private int dia;
 	
 	private java.util.Set ORM_horas = new java.util.HashSet();
 	
-	public void setDia(String value) {
+	public void setDia(int value) {
 		this.dia = value;
 	}
 	
-	public String getDia() {
+	public int getDia() {
 		return dia;
 	}
 	

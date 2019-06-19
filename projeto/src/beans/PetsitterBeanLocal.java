@@ -32,7 +32,7 @@ public interface PetsitterBeanLocal {
 	 * @param horario
 	 * @param session
 	 */
-	boolean editarHorario(String emailPetsitter, Map<String, List<Integer>> horario, PersistentSession session);
+	boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario, PersistentSession session);
 
 	/**
 	 *

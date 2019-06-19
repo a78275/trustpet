@@ -8,6 +8,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.awt.print.Book;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -181,7 +182,37 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     private boolean checkPedidoNoHorario(Pedido pedido, Date dataInicio, Date dataFim) {
+        // Get das datas de inicio e fim do pedido
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm");
+        Date pedidoDataInicio = null;
+        Date pedidoDataFim = null;
+        try {
+            pedidoDataInicio = format.parse(pedido.getDataInicio());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+        try {
+            pedidoDataFim = format.parse(pedido.getDataFim());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
 
+        // Cálculo da interseção entre datas
+        if(pedidoDataInicio != null && pedidoDataFim != null){
+            if ((pedidoDataFim.after(dataInicio) && pedidoDataFim.before(dataFim)) ||
+                (pedidoDataInicio.after(dataInicio) && pedidoDataInicio.before(dataFim)) ||
+                (dataInicio.after(pedidoDataInicio) && dataFim.before(pedidoDataFim)) ||
+                (dataInicio.equals(pedidoDataInicio) && dataFim.equals(pedidoDataFim))){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     private Set<String> getPetsittersHorario(Date dataInicio, Date dataFim, PersistentSession session, Set<String> emailsPetsitters) {
@@ -213,7 +244,6 @@ public class PedidoBean implements PedidoBeanLocal {
         DateFormat horaformat = new SimpleDateFormat("HH");
 
         Calendar calendar = Calendar.getInstance();
-
         calendar.setTime(dataInicio);
         int dataInicioDia = calendar.get(Calendar.DAY_OF_WEEK);
         int dataInicioHora = Integer.parseInt(horaformat.format(dataInicio));
@@ -222,7 +252,16 @@ public class PedidoBean implements PedidoBeanLocal {
         int dataFimDia = calendar.get(Calendar.DAY_OF_WEEK);
         int dataFimHora = Integer.parseInt(horaformat.format(dataFim));
 
+        //TODO Mudar fator?
         int fator = 3;
+        int diferenca;
+
+        if (dataInicioDia > dataFimDia) {
+            diferenca= (7-dataInicioDia+1)+dataFimDia;
+        }
+        else {
+            diferenca= dataFimDia-dataInicioDia+1;
+        }
 
         Horario horario = petsitter.getHorario();
         if (horario != null) {
@@ -233,10 +272,12 @@ public class PedidoBean implements PedidoBeanLocal {
                     return Integer.compare(d1.getDia(), d2.getDia());
                 }
             });
+
             boolean contar = false;
             if (dataInicioDia > dataFimDia) {
                 contar = true;
             }
+
             for (Dia dia : dias) {
                 //Pedido no mesmo dia
                 if (dia.getDia() == dataInicioDia && dia.getDia() == dataFimDia) {
@@ -263,6 +304,10 @@ public class PedidoBean implements PedidoBeanLocal {
                 //Dia inicial e final
                 if(dia.getDia() == dataFimDia) {
                     contar = false;
+                    if (dia.horas.toArray().length<fator) {
+                        return false;
+                    }
+                    diferenca-=1;
                 }
                 else if (dia.getDia() == dataInicioDia) {
                     contar = true;
@@ -273,11 +318,21 @@ public class PedidoBean implements PedidoBeanLocal {
                     if (dia.horas.toArray().length<fator) {
                         return false;
                     }
+                    diferenca-=1;
                 }
 
             }
-            return true;
+
+            if(diferenca==0) {
+                //Disponivel em todos os dias de um pedido com vários dias
+                return true;
+            }
+            else {
+                //Não está disponivel em todos os dias de um pedido com vários dias
+                return false;
+            }
         } else {
+            //Petsitter não tem horário
             return false;
         }
     }
