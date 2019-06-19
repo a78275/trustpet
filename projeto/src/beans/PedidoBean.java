@@ -7,6 +7,7 @@ import org.orm.PersistentSession;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -182,7 +183,37 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     private boolean checkPedidoNoHorario(Pedido pedido, Date dataInicio, Date dataFim) {
-        
+        // Get das datas de inicio e fim do pedido
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm");
+        Date pedidoDataInicio = null;
+        Date pedidoDataFim = null;
+        try {
+            pedidoDataInicio = format.parse(pedido.getDataInicio());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+        try {
+            pedidoDataFim = format.parse(pedido.getDataFim());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // Cálculo da interseção entre datas
+        if(pedidoDataInicio != null && pedidoDataFim != null){
+            if ((pedidoDataFim.after(dataInicio) && pedidoDataFim.before(dataFim)) ||
+                (pedidoDataInicio.after(dataInicio) && pedidoDataInicio.before(dataFim)) ||
+                (dataInicio.after(pedidoDataInicio) && dataFim.before(pedidoDataFim)) ||
+                (dataInicio.equals(pedidoDataInicio) && dataFim.equals(pedidoDataFim))){
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+
+        return false;
     }
 
     private Set<String> getPetsittersHorario(Date dataInicio, Date dataFim, PersistentSession session, Set<String> emailsPetsitters) {
