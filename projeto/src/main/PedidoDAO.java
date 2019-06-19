@@ -13,9 +13,10 @@
  */
 package main;
 
-import org.orm.*;
 import org.hibernate.Query;
-import org.hibernate.LockMode;
+import org.orm.PersistentException;
+import org.orm.PersistentSession;
+
 import java.util.List;
 
 public class PedidoDAO {

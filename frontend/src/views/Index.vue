@@ -12,7 +12,7 @@
                         <div id="slogan">
                             <b>Cuidamos dos seus animais enquanto está fora!</b>
                         </div>
-                        <a id="button" class="btn btn-xl" href="login.html">Login</a>
+                        <a id="whitebtn" class="btn btn-xl" @click="login()">Login</a>
                         <p id="registerask">Ainda não tem conta? <a href="#">Registe-se!</a></p>
                     </div>
                 </div>
@@ -75,5 +75,11 @@
 </style>
 
 <script>
-
+export default {
+    methods: {
+        login: function () {
+            this.$router.push('/login')
+        }
+    }
+}
 </script>

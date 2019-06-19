@@ -1,6 +1,6 @@
 <template>
   <div>
-    <router-view/>
+    <router-view />
   </div>
 </template>
 
@@ -10,7 +10,6 @@
 @import url("https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js");
 
 @import url("https://code.jquery.com/jquery-3.3.1.slim.min.js");
-
 
 $dark-blue: #545871 ;
 $dark-grey: #9597a6;
@@ -210,7 +209,7 @@ body {
     }
 }
 
-button {
+#button {
     font-weight: 500;
     border: none;
     border-radius: 45px;
@@ -312,36 +311,87 @@ button {
 }
 
 #userRegister {
-    background-color: $light-pink;
+  background-color: $light-pink;
 }
 
 #darkbluebtn {
+    font-weight: 500;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.2em;
+    text-align: center;
+    margin-left: 2%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
     background-color: $dark-blue;
     color: #fff;
 
-    &:hover{
-        color: $dark-blue;
-        background-color: white;
-    }
+  &:hover{
+    color: $dark-blue;
+    background-color: white;
+    text-decoration: none;
+    box-shadow: 0px 5px 5px rgba(2, 29, 44, 0.705);
+    transform: translateY(-5px);
+  }
 }
 
 #whitebtn {
+    font-weight: 500;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.2em;
+    text-align: center;
+    margin-left: 2%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
     background-color: white;
     color: $dark-blue;
 
-    &:hover{
-        color: $dark-blue;
-        background-color: white;
-    }
+  &:hover{
+    color: white;
+    background-color: $dark-blue;
+    text-decoration: none;
+    box-shadow: 0px 5px 5px rgba(2, 29, 44, 0.705);
+    transform: translateY(-5px);
+  }
 }
 
 #pinkbtn {
+      font-weight: 500;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.2em;
+    text-align: center;
+    margin-left: 2%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
     background-color: $pink;
     color: $dark-blue;
 
     &:hover{
-        color: $dark-blue;
-        background-color: white;
+      color: $dark-blue;
+      background-color: white;
+      text-decoration: none;
+      box-shadow: 0px 5px 5px rgba(2, 29, 44, 0.705);
+      transform: translateY(-5px);
     }
 }
 </style>
