@@ -8,14 +8,14 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: claudia(Universidade do Minho)
  * License Type: Academic
  */
 package main;
 
 import org.orm.*;
 import org.hibernate.Query;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class DiaDAO {

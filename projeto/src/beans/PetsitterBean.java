@@ -82,7 +82,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     @Override
-    public boolean editarHorario(String emailPetsitter, Map<String, List<Integer>> horario, PersistentSession session) {
+    public boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario, PersistentSession session) {
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -114,8 +114,8 @@ public class PetsitterBean implements PetsitterBeanLocal {
         return save;
     }
 
-    private boolean setHorario(Map<String, List<Integer>> horario, PersistentSession session, Horario newHorario) {
-        for(Map.Entry<String, List<Integer>> e : horario.entrySet()){
+    private boolean setHorario(Map<Integer, List<Integer>> horario, PersistentSession session, Horario newHorario) {
+        for(Map.Entry<Integer, List<Integer>> e : horario.entrySet()){
 
             // Create e set do dia
             Dia dia = FacadeDAOs.createDia();

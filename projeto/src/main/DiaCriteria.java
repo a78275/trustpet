@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: claudia(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -20,13 +20,13 @@ import org.orm.criteria.*;
 
 public class DiaCriteria extends AbstractORMCriteria {
 	public final IntegerExpression id;
-	public final StringExpression dia;
+	public final IntegerExpression dia;
 	public final CollectionExpression horas;
 	
 	public DiaCriteria(Criteria criteria) {
 		super(criteria);
 		id = new IntegerExpression("id", this);
-		dia = new StringExpression("dia", this);
+		dia = new IntegerExpression("dia", this);
 		horas = new CollectionExpression("ORM_Horas", this);
 	}
 	
