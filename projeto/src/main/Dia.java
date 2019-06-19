@@ -17,23 +17,6 @@ public class Dia {
 	public Dia() {
 	}
 	
-	public boolean equals(Object aObj) {
-		if (aObj == this)
-			return true;
-		if (!(aObj instanceof Dia))
-			return false;
-		Dia dia = (Dia)aObj;
-		if ((getDia() != null && !getDia().equals(dia.getDia())) || (getDia() == null && dia.getDia() != null))
-			return false;
-		return true;
-	}
-	
-	public int hashCode() {
-		int hashcode = 0;
-		hashcode = hashcode + (getDia() == null ? 0 : getDia().hashCode());
-		return hashcode;
-	}
-	
 	private java.util.Set this_getSet (int key) {
 		if (key == ORMConstants.KEY_DIA_HORAS) {
 			return ORM_horas;
@@ -49,6 +32,8 @@ public class Dia {
 		
 	};
 	
+	private int id;
+	
 	private String dia;
 	
 	private java.util.Set ORM_horas = new java.util.HashSet();
@@ -61,8 +46,16 @@ public class Dia {
 		return dia;
 	}
 	
-	public String getORMID() {
-		return getDia();
+	private void setId(int value) {
+		this.id = value;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public int getORMID() {
+		return getId();
 	}
 	
 	private void setORM_Horas(java.util.Set value) {
@@ -76,7 +69,7 @@ public class Dia {
 	public final main.HoraSetCollection horas = new main.HoraSetCollection(this, _ormAdapter, ORMConstants.KEY_DIA_HORAS, ORMConstants.KEY_MUL_ONE_TO_MANY);
 	
 	public String toString() {
-		return String.valueOf(getDia());
+		return String.valueOf(getId());
 	}
 	
 }

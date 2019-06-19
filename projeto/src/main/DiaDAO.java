@@ -13,17 +13,16 @@
  */
 package main;
 
+import org.orm.*;
 import org.hibernate.Query;
-import org.orm.PersistentException;
-import org.orm.PersistentSession;
 
 import java.util.List;
 
 public class DiaDAO {
-	public static Dia loadDiaByORMID(String dia) throws PersistentException {
+	public static Dia loadDiaByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = TrustPetPersistentManager.instance().getSession();
-			return loadDiaByORMID(session, dia);
+			return loadDiaByORMID(session, id);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -31,10 +30,10 @@ public class DiaDAO {
 		}
 	}
 	
-	public static Dia getDiaByORMID(String dia) throws PersistentException {
+	public static Dia getDiaByORMID(int id) throws PersistentException {
 		try {
 			PersistentSession session = TrustPetPersistentManager.instance().getSession();
-			return getDiaByORMID(session, dia);
+			return getDiaByORMID(session, id);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -42,10 +41,10 @@ public class DiaDAO {
 		}
 	}
 	
-	public static Dia loadDiaByORMID(String dia, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Dia loadDiaByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = TrustPetPersistentManager.instance().getSession();
-			return loadDiaByORMID(session, dia, lockMode);
+			return loadDiaByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -53,10 +52,10 @@ public class DiaDAO {
 		}
 	}
 	
-	public static Dia getDiaByORMID(String dia, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Dia getDiaByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
 			PersistentSession session = TrustPetPersistentManager.instance().getSession();
-			return getDiaByORMID(session, dia, lockMode);
+			return getDiaByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -64,9 +63,9 @@ public class DiaDAO {
 		}
 	}
 	
-	public static Dia loadDiaByORMID(PersistentSession session, String dia) throws PersistentException {
+	public static Dia loadDiaByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
-			return (Dia) session.load(main.Dia.class, dia);
+			return (Dia) session.load(main.Dia.class, new Integer(id));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -74,9 +73,9 @@ public class DiaDAO {
 		}
 	}
 	
-	public static Dia getDiaByORMID(PersistentSession session, String dia) throws PersistentException {
+	public static Dia getDiaByORMID(PersistentSession session, int id) throws PersistentException {
 		try {
-			return (Dia) session.get(main.Dia.class, dia);
+			return (Dia) session.get(main.Dia.class, new Integer(id));
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -84,9 +83,9 @@ public class DiaDAO {
 		}
 	}
 	
-	public static Dia loadDiaByORMID(PersistentSession session, String dia, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Dia loadDiaByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Dia) session.load(main.Dia.class, dia, lockMode);
+			return (Dia) session.load(main.Dia.class, new Integer(id), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
@@ -94,9 +93,9 @@ public class DiaDAO {
 		}
 	}
 	
-	public static Dia getDiaByORMID(PersistentSession session, String dia, org.hibernate.LockMode lockMode) throws PersistentException {
+	public static Dia getDiaByORMID(PersistentSession session, int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			return (Dia) session.get(main.Dia.class, dia, lockMode);
+			return (Dia) session.get(main.Dia.class, new Integer(id), lockMode);
 		}
 		catch (Exception e) {
 			e.printStackTrace();

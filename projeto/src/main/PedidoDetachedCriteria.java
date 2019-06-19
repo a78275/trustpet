@@ -13,11 +13,10 @@
  */
 package main;
 
+import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
 import org.orm.criteria.*;
-
-import java.util.List;
 
 public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id;
@@ -25,9 +24,10 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final AssociationExpression petsitter;
 	public final StringExpression donoId;
 	public final AssociationExpression dono;
-	public final StringExpression data;
 	public final FloatExpression preco;
 	public final BooleanExpression ativo;
+	public final StringExpression dataInicio;
+	public final StringExpression dataFim;
 	public final CollectionExpression animalServicos;
 	public final CollectionExpression servicos;
 	
@@ -38,9 +38,10 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 		petsitter = new AssociationExpression("petsitter", this.getDetachedCriteria());
 		donoId = new StringExpression("dono.", this.getDetachedCriteria());
 		dono = new AssociationExpression("dono", this.getDetachedCriteria());
-		data = new StringExpression("data", this.getDetachedCriteria());
 		preco = new FloatExpression("preco", this.getDetachedCriteria());
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
+		dataInicio = new StringExpression("dataInicio", this.getDetachedCriteria());
+		dataFim = new StringExpression("dataFim", this.getDetachedCriteria());
 		animalServicos = new CollectionExpression("ORM_AnimalServicos", this.getDetachedCriteria());
 		servicos = new CollectionExpression("ORM_Servicos", this.getDetachedCriteria());
 	}
@@ -52,9 +53,10 @@ public class PedidoDetachedCriteria extends AbstractORMDetachedCriteria {
 		petsitter = new AssociationExpression("petsitter", this.getDetachedCriteria());
 		donoId = new StringExpression("dono.", this.getDetachedCriteria());
 		dono = new AssociationExpression("dono", this.getDetachedCriteria());
-		data = new StringExpression("data", this.getDetachedCriteria());
 		preco = new FloatExpression("preco", this.getDetachedCriteria());
 		ativo = new BooleanExpression("ativo", this.getDetachedCriteria());
+		dataInicio = new StringExpression("dataInicio", this.getDetachedCriteria());
+		dataFim = new StringExpression("dataFim", this.getDetachedCriteria());
 		animalServicos = new CollectionExpression("ORM_AnimalServicos", this.getDetachedCriteria());
 		servicos = new CollectionExpression("ORM_Servicos", this.getDetachedCriteria());
 	}

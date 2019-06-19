@@ -24,7 +24,7 @@ public class AutenticarBean implements AutenticarBeanLocal {
         // Dono existe
         if(dono != null){
             // Password correta
-            if(dono.getPassword().equals(Util.hash(password))){
+            if(dono.getPassword().equals(password)){
                 return true;
             }
             // Password errada
@@ -45,7 +45,7 @@ public class AutenticarBean implements AutenticarBeanLocal {
         // Dono existe
         if(petsitter != null){
             // Password correta
-            if(petsitter.getPassword().equals(Util.hash(password))){
+            if(petsitter.getPassword().equals(password)){
                 return true;
             }
             // Password errada
@@ -66,7 +66,7 @@ public class AutenticarBean implements AutenticarBeanLocal {
         // Administrador existe
         if(administrador != null){
             // Password correta
-            if(administrador.getPassword().equals(Util.hash(password))){
+            if(administrador.getPassword().equals(password)){
                 return true;
             }
             // Password errada

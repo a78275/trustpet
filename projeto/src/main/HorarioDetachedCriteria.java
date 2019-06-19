@@ -13,13 +13,10 @@
  */
 package main;
 
+import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
-import org.orm.criteria.AbstractORMDetachedCriteria;
-import org.orm.criteria.CollectionExpression;
-import org.orm.criteria.IntegerExpression;
-
-import java.util.List;
+import org.orm.criteria.*;
 
 public class HorarioDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id;

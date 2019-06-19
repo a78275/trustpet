@@ -19,11 +19,13 @@ import org.orm.PersistentSession;
 import org.orm.criteria.*;
 
 public class DiaCriteria extends AbstractORMCriteria {
+	public final IntegerExpression id;
 	public final StringExpression dia;
 	public final CollectionExpression horas;
 	
 	public DiaCriteria(Criteria criteria) {
 		super(criteria);
+		id = new IntegerExpression("id", this);
 		dia = new StringExpression("dia", this);
 		horas = new CollectionExpression("ORM_Horas", this);
 	}

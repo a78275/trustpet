@@ -35,12 +35,12 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             try {
                 FacadeDAOs.saveDono(dono);
             } catch (PersistentException e) {
-                //Erro ao guardar dono
+                // Erro ao guardar dono
                 e.printStackTrace();
                 return false;
             }
             return true;
-        } else if (tipoUtilizador.equals("dono")) {
+        } else if (tipoUtilizador.equals("petsitter")) {
             Petsitter petsitter = FacadeDAOs.createPetsitter();
             petsitter.setNome(nome);
             petsitter.setEmail(email);
@@ -59,14 +59,14 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             try {
                 FacadeDAOs.savePetsitter(petsitter);
             } catch (PersistentException e) {
-                //Erro ao guardar petsitter
+                // Erro ao guardar petsitter
                 e.printStackTrace();
                 return false;
             }
             return true;
         }
         else {
-            //Tipo de utilizador inválido
+            // Tipo de utilizador inválido
             return false;
         }
     }
@@ -78,7 +78,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         try {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
-            //Dono não existe
+            // Dono não existe
             e.printStackTrace();
             return false;
         }
@@ -87,7 +87,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         try {
             petsitter = FacadeDAOs.getPetsitter(session,emailPetsitter);
         } catch (PersistentException e) {
-            //Petsitter não existe
+            // Petsitter não existe
             e.printStackTrace();
             return false;
         }
@@ -98,9 +98,9 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         try {
             FacadeDAOs.saveReview(review);
         } catch (PersistentException e) {
-            //Erro ao guardar review
-            return false;
+            // Erro ao guardar review
             e.printStackTrace();
+            return false;
         }
         return true;
     }
@@ -112,7 +112,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             try {
                 dono = FacadeDAOs.getDono(session,email);
             } catch (PersistentException e) {
-                //Dono não existe
+                // Dono não existe
                 e.printStackTrace();
                 return null;
             }
@@ -122,14 +122,14 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             try {
                 petsitter = FacadeDAOs.getPetsitter(session,email);
             } catch (PersistentException e) {
-                //Petsitter não existe
+                // Petsitter não existe
                 e.printStackTrace();
                 return null;
             }
             return petsitter;
         }
         else {
-            //Tipo de utilizador inválido
+            // Tipo de utilizador inválido
             return null;
         }
     }
@@ -141,7 +141,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             try {
                 dono = FacadeDAOs.getDono(session,email);
             } catch (PersistentException e) {
-                //Dono não existe
+                // Dono não existe
                 e.printStackTrace();
                 return false;
             }
@@ -162,17 +162,17 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             try {
                 FacadeDAOs.saveDono(dono);
             } catch (PersistentException e) {
-                //Erro ao guardar dono
+                // Erro ao guardar dono
                 e.printStackTrace();
                 return false;
             }
             return true;
-        } else if (tipoUtilizador.equals("dono")) {
+        } else if (tipoUtilizador.equals("petsitter")) {
             Petsitter petsitter = null;
             try {
                 petsitter = FacadeDAOs.getPetsitter(session,email);
             } catch (PersistentException e) {
-                //Petsitter não existe
+                // Petsitter não existe
                 e.printStackTrace();
                 return false;
             }
@@ -193,14 +193,14 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             try {
                 FacadeDAOs.savePetsitter(petsitter);
             } catch (PersistentException e) {
-                //Erro ao guardar petsitter
+                // Erro ao guardar petsitter
                 e.printStackTrace();
                 return false;
             }
             return true;
         }
         else {
-            //Tipo de utilizador inválido
+            // Tipo de utilizador inválido
             return false;
         }
     }
