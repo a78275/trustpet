@@ -8,32 +8,32 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: claudia(Universidade do Minho)
  * License Type: Academic
  */
 package main;
 
+import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
-import org.orm.criteria.AbstractORMDetachedCriteria;
-import org.orm.criteria.CollectionExpression;
-import org.orm.criteria.StringExpression;
-
-import java.util.List;
+import org.orm.criteria.*;
 
 public class DiaDetachedCriteria extends AbstractORMDetachedCriteria {
-	public final StringExpression dia;
+	public final IntegerExpression id;
+	public final IntegerExpression dia;
 	public final CollectionExpression horas;
 	
 	public DiaDetachedCriteria() {
 		super(main.Dia.class, main.DiaCriteria.class);
-		dia = new StringExpression("dia", this.getDetachedCriteria());
+		id = new IntegerExpression("id", this.getDetachedCriteria());
+		dia = new IntegerExpression("dia", this.getDetachedCriteria());
 		horas = new CollectionExpression("ORM_Horas", this.getDetachedCriteria());
 	}
 	
 	public DiaDetachedCriteria(DetachedCriteria aDetachedCriteria) {
 		super(aDetachedCriteria, main.DiaCriteria.class);
-		dia = new StringExpression("dia", this.getDetachedCriteria());
+		id = new IntegerExpression("id", this.getDetachedCriteria());
+		dia = new IntegerExpression("dia", this.getDetachedCriteria());
 		horas = new CollectionExpression("ORM_Horas", this.getDetachedCriteria());
 	}
 	

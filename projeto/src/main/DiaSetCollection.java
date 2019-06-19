@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: claudia(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -70,6 +70,7 @@ public class DiaSetCollection extends org.orm.util.ORMSet {
 	/**
 	 * Return an sorted array containing all of the persistent objects in ORMSet
 	 * @param propertyName Name of the property for sorting:<ul>
+	 * <li>id</li>
 	 * <li>dia</li>
 	 * </ul>
 	 * @return The persistent objects sorted array
@@ -81,6 +82,7 @@ public class DiaSetCollection extends org.orm.util.ORMSet {
 	/**
 	 * Return an sorted array containing all of the persistent objects in ORMSet
 	 * @param propertyName Name of the property for sorting:<ul>
+	 * <li>id</li>
 	 * <li>dia</li>
 	 * </ul>
 	 * @param ascending true for ascending, false for descending

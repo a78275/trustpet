@@ -94,7 +94,7 @@ public class FacadeBeans {
      * @param horario
      * @param session
      */
-    public static boolean editarHorario(String emailPetsitter, Map<String, List<Integer>> horario, PersistentSession session) {
+    public static boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario, PersistentSession session) {
         return petsitterBean.editarHorario(emailPetsitter,horario,session);
     }
 
