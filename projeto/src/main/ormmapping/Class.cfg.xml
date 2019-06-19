@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: claudia(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+ "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+   	<!-- properties -->
+		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="connection.driver_class">org.postgresql.Driver</property>
+		<property name="connection.url">jdbc:postgresql://localhost/trustpet</property>
+		<property name="connection.username">postgres</property>
+		<property name="connection.password">postgres</property>
+		<property name="show_sql">false</property>
+		<property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
+		<!-- mapping files -->
+		<mapping resource="ormmapping/main/Administrador.hbm.xml" />
+		<mapping resource="ormmapping/main/Animal.hbm.xml" />
+		<mapping resource="ormmapping/main/AnimalServico.hbm.xml" />
+		<mapping resource="ormmapping/main/Dia.hbm.xml" />
+		<mapping resource="ormmapping/main/Hora.hbm.xml" />
+		<mapping resource="ormmapping/main/Horario.hbm.xml" />
+		<mapping resource="ormmapping/main/Pedido.hbm.xml" />
+		<mapping resource="ormmapping/main/PrecoPetsitterServico.hbm.xml" />
+		<mapping resource="ormmapping/main/Review.hbm.xml" />
+		<mapping resource="ormmapping/main/Servico.hbm.xml" />
+		<mapping resource="ormmapping/main/TipoAnimal.hbm.xml" />
+		<mapping resource="ormmapping/main/Utilizador.hbm.xml" />
+	</session-factory>
+</hibernate-configuration>
