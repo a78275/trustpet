@@ -6,13 +6,14 @@ import org.orm.PersistentSession;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import java.awt.print.Book;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Local(PedidoBeanLocal.class)
-@Stateless(name="Pedido")
+@Stateless(name = "Pedido")
 public class PedidoBean implements PedidoBeanLocal {
 
     @Override
@@ -40,7 +41,7 @@ public class PedidoBean implements PedidoBeanLocal {
         // Set dos animalServicos
         boolean sucesso = setAnimalServicos(session, pedido, animalServicos);
 
-        if(!sucesso){
+        if (!sucesso) {
             return -1;
         }
 
@@ -57,10 +58,9 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         // Se for bem sucedido retornar ID senão retornar -1
-        if(save){
+        if (save) {
             return pedido.getId();
-        }
-        else {
+        } else {
             return -1;
         }
     }
@@ -91,7 +91,7 @@ public class PedidoBean implements PedidoBeanLocal {
         try {
             List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + petsitter.getEmail() + "'", null);
             servicoPreco = new HashMap<>();
-            for(PrecoPetsitterServico precoPetsitterServico : precoPetsitterServicos){
+            for (PrecoPetsitterServico precoPetsitterServico : precoPetsitterServicos) {
                 servicoPreco.put(precoPetsitterServico.getServico().getId(), precoPetsitterServico.getPreco());
             }
         } catch (PersistentException e) {
@@ -101,7 +101,7 @@ public class PedidoBean implements PedidoBeanLocal {
 
         // Set do preço
         float preco = 0;
-        for(AnimalServico animalServico : pedido.animalServicos.toArray()){
+        for (AnimalServico animalServico : pedido.animalServicos.toArray()) {
             preco += servicoPreco.get(animalServico.getServico().getId());
         }
         pedido.setPreco(preco);
@@ -125,12 +125,12 @@ public class PedidoBean implements PedidoBeanLocal {
         Set<String> emailsPetsitters = getPetsittersServico(animalServicos, session);
 
         // Buscar Petsitters que trabalham neste horário
-        if(emailsPetsitters != null) {
+        if (emailsPetsitters != null) {
             emailsPetsitters = getPetsittersHorario(dataInicio, dataFim, session, emailsPetsitters);
         }
 
         // Remover Petsitters que têm pedidos neste horário
-        if(emailsPetsitters != null) {
+        if (emailsPetsitters != null) {
             emailsPetsitters = removePetsittersComPedidos(session, emailsPetsitters, dataInicio, dataFim);
         }
 
@@ -140,11 +140,11 @@ public class PedidoBean implements PedidoBeanLocal {
 
     private List<Petsitter> getPetsitters(PersistentSession session, Set<String> emailsPetsitters) {
         List<Petsitter> petsitters = new ArrayList<>();
-        if(emailsPetsitters != null) {
-            for(String emailPetsitter : emailsPetsitters){
+        if (emailsPetsitters != null) {
+            for (String emailPetsitter : emailsPetsitters) {
                 try {
                     Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
-                    if(!petsitters.add(petsitter)){
+                    if (!petsitters.add(petsitter)) {
                         return null;
                     }
                 } catch (PersistentException e) {
@@ -154,10 +154,9 @@ public class PedidoBean implements PedidoBeanLocal {
             }
         }
 
-        if(petsitters.isEmpty()){
+        if (petsitters.isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             return petsitters;
         }
     }
@@ -218,16 +217,16 @@ public class PedidoBean implements PedidoBeanLocal {
 
     private Set<String> getPetsittersHorario(Date dataInicio, Date dataFim, PersistentSession session, Set<String> emailsPetsitters) {
         Set<String> emailsPetsittersAux = new HashSet<>();
-        for(String emailPetsitter : emailsPetsitters){
+        for (String emailPetsitter : emailsPetsitters) {
             try {
                 Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
-                if(checkPetsitterHorario(petsitter, dataInicio, dataFim)){
-                    if(!emailsPetsittersAux.add(petsitter.getEmail())){
+                if (checkPetsitterHorario(petsitter, dataInicio, dataFim)) {
+                    if (!emailsPetsittersAux.add(petsitter.getEmail())) {
                         return null;
                     }
                 }
 
-                if(!emailsPetsitters.retainAll(emailsPetsittersAux)){
+                if (!emailsPetsitters.retainAll(emailsPetsittersAux)) {
                     return null;
                 }
             } catch (PersistentException e) {
@@ -240,23 +239,117 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     private boolean checkPetsitterHorario(Petsitter petsitter, Date dataInicio, Date dataFim) {
-        //TODO: acabar
-        return false;
+        //TODO Garantir que isto está correto
+        //TODO Garantir que as horas são medidas em 24horas (e não AM/PM)
+        DateFormat horaformat = new SimpleDateFormat("HH");
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(dataInicio);
+        int dataInicioDia = calendar.get(Calendar.DAY_OF_WEEK);
+        int dataInicioHora = Integer.parseInt(horaformat.format(dataInicio));
+
+        calendar.setTime(dataFim);
+        int dataFimDia = calendar.get(Calendar.DAY_OF_WEEK);
+        int dataFimHora = Integer.parseInt(horaformat.format(dataFim));
+
+        //TODO Mudar fator?
+        int fator = 3;
+        int diferenca;
+
+        if (dataInicioDia > dataFimDia) {
+            diferenca= (7-dataInicioDia+1)+dataFimDia;
+        }
+        else {
+            diferenca= dataFimDia-dataInicioDia+1;
+        }
+
+        Horario horario = petsitter.getHorario();
+        if (horario != null) {
+            Dia[] dias = horario.dias.toArray();
+            Arrays.sort(dias, new Comparator<Dia>() {
+                @Override
+                public int compare(Dia d1, Dia d2) {
+                    return Integer.compare(d1.getDia(), d2.getDia());
+                }
+            });
+
+            boolean contar = false;
+            if (dataInicioDia > dataFimDia) {
+                contar = true;
+            }
+
+            for (Dia dia : dias) {
+                //Pedido no mesmo dia
+                if (dia.getDia() == dataInicioDia && dia.getDia() == dataFimDia) {
+                    Hora[] horas = dia.horas.toArray();
+                    Arrays.sort(horas, new Comparator<Hora>() {
+                        @Override
+                        public int compare(Hora h1, Hora h2) {
+                            return Integer.compare(h1.getHora(), h2.getHora());
+                        }
+                    });
+                    int horasTotais = dataFimHora - dataInicioHora;
+                    for (Hora hora : horas) {
+                        if (hora.getHora() >= dataInicioHora && hora.getHora() <= dataFimHora) {
+                            horasTotais -= 1;
+                        }
+                    }
+                    if (horasTotais <= 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                //Dia inicial e final
+                if(dia.getDia() == dataFimDia) {
+                    contar = false;
+                    if (dia.horas.toArray().length<fator) {
+                        return false;
+                    }
+                    diferenca-=1;
+                }
+                else if (dia.getDia() == dataInicioDia) {
+                    contar = true;
+                }
+
+                //Verificação da disponibilidade nos dias do pedido
+                if (contar) {
+                    if (dia.horas.toArray().length<fator) {
+                        return false;
+                    }
+                    diferenca-=1;
+                }
+
+            }
+
+            if(diferenca==0) {
+                //Disponivel em todos os dias de um pedido com vários dias
+                return true;
+            }
+            else {
+                //Não está disponivel em todos os dias de um pedido com vários dias
+                return false;
+            }
+        } else {
+            //Petsitter não tem horário
+            return false;
+        }
     }
 
     private Set<String> getPetsittersServico(Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
         Set<String> emailsPetsitters = new HashSet<>();
         boolean firstIter = true;
-        for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
+        for (Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()) {
             // Primeira iteração do ciclo
-            if(firstIter){
+            if (firstIter) {
                 for (int servico : e.getValue()) {
                     try {
                         // Get precoPetsitterServicos do serviço
                         List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servico='" + servico + "'", null);
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
-                            if(!emailsPetsitters.add(pps.getPetsitter().getEmail())){
+                            if (!emailsPetsitters.add(pps.getPetsitter().getEmail())) {
                                 return null;
                             }
                         }
@@ -264,6 +357,7 @@ public class PedidoBean implements PedidoBeanLocal {
                         e1.printStackTrace();
                         return null;
                     }
+                    firstIter = false;
                 }
             }
             // Próximas iterações
@@ -274,13 +368,13 @@ public class PedidoBean implements PedidoBeanLocal {
                         List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servico='" + servico + "'", null);
                         Set<String> emailsPetsittersAux = new HashSet<>();
                         // Get dos petsitters que fazem esse serviço
-                        for(PrecoPetsitterServico pps : precoPetsitterServicos){
-                            if(!emailsPetsittersAux.add(pps.getPetsitter().getEmail())){
+                        for (PrecoPetsitterServico pps : precoPetsitterServicos) {
+                            if (!emailsPetsittersAux.add(pps.getPetsitter().getEmail())) {
                                 return null;
                             }
                         }
                         // Interseção dos dois sets
-                        if(!emailsPetsitters.retainAll(emailsPetsittersAux)){
+                        if (!emailsPetsitters.retainAll(emailsPetsittersAux)) {
                             return null;
                         }
                     } catch (PersistentException e1) {
@@ -322,7 +416,7 @@ public class PedidoBean implements PedidoBeanLocal {
     @Override
     public List<Pedido> consultarPedidos(String email, PersistentSession session) {
         try {
-            // Get dos pedidos do utilizador
+        // Get dos pedidos do utilizador
             return FacadeDAOs.listPedido(session, "dono='" + email + "' OR petsitter='" + email + "'", null);
         } catch (PersistentException e) {
             e.printStackTrace();
@@ -330,8 +424,8 @@ public class PedidoBean implements PedidoBeanLocal {
         }
     }
 
-    private boolean setAnimalServicos(PersistentSession session, Pedido pedido, Map<Integer, List<Integer>> animalServicos){
-        for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
+    private boolean setAnimalServicos(PersistentSession session, Pedido pedido, Map<Integer, List<Integer>> animalServicos) {
+        for (Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()) {
             // Get do animal
             Animal animal = null;
             try {
@@ -343,7 +437,7 @@ public class PedidoBean implements PedidoBeanLocal {
 
             // Get do servico
             Servico servico = null;
-            for(int idServico : e.getValue()){
+            for (int idServico : e.getValue()) {
                 try {
                     servico = FacadeDAOs.getServico(session, idServico);
                 } catch (PersistentException e1) {
@@ -361,7 +455,7 @@ public class PedidoBean implements PedidoBeanLocal {
             try {
                 boolean save = FacadeDAOs.saveAnimalServico(animalServico);
 
-                if(!save){
+                if (!save) {
                     return false;
                 }
             } catch (PersistentException e1) {

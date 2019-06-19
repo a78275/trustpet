@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+Licensee: claudia(Universidade do Minho)
+License Type: Academic
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="main.Pedido" table="Pedido" lazy="false">
+		<id name="id" column="Id" type="integer" unsaved-value="0">
+			<generator class="native">
+			</generator>
+		</id>
+		<many-to-one name="petsitter" column="PetsitterUtilizadorEmail" class="main.Petsitter" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<many-to-one name="dono" column="DonoUtilizadorEmail" class="main.Dono" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		</many-to-one>
+		<property name="preco" column="Preco" type="float" not-null="true" lazy="false"/>
+		<property name="ativo" column="Ativo" type="boolean" not-null="true" lazy="false"/>
+		<property name="dataInicio" column="DataInicio" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="dataFim" column="DataFim" type="string" length="255" not-null="false" lazy="false"/>
+		<set name="ORM_AnimalServicos" lazy="true" cascade="save-update,lock" inverse="false">
+			<key column="PedidoId" not-null="true"/>
+			<one-to-many class="main.AnimalServico"/>
+		</set>
+		<set name="ORM_Servicos" lazy="true" cascade="save-update,lock" inverse="false">
+			<key column="PedidoId" not-null="true"/>
+			<one-to-many class="main.PrecoPetsitterServico"/>
+		</set>
+	</class>
+</hibernate-mapping>
