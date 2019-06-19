@@ -51,7 +51,7 @@ public class PedidoCriteria extends AbstractORMCriteria {
 	}
 	
 	public PedidoCriteria() throws PersistentException {
-		this(ClassPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public PetsitterCriteria createPetsitterCriteria() {
