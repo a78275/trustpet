@@ -93,7 +93,7 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         // Get dos precoPetsitterServicos
-        Map<Integer, Float> servicoPreco = null;
+        Map<Integer, Double> servicoPreco = null;
         try {
             List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + petsitter.getEmail() + "'", null);
             servicoPreco = new HashMap<>();
@@ -106,7 +106,7 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         // Set do preço
-        float preco = 0;
+        double preco = 0;
         for (AnimalServico animalServico : pedido.animalServicos.toArray()) {
             preco += servicoPreco.get(animalServico.getServico().getId());
         }

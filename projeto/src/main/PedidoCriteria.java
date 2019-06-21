@@ -24,7 +24,7 @@ public class PedidoCriteria extends AbstractORMCriteria {
 	public final AssociationExpression petsitter;
 	public final StringExpression donoId;
 	public final AssociationExpression dono;
-	public final FloatExpression preco;
+	public final DoubleExpression preco;
 	public final BooleanExpression ativo;
 	public final StringExpression dataInicio;
 	public final StringExpression dataFim;
@@ -38,7 +38,7 @@ public class PedidoCriteria extends AbstractORMCriteria {
 		petsitter = new AssociationExpression("petsitter", this);
 		donoId = new StringExpression("dono.", this);
 		dono = new AssociationExpression("dono", this);
-		preco = new FloatExpression("preco", this);
+		preco = new DoubleExpression("preco", this);
 		ativo = new BooleanExpression("ativo", this);
 		dataInicio = new StringExpression("dataInicio", this);
 		dataFim = new StringExpression("dataFim", this);

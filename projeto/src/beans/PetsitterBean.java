@@ -51,7 +51,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     @Override
-    public boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session) {
+    public boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session) {
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -65,20 +65,31 @@ public class PetsitterBean implements PetsitterBeanLocal {
         return createPrecoPetsitterServicos(servicos, session, petsitter);
     }
 
-    private boolean createPrecoPetsitterServicos(Map<Integer, Float> servicos, PersistentSession session, Petsitter petsitter) {
-        for (Map.Entry<Integer, Float> e : servicos.entrySet()) {
+    private boolean createPrecoPetsitterServicos(Map<Integer, Double> servicos, PersistentSession session, Petsitter petsitter) {
+        //TODO É preciso ser uma transação esta inserção de serviços?
+        for (Map.Entry<Integer, Double> e : servicos.entrySet()) {
+            Servico servico = null;
             try {
-                Servico servico = FacadeDAOs.getServico(session, e.getKey());
-                PrecoPetsitterServico precoPetsitterServico = FacadeDAOs.createPrecoPetsitterServico();
-                precoPetsitterServico.setServico(servico);
-                precoPetsitterServico.setPetsitter(petsitter);
-                precoPetsitterServico.setPreco(e.getValue());
+                servico = FacadeDAOs.getServico(session, e.getKey());
             } catch (PersistentException e1) {
                 e1.printStackTrace();
-                return true;
+                // Não existe serviço
+                return false;
+            }
+            PrecoPetsitterServico precoPetsitterServico = FacadeDAOs.createPrecoPetsitterServico();
+            precoPetsitterServico.setServico(servico);
+            precoPetsitterServico.setPetsitter(petsitter);
+            precoPetsitterServico.setPreco(e.getValue());
+
+            try {
+                FacadeDAOs.savePrecoPetsitterServico(precoPetsitterServico);
+            } catch (PersistentException e1) {
+                // Erro ao guardar PreçoPetsitterServico
+                e1.printStackTrace();
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     @Override
@@ -166,7 +177,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     @Override
-    public boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session) {
+    public boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session) {
         // Get do petsitter
         Petsitter petsitter = null;
         try {

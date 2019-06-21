@@ -34,5 +34,4 @@ public class RegistarPetsitterServlet extends HttpServlet {
             throws ServletException, IOException {
 
     }
-
 }

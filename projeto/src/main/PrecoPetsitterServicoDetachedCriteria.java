@@ -24,7 +24,7 @@ public class PrecoPetsitterServicoDetachedCriteria extends AbstractORMDetachedCr
 	public final AssociationExpression servico;
 	public final StringExpression petsitterId;
 	public final AssociationExpression petsitter;
-	public final FloatExpression preco;
+	public final DoubleExpression preco;
 	
 	public PrecoPetsitterServicoDetachedCriteria() {
 		super(main.PrecoPetsitterServico.class, main.PrecoPetsitterServicoCriteria.class);
@@ -33,7 +33,7 @@ public class PrecoPetsitterServicoDetachedCriteria extends AbstractORMDetachedCr
 		servico = new AssociationExpression("servico", this.getDetachedCriteria());
 		petsitterId = new StringExpression("petsitter.", this.getDetachedCriteria());
 		petsitter = new AssociationExpression("petsitter", this.getDetachedCriteria());
-		preco = new FloatExpression("preco", this.getDetachedCriteria());
+		preco = new DoubleExpression("preco", this.getDetachedCriteria());
 	}
 	
 	public PrecoPetsitterServicoDetachedCriteria(DetachedCriteria aDetachedCriteria) {
@@ -43,7 +43,7 @@ public class PrecoPetsitterServicoDetachedCriteria extends AbstractORMDetachedCr
 		servico = new AssociationExpression("servico", this.getDetachedCriteria());
 		petsitterId = new StringExpression("petsitter.", this.getDetachedCriteria());
 		petsitter = new AssociationExpression("petsitter", this.getDetachedCriteria());
-		preco = new FloatExpression("preco", this.getDetachedCriteria());
+		preco = new DoubleExpression("preco", this.getDetachedCriteria());
 	}
 	
 	public ServicoDetachedCriteria createServicoCriteria() {

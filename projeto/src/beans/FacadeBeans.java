@@ -61,11 +61,10 @@ public class FacadeBeans {
      * @param esterilizacao
      * @param raca
      * @param avatar
-     * @param ativo
      * @param session
      */
-    public static boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo, PersistentSession session) {
-        return donoBean.registarAnimal(emailDono,nome,idade,porte,sexo,alergias,doencas,comportamento,vacinas,desparasitacao,esterilizacao,raca,avatar,session);
+    public static boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo,PersistentSession session) {
+        return donoBean.registarAnimal(emailDono,nome,idade,porte,sexo,alergias,doencas,comportamento,vacinas,desparasitacao,esterilizacao,raca,avatar,tipo,session);
     }
 
     /**
@@ -84,7 +83,7 @@ public class FacadeBeans {
      * @param servicos
      * @param session
      */
-    public static boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session) {
+    public static boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session) {
         return petsitterBean.registarServicos(emailPetsitter,servicos,session);
     }
 
@@ -215,7 +214,7 @@ public class FacadeBeans {
      * @param servicos
      * @param session
      */
-    public static boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session) {
+    public static boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session) {
         return petsitterBean.editarServicos(emailPetsitter, servicos, session);
     }
 
@@ -240,7 +239,6 @@ public class FacadeBeans {
     public static boolean editarAnimal(int id, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo, PersistentSession session) {
         return donoBean.editarAnimal(id, nome, idade, porte, sexo, alergias, doencas, comportamento, vacinas, desparasitacao, esterilizacao, raca, avatar, ativo, session);
     }
-
     /**
      *
      * @param tiposAnimal

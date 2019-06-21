@@ -43,7 +43,7 @@ public class Petsitter extends main.Utilizador {
 	private java.util.Set getORM_Animais() {
 		return ORM_animais;
 	}
-
+	
 	public final main.TipoAnimalSetCollection animais = new main.TipoAnimalSetCollection(this, _ormAdapter, ORMConstants.KEY_PETSITTER_ANIMAIS, ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	public void setHorario(main.Horario value) {

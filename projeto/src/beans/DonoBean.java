@@ -3,6 +3,7 @@ package beans;
 import main.Animal;
 import main.Dono;
 import main.FacadeDAOs;
+import main.TipoAnimal;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
@@ -18,7 +19,7 @@ import java.util.Set;
 public class DonoBean implements DonoBeanLocal {
 
     @Override
-    public boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, PersistentSession session) {
+    public boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo, PersistentSession session) {
         Animal animal = FacadeDAOs.createAnimal();
         animal.setNome(nome);
         animal.setIdade(idade);
@@ -32,6 +33,16 @@ public class DonoBean implements DonoBeanLocal {
         animal.setRaca(raca);
         animal.setAvatar(avatar);
         animal.setAtivo(true);
+
+        TipoAnimal tipoAnimal = null;
+        try {
+            tipoAnimal=FacadeDAOs.getTipoAnimal(session,tipo);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            // Tipo de Animal não existe
+            return false;
+        }
+        animal.setTipo(tipoAnimal);
 
         Dono dono = null;
         try {

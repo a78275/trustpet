@@ -119,7 +119,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
                 return null;
             }
             return dono;
-        } else if (tipoUtilizador.equals("dono")) {
+        } else if (tipoUtilizador.equals("petsitter")) {
             Petsitter petsitter = null;
             try {
                 petsitter = FacadeDAOs.getPetsitter(session,email);

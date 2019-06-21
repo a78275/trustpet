@@ -24,7 +24,7 @@ public interface PetsitterBeanLocal {
 	 * @param servicos
 	 * @param session
 	 */
-	boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session);
+	boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session);
 
 	/**
 	 *
@@ -47,6 +47,6 @@ public interface PetsitterBeanLocal {
 	 * @param servicos
 	 * @param session
 	 */
-	boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session);
+	boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session);
 
 }

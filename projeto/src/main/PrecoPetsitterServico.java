@@ -23,13 +23,13 @@ public class PrecoPetsitterServico {
 	
 	private main.Petsitter petsitter;
 	
-	private float preco;
+	private double preco;
 	
-	public void setPreco(float value) {
+	public void setPreco(double value) {
 		this.preco = value;
 	}
 	
-	public float getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 	
