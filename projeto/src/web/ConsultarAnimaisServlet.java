@@ -2,9 +2,6 @@ package web;
 import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Animal;
-import main.FacadeDAOs;
-import main.Util;
-import main.Utilizador;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;

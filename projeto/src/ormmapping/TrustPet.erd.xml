@@ -80,7 +80,7 @@
     <Column name="Preco">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
-      <Type>4</Type>
+      <Type>6</Type>
       <Length>0</Length>
       <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
@@ -650,18 +650,6 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="PedidoId">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>main.Pedido.Id</ReferencedColumn>
-      <Type>9</Type>
-      <Length>10</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
     <Column name="ServicoId">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>true</ForeignKey>
@@ -689,7 +677,7 @@
     <Column name="Preco">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
-      <Type>4</Type>
+      <Type>6</Type>
       <Length>0</Length>
       <Nullable>false</Nullable>
       <IDGenerator>native</IDGenerator>
@@ -800,6 +788,32 @@
       <PrimaryKey>true</PrimaryKey>
       <ForeignKey>true</ForeignKey>
       <ReferencedColumn>main.TipoAnimal.Id</ReferencedColumn>
+      <Type>9</Type>
+      <Length>10</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>assigned</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+  </Entity>
+  <Entity name="Pedido_PrecoPetsitterServico" Unlogged="false" PKClustered="0">
+    <Column name="PedidoId">
+      <PrimaryKey>true</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>main.Pedido.Id</ReferencedColumn>
+      <Type>9</Type>
+      <Length>10</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>assigned</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="PrecoPetsitterServicoId">
+      <PrimaryKey>true</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>main.PrecoPetsitterServico.Id</ReferencedColumn>
       <Type>9</Type>
       <Length>10</Length>
       <Nullable>false</Nullable>
@@ -995,11 +1009,21 @@
       <Column>Id</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKPrecoPetsi863373">
-    <ReferenceTable>PrecoPetsitterServico</ReferenceTable>
+  <ForeignKey name="FKPedido_Pre254179">
+    <ReferenceTable>Pedido_PrecoPetsitterServico</ReferenceTable>
     <ReferencedTable>Pedido</ReferencedTable>
     <Columns>
       <Column>PedidoId</Column>
+    </Columns>
+    <RefColumns>
+      <Column>Id</Column>
+    </RefColumns>
+  </ForeignKey>
+  <ForeignKey name="FKPedido_Pre723604">
+    <ReferenceTable>Pedido_PrecoPetsitterServico</ReferenceTable>
+    <ReferencedTable>PrecoPetsitterServico</ReferencedTable>
+    <Columns>
+      <Column>PrecoPetsitterServicoId</Column>
     </Columns>
     <RefColumns>
       <Column>Id</Column>

@@ -1,6 +1,6 @@
 package web;
 import beans.FacadeBeans;
-import main.Util;
+import org.json.JSONObject;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -10,15 +10,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
+import java.util.Map;
 
-@WebServlet(name = "RegistarPetsitterServlet", urlPatterns = {"/RegistarPetsitterServlet"})
+@WebServlet(name = "RegistarPetsitterServlet", urlPatterns = {"/RegistarPetsitter"})
 public class RegistarPetsitterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
+        /*response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
@@ -26,12 +29,36 @@ public class RegistarPetsitterServlet extends HttpServlet {
 
         boolean result = FacadeBeans.registarUtilizador("Nestor","email1@email.com",Date.from(Instant.now()),"91112",true,"Rua da Cena","ola","","petsitter","Braga","Braga",session);
         out.print(result);
-        out.flush();
+        out.flush();*/
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
 
+        PrintWriter out = response.getWriter();
+        PersistentSession session = Util.getSession(request);
+        JSONObject mensagem = new JSONObject();
+        Map<String,String> parameters = Util.parseBody(request.getReader());
+        Date date = null;
+
+        try {
+            date=new SimpleDateFormat("dd/MM/yyyy").parse(parameters.get("data"));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        boolean result = FacadeBeans.registarUtilizador(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), "petsitter", parameters.get("concelho"), parameters.get("distrito"),session);
+        if (result) {
+            // TODO: redirecionar?
+            mensagem.put("msg", "Registo de dono feito com sucesso.");
+        } else {
+            // TODO: redirecionar?
+            mensagem.put("msg", "Erro no registo.");
+        }
+        out.print(mensagem);
+        out.flush();
     }
 }

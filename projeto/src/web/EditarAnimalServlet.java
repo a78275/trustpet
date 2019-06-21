@@ -1,7 +1,5 @@
 package web;
 import beans.FacadeBeans;
-import main.Util;
-import main.Utilizador;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -22,9 +20,9 @@ public class EditarAnimalServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         boolean result;
         //if (parameterID == null)
-        result = FacadeBeans.registarAnimal("email2@email.com","Luna",1,"Pequeno","F","","Doente da cabeca","",true,true,true,"Engodo","",1,session);
+        //result = FacadeBeans.registarAnimal("email2@email.com","Luna",1,"Pequeno","F","","Doente da cabeca","",true,true,true,"Engodo","",1,session);
         //else
-        //result = FacadeBeans.editarAnimal(2,"Luna",1,"Pequeno","F","","Doente da cabeca","Atrasada",true,true,true,"Engodo","",true,session);
+        result = FacadeBeans.editarAnimal(2,"Luna",1,"Pequeno","F","","Doente da cabeca","Atrasada",true,true,true,"Engodo","",true,session);
 
         out.print(result);
         out.flush();

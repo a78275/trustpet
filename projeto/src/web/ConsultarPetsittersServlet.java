@@ -2,12 +2,7 @@ package web;
 
 import beans.FacadeBeans;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import main.Petsitter;
-import main.Util;
-import org.json.JSONObject;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
