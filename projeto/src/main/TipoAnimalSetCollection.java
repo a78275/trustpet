@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -93,7 +93,7 @@ public class TipoAnimalSetCollection extends org.orm.util.ORMSet {
 	}
 	
 	protected PersistentManager getPersistentManager() throws PersistentException {
-		return TrustPetPersistentManager.instance();
+		return TrustpetPersistentManager.instance();
 	}
 	
 }

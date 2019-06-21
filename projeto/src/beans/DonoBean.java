@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 @Local(DonoBeanLocal.class)
-@Stateless(name="Dono")
+@Stateless(name="DonoBean")
 public class DonoBean implements DonoBeanLocal {
 
     @Override

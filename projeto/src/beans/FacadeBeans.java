@@ -241,6 +241,15 @@ public class FacadeBeans {
         return donoBean.editarAnimal(id, nome, idade, porte, sexo, alergias, doencas, comportamento, vacinas, desparasitacao, esterilizacao, raca, avatar, ativo, session);
     }
 
+    /**
+     *
+     * @param tiposAnimal
+     * @param session
+     */
+    public static List<Servico> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session) {
+        return pedidoBean.getServicosPedido(tiposAnimal,session);
+    }
+
 
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {
         try {

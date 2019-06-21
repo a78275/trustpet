@@ -11,7 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Local(UtilizadorBeanLocal.class)
-@Stateless(name="Utilizador")
+@Stateless(name="UtilizadorBean")
 public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
@@ -56,6 +56,8 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             petsitter.setNrAvaliacoes(0);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             petsitter.setDataNasc(format.format(dataNasc));
+            Horario horario = FacadeDAOs.createHorario();
+            petsitter.setHorario(horario);
             try {
                 FacadeDAOs.savePetsitter(petsitter);
             } catch (PersistentException e) {

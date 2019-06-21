@@ -13,8 +13,14 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Local(PedidoBeanLocal.class)
-@Stateless(name = "Pedido")
+@Stateless(name = "PedidoBean")
 public class PedidoBean implements PedidoBeanLocal {
+
+    @Override
+    public List<Servico> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session) {
+        //TODO Fazer
+        return null;
+    }
 
     @Override
     public int registarPedido(String emailDono, Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {

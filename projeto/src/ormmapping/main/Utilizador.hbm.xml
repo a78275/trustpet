@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Licensee: claudia(Universidade do Minho)
+Licensee: bernardo(Universidade do Minho)
 License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
@@ -35,9 +35,10 @@ License Type: Academic
 			<key>
 				<column name="UtilizadorEmail"/>
 			</key>
-			<set name="ORM_Animais" lazy="true" cascade="save-update,lock" inverse="false">
+			<set name="ORM_Animais" table="Petsitter_TipoAnimal" lazy="true" cascade="save-update,lock">
 				<key column="PetsitterUtilizadorEmail" not-null="true"/>
-				<one-to-many class="main.TipoAnimal"/>
+				<many-to-many column="TipoAnimalId" class="main.TipoAnimal">
+				</many-to-many>
 			</set>
 			<many-to-one name="horario" column="HorarioId" class="main.Horario" cascade="save-update,lock,delete" unique="true" not-null="true" lazy="proxy" access="field">
 			</many-to-one>

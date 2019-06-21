@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Local(PetsitterBeanLocal.class)
-@Stateless(name="Petsitter")
+@Stateless(name="PetsitterBean")
 public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
@@ -157,7 +157,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
     @Override
     public List<Petsitter> consultarPetsitters(String filtro, PersistentSession session) {
         try {
-            // Get dos pedidos do utilizador
+            // Get dos Petsitters
             return FacadeDAOs.listPetsitters(session, filtro, null);
         } catch (PersistentException e) {
             e.printStackTrace();

@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -33,7 +33,7 @@ public class HorarioCriteria extends AbstractORMCriteria {
 	}
 	
 	public HorarioCriteria() throws PersistentException {
-		this(TrustPetPersistentManager.instance().getSession());
+		this(TrustpetPersistentManager.instance().getSession());
 	}
 	
 	public DiaCriteria createDiasCriteria() {

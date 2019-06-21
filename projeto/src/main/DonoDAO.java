@@ -8,21 +8,20 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
 
+import org.orm.*;
 import org.hibernate.Query;
-import org.orm.PersistentException;
-import org.orm.PersistentSession;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class DonoDAO {
 	public static Dono loadDonoByORMID(String email) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadDonoByORMID(session, email);
 		}
 		catch (Exception e) {
@@ -33,7 +32,7 @@ public class DonoDAO {
 	
 	public static Dono getDonoByORMID(String email) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return getDonoByORMID(session, email);
 		}
 		catch (Exception e) {
@@ -44,7 +43,7 @@ public class DonoDAO {
 	
 	public static Dono loadDonoByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadDonoByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
@@ -55,7 +54,7 @@ public class DonoDAO {
 	
 	public static Dono getDonoByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return getDonoByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
@@ -106,7 +105,7 @@ public class DonoDAO {
 	
 	public static List queryDono(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return queryDono(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -117,7 +116,7 @@ public class DonoDAO {
 	
 	public static List queryDono(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return queryDono(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -128,7 +127,7 @@ public class DonoDAO {
 	
 	public static Dono[] listDonoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return listDonoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -139,7 +138,7 @@ public class DonoDAO {
 	
 	public static Dono[] listDonoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return listDonoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -205,7 +204,7 @@ public class DonoDAO {
 	
 	public static Dono loadDonoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadDonoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -216,7 +215,7 @@ public class DonoDAO {
 	
 	public static Dono loadDonoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadDonoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -243,7 +242,7 @@ public class DonoDAO {
 	
 	public static java.util.Iterator iterateDonoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return iterateDonoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -254,7 +253,7 @@ public class DonoDAO {
 	
 	public static java.util.Iterator iterateDonoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return iterateDonoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -302,7 +301,7 @@ public class DonoDAO {
 	
 	public static boolean save(main.Dono dono) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().saveObject(dono);
+			TrustpetPersistentManager.instance().saveObject(dono);
 			return true;
 		}
 		catch (Exception e) {
@@ -313,7 +312,7 @@ public class DonoDAO {
 	
 	public static boolean delete(main.Dono dono) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().deleteObject(dono);
+			TrustpetPersistentManager.instance().deleteObject(dono);
 			return true;
 		}
 		catch (Exception e) {
@@ -324,7 +323,7 @@ public class DonoDAO {
 	
 	public static boolean refresh(main.Dono dono) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().getSession().refresh(dono);
+			TrustpetPersistentManager.instance().getSession().refresh(dono);
 			return true;
 		}
 		catch (Exception e) {
@@ -335,7 +334,7 @@ public class DonoDAO {
 	
 	public static boolean evict(main.Dono dono) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().getSession().evict(dono);
+			TrustpetPersistentManager.instance().getSession().evict(dono);
 			return true;
 		}
 		catch (Exception e) {

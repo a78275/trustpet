@@ -1,6 +1,14 @@
 package web;
 
+import beans.FacadeBeans;
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import main.Petsitter;
+import main.Util;
 import org.json.JSONObject;
+import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "ConsultarPetsitters", urlPatterns = {"/ConsultarPetsitters"})
 public class ConsultarPetsittersServlet extends HttpServlet {
@@ -16,18 +25,15 @@ public class ConsultarPetsittersServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        //PersistentSession session = Util.getSession(request);
+        PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
 
-        //List<Petsitter> ps = FacadeBeans.consultarPetsitters(null, session);
+        List<Petsitter> ps = FacadeBeans.consultarPetsitters(null, session);
+        //TODO Descobrir porque é que o horario e tipos de animais nao da para passar para JSON
+        Gson gson= new Gson();
+        String json = gson.toJson(ps);
 
-        JSONObject obj = new JSONObject();
-
-        obj.put("email", "abcd");
-        obj.put("password", "12345");
-        obj.put("nome", "joana");
-
-        out.print(obj);
+        out.print(json);
         out.flush();
     }
 

@@ -419,30 +419,6 @@
       <Index>false</Index>
       <UserTypes/>
     </Column>
-    <Column name="ServicoId">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>main.Servico.Id</ReferencedColumn>
-      <Type>9</Type>
-      <Length>10</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
-    <Column name="PetsitterUtilizadorEmail">
-      <PrimaryKey>false</PrimaryKey>
-      <ForeignKey>true</ForeignKey>
-      <ReferencedColumn>main.Petsitter.UtilizadorEmail</ReferencedColumn>
-      <Type>27</Type>
-      <Length>255</Length>
-      <Nullable>false</Nullable>
-      <IDGenerator>native</IDGenerator>
-      <Unique>false</Unique>
-      <Index>false</Index>
-      <UserTypes/>
-    </Column>
     <Column name="Tipo">
       <PrimaryKey>false</PrimaryKey>
       <ForeignKey>false</ForeignKey>
@@ -807,6 +783,58 @@
       <UserTypes/>
     </Column>
   </Entity>
+  <Entity name="Petsitter_TipoAnimal" Unlogged="false" PKClustered="0">
+    <Column name="PetsitterUtilizadorEmail">
+      <PrimaryKey>true</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>main.Petsitter.UtilizadorEmail</ReferencedColumn>
+      <Type>27</Type>
+      <Length>255</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>assigned</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="TipoAnimalId">
+      <PrimaryKey>true</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>main.TipoAnimal.Id</ReferencedColumn>
+      <Type>9</Type>
+      <Length>10</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>assigned</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+  </Entity>
+  <Entity name="Servico_TipoAnimal" Unlogged="false" PKClustered="0">
+    <Column name="ServicoId">
+      <PrimaryKey>true</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>main.Servico.Id</ReferencedColumn>
+      <Type>9</Type>
+      <Length>10</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>assigned</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+    <Column name="TipoAnimalId">
+      <PrimaryKey>true</PrimaryKey>
+      <ForeignKey>true</ForeignKey>
+      <ReferencedColumn>main.TipoAnimal.Id</ReferencedColumn>
+      <Type>9</Type>
+      <Length>10</Length>
+      <Nullable>false</Nullable>
+      <IDGenerator>assigned</IDGenerator>
+      <Unique>false</Unique>
+      <Index>false</Index>
+      <UserTypes/>
+    </Column>
+  </Entity>
   <ForeignKey name="FKDono837672">
     <ReferenceTable>Dono</ReferenceTable>
     <ReferencedTable>Utilizador</ReferencedTable>
@@ -847,14 +875,24 @@
       <Column>Id</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKTipoAnimal964273">
-    <ReferenceTable>TipoAnimal</ReferenceTable>
+  <ForeignKey name="FKPetsitter_450423">
+    <ReferenceTable>Petsitter_TipoAnimal</ReferenceTable>
     <ReferencedTable>Petsitter</ReferencedTable>
     <Columns>
       <Column>PetsitterUtilizadorEmail</Column>
     </Columns>
     <RefColumns>
       <Column>UtilizadorEmail</Column>
+    </RefColumns>
+  </ForeignKey>
+  <ForeignKey name="FKPetsitter_451944">
+    <ReferenceTable>Petsitter_TipoAnimal</ReferenceTable>
+    <ReferencedTable>TipoAnimal</ReferencedTable>
+    <Columns>
+      <Column>TipoAnimalId</Column>
+    </Columns>
+    <RefColumns>
+      <Column>Id</Column>
     </RefColumns>
   </ForeignKey>
   <ForeignKey name="FKPedido671180">
@@ -967,11 +1005,21 @@
       <Column>Id</Column>
     </RefColumns>
   </ForeignKey>
-  <ForeignKey name="FKTipoAnimal851908">
-    <ReferenceTable>TipoAnimal</ReferenceTable>
+  <ForeignKey name="FKServico_Ti898353">
+    <ReferenceTable>Servico_TipoAnimal</ReferenceTable>
     <ReferencedTable>Servico</ReferencedTable>
     <Columns>
       <Column>ServicoId</Column>
+    </Columns>
+    <RefColumns>
+      <Column>Id</Column>
+    </RefColumns>
+  </ForeignKey>
+  <ForeignKey name="FKServico_Ti144788">
+    <ReferenceTable>Servico_TipoAnimal</ReferenceTable>
+    <ReferencedTable>TipoAnimal</ReferencedTable>
+    <Columns>
+      <Column>TipoAnimalId</Column>
     </Columns>
     <RefColumns>
       <Column>Id</Column>

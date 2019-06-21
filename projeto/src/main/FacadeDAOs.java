@@ -352,4 +352,15 @@ public class FacadeDAOs {
             return HoraDAO.getHoraByORMID(session, id);
         }
     }
+
+	/**
+	 *
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 */
+	public static List<Servico> listServicos(PersistentSession session, String condition, String orderBy) throws PersistentException {
+		//TODO Fazer
+		return null;
+	}
 }
