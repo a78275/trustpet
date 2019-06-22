@@ -32,6 +32,7 @@ public class DonoBean implements DonoBeanLocal {
         animal.setEsterilizacao(esterilizacao);
         animal.setRaca(raca);
         animal.setAvatar(avatar);
+        animal.setPorte(porte);
         animal.setAtivo(true);
 
         TipoAnimal tipoAnimal = null;

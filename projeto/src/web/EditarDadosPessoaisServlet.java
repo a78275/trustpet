@@ -19,15 +19,6 @@ import java.util.Map;
 @WebServlet(name = "EditarDadosPessoaisServlet", urlPatterns = {"/EditarDadosPessoais"})
 public class EditarDadosPessoaisServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        PersistentSession session = Util.getSession(request);
-        PrintWriter out = response.getWriter();
-        boolean result = FacadeBeans.editarDados("LuisEditado","email2@email.com",Date.from(Instant.now()),"91118722",false,"Rua da Coisa","ola","","dono","Porto","Porto",session);
-
-        out.print(result);
-        out.flush();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,8 +40,8 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
             out.flush();
             return;
         }
-
-        boolean result = FacadeBeans.editarDados(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), parameters.get("tipoUtilizador"), parameters.get("concelho"), parameters.get("distrito"),session);
+        //TODO É para mandar ativo ou não? Se não, mudar para true
+        boolean result = FacadeBeans.editarDados(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), parameters.get("tipoUtilizador"), parameters.get("concelho"), parameters.get("distrito"), Boolean.parseBoolean(parameters.get("ativo")), session);
         if (result) {
             // TODO: redirecionar?
             mensagem.put("msg", "Dados editados com sucesso.");

@@ -57,9 +57,10 @@ public interface UtilizadorBeanLocal {
 	 * @param tipoUtilizador
 	 * @param concelho
 	 * @param distrito
+	 * @param ativo
 	 * @param session
 	 */
-	boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, PersistentSession session);
+	boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo, PersistentSession session);
 
 
 }
