@@ -24,15 +24,6 @@ public class RegistarDonoServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
-
-        boolean result = FacadeBeans.registarUtilizador("Luis", "email2@email.com", Date.from(Instant.now()), "91118722", false, "Rua da Coisa", "ola", "", "dono", "Porto", "Porto", session);
-        out.print(result);
-        out.flush();*/
     }
 
     @Override
@@ -51,6 +42,10 @@ public class RegistarDonoServlet extends HttpServlet {
             date=new SimpleDateFormat("dd/MM/yyyy").parse(parameters.get("data"));
         } catch (ParseException e) {
             e.printStackTrace();
+            mensagem.put("msg", "Introduza uma data válida");
+            out.print(mensagem);
+            out.flush();
+            return;
         }
 
         boolean result = FacadeBeans.registarUtilizador(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), "dono", parameters.get("concelho"), parameters.get("distrito"),session);

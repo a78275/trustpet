@@ -3,12 +3,19 @@ package web;
 import java.io.BufferedReader;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import main.TrustpetPersistentManager;
+import org.json.JSONArray;
 import org.orm.PersistentSession;
 
 public class Util {
@@ -62,12 +69,7 @@ public class Util {
                 parametersMap.put(key,"");
             }
             else {
-                if(key.equals("email") || key.equals("data")) {
-                    parametersMap.put(key,java.net.URLDecoder.decode(p.split("=")[1], StandardCharsets.UTF_8));
-                }
-                else {
-                    parametersMap.put(key,p.split("=")[1]);
-                }
+                parametersMap.put(key,java.net.URLDecoder.decode(p.split("=")[1], StandardCharsets.UTF_8));
             }
         }
         return parametersMap;

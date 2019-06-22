@@ -48,6 +48,10 @@ public class RegistarPetsitterServlet extends HttpServlet {
             date=new SimpleDateFormat("dd/MM/yyyy").parse(parameters.get("data"));
         } catch (ParseException e) {
             e.printStackTrace();
+            mensagem.put("msg", "Introduza uma data válida");
+            out.print(mensagem);
+            out.flush();
+            return;
         }
 
         boolean result = FacadeBeans.registarUtilizador(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), "petsitter", parameters.get("concelho"), parameters.get("distrito"),session);

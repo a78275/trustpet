@@ -1,5 +1,6 @@
 package web;
 import beans.FacadeBeans;
+import org.json.JSONObject;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -28,5 +29,17 @@ public class EditarServicosServlet extends HttpServlet {
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        PrintWriter out = response.getWriter();
+        PersistentSession session = Util.getSession(request);
+        JSONObject mensagem = new JSONObject();
+        Map<String,String> parameters = Util.parseBody(request.getReader());
+
+
+        boolean result = FacadeBeans.registarServicos("email1@email.com",servicos,session);
+        out.print(result);
+        out.flush();*/
     }
 }
