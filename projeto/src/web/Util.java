@@ -3,10 +3,9 @@ package web;
 import java.io.BufferedReader;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -73,5 +72,15 @@ public class Util {
             }
         }
         return parametersMap;
+    }
+
+    public static Date parseDate (String dateString) {
+        Date date = null;
+        try {
+            date=new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
     }
 }

@@ -21,15 +21,6 @@ public class RegistarPetsitterServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        /*response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
-
-        boolean result = FacadeBeans.registarUtilizador("Nestor","email1@email.com",Date.from(Instant.now()),"91112",true,"Rua da Cena","ola","","petsitter","Braga","Braga",session);
-        out.print(result);
-        out.flush();*/
     }
 
     @Override
@@ -42,12 +33,9 @@ public class RegistarPetsitterServlet extends HttpServlet {
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         Map<String,String> parameters = Util.parseBody(request.getReader());
-        Date date = null;
 
-        try {
-            date=new SimpleDateFormat("dd/MM/yyyy").parse(parameters.get("data"));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Date date = Util.parseDate(parameters.get("data"));
+        if(date==null) {
             mensagem.put("msg", "Introduza uma data válida");
             out.print(mensagem);
             out.flush();
@@ -57,7 +45,7 @@ public class RegistarPetsitterServlet extends HttpServlet {
         boolean result = FacadeBeans.registarUtilizador(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), "petsitter", parameters.get("concelho"), parameters.get("distrito"),session);
         if (result) {
             // TODO: redirecionar?
-            mensagem.put("msg", "Registo de dono feito com sucesso.");
+            mensagem.put("msg", "Registo de petsitter feito com sucesso.");
         } else {
             // TODO: redirecionar?
             mensagem.put("msg", "Erro no registo.");

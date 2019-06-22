@@ -28,7 +28,7 @@ public class AnimalCriteria extends AbstractORMCriteria {
 	public final StringExpression porte;
 	public final StringExpression sexo;
 	public final StringExpression alergias;
-	public final StringExpression doenças;
+	public final StringExpression doencas;
 	public final StringExpression comportamento;
 	public final BooleanExpression vacinas;
 	public final BooleanExpression desparasitacao;
@@ -47,7 +47,7 @@ public class AnimalCriteria extends AbstractORMCriteria {
 		porte = new StringExpression("porte", this);
 		sexo = new StringExpression("sexo", this);
 		alergias = new StringExpression("alergias", this);
-		doenças = new StringExpression("doenças", this);
+		doencas = new StringExpression("doencas", this);
 		comportamento = new StringExpression("comportamento", this);
 		vacinas = new BooleanExpression("vacinas", this);
 		desparasitacao = new BooleanExpression("desparasitacao", this);

@@ -38,8 +38,9 @@ public interface PetsitterBeanLocal {
 	 *
 	 * @param filtro
 	 * @param session
+	 * @param ordem
 	 */
-	List<Petsitter> consultarPetsitters(String filtro, PersistentSession session);
+	List<Petsitter> consultarPetsitters(String filtro, String ordem, PersistentSession session);
 
 	/**
 	 *

@@ -1,5 +1,7 @@
 package web;
 import beans.FacadeBeans;
+import com.google.gson.Gson;
+import main.Animal;
 import main.Utilizador;
 import org.orm.PersistentSession;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 @WebServlet(name = "ConsultarPerfilServlet", urlPatterns = {"/ConsultarPerfil"})
 public class ConsultarPerfilServlet extends HttpServlet {
@@ -19,10 +22,22 @@ public class ConsultarPerfilServlet extends HttpServlet {
 
         PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
+        String email = (String) request.getSession().getAttribute("user");
+        String tipo = (String) request.getSession().getAttribute("tipo");
 
-        Utilizador utilizador = FacadeBeans.consultarPerfil("email2@email","dono",session);
+        if(email!=null && tipo !=null) {
+            Utilizador utilizador = FacadeBeans.consultarPerfil(email,tipo,session);
 
-        out.print(utilizador);
+            //TODO Arranjar solução para seralizar utilizador
+            Gson gson= new Gson();
+            String json = gson.toJson(utilizador);
+
+            out.print(json);
+        }
+        else {
+            out.print("Não está autenticado na sessão ativa.");
+        }
+
         out.flush();
     }
 

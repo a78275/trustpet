@@ -166,10 +166,10 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     @Override
-    public List<Petsitter> consultarPetsitters(String filtro, PersistentSession session) {
+    public List<Petsitter> consultarPetsitters(String filtro, String ordem,PersistentSession session) {
         try {
             // Get dos Petsitters
-            return FacadeDAOs.listPetsitters(session, filtro, null);
+            return FacadeDAOs.listPetsitters(session, filtro, ordem);
         } catch (PersistentException e) {
             e.printStackTrace();
             return null;

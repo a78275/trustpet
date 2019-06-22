@@ -3,6 +3,7 @@ package web;
 import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Petsitter;
+import main.Utilizador;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -23,7 +24,7 @@ public class ConsultarPetsittersServlet extends HttpServlet {
         PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
 
-        List<Petsitter> ps = FacadeBeans.consultarPetsitters(null, session);
+        List<Petsitter> ps = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"),session);
         //TODO Descobrir porque é que o horario e tipos de animais nao da para passar para JSON
         Gson gson= new Gson();
         String json = gson.toJson(ps);

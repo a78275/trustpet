@@ -102,8 +102,8 @@ public class FacadeBeans {
      * @param filtro
      * @param session
      */
-    public static List<Petsitter> consultarPetsitters(String filtro, PersistentSession session) {
-        return petsitterBean.consultarPetsitters(filtro,session);
+    public static List<Petsitter> consultarPetsitters(String filtro, String ordem, PersistentSession session) {
+        return petsitterBean.consultarPetsitters(filtro,ordem,session);
     }
 
     /**

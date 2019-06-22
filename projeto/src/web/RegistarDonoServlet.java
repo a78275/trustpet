@@ -36,12 +36,9 @@ public class RegistarDonoServlet extends HttpServlet {
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         Map<String,String> parameters = Util.parseBody(request.getReader());
-        Date date = null;
 
-        try {
-            date=new SimpleDateFormat("dd/MM/yyyy").parse(parameters.get("data"));
-        } catch (ParseException e) {
-            e.printStackTrace();
+        Date date = Util.parseDate(parameters.get("data"));
+        if(date==null) {
             mensagem.put("msg", "Introduza uma data válida");
             out.print(mensagem);
             out.flush();
