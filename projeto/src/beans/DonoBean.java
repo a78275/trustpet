@@ -25,7 +25,7 @@ public class DonoBean implements DonoBeanLocal {
         animal.setIdade(idade);
         animal.setSexo(sexo);
         animal.setAlergias(alergias);
-        animal.setDoenças(doencas);
+        animal.setDoencas(doencas);
         animal.setComportamento(comportamento);
         animal.setVacinas(vacinas);
         animal.setDesparasitacao(desparasitacao);
@@ -106,7 +106,7 @@ public class DonoBean implements DonoBeanLocal {
         animal.setIdade(idade);
         animal.setSexo(sexo);
         animal.setAlergias(alergias);
-        animal.setDoenças(doencas);
+        animal.setDoencas(doencas);
         animal.setComportamento(comportamento);
         animal.setVacinas(vacinas);
         animal.setDesparasitacao(desparasitacao);

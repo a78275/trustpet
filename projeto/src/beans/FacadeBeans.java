@@ -115,7 +115,7 @@ public class FacadeBeans {
      * @param alvo
      * @param session
      */
-    boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo, PersistentSession session) {
+    public static boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo, PersistentSession session) {
         return utilizadorBean.avaliarUtilizador(emailDono, emailPetsitter, avaliacao, comentario, alvo, session);
     }
 
@@ -124,11 +124,10 @@ public class FacadeBeans {
      * @param emailDono
      * @param dataInicio
      * @param dataFim
-     * @param animalServicos
      * @param session
      */
-    public static int registarPedido(String emailDono, Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
-        return pedidoBean.registarPedido(emailDono, dataInicio, dataFim, animalServicos, session);
+    public static int registarPedido(String emailDono, Date dataInicio, Date dataFim, PersistentSession session) {
+        return pedidoBean.registarPedido(emailDono, dataInicio, dataFim, session);
     }
 
     /**
@@ -245,7 +244,7 @@ public class FacadeBeans {
      * @param tiposAnimal
      * @param session
      */
-    public static List<Servico> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session) {
+    public static Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session) {
         return pedidoBean.getServicosPedido(tiposAnimal,session);
     }
 

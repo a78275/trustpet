@@ -74,10 +74,10 @@ public class Util {
         return parametersMap;
     }
 
-    public static Date parseDate (String dateString) {
+    public static Date parseDate (String dateString, String pattern) {
         Date date = null;
         try {
-            date=new SimpleDateFormat("dd/MM/yyyy").parse(dateString);
+            date=new SimpleDateFormat(pattern).parse(dateString);
         } catch (ParseException e) {
             e.printStackTrace();
         }

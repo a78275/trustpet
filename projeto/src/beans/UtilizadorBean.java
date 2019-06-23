@@ -8,6 +8,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 @Local(UtilizadorBeanLocal.class)
@@ -80,8 +81,11 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         try {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
-            // Dono não existe
             e.printStackTrace();
+        }
+
+        // Dono não existe
+        if(dono==null) {
             return false;
         }
         review.setDono(dono);
@@ -89,10 +93,15 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         try {
             petsitter = FacadeDAOs.getPetsitter(session,emailPetsitter);
         } catch (PersistentException e) {
-            // Petsitter não existe
             e.printStackTrace();
+        }
+
+        // Petsitter não existe
+        if(petsitter==null) {
             return false;
         }
+        // Data atual
+        review.setData(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         review.setPetsitter(petsitter);
         review.setAlvo(alvo);
         review.setComentario(comentario);
@@ -104,7 +113,45 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             e.printStackTrace();
             return false;
         }
-        return true;
+        return atualizarRating(dono,petsitter,alvo,avaliacao);
+    }
+
+    private boolean atualizarRating (Dono dono, Petsitter petsitter, String alvo, int avaliacao) {
+        float avaliacaoMedia;
+        int nrAvaliacoes;
+        if(alvo.equals("dono")) {
+            avaliacaoMedia = dono.getAvaliacaoMedia();
+            nrAvaliacoes = dono.getNrAvaliacoes();
+            dono.setAvaliacaoMedia(((avaliacaoMedia*nrAvaliacoes) + avaliacao) / (nrAvaliacoes+1));
+            dono.setNrAvaliacoes(nrAvaliacoes+1);
+
+            try {
+                FacadeDAOs.saveDono(dono);
+            } catch (PersistentException e) {
+                // Erro ao guardar dono
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        else if (alvo.equals("petsitter")) {
+            avaliacaoMedia = petsitter.getAvaliacaoMedia();
+            nrAvaliacoes = petsitter.getNrAvaliacoes();
+            petsitter.setAvaliacaoMedia(((avaliacaoMedia*nrAvaliacoes) + avaliacao) / (nrAvaliacoes+1));
+            petsitter.setNrAvaliacoes(nrAvaliacoes+1);
+
+            try {
+                FacadeDAOs.savePetsitter(petsitter);
+            } catch (PersistentException e) {
+                // Erro ao guardar petsitter
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override

@@ -18,9 +18,11 @@ import java.util.Map;
 
 @WebServlet(name = "EditarDadosPessoaisServlet", urlPatterns = {"/EditarDadosPessoais"})
 public class EditarDadosPessoaisServlet extends HttpServlet {
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -30,7 +32,7 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
         JSONObject mensagem = new JSONObject();
         Map<String,String> parameters = Util.parseBody(request.getReader());
 
-        Date date = Util.parseDate(parameters.get("data"));
+        Date date = Util.parseDate(parameters.get("data"),"dd/MM/yyyy");
         if(date==null) {
             mensagem.put("msg", "Introduza uma data válida");
             out.print(mensagem);
