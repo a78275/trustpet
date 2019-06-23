@@ -27,9 +27,9 @@ public class SelPetsitterServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
-        Map<String,String> parameters = Util.parseBody(request.getReader());
+        JSONObject parameters = Util.parseBody(request.getReader());
 
-        boolean result = FacadeBeans.concluirPedido(parameters.get("email"), (int) request.getSession().getAttribute("idPedido"), session);
+        boolean result = FacadeBeans.concluirPedido((String) parameters.get("email"), (int) request.getSession().getAttribute("idPedido"), session);
         if (result) {
             // TODO: redirecionar?
             mensagem.put("msg", "Pedido registado com sucesso.");

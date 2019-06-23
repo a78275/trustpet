@@ -35,7 +35,7 @@ public class EditarServicosServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
-        Map<String,String> parameters = Util.parseBody(request.getReader());
+        JSONObject parameters = Util.parseBody(request.getReader());
 
 
         boolean result = FacadeBeans.registarServicos("email1@email.com",servicos,session);

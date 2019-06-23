@@ -32,9 +32,9 @@ public class RegistarPetsitterServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
-        Map<String,String> parameters = Util.parseBody(request.getReader());
+        JSONObject parameters = Util.parseBody(request.getReader());
 
-        Date date = Util.parseDate(parameters.get("data"),"dd/MM/yyyy");
+        Date date = Util.parseDate((String) parameters.get("data"),"dd/MM/yyyy");
         if(date==null) {
             mensagem.put("msg", "Introduza uma data válida");
             out.print(mensagem);
@@ -42,7 +42,7 @@ public class RegistarPetsitterServlet extends HttpServlet {
             return;
         }
 
-        boolean result = FacadeBeans.registarUtilizador(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), "petsitter", parameters.get("concelho"), parameters.get("distrito"),session);
+        boolean result = FacadeBeans.registarUtilizador((String) parameters.get("nome"), (String) parameters.get("email"), date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), "petsitter", (String) parameters.get("concelho"), (String) parameters.get("distrito"),session);
         if (result) {
             // TODO: redirecionar?
             mensagem.put("msg", "Registo de petsitter feito com sucesso.");

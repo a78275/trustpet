@@ -3,7 +3,6 @@ package web;
 import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Petsitter;
-import main.Utilizador;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;

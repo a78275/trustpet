@@ -36,10 +36,10 @@ public class RegistarPedidoServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
-        Map<String,String> parameters = Util.parseBody(request.getReader());
+        JSONObject parameters = Util.parseBody(request.getReader());
 
-        Date dataInicio = Util.parseDate(parameters.get("dataInicio"),"dd/MM/yyyy HH:mm");
-        Date dataFim = Util.parseDate(parameters.get("dataFim"),"dd/MM/yyyy HH:mm");
+        Date dataInicio = Util.parseDate((String) parameters.get("dataInicio"),"dd/MM/yyyy HH:mm");
+        Date dataFim = Util.parseDate((String) parameters.get("dataFim"),"dd/MM/yyyy HH:mm");
         if(dataInicio==null || dataFim==null) {
             mensagem.put("msg", "Introduza datas válidas");
             out.print(mensagem);
@@ -47,7 +47,7 @@ public class RegistarPedidoServlet extends HttpServlet {
             return;
         }
 
-        int idPedido = FacadeBeans.registarPedido(parameters.get("emailDono"), dataInicio, dataFim, session);
+        int idPedido = FacadeBeans.registarPedido((String) parameters.get("emailDono"), dataInicio, dataFim, session);
         if(idPedido==-1) {
             mensagem.put("msg", "Erro na criação do pedido.");
             out.print(mensagem);

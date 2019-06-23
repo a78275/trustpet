@@ -1,6 +1,5 @@
 package web;
 import beans.FacadeBeans;
-import main.FacadeDAOs;
 import org.json.JSONObject;
 import org.orm.PersistentSession;
 
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.Map;
 
 @WebServlet(name = "AvaliarPetsitterServlet", urlPatterns = {"/AvaliarPetsitter"})
@@ -28,9 +26,9 @@ public class AvaliarPetsitterServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
-        Map<String,String> parameters = Util.parseBody(request.getReader());
+        JSONObject parameters = Util.parseBody(request.getReader());
 
-        boolean result = FacadeBeans.avaliarUtilizador(parameters.get("emailDono"), parameters.get("emailPetsitter"), Integer.parseInt(parameters.get("avaliacao")), parameters.get("comentario"), parameters.get("alvo"), session);
+        boolean result = FacadeBeans.avaliarUtilizador((String) parameters.get("emailDono"), (String) parameters.get("emailPetsitter"), Integer.parseInt((String) parameters.get("avaliacao")), (String) parameters.get("comentario"), (String) parameters.get("alvo"), session);
 
         if (result) {
             // TODO: redirecionar?

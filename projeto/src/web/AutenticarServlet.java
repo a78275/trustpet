@@ -26,7 +26,7 @@ public class AutenticarServlet extends HttpServlet {
         JSONObject mensagem = new JSONObject();
         PersistentSession session = Util.getSession(request);
 
-        JSONObject parameters = Util.parseBodyy(request.getReader());
+        JSONObject parameters = Util.parseBody(request.getReader());
 
         String email = (String) parameters.get("email");
         String password = (String) parameters.get("password");
