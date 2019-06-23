@@ -132,13 +132,12 @@ public class FacadeBeans {
 
     /**
      *
-     * @param dataInicio
-     * @param dataFim
+     * @param idPedido
      * @param animalServicos
      * @param session
      */
-    public static List<Petsitter> getPetsittersPedido(Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
-        return pedidoBean.getPetsittersPedido(dataInicio, dataFim, animalServicos, session);
+    public static List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+        return pedidoBean.getPetsittersPedido(idPedido, animalServicos, session);
     }
 
     /**
@@ -248,6 +247,14 @@ public class FacadeBeans {
         return pedidoBean.getServicosPedido(tiposAnimal,session);
     }
 
+    /**
+     *
+     * @param animalServicos
+     * @param session
+     */
+    public static boolean registarServicosPedido(Map<Integer,List<Integer>> animalServicos, PersistentSession session) {
+        return FacadeBeans.registarServicosPedido(animalServicos,session);
+    }
 
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {
         try {
