@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -24,7 +24,7 @@ public class PrecoPetsitterServicoCriteria extends AbstractORMCriteria {
 	public final AssociationExpression servico;
 	public final StringExpression petsitterId;
 	public final AssociationExpression petsitter;
-	public final FloatExpression preco;
+	public final DoubleExpression preco;
 	
 	public PrecoPetsitterServicoCriteria(Criteria criteria) {
 		super(criteria);
@@ -33,7 +33,7 @@ public class PrecoPetsitterServicoCriteria extends AbstractORMCriteria {
 		servico = new AssociationExpression("servico", this);
 		petsitterId = new StringExpression("petsitter.", this);
 		petsitter = new AssociationExpression("petsitter", this);
-		preco = new FloatExpression("preco", this);
+		preco = new DoubleExpression("preco", this);
 	}
 	
 	public PrecoPetsitterServicoCriteria(PersistentSession session) {
@@ -41,7 +41,7 @@ public class PrecoPetsitterServicoCriteria extends AbstractORMCriteria {
 	}
 	
 	public PrecoPetsitterServicoCriteria() throws PersistentException {
-		this(TrustPetPersistentManager.instance().getSession());
+		this(TrustpetPersistentManager.instance().getSession());
 	}
 	
 	public ServicoCriteria createServicoCriteria() {

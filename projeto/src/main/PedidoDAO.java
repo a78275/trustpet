@@ -8,21 +8,20 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
 
+import org.orm.*;
 import org.hibernate.Query;
-import org.orm.PersistentException;
-import org.orm.PersistentSession;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class PedidoDAO {
 	public static Pedido loadPedidoByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadPedidoByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -33,7 +32,7 @@ public class PedidoDAO {
 	
 	public static Pedido getPedidoByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return getPedidoByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -44,7 +43,7 @@ public class PedidoDAO {
 	
 	public static Pedido loadPedidoByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadPedidoByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -55,7 +54,7 @@ public class PedidoDAO {
 	
 	public static Pedido getPedidoByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return getPedidoByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -106,7 +105,7 @@ public class PedidoDAO {
 	
 	public static List queryPedido(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return queryPedido(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -117,7 +116,7 @@ public class PedidoDAO {
 	
 	public static List queryPedido(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return queryPedido(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -128,7 +127,7 @@ public class PedidoDAO {
 	
 	public static Pedido[] listPedidoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return listPedidoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -139,7 +138,7 @@ public class PedidoDAO {
 	
 	public static Pedido[] listPedidoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return listPedidoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -205,7 +204,7 @@ public class PedidoDAO {
 	
 	public static Pedido loadPedidoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadPedidoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -216,7 +215,7 @@ public class PedidoDAO {
 	
 	public static Pedido loadPedidoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadPedidoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -243,7 +242,7 @@ public class PedidoDAO {
 	
 	public static java.util.Iterator iteratePedidoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return iteratePedidoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -254,7 +253,7 @@ public class PedidoDAO {
 	
 	public static java.util.Iterator iteratePedidoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return iteratePedidoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -302,7 +301,7 @@ public class PedidoDAO {
 	
 	public static boolean save(main.Pedido pedido) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().saveObject(pedido);
+			TrustpetPersistentManager.instance().saveObject(pedido);
 			return true;
 		}
 		catch (Exception e) {
@@ -313,7 +312,7 @@ public class PedidoDAO {
 	
 	public static boolean delete(main.Pedido pedido) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().deleteObject(pedido);
+			TrustpetPersistentManager.instance().deleteObject(pedido);
 			return true;
 		}
 		catch (Exception e) {
@@ -324,7 +323,7 @@ public class PedidoDAO {
 	
 	public static boolean refresh(main.Pedido pedido) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().getSession().refresh(pedido);
+			TrustpetPersistentManager.instance().getSession().refresh(pedido);
 			return true;
 		}
 		catch (Exception e) {
@@ -335,7 +334,7 @@ public class PedidoDAO {
 	
 	public static boolean evict(main.Pedido pedido) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().getSession().evict(pedido);
+			TrustpetPersistentManager.instance().getSession().evict(pedido);
 			return true;
 		}
 		catch (Exception e) {

@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -41,7 +41,7 @@ public class Pedido {
 	
 	private main.Dono dono;
 	
-	private float preco;
+	private double preco;
 	
 	private boolean ativo;
 	
@@ -65,11 +65,11 @@ public class Pedido {
 		return getId();
 	}
 	
-	public void setPreco(float value) {
+	public void setPreco(double value) {
 		this.preco = value;
 	}
 	
-	public float getPreco() {
+	public double getPreco() {
 		return preco;
 	}
 	
@@ -131,7 +131,7 @@ public class Pedido {
 		return ORM_servicos;
 	}
 	
-	public final main.PrecoPetsitterServicoSetCollection servicos = new main.PrecoPetsitterServicoSetCollection(this, _ormAdapter, ORMConstants.KEY_PEDIDO_SERVICOS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final main.PrecoPetsitterServicoSetCollection servicos = new main.PrecoPetsitterServicoSetCollection(this, _ormAdapter, ORMConstants.KEY_PEDIDO_SERVICOS, ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

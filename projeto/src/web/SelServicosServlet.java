@@ -7,8 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "SelPetsitterServlet", urlPatterns = {"/SelPetsitter"})
-public class SelPetsitterServlet extends HttpServlet {
+@WebServlet(name = "SelServicosServlet", urlPatterns = {"/SelServicos"})
+public class SelServicosServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }

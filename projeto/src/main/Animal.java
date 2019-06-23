@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -46,7 +46,7 @@ public class Animal {
 	
 	private String alergias;
 	
-	private String doenças;
+	private String doencas;
 	
 	private String comportamento;
 	
@@ -120,12 +120,12 @@ public class Animal {
 		return alergias;
 	}
 	
-	public void setDoenças(String value) {
-		this.doenças = value;
+	public void setDoencas(String value) {
+		this.doencas = value;
 	}
 	
-	public String getDoenças() {
-		return doenças;
+	public String getDoencas() {
+		return doencas;
 	}
 	
 	public void setComportamento(String value) {

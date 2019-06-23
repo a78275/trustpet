@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -28,7 +28,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression porte;
 	public final StringExpression sexo;
 	public final StringExpression alergias;
-	public final StringExpression doenças;
+	public final StringExpression doencas;
 	public final StringExpression comportamento;
 	public final BooleanExpression vacinas;
 	public final BooleanExpression desparasitacao;
@@ -47,7 +47,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 		porte = new StringExpression("porte", this.getDetachedCriteria());
 		sexo = new StringExpression("sexo", this.getDetachedCriteria());
 		alergias = new StringExpression("alergias", this.getDetachedCriteria());
-		doenças = new StringExpression("doenças", this.getDetachedCriteria());
+		doencas = new StringExpression("doencas", this.getDetachedCriteria());
 		comportamento = new StringExpression("comportamento", this.getDetachedCriteria());
 		vacinas = new BooleanExpression("vacinas", this.getDetachedCriteria());
 		desparasitacao = new BooleanExpression("desparasitacao", this.getDetachedCriteria());
@@ -67,7 +67,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 		porte = new StringExpression("porte", this.getDetachedCriteria());
 		sexo = new StringExpression("sexo", this.getDetachedCriteria());
 		alergias = new StringExpression("alergias", this.getDetachedCriteria());
-		doenças = new StringExpression("doenças", this.getDetachedCriteria());
+		doencas = new StringExpression("doencas", this.getDetachedCriteria());
 		comportamento = new StringExpression("comportamento", this.getDetachedCriteria());
 		vacinas = new BooleanExpression("vacinas", this.getDetachedCriteria());
 		desparasitacao = new BooleanExpression("desparasitacao", this.getDetachedCriteria());

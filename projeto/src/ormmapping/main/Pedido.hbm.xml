@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Licensee: claudia(Universidade do Minho)
+Licensee: bernardo(Universidade do Minho)
 License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
@@ -10,11 +10,11 @@ License Type: Academic
 			<generator class="native">
 			</generator>
 		</id>
-		<many-to-one name="petsitter" column="PetsitterUtilizadorEmail" class="main.Petsitter" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
+		<many-to-one name="petsitter" column="PetsitterUtilizadorEmail" class="main.Petsitter" cascade="save-update,lock" unique="true" not-null="false" lazy="proxy" access="field">
 		</many-to-one>
 		<many-to-one name="dono" column="DonoUtilizadorEmail" class="main.Dono" cascade="save-update,lock" unique="true" not-null="true" lazy="proxy" access="field">
 		</many-to-one>
-		<property name="preco" column="Preco" type="float" not-null="true" lazy="false"/>
+		<property name="preco" column="Preco" type="double" not-null="true" lazy="false"/>
 		<property name="ativo" column="Ativo" type="boolean" not-null="true" lazy="false"/>
 		<property name="dataInicio" column="DataInicio" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="dataFim" column="DataFim" type="string" length="255" not-null="false" lazy="false"/>
@@ -22,9 +22,10 @@ License Type: Academic
 			<key column="PedidoId" not-null="true"/>
 			<one-to-many class="main.AnimalServico"/>
 		</set>
-		<set name="ORM_Servicos" lazy="true" cascade="save-update,lock" inverse="false">
+		<set name="ORM_Servicos" table="Pedido_PrecoPetsitterServico" lazy="true" cascade="save-update,lock">
 			<key column="PedidoId" not-null="true"/>
-			<one-to-many class="main.PrecoPetsitterServico"/>
+			<many-to-many column="PrecoPetsitterServicoId" class="main.PrecoPetsitterServico">
+			</many-to-many>
 		</set>
 	</class>
 </hibernate-mapping>

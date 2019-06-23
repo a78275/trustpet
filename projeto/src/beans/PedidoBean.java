@@ -13,11 +13,40 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Local(PedidoBeanLocal.class)
-@Stateless(name = "Pedido")
+@Stateless(name = "PedidoBean")
 public class PedidoBean implements PedidoBeanLocal {
 
     @Override
-    public int registarPedido(String emailDono, Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+    public Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session) {
+        String condition;
+        Map<TipoAnimal,List<Servico>> servicosAnimais = new HashMap<>();
+        for (TipoAnimal tipo : tiposAnimal) {
+            List<Servico> servicos = null;
+            List<Servico> servicosTipo = new ArrayList<>();
+            try {
+                servicos = FacadeDAOs.listServicos(session,null,null);
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+            if(servicos==null) {
+                // Não há servicos para o tipoAnimal
+                //TODO Isto é possível?
+                return null;
+            }
+            else {
+                for(Servico s : servicos) {
+                    if(s.tipoAnimais.contains(tipo)) {
+                        servicosTipo.add(s);
+                    }
+                }
+                servicosAnimais.put(tipo,servicosTipo);
+            }
+        }
+        return servicosAnimais;
+    }
+
+    @Override
+    public int registarPedido(String emailDono, Date dataInicio, Date dataFim, PersistentSession session) {
         // Criar pedido
         Pedido pedido = FacadeDAOs.createPedido();
 
@@ -27,42 +56,34 @@ public class PedidoBean implements PedidoBeanLocal {
             dono = FacadeDAOs.getDono(session, emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
+        }
+        if(dono==null) {
+            // Retornar -1 em caso de falha
             return -1;
         }
         pedido.setDono(dono);
 
         // Set das datas
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String parsedDataInicio = format.format(dataInicio);
         pedido.setDataInicio(parsedDataInicio);
         String parsedDataFim = format.format(dataInicio);
         pedido.setDataFim(parsedDataFim);
 
-        // Set dos animalServicos
-        boolean sucesso = setAnimalServicos(session, pedido, animalServicos);
-
-        if (!sucesso) {
-            return -1;
-        }
-
         // Set do estado
         pedido.setAtivo(true);
 
         // Save do pedido na BD
-        boolean save = false;
         try {
-            save = FacadeDAOs.savePedido(pedido);
+            FacadeDAOs.savePedido(pedido);
         } catch (PersistentException e) {
             e.printStackTrace();
+            // Retornar -1 em caso de falha
             return -1;
         }
 
-        // Se for bem sucedido retornar ID senão retornar -1
-        if (save) {
-            return pedido.getId();
-        } else {
-            return -1;
-        }
+        // Se for bem sucedido retornar ID
+        return pedido.getId();
     }
 
     @Override
@@ -87,7 +108,7 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         // Get dos precoPetsitterServicos
-        Map<Integer, Float> servicoPreco = null;
+        Map<Integer, Double> servicoPreco = null;
         try {
             List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + petsitter.getEmail() + "'", null);
             servicoPreco = new HashMap<>();
@@ -100,7 +121,7 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         // Set do preço
-        float preco = 0;
+        double preco = 0;
         for (AnimalServico animalServico : pedido.animalServicos.toArray()) {
             preco += servicoPreco.get(animalServico.getServico().getId());
         }

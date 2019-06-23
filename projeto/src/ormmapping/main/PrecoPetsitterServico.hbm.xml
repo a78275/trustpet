@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Licensee: claudia(Universidade do Minho)
+Licensee: bernardo(Universidade do Minho)
 License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
@@ -14,6 +14,6 @@ License Type: Academic
 		</many-to-one>
 		<many-to-one name="petsitter" cascade="lock" column="PetsitterUtilizadorEmail" class="main.Petsitter" not-null="true" lazy="proxy" access="field">
 		</many-to-one>
-		<property name="preco" column="Preco" type="float" not-null="true" lazy="false"/>
+		<property name="preco" column="Preco" type="double" not-null="true" lazy="false"/>
 	</class>
 </hibernate-mapping>

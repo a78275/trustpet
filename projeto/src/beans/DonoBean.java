@@ -3,6 +3,7 @@ package beans;
 import main.Animal;
 import main.Dono;
 import main.FacadeDAOs;
+import main.TipoAnimal;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
@@ -14,35 +15,49 @@ import java.util.List;
 import java.util.Set;
 
 @Local(DonoBeanLocal.class)
-@Stateless(name="Dono")
+@Stateless(name="DonoBean")
 public class DonoBean implements DonoBeanLocal {
 
     @Override
-    public boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, PersistentSession session) {
+    public boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo, PersistentSession session) {
         Animal animal = FacadeDAOs.createAnimal();
         animal.setNome(nome);
         animal.setIdade(idade);
         animal.setSexo(sexo);
         animal.setAlergias(alergias);
-        animal.setDoenças(doencas);
+        animal.setDoencas(doencas);
         animal.setComportamento(comportamento);
         animal.setVacinas(vacinas);
         animal.setDesparasitacao(desparasitacao);
         animal.setEsterilizacao(esterilizacao);
         animal.setRaca(raca);
         animal.setAvatar(avatar);
+        animal.setPorte(porte);
         animal.setAtivo(true);
+
+        TipoAnimal tipoAnimal = null;
+        try {
+            tipoAnimal=FacadeDAOs.getTipoAnimal(session,tipo);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        // Tipo de Animal não existe
+        if(tipoAnimal==null) {
+            return false;
+        }
+        animal.setTipo(tipoAnimal);
 
         Dono dono = null;
         try {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
-            // Dono não existe
+        }
+        // Dono não existe
+        if(dono==null) {
             return false;
         }
         dono.animais.add(animal);
-
         try {
             FacadeDAOs.saveDono(dono);
         } catch (PersistentException e) {
@@ -61,7 +76,9 @@ public class DonoBean implements DonoBeanLocal {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
-            // Dono não existe
+        }
+        // Dono não existe
+        if(dono==null) {
             return null;
         }
         List<Animal> animaisAtivos = new ArrayList<>();
@@ -80,14 +97,16 @@ public class DonoBean implements DonoBeanLocal {
             animal= FacadeDAOs.getAnimal(session,id);
         } catch (PersistentException e) {
             e.printStackTrace();
-            // Animal não existe
+        }
+        // Animal não existe
+        if (animal==null) {
             return false;
         }
         animal.setNome(nome);
         animal.setIdade(idade);
         animal.setSexo(sexo);
         animal.setAlergias(alergias);
-        animal.setDoenças(doencas);
+        animal.setDoencas(doencas);
         animal.setComportamento(comportamento);
         animal.setVacinas(vacinas);
         animal.setDesparasitacao(desparasitacao);

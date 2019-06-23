@@ -8,21 +8,20 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
 
+import org.orm.*;
 import org.hibernate.Query;
-import org.orm.PersistentException;
-import org.orm.PersistentSession;
-
+import org.hibernate.LockMode;
 import java.util.List;
 
 public class ReviewDAO {
 	public static Review loadReviewByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadReviewByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -33,7 +32,7 @@ public class ReviewDAO {
 	
 	public static Review getReviewByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return getReviewByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -44,7 +43,7 @@ public class ReviewDAO {
 	
 	public static Review loadReviewByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadReviewByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -55,7 +54,7 @@ public class ReviewDAO {
 	
 	public static Review getReviewByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return getReviewByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -106,7 +105,7 @@ public class ReviewDAO {
 	
 	public static List queryReview(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return queryReview(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -117,7 +116,7 @@ public class ReviewDAO {
 	
 	public static List queryReview(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return queryReview(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -128,7 +127,7 @@ public class ReviewDAO {
 	
 	public static Review[] listReviewByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return listReviewByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -139,7 +138,7 @@ public class ReviewDAO {
 	
 	public static Review[] listReviewByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return listReviewByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -205,7 +204,7 @@ public class ReviewDAO {
 	
 	public static Review loadReviewByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadReviewByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -216,7 +215,7 @@ public class ReviewDAO {
 	
 	public static Review loadReviewByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadReviewByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -243,7 +242,7 @@ public class ReviewDAO {
 	
 	public static java.util.Iterator iterateReviewByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return iterateReviewByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -254,7 +253,7 @@ public class ReviewDAO {
 	
 	public static java.util.Iterator iterateReviewByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return iterateReviewByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -302,7 +301,7 @@ public class ReviewDAO {
 	
 	public static boolean save(main.Review review) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().saveObject(review);
+			TrustpetPersistentManager.instance().saveObject(review);
 			return true;
 		}
 		catch (Exception e) {
@@ -313,7 +312,7 @@ public class ReviewDAO {
 	
 	public static boolean delete(main.Review review) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().deleteObject(review);
+			TrustpetPersistentManager.instance().deleteObject(review);
 			return true;
 		}
 		catch (Exception e) {
@@ -324,7 +323,7 @@ public class ReviewDAO {
 	
 	public static boolean refresh(main.Review review) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().getSession().refresh(review);
+			TrustpetPersistentManager.instance().getSession().refresh(review);
 			return true;
 		}
 		catch (Exception e) {
@@ -335,7 +334,7 @@ public class ReviewDAO {
 	
 	public static boolean evict(main.Review review) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().getSession().evict(review);
+			TrustpetPersistentManager.instance().getSession().evict(review);
 			return true;
 		}
 		catch (Exception e) {

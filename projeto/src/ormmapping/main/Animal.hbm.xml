@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Licensee: claudia(Universidade do Minho)
+Licensee: bernardo(Universidade do Minho)
 License Type: Academic
 -->
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
@@ -18,7 +18,7 @@ License Type: Academic
 		<property name="porte" column="Porte" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="sexo" column="Sexo" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="alergias" column="Alergias" type="string" length="255" not-null="false" lazy="false"/>
-		<property name="doenças" column="Doenças" type="string" length="255" not-null="false" lazy="false"/>
+		<property name="doencas" column="Doencas" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="comportamento" column="Comportamento" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="vacinas" column="Vacinas" type="boolean" not-null="true" lazy="false"/>
 		<property name="desparasitacao" column="Desparasitacao" type="boolean" not-null="true" lazy="false"/>

@@ -8,18 +8,15 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
 
+import java.util.List;
 import org.hibernate.criterion.DetachedCriteria;
 import org.orm.PersistentSession;
-import org.orm.criteria.AbstractORMDetachedCriteria;
-import org.orm.criteria.AssociationExpression;
-import org.orm.criteria.IntegerExpression;
-
-import java.util.List;
+import org.orm.criteria.*;
 
 public class AnimalServicoDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final IntegerExpression id;

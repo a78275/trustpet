@@ -2,6 +2,8 @@ package beans;
 
 import main.Pedido;
 import main.Petsitter;
+import main.Servico;
+import main.TipoAnimal;
 import org.orm.PersistentSession;
 
 import javax.ejb.Local;
@@ -17,10 +19,9 @@ public interface PedidoBeanLocal {
 	 * @param emailDono
 	 * @param dataInicio
 	 * @param dataFim
-	 * @param animalServicos
 	 * @param session
 	 */
-	public int registarPedido(String emailDono, Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session);
+	int registarPedido(String emailDono, Date dataInicio, Date dataFim, PersistentSession session);
 	/**
 	 *
 	 * @param emailPetsitter
@@ -51,4 +52,11 @@ public interface PedidoBeanLocal {
 	 * @param session
 	 */
 	List<Pedido> consultarPedidos(String email, PersistentSession session);
+
+	/**
+	 *
+	 * @param tiposAnimal
+	 * @param session
+	 */
+	Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session);
 }

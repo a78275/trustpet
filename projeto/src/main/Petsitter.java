@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -44,7 +44,7 @@ public class Petsitter extends main.Utilizador {
 		return ORM_animais;
 	}
 	
-	public final main.TipoAnimalSetCollection animais = new main.TipoAnimalSetCollection(this, _ormAdapter, ORMConstants.KEY_PETSITTER_ANIMAIS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final main.TipoAnimalSetCollection animais = new main.TipoAnimalSetCollection(this, _ormAdapter, ORMConstants.KEY_PETSITTER_ANIMAIS, ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	public void setHorario(main.Horario value) {
 		this.horario = value;

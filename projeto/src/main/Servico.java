@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -65,8 +65,8 @@ public class Servico {
 	private java.util.Set getORM_TipoAnimais() {
 		return ORM_tipoAnimais;
 	}
-	
-	public final main.TipoAnimalSetCollection tipoAnimais = new main.TipoAnimalSetCollection(this, _ormAdapter, ORMConstants.KEY_SERVICO_TIPOANIMAIS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+
+	public final main.TipoAnimalSetCollection tipoAnimais = new main.TipoAnimalSetCollection(this, _ormAdapter, ORMConstants.KEY_SERVICO_TIPOANIMAIS, ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

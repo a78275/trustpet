@@ -8,7 +8,7 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 
 @Local(AutenticarBeanLocal.class)
-@Stateless(name="Autenticar")
+@Stateless(name="AutenticarBean")
 public class AutenticarBean implements AutenticarBeanLocal {
     @Override
     public boolean autenticar(String email, String password, PersistentSession session) {

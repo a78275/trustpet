@@ -22,8 +22,8 @@
     <Dialect>org.hibernate.dialect.PostgreSQLDialect</Dialect>
     <DriverClass>org.postgresql.Driver</DriverClass>
     <URL>jdbc:postgresql://localhost/trustpet</URL>
-    <UserName>postgres</UserName>
-    <EncryptedPassword>0BBBC9A71C687418C85C57366EC5C656</EncryptedPassword>
+    <UserName>bernardo</UserName>
+    <EncryptedPassword>32F3ACE632ECEBAFB24DCAF99A8C6CDC</EncryptedPassword>
     <HostName>localhost</HostName>
     <PortNO></PortNO>
     <DBName>trustpet</DBName>

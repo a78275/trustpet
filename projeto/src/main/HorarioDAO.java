@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: claudia(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -21,7 +21,7 @@ import java.util.List;
 public class HorarioDAO {
 	public static Horario loadHorarioByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadHorarioByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class HorarioDAO {
 	
 	public static Horario getHorarioByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return getHorarioByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class HorarioDAO {
 	
 	public static Horario loadHorarioByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadHorarioByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class HorarioDAO {
 	
 	public static Horario getHorarioByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return getHorarioByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class HorarioDAO {
 	
 	public static List queryHorario(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return queryHorario(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class HorarioDAO {
 	
 	public static List queryHorario(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return queryHorario(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class HorarioDAO {
 	
 	public static Horario[] listHorarioByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return listHorarioByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class HorarioDAO {
 	
 	public static Horario[] listHorarioByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return listHorarioByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class HorarioDAO {
 	
 	public static Horario loadHorarioByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadHorarioByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class HorarioDAO {
 	
 	public static Horario loadHorarioByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return loadHorarioByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class HorarioDAO {
 	
 	public static java.util.Iterator iterateHorarioByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return iterateHorarioByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class HorarioDAO {
 	
 	public static java.util.Iterator iterateHorarioByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustPetPersistentManager.instance().getSession();
+			PersistentSession session = TrustpetPersistentManager.instance().getSession();
 			return iterateHorarioByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class HorarioDAO {
 	
 	public static boolean save(main.Horario horario) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().saveObject(horario);
+			TrustpetPersistentManager.instance().saveObject(horario);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class HorarioDAO {
 	
 	public static boolean delete(main.Horario horario) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().deleteObject(horario);
+			TrustpetPersistentManager.instance().deleteObject(horario);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class HorarioDAO {
 	
 	public static boolean refresh(main.Horario horario) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().getSession().refresh(horario);
+			TrustpetPersistentManager.instance().getSession().refresh(horario);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class HorarioDAO {
 	
 	public static boolean evict(main.Horario horario) throws PersistentException {
 		try {
-			TrustPetPersistentManager.instance().getSession().evict(horario);
+			TrustpetPersistentManager.instance().getSession().evict(horario);
 			return true;
 		}
 		catch (Exception e) {

@@ -61,11 +61,10 @@ public class FacadeBeans {
      * @param esterilizacao
      * @param raca
      * @param avatar
-     * @param ativo
      * @param session
      */
-    public static boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo, PersistentSession session) {
-        return donoBean.registarAnimal(emailDono,nome,idade,porte,sexo,alergias,doencas,comportamento,vacinas,desparasitacao,esterilizacao,raca,avatar,session);
+    public static boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo,PersistentSession session) {
+        return donoBean.registarAnimal(emailDono,nome,idade,porte,sexo,alergias,doencas,comportamento,vacinas,desparasitacao,esterilizacao,raca,avatar,tipo,session);
     }
 
     /**
@@ -84,7 +83,7 @@ public class FacadeBeans {
      * @param servicos
      * @param session
      */
-    public static boolean registarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session) {
+    public static boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session) {
         return petsitterBean.registarServicos(emailPetsitter,servicos,session);
     }
 
@@ -103,8 +102,8 @@ public class FacadeBeans {
      * @param filtro
      * @param session
      */
-    public static List<Petsitter> consultarPetsitters(String filtro, PersistentSession session) {
-        return petsitterBean.consultarPetsitters(filtro,session);
+    public static List<Petsitter> consultarPetsitters(String filtro, String ordem, PersistentSession session) {
+        return petsitterBean.consultarPetsitters(filtro,ordem,session);
     }
 
     /**
@@ -116,7 +115,7 @@ public class FacadeBeans {
      * @param alvo
      * @param session
      */
-    boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo, PersistentSession session) {
+    public static boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo, PersistentSession session) {
         return utilizadorBean.avaliarUtilizador(emailDono, emailPetsitter, avaliacao, comentario, alvo, session);
     }
 
@@ -125,11 +124,10 @@ public class FacadeBeans {
      * @param emailDono
      * @param dataInicio
      * @param dataFim
-     * @param animalServicos
      * @param session
      */
-    public static int registarPedido(String emailDono, Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
-        return pedidoBean.registarPedido(emailDono, dataInicio, dataFim, animalServicos, session);
+    public static int registarPedido(String emailDono, Date dataInicio, Date dataFim, PersistentSession session) {
+        return pedidoBean.registarPedido(emailDono, dataInicio, dataFim, session);
     }
 
     /**
@@ -203,10 +201,11 @@ public class FacadeBeans {
      * @param tipoUtilizador
      * @param concelho
      * @param distrito
+     * @param ativo
      * @param session
      */
-    public static boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, PersistentSession session) {
-        return utilizadorBean.editarDados(nome, email, dataNasc, contacto, jardim, morada, password, avatar, tipoUtilizador, concelho, distrito, session);
+    public static boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo,PersistentSession session) {
+        return utilizadorBean.editarDados(nome, email, dataNasc, contacto, jardim, morada, password, avatar, tipoUtilizador, concelho, distrito, ativo,session);
     }
 
     /**
@@ -215,7 +214,7 @@ public class FacadeBeans {
      * @param servicos
      * @param session
      */
-    public static boolean editarServicos(String emailPetsitter, Map<Integer, Float> servicos, PersistentSession session) {
+    public static boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session) {
         return petsitterBean.editarServicos(emailPetsitter, servicos, session);
     }
 
@@ -239,6 +238,14 @@ public class FacadeBeans {
      */
     public static boolean editarAnimal(int id, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo, PersistentSession session) {
         return donoBean.editarAnimal(id, nome, idade, porte, sexo, alergias, doencas, comportamento, vacinas, desparasitacao, esterilizacao, raca, avatar, ativo, session);
+    }
+    /**
+     *
+     * @param tiposAnimal
+     * @param session
+     */
+    public static Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session) {
+        return pedidoBean.getServicosPedido(tiposAnimal,session);
     }
 
 

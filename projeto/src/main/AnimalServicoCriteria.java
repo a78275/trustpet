@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: Joana(Universidade do Minho)
+ * Licensee: bernardo(Universidade do Minho)
  * License Type: Academic
  */
 package main;
@@ -39,7 +39,7 @@ public class AnimalServicoCriteria extends AbstractORMCriteria {
 	}
 	
 	public AnimalServicoCriteria() throws PersistentException {
-		this(TrustPetPersistentManager.instance().getSession());
+		this(TrustpetPersistentManager.instance().getSession());
 	}
 	
 	public ServicoCriteria createServicoCriteria() {

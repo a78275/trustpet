@@ -8,10 +8,11 @@ import javax.ejb.Local;
 import javax.ejb.Stateless;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Date;
 
 @Local(UtilizadorBeanLocal.class)
-@Stateless(name="Utilizador")
+@Stateless(name="UtilizadorBean")
 public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
@@ -56,6 +57,8 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             petsitter.setNrAvaliacoes(0);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             petsitter.setDataNasc(format.format(dataNasc));
+            Horario horario = FacadeDAOs.createHorario();
+            petsitter.setHorario(horario);
             try {
                 FacadeDAOs.savePetsitter(petsitter);
             } catch (PersistentException e) {
@@ -78,8 +81,11 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         try {
             dono = FacadeDAOs.getDono(session,emailDono);
         } catch (PersistentException e) {
-            // Dono não existe
             e.printStackTrace();
+        }
+
+        // Dono não existe
+        if(dono==null) {
             return false;
         }
         review.setDono(dono);
@@ -87,10 +93,15 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         try {
             petsitter = FacadeDAOs.getPetsitter(session,emailPetsitter);
         } catch (PersistentException e) {
-            // Petsitter não existe
             e.printStackTrace();
+        }
+
+        // Petsitter não existe
+        if(petsitter==null) {
             return false;
         }
+        // Data atual
+        review.setData(new SimpleDateFormat("dd-MM-yyyy").format(new Date()));
         review.setPetsitter(petsitter);
         review.setAlvo(alvo);
         review.setComentario(comentario);
@@ -102,7 +113,45 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             e.printStackTrace();
             return false;
         }
-        return true;
+        return atualizarRating(dono,petsitter,alvo,avaliacao);
+    }
+
+    private boolean atualizarRating (Dono dono, Petsitter petsitter, String alvo, int avaliacao) {
+        float avaliacaoMedia;
+        int nrAvaliacoes;
+        if(alvo.equals("dono")) {
+            avaliacaoMedia = dono.getAvaliacaoMedia();
+            nrAvaliacoes = dono.getNrAvaliacoes();
+            dono.setAvaliacaoMedia(((avaliacaoMedia*nrAvaliacoes) + avaliacao) / (nrAvaliacoes+1));
+            dono.setNrAvaliacoes(nrAvaliacoes+1);
+
+            try {
+                FacadeDAOs.saveDono(dono);
+            } catch (PersistentException e) {
+                // Erro ao guardar dono
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        else if (alvo.equals("petsitter")) {
+            avaliacaoMedia = petsitter.getAvaliacaoMedia();
+            nrAvaliacoes = petsitter.getNrAvaliacoes();
+            petsitter.setAvaliacaoMedia(((avaliacaoMedia*nrAvaliacoes) + avaliacao) / (nrAvaliacoes+1));
+            petsitter.setNrAvaliacoes(nrAvaliacoes+1);
+
+            try {
+                FacadeDAOs.savePetsitter(petsitter);
+            } catch (PersistentException e) {
+                // Erro ao guardar petsitter
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
@@ -117,7 +166,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
                 return null;
             }
             return dono;
-        } else if (tipoUtilizador.equals("dono")) {
+        } else if (tipoUtilizador.equals("petsitter")) {
             Petsitter petsitter = null;
             try {
                 petsitter = FacadeDAOs.getPetsitter(session,email);
@@ -135,7 +184,64 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     }
 
     @Override
-    public boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, PersistentSession session) {
+    public boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo, PersistentSession session) {
+        // Inativação de utilizador por parte do admin
+        if(nome==null && !ativo) {
+            return inativarUtilizador(email,tipoUtilizador,session);
+        }
+        // Editar dados por parte dos utilizadores
+        else {
+            return editarDadosUtilizador(nome, email, dataNasc, contacto, jardim, morada, password, avatar, tipoUtilizador, concelho, distrito, ativo,session);
+        }
+    }
+
+    private boolean inativarUtilizador(String email, String tipoUtilizador, PersistentSession session) {
+        if(tipoUtilizador.equals("dono")) {
+            Dono dono = null;
+            try {
+                dono = FacadeDAOs.getDono(session,email);
+            } catch (PersistentException e) {
+                // Dono não existe
+                e.printStackTrace();
+                return false;
+            }
+            dono.setAtivo(false);
+
+            try {
+                FacadeDAOs.saveDono(dono);
+            } catch (PersistentException e) {
+                // Erro ao guardar dono
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        } else if (tipoUtilizador.equals("petsitter")) {
+            Petsitter petsitter = null;
+            try {
+                petsitter = FacadeDAOs.getPetsitter(session,email);
+            } catch (PersistentException e) {
+                // Petsitter não existe
+                e.printStackTrace();
+                return false;
+            }
+            petsitter.setAtivo(true);
+
+            try {
+                FacadeDAOs.savePetsitter(petsitter);
+            } catch (PersistentException e) {
+                // Erro ao guardar petsitter
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        else {
+            // Tipo de utilizador inválido
+            return false;
+        }
+    }
+
+    private boolean editarDadosUtilizador (String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo, PersistentSession session) {
         if(tipoUtilizador.equals("dono")) {
             Dono dono = null;
             try {
@@ -154,7 +260,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             dono.setAvatar(avatar);
             dono.setConcelho(concelho);
             dono.setDistrito(distrito);
-            dono.setAtivo(true);
+            dono.setAtivo(ativo);
             dono.setAvaliacaoMedia(0);
             dono.setNrAvaliacoes(0);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
