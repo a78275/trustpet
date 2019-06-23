@@ -40,8 +40,7 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
             return;
         }
 
-        //TODO É para mandar ativo ou não? Se não, mudar para true
-        boolean result = FacadeBeans.editarDados(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), parameters.get("tipoUtilizador"), parameters.get("concelho"), parameters.get("distrito"), Boolean.parseBoolean(parameters.get("ativo")), session);
+        boolean result = FacadeBeans.editarDados(parameters.get("nome"), parameters.get("email"), date, parameters.get("contacto"), Boolean.parseBoolean(parameters.get("jardim")), parameters.get("morada"), parameters.get("password"), parameters.get("avatar"), parameters.get("tipoUtilizador"), parameters.get("concelho"), parameters.get("distrito"), true, session);
         if (result) {
             // TODO: redirecionar?
             mensagem.put("msg", "Dados editados com sucesso.");

@@ -32,12 +32,11 @@ public interface PedidoBeanLocal {
 
 	/**
 	 *
-	 * @param dataInicio
-	 * @param dataFim
+	 * @param idPedido
 	 * @param animalServicos
 	 * @param session
 	 */
-	List<Petsitter> getPetsittersPedido(Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session);
+	List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos, PersistentSession session);
 
 	/**
 	 *
@@ -59,4 +58,11 @@ public interface PedidoBeanLocal {
 	 * @param session
 	 */
 	Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session);
+
+	/**
+	 *
+	 * @param animalServicos
+	 * @param session
+	 */
+	boolean registarServicosPedido(Map<Integer,List<Integer>> animalServicos, PersistentSession session);
 }

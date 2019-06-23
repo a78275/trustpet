@@ -47,14 +47,14 @@ public class RegistarPedidoServlet extends HttpServlet {
             return;
         }
 
-        int pedidoID = FacadeBeans.registarPedido(parameters.get("emailDono"), dataInicio, dataFim, session);
-        if(pedidoID==-1) {
+        int idPedido = FacadeBeans.registarPedido(parameters.get("emailDono"), dataInicio, dataFim, session);
+        if(idPedido==-1) {
             mensagem.put("msg", "Erro na criação do pedido.");
             out.print(mensagem);
             out.flush();
         }
         else {
-            out.println("Pedido ID: " + pedidoID);
+            out.println("Pedido ID: " + idPedido);
 
             // TODO Receber tipos de animais do pedido HTTP, fazer parse corretamente
             List<TipoAnimal> tiposAnimal = new ArrayList<>();
@@ -69,6 +69,9 @@ public class RegistarPedidoServlet extends HttpServlet {
             /*Gson gson= new Gson();
             String json = gson.toJson(servicos);
             out.print(json);*/
+
+            request.getSession().setAttribute("idPedido", idPedido);
+
             out.flush();
         }
     }

@@ -46,6 +46,11 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
+    public boolean registarServicosPedido(Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+        return false;
+    }
+
+    @Override
     public int registarPedido(String emailDono, Date dataInicio, Date dataFim, PersistentSession session) {
         // Criar pedido
         Pedido pedido = FacadeDAOs.createPedido();
@@ -141,7 +146,27 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
-    public List<Petsitter> getPetsittersPedido(Date dataInicio, Date dataFim, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+    public List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+        Pedido pedido=null;
+        try {
+            pedido = FacadeDAOs.getPedido(session, idPedido);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        // Pedido não existe
+        if(pedido==null) {
+            return null;
+        }
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date dataInicio = null;
+        Date dataFim = null;
+        try {
+            dataInicio = format.parse(pedido.getDataInicio());
+            dataFim = format.parse(pedido.getDataFim());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         // Buscar Petsitters que fazem os serviços pretendidos
         Set<String> emailsPetsitters = getPetsittersServico(animalServicos, session);
 
