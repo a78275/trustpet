@@ -26,45 +26,39 @@ public class AutenticarServlet extends HttpServlet {
         JSONObject mensagem = new JSONObject();
         PersistentSession session = Util.getSession(request);
 
-        Map<String,String> parameters = Util.parseBody(request.getReader());
+        JSONObject parameters = Util.parseBodyy(request.getReader());
 
-        if (parameters.containsKey("email") && parameters.containsKey("password")) {
-            String email = parameters.get("email");
-            String password = parameters.get("password");
+        String email = (String) parameters.get("email");
+        String password = (String) parameters.get("password");
 
-            boolean result = FacadeBeans.autenticar(email, password, session);
+        boolean result = FacadeBeans.autenticar(email, password, session);
 
-            if (result) {
-                // TODO: enviar pedido post
-                mensagem.put("msg", "Login feito com sucesso.");
-                // Guardar email do utilizador da sessão atual
-                request.getSession().setAttribute("user", email);
-
-                Utilizador user = null;
-                try {
-                    user = FacadeDAOs.getDono(session,email);
-                } catch (PersistentException e) {
-                    e.printStackTrace();
-                }
-
-                //Guardar tipo do utilizador da sessão atual
-                if(user==null) {
-                    request.getSession().setAttribute("tipo", "petsitter");
-                }
-                else {
-                    request.getSession().setAttribute("tipo", "dono");
-                }
-
-                //request.setAttribute("msg", "Login feito com sucesso.");
-            } else {
-                // TODO: enviar pedido post
-                mensagem.put("msg", "Credenciais incorretas.");
-                //request.setAttribute("msg", "Credenciais incorretas.");
-            }
-        }
-        else {
+        if (result) {
             // TODO: enviar pedido post
-            mensagem.put("msg", "Introduza um email e password");
+            mensagem.put("msg", "Login feito com sucesso.");
+            // Guardar email do utilizador da sessão atual
+            request.getSession().setAttribute("user", email);
+
+            Utilizador user = null;
+            try {
+                user = FacadeDAOs.getDono(session,email);
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+
+            //Guardar tipo do utilizador da sessão atual
+            if(user==null) {
+                request.getSession().setAttribute("tipo", "petsitter");
+            }
+            else {
+                request.getSession().setAttribute("tipo", "dono");
+            }
+
+            //request.setAttribute("msg", "Login feito com sucesso.");
+        } else {
+            // TODO: enviar pedido post
+            mensagem.put("msg", "Credenciais incorretas.");
+            //request.setAttribute("msg", "Credenciais incorretas.");
         }
 
         out.print(mensagem);
