@@ -15,6 +15,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import main.TrustpetPersistentManager;
 import org.json.JSONArray;
+import org.json.JSONObject;
 import org.orm.PersistentSession;
 
 public class Util {
@@ -50,7 +51,7 @@ public class Util {
         return session;
     }
 
-    public static Map<String,String> parseBody (BufferedReader reader) {
+    public static JSONObject parseBody (BufferedReader reader) {
         StringBuffer jb = new StringBuffer();
         String line = null;
         try {
@@ -60,18 +61,7 @@ public class Util {
             e.printStackTrace();
         }
 
-        Map<String,String> parametersMap = new HashMap<>();
-        String[] parameters = jb.toString().split("&");
-        for (String p : parameters) {
-            String key = p.split("=")[0];
-            if(p.split("=").length==1) {
-                parametersMap.put(key,"");
-            }
-            else {
-                parametersMap.put(key,java.net.URLDecoder.decode(p.split("=")[1], StandardCharsets.UTF_8));
-            }
-        }
-        return parametersMap;
+        return new JSONObject(jb.toString());
     }
 
     public static Date parseDate (String dateString, String pattern) {

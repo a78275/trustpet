@@ -33,29 +33,11 @@ public class EditarTiposAnimaisServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         PersistentSession session = Util.getSession(request);
 
-        Map<String,String> parameters = Util.parseBody(request.getReader());
-        List<Integer> tipos = parseList(parameters.get("tipos"));
+        JSONObject parameters = Util.parseBody(request.getReader());
+        //List<Integer> tipos = parseList((String) parameters.get("tipos"));
 
-        boolean result = FacadeBeans.registarTiposAnimais(parameters.get("email"),tipos,session);
-        out.print(result);
+        //boolean result = FacadeBeans.registarTiposAnimais((String) parameters.get("email"),tipos,session);
+        //out.print(result);
         out.flush();
-    }
-
-    //TODO Melhorar isto
-    private List<Integer> parseList(String stringList) {
-        String[] strings = stringList.split("[.,]");
-        List<Integer> integers = new ArrayList<>();
-        for(String s : strings) {
-            if(s.startsWith("[")) {
-                integers.add(Integer.parseInt(s.substring(1)));
-            }
-            else if (s.endsWith("]")) {
-                integers.add(Integer.parseInt(s.substring(0,s.length()-1)));
-            }
-            else {
-                integers.add(Integer.parseInt(s));
-            }
-        }
-        return integers;
     }
 }

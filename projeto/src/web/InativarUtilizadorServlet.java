@@ -1,5 +1,6 @@
 package web;
 import beans.FacadeBeans;
+import org.json.JSONObject;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -28,9 +29,9 @@ public class InativarUtilizadorServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         PersistentSession session = Util.getSession(request);
 
-        Map<String,String> parameters = Util.parseBody(request.getReader());
+        JSONObject parameters = Util.parseBody(request.getReader());
 
-        boolean result = FacadeBeans.editarDados(null, parameters.get("email"), null, null, false, null, null, null, parameters.get("tipoUtilizador"), null, null, false, session);
+        boolean result = FacadeBeans.editarDados(null, (String) parameters.get("email"), null, null, false, null, null, null, (String) parameters.get("tipoUtilizador"), null, null, false, session);
         out.print(result);
         out.flush();
     }

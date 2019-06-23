@@ -22,7 +22,7 @@ public class ConsultarAnimaisServlet extends HttpServlet {
 
         PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
-        String emailDono = request.getParameter("email");
+        String emailDono = (String) request.getSession().getAttribute("user");
         if(emailDono!=null) {
             List<Animal> animalList = FacadeBeans.consultarAnimais(emailDono,session);
 
