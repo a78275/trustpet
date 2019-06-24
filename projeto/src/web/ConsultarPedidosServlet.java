@@ -23,7 +23,7 @@ public class ConsultarPedidosServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         List<Pedido> pedidos = FacadeBeans.consultarPedidos((String) request.getSession().getAttribute("user"), session);
-        //TODO Descobrir porque é que o horario e tipos de animais nao da para passar para JSON
+
         Gson gson= new Gson();
         String json = gson.toJson(pedidos);
 

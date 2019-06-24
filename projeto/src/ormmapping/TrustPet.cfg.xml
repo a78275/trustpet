@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <!--
-Licensee: bernardo(Universidade do Minho)
+Licensee: claudia(Universidade do Minho)
 License Type: Academic
 -->
 <!DOCTYPE hibernate-configuration PUBLIC
@@ -12,12 +12,12 @@ License Type: Academic
 		<property name="dialect">org.hibernate.dialect.PostgreSQLDialect</property>
 		<property name="connection.driver_class">org.postgresql.Driver</property>
 		<property name="connection.url">jdbc:postgresql://localhost/trustpet</property>
-		<property name="connection.username">bernardo</property>
-		<property name="connection.password"></property>
+		<property name="connection.username">postgres</property>
+		<property name="connection.password">postgres</property>
 		<property name="show_sql">false</property>
 		<property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
 		<!-- mapping files -->
-		<mapping resource="" />
+		<mapping resource="ormmapping/main/Administrador.hbm.xml" />
 		<mapping resource="ormmapping/main/Animal.hbm.xml" />
 		<mapping resource="ormmapping/main/AnimalServico.hbm.xml" />
 		<mapping resource="ormmapping/main/Dia.hbm.xml" />
