@@ -1,0 +1,65 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap 4 DatePicker</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://unpkg.com/gijgo@1.9.13/js/gijgo.min.js" type="text/javascript"></script>
+    <link href="https://unpkg.com/gijgo@1.9.13/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+</head>
+
+<style>
+    .content-element {
+        margin: 50px 0 0 50px;
+    }
+
+    .circles-list ol {
+        list-style-type: none;
+        margin-left: 1.25em;
+        padding-left: 2.5em;
+        counter-reset: li-counter;
+        border-left: 1px solid #00c4cc;
+        position: relative;
+    }
+
+    .circles-list ol>li {
+        position: relative;
+        margin-bottom: 3.125em;
+        clear: both;
+    }
+
+    .circles-list ol>li:before {
+        position: absolute;
+        top: -0.5em;
+        font-family: "Open Sans", sans-serif;
+        font-weight: 600;
+        font-size: 1em;
+        left: -3.75em;
+        width: 2.25em;
+        height: 2.25em;
+        line-height: 2.25em;
+        text-align: center;
+        z-index: 9;
+        color: #00c4cc;
+        border: 2px solid #00c4cc;
+        border-radius: 50%;
+        content: counter(li-counter);
+        background-color: #ebeced;
+        counter-increment: li-counter;
+    }
+</style>
+
+<body>
+    <div class="text-element content-element circles-list">
+        <ol>
+            <li>Perfil</li>
+            <li><span style="font-weight: 400">Animais</span></li>
+            <li><span style="font-weight: 400">Confirmação</span></li>
+        </ol>
+    </div>
+</body>
+
+</html>

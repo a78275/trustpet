@@ -19,7 +19,7 @@ import org.hibernate.*;
 import java.util.Properties;
 
 public class TrustpetPersistentManager extends PersistentManager {
-	private static final String PROJECT_NAME = "Trustpet";
+	private static final String PROJECT_NAME = "TrustPet";
 	private static PersistentManager _instance = null;
 	private static SessionType _sessionType = SessionType.THREAD_BASE;
 	private static int _timeToAlive = 60000;
