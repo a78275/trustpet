@@ -34,8 +34,8 @@ public class AutenticarServlet extends HttpServlet {
         boolean result = FacadeBeans.autenticar(email, password, session);
 
         if (result) {
-            // TODO: enviar pedido post
-            mensagem.put("msg", "Login feito com sucesso.");
+            mensagem.put("sucess",true);
+
             // Guardar email do utilizador da sessão atual
             request.getSession().setAttribute("user", email);
 
@@ -49,16 +49,14 @@ public class AutenticarServlet extends HttpServlet {
             //Guardar tipo do utilizador da sessão atual
             if(user==null) {
                 request.getSession().setAttribute("tipo", "petsitter");
+                mensagem.put("tipo","petsitter");
             }
             else {
                 request.getSession().setAttribute("tipo", "dono");
+                mensagem.put("tipo","dono");
             }
-
-            //request.setAttribute("msg", "Login feito com sucesso.");
         } else {
-            // TODO: enviar pedido post
-            mensagem.put("msg", "Credenciais incorretas.");
-            //request.setAttribute("msg", "Credenciais incorretas.");
+            mensagem.put("sucess",false);
         }
 
         out.print(mensagem);

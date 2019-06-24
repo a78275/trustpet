@@ -1,6 +1,9 @@
 package web;
 import beans.FacadeBeans;
+import main.Administrador;
+import main.FacadeDAOs;
 import org.json.JSONObject;
+import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -31,8 +34,17 @@ public class InativarUtilizadorServlet extends HttpServlet {
 
         JSONObject parameters = Util.parseBody(request.getReader());
 
-        boolean result = FacadeBeans.editarDados(null, (String) parameters.get("email"), null, null, false, null, null, null, (String) parameters.get("tipoUtilizador"), null, null, false, session);
-        out.print(result);
-        out.flush();
+        //TODO Passar método para os Beans?
+        Administrador admin = null;
+        try {
+            admin = FacadeDAOs.getAdministrador(session,(String) parameters.get("email"));
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        if(admin!=null && admin.getPassword().equals((String) parameters.get("password"))) {
+            boolean result = FacadeBeans.editarDados(null, (String) parameters.get("emailDono"), null, null, false, null, null, null, (String) parameters.get("tipoUtilizador"), null, null, false, session);
+            out.print(result);
+            out.flush();
+        }
     }
 }
