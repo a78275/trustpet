@@ -35,45 +35,11 @@ public class SelServicosServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         PersistentSession session = Util.getSession(request);
-        JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
         int idPedido = (int) request.getSession().getAttribute("idPedido");
-        JSONArray arr = parameters.getJSONArray("animalServicos");
 
-        Map<Integer, List<Integer>> animalServicos = new HashMap<>();
-
-        // Parse animalServicos
-        for (int i = 0; i < arr.length(); i++) {
-            // Parse idAnimal
-            int idAnimal = arr.getJSONObject(i).getInt("idAnimal");
-            // Parse servicos
-            JSONArray servicos = arr.getJSONObject(i).getJSONArray("servicos");
-
-            for (int j = 0; j < servicos.length(); j++) {
-                int idServico = Integer.parseInt((String) arr.get(j));
-
-                List<Integer> servicosList = animalServicos.get(idAnimal);
-
-                // O animal ainda não está no map
-                if (servicosList == null){
-                    servicosList = new ArrayList<>();
-                    servicosList.add(idServico);
-                    animalServicos.put(idAnimal, servicosList);
-                }
-
-                // O animal já está no map
-                else {
-                    servicosList.add(idServico);
-                    animalServicos.put(idAnimal, servicosList);
-                }
-            }
-        }
-
-        //TODO: Apagar
-        for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
-            System.out.println(e.getKey() + " - " + e.getValue());
-        }
+        Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicos(parameters);
 
         List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos, session);
 
