@@ -2,6 +2,7 @@ package web;
 import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Animal;
+import org.json.JSONObject;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -22,19 +23,20 @@ public class ConsultarAnimaisServlet extends HttpServlet {
 
         PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
+        JSONObject mensagem = new JSONObject();
         String emailDono = (String) request.getSession().getAttribute("user");
         if(emailDono!=null) {
             List<Animal> animalList = FacadeBeans.consultarAnimais(emailDono,session);
 
             Gson gson= new Gson();
             String json = gson.toJson(animalList);
-
-            out.print(json);
+            mensagem.put("sucesso",true);
+            mensagem.put("animais",json);
         }
         else {
-            out.print("Introduza um email válido");
+            mensagem.put("sucesso",false);
         }
-
+        out.print(mensagem);
         out.flush();
     }
 

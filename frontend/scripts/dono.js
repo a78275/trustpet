@@ -54,11 +54,34 @@ var vm = new Vue({
     data: {
         appName: "TrustPet",
         animais: [],
-        servicos: [{ 'id': '1', 'servicos': { '1': 'Passear', '2': 'Dar banho' } }, { 'id': '2', 'servicos': { '1': 'Passear', '4': 'Alimentar', '5': 'Coçar as costas', '6': 'Escovar o pêlo', '7': 'Brincar' } }],
+        servicos: [{
+            'id': '1',
+            'servicos': {
+                '1': 'Passear',
+                '2': 'Dar banho'
+            }
+        }, {
+            'id': '2',
+            'servicos': {
+                '1': 'Passear',
+                '4': 'Alimentar',
+                '5': 'Coçar as costas',
+                '6': 'Escovar o pêlo',
+                '7': 'Brincar'
+            }
+        }],
         petsitters: ['Maria', 'Manel']
     },
     created: async function () {
-        this.animais = [{ "id": 1, "tipo": { "id": 1, "tipo": "Gato" }, "nome": "Luna", "avatar": "", "idade": 1, "sexo": "F", "alergias": "", "doenças": "Doente da cabeça, muito lindinha e querida e come plástico.", "comportamento": "Falta de noção de espaço.", "vacinas": false, "desparasitacao": true, "esterilizacao": true, "raca": "Engodo", "ativo": true, "porte": "pequeno" }, { "id": 2, "tipo": { "id": 2, "tipo": "Cão" }, "nome": "Asdrubal", "avatar": "", "idade": 1, "sexo": "M", "alergias": "pão", "doenças": "Doente da cabeça", "comportamento": "Falta de noção de espaço.", "vacinas": true, "desparasitacao": true, "esterilizacao": false, "raca": "Engodo", "ativo": true, "porte": "pequeno" }, { "id": 3, "tipo": { "id": 1, "tipo": "Gato" }, "nome": "Luna", "avatar": "", "idade": 1, "sexo": "F", "alergias": "pão", "doenças": "Doente da cabeça", "comportamento": "Falta de noção de espaço.", "vacinas": true, "desparasitacao": false, "esterilizacao": true, "raca": "Engodo", "ativo": true, "porte": "pequeno" }, { "id": 4, "tipo": { "id": 1, "tipo": "Gato" }, "nome": "Luna", "avatar": "", "idade": 1, "sexo": "F", "alergias": "pão", "doenças": "Doente da cabeça", "comportamento": "Falta de noção de espaço.", "vacinas": true, "desparasitacao": true, "esterilizacao": true, "raca": "Engodo", "ativo": true, "porte": "pequeno" }, { "id": 5, "tipo": { "id": 1, "tipo": "Gato" }, "nome": "Luna", "avatar": "", "idade": 1, "sexo": "F", "alergias": "pão", "doenças": "Doente da cabeça", "comportamento": "Falta de noção de espaço.", "vacinas": true, "desparasitacao": true, "esterilizacao": true, "raca": "Engodo", "ativo": true, "porte": "pequeno" }]
+        const response = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarAnimais")
+        const content = await response.json()
+        if (content.sucess) {
+            this.animais = content.animais
+            console.log(this.animais)
+        } else {
+            window.location.replace("http://localhost/")
+        }
+
     },
     methods: {
         getServicos: function (id) {
