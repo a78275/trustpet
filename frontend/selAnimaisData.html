@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="favicon.ico">
+    <title>Trust Pet</title>
+    <link rel="stylesheet" type="text/css" href="style/reset.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+</head>
+
+<style>
+    .image-checkbox {
+        cursor: pointer;
+        border: 6px solid transparent;
+        border-radius: 50%;
+        outline: 0;
+        opacity: 0.5;
+    }
+
+    .image-checkbox input[type="checkbox"] {
+        display: none;
+    }
+
+    .image-checkbox-checked {
+        opacity: 1;
+        border-color: #ebd0ce;
+    }
+</style>
+
+<body>
+    <div class="wrapper" id="dono">
+        <!-- Navbar -->
+        <sidebardono></sidebardono>
+        <div id="content">
+            <button type="button" id="sidebarCollapse">
+                <i class="fas fa-align-left"></i>
+            </button>
+            <div id="header" style="background-color: #f7eceb;" class="p-2 pb-4">
+                <h1 class="p-2 text-center" style="color: #545871; font-size: 2.5em;">NOVO PEDIDO</h1>
+                <div class="progress" style="width: 80%; margin-left: auto; margin-right: auto; height: 25px;">
+                    <div class="progress-bar" role="progressbar"
+                        style="font-size: 15px; font-weight:500; width: 34%; background-color: #545871;"
+                        aria-valuenow="34" aria-valuemin="0" aria-valuemax="100">Animais e Data</div>
+                    <div class="progress-bar"
+                        style="font-size: 15px; font-weight:500; width: 33%; background-color: #ebd0ce;"
+                        role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:33%">
+                        Serviços
+                    </div>
+                    <div class="progress-bar"
+                        style="font-size: 15px; font-weight:500; width: 33%; background-color: #ebd0ce;"
+                        role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100" style="width:34%">
+                        Petsitter
+                    </div>
+                </div>
+            </div>
+
+            <h1 class="px-5 py-4" style="color:#545871; font-size:2em;">Selecione os seus animais:</h1>
+            <form id="animaisdata_form" action="http://localhost:8070/SelecionarAnimaisData" method="post"
+                enctype="application/x-www-form-urlencoded">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-xl-3 text-center" v-for="animal in animais"
+                        v-bind:key="animal">
+                        <label class="image-checkbox">
+                            <img class="img-responsive rounded-circle"
+                                src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Gatto_europeo4.jpg/250px-Gatto_europeo4.jpg"
+                                style="overflow:hidden; width:130px; height:130px;" />
+                            <input type="checkbox" :name=animal.id value="" />
+                        </label>
+                        <br>
+                        <p class="pb-4" style="color: #545871; font-size: 1.5em; font-weight: 500;">
+                            {{ animal.nome }}
+                        </p>
+                    </div>
+                </div>
+
+                <div style="background-color: #f7eceb;" class="p-2">
+                    <div class="justify-content-center">
+                        <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">Selecione a data e horas em que
+                            pretende
+                            realizar o pedido:</h1>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-6 px-4 py-2">
+                                <h5 style="color:#545871;">Data e hora de início:</h5>
+
+                                <div class="input-group date" id="dataInicio" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        data-target="#dataInicio" />
+                                    <div class="input-group-append" data-target="#dataInicio"
+                                        data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 px-4 py-2">
+                                <h5 style="color:#545871;">Data e hora de fim:</h5>
+
+                                <div class="input-group date" id="dataFim" data-target-input="nearest">
+                                    <input type="text" class="form-control datetimepicker-input"
+                                        data-target="#dataFim" />
+                                    <div class="input-group-append" data-target="#dataFim" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <footer class="footer py-2">
+                <div class="container my-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="indexDono.html"><button class="btn" id="lightpinkbtn">Voltar</button></a>
+                        </div>
+                        <div class="text-right col-6">
+                            <a href="selServicos.html"></a><button type="submit" class="btn"
+                                id="bluepinkbtn">Seguinte</button></a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="scripts/sidebar.js"></script>
+    <script src="scripts/checkbox.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="scripts/dono.js"></script>
+    <script src="scripts/datetime.js"></script>
+</body>
+
+</html>

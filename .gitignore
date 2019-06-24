@@ -1,8 +1,8 @@
-*/.DS_Store
+**/.DS_Store
 .DS_Store
 *.vpp.bak*
 projeto/.idea/workspace.xml
 projeto/META-INF/application.xml
 projeto/TrustPet.iml
 diagramas/.hibernate.vpp.lck
-projecto/out/*
+**/out/**
