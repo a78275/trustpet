@@ -35,17 +35,18 @@ public class EditarTiposAnimaisServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
         List<Integer> tipos = Util.parseTiposAnimaisList(parameters);
 
-        boolean result = FacadeBeans.registarTiposAnimais((String) request.getSession().getAttribute("user"), tipos);
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
-        if (result) {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Edição bem sucedida.");
-        } else {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Erro.");
+        if(email != null) {
+            boolean result = FacadeBeans.registarTiposAnimais(email, tipos);
+            mensagem.put("sucess",result);
+        }
+        else {
+            mensagem.put("sucess",false);
         }
 
-        out.print(result);
+        out.print(mensagem);
         out.flush();
     }
 }
