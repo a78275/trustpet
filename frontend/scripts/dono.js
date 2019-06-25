@@ -39,7 +39,7 @@ Vue.component('sidebardono', {
             <a href="#">Chat</a>
         </li>
         <li class="sec3">
-            <a href="#">Logout</a>
+            <a v-on:click="">Logout</a>
         </li>
     </ul>
 </nav>
@@ -178,14 +178,18 @@ var vm = new Vue({
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    animalServicos: this.servicosAnimaisSelecionados
+                    animalServicos: this.servicosAnimaisSelecionados,
+                    idPedido: localStorage.idPedido
                 })
             })
             const content = await response.json()
             if (content.success) {
                 localStorage.petsitters = content.petsitters
-                //window.location.replace("http://localhost/selPetsitters.html")
+                window.location.replace("http://localhost/selPetsitter.html")
             }
+        },
+        logout: function () {
+            localStorage.token = ""
         }
     }
 })
