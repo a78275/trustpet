@@ -1,10 +1,12 @@
 package beans;
 
+import main.Review;
 import main.Utilizador;
 import org.orm.PersistentSession;
 
 import javax.ejb.Local;
 import java.util.Date;
+import java.util.List;
 
 @Local
 public interface UtilizadorBeanLocal {
@@ -63,4 +65,11 @@ public interface UtilizadorBeanLocal {
 	 * @param email
 	 */
 	String tipoUtilizador(String email);
+
+	/**
+	 *
+	 * @param email
+	 * @param tipo
+	 */
+	List<Review> consultarReviews (String email, String tipo);
 }

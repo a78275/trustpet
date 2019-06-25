@@ -76,15 +76,6 @@ public class FacadeBeans {
     /**
      *
      * @param emailPetsitter
-     * @param servicos
-     */
-    public static boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
-        return petsitterBean.registarServicos(emailPetsitter,servicos);
-    }
-
-    /**
-     *
-     * @param emailPetsitter
      * @param horario
      */
     public static boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario) {
@@ -272,10 +263,11 @@ public class FacadeBeans {
 
     /**
      *
-     * @param id
+     * @param email
+     * @param tipo
      */
-    public static int tipoAnimal(int id) {
-        return donoBean.tipoAnimal(id);
+    public static List<Review> consultarReviews(String email, String tipo) {
+        return utilizadorBean.consultarReviews(email,tipo);
     }
 
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {

@@ -1,10 +1,10 @@
 package web;
+
 import beans.FacadeBeans;
 import com.google.gson.Gson;
-import main.Animal;
+import main.Review;
 import main.Utilizador;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,26 +26,57 @@ public class ConsultarPerfilServlet extends HttpServlet {
         String token = request.getHeader("Token");
         String email = FacadeBeans.validarToken(token);
 
-        if(email != null) {
+        if (email != null) {
             String tipo = FacadeBeans.tipoUtilizador(email);
 
             // Erro nos beans
-            if(tipo != null) {
-                Utilizador utilizador = FacadeBeans.consultarPerfil(email,tipo);
+            if (tipo != null) {
+                Utilizador utilizador = FacadeBeans.consultarPerfil(email, tipo);
                 mensagem.put("success", true);
                 mensagem.put("utilizador", Util.parseUtilizador(utilizador));
-            }
-            else {
+
+                List<Review> reviews = FacadeBeans.consultarReviews(email,tipo);
+                Gson gson = new Gson();
+                mensagem.put("reviews",gson.toJson(reviews));
+            } else {
                 mensagem.put("success", false);
             }
-        }
-        else {
-            mensagem.put("success",false);
+        } else {
+            mensagem.put("success", false);
         }
         out.print(mensagem);
         out.flush();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        PrintWriter out = response.getWriter();
+        JSONObject mensagem = new JSONObject();
+        JSONObject parameters = Util.parseBody(request.getReader());
+
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
+        String emailConsulta = (String) parameters.get("emailConsulta");
+
+        if (email != null) {
+            String tipo = FacadeBeans.tipoUtilizador(emailConsulta);
+
+            Utilizador utilizador = FacadeBeans.consultarPerfil(emailConsulta,tipo);
+            if (utilizador != null) {
+                mensagem.put("success", true);
+                mensagem.put("utilizador", Util.parseUtilizador(utilizador));
+
+                List<Review> reviews = FacadeBeans.consultarReviews(emailConsulta,tipo);
+                Gson gson = new Gson();
+                mensagem.put("reviews",gson.toJson(reviews));
+            } else {
+                mensagem.put("success", false);
+            }
+        }
+
+        out.print(mensagem);
+        out.flush();
     }
 }

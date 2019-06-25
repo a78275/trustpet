@@ -80,7 +80,6 @@ public class DonoBean implements DonoBeanLocal {
             return false;
         }
         return true;
-
     }
 
     @Override
@@ -138,22 +137,5 @@ public class DonoBean implements DonoBeanLocal {
             return false;
         }
         return true;
-    }
-
-    @Override
-    public int tipoAnimal(int id) {
-        PersistentSession session = getSession();
-        Animal animal = null;
-        try {
-            animal = FacadeDAOs.getAnimal(session, id);
-        } catch (PersistentException e) {
-            e.printStackTrace();
-        }
-        if(animal!=null) {
-            return animal.getTipo().getId();
-        }
-        else {
-            return -1;
-        }
     }
 }

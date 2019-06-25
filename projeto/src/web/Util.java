@@ -11,6 +11,8 @@ import main.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.persistence.criteria.CriteriaBuilder;
+
 public class Util {
     public static String hash(String original) {
         String res = original;
@@ -76,6 +78,37 @@ public class Util {
         }
 
         return servicos;
+    }
+
+    public static Map<Integer,List<Integer>> parseHorarioArray(JSONObject parameters) {
+        Map<Integer,List<Integer>> horario = new HashMap<>();
+        JSONArray arr = parameters.getJSONArray("horario");
+
+        // Parse horario
+        for (int i = 0; i < arr.length(); i++) {
+            // Parse idDia
+            int idDia = arr.getJSONObject(i).getInt("idDia");
+            // Parse horas
+            List<Integer> horas = parseHorasArray(arr.getJSONObject(i).getJSONArray("horas"));
+
+            horario.put(idDia, horas);
+        }
+
+        return horario;
+    }
+
+    private static List<Integer> parseHorasArray(JSONArray arr) {
+        List<Integer> horas = new ArrayList<>();
+
+        // Parse horas
+        for (int i = 0; i < arr.length(); i++) {
+            // Parse idDia
+            int hora = arr.getJSONObject(i).getInt("hora");
+
+            horas.add(hora);
+        }
+
+        return horas;
     }
 
     public static List<Integer> parseTiposAnimaisArray(JSONObject parameters) {
