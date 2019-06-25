@@ -81,14 +81,28 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         if(pedido!=null) {
+            // Remover serviços antigos
             if(!pedido.animalServicos.isEmpty()) {
-                //TODO Como apagar os servicos anteriores?
+                AnimalServicoSetCollection servicoSet = pedido.animalServicos;
+                List<AnimalServico> servicosAntigos = null;
+                try {
+                    servicosAntigos = FacadeDAOs.listAnimalServico(session,"pedidoid = '" + idPedido + "'",null);
+                } catch (PersistentException e) {
+                    e.printStackTrace();
+                }
+                if(servicosAntigos!=null) {
+                    for (AnimalServico servicoAntigo : servicosAntigos) {
+                        servicoSet.remove(servicoAntigo);
+                    }
+                }
             }
 
+            // Adicionar serviços novos
             for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
                 animalServicos.put(e.getKey(),e.getValue());
             }
 
+            // Gravar pedido
             try {
                 FacadeDAOs.savePedido(pedido);
             } catch (PersistentException e) {
