@@ -73,7 +73,9 @@ var vm = new Vue({
         horaInicio: "",
         horaFim: "",
         perfil: {},
-        animaisSelecionados: []
+        animaisSelecionados: [],
+        listaServicos: [],
+        servicosAnimaisSelecionados: []
     },
     created: async function () {
         if (localStorage.token) {
@@ -125,10 +127,15 @@ var vm = new Vue({
                     })
                     const contentPetsitters = await responsePetsitters.json()
                     if (contentPetsitters.success) {
-                        console.log(JSON.stringify(contentPetsitters.petsitters))
                         this.petsitters = contentPetsitters.petsitters
                     }
                 }
+                if (window.location.href == "http://localhost/selServicos.html") {
+                    this.listaServicos = JSON.parse(localStorage.servicos)
+                    this.dataInicio = localStorage.dataInicio
+                    this.dataFim = localStorage.dataFim
+                }
+
             } else {
                 window.location.replace("http://localhost/index.html")
             }
@@ -137,17 +144,13 @@ var vm = new Vue({
         }
     },
     methods: {
-        getServicos: function (id) {
-            var found = this.servicos.find(function (element) {
-                return element.id == id
-            });
-            return found.servicos
-        },
         registarPedido: async function () {
             let dateInicio = new Date(this.dataInicio)
             let newDataInicio = dateInicio.getDate() + "/" + (dateInicio.getMonth() + 1) + "/" + dateInicio.getFullYear()
             let dateFim = new Date(this.dataFim)
             let newDataFim = dateFim.getDate() + "/" + (dateFim.getMonth() + 1) + "/" + dateFim.getFullYear()
+            localStorage.dataInicio = newDataInicio + ' ' + this.horaInicio
+            localStorage.dataFim = newDataFim + ' ' + this.horaFim
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarPedido", {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
@@ -162,9 +165,27 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
-                window.location.replace("http://localhost/adicionarAnimal.html")
+                localStorage.idPedido = content.idPedido
+                localStorage.servicos = JSON.stringify(content.servicos)
+                window.location.replace("http://localhost/selServicos.html")
             }
-            console.log(JSON.stringify(this.animaisSelecionados))
+        },
+        selServicos: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/SelServicos", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    animalServicos: this.servicosAnimaisSelecionados
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                localStorage.petsitters = content.petsitters
+                //window.location.replace("http://localhost/selPetsitters.html")
+            }
         }
     }
 })

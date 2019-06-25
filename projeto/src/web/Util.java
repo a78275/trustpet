@@ -1,17 +1,15 @@
 package web;
 
-import java.io.BufferedReader;
-import java.security.MessageDigest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import com.google.gson.Gson;
 import main.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.io.BufferedReader;
+import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Util {
     public static String hash(String original) {
@@ -133,6 +131,7 @@ public class Util {
         for(Map.Entry<Animal, List<Servico>> e : animalServicos.entrySet()){
             JSONObject obj = new JSONObject();
 
+            obj.put("id", e.getKey().getId());
             obj.put("nome", e.getKey().getNome());
             obj.put("avatar", e.getKey().getAvatar());
             obj.put("servicos", parseServicosList(e.getValue()));
@@ -143,11 +142,21 @@ public class Util {
         return arr;
     }
 
+    private static JSONObject parseServicoSel(Servico servico) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("id", servico.getId());
+        obj.put("designacao", servico.getDesignacao());
+        //obj.put("tipoAnimais", parseTiposAnimaisCollection(servico.tipoAnimais));
+
+        return obj;
+    }
+
     private static JSONArray parseServicosList(List<Servico> servicos) {
         JSONArray arr = new JSONArray();
 
         for (Servico s : servicos){
-            JSONObject obj = parseServico(s);
+            JSONObject obj = parseServicoSel(s);
 
             arr.put(obj);
         }
