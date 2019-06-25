@@ -31,17 +31,12 @@ public class AutenticarServlet extends HttpServlet {
         String password = (String) parameters.get("password");
 
         boolean result = FacadeBeans.autenticar(email, password);
-
-
         if (result) {
             mensagem.put("sucess",true);
             String token = FacadeBeans.setToken(email);
             mensagem.put("token",token);
 
-
             String tipo = FacadeBeans.tipoUtilizador(email);
-
-            //Guardar tipo do utilizador da sessão atual
             if(tipo.equals("petsitter")) {
                 mensagem.put("tipo","petsitter");
             }

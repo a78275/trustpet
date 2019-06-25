@@ -32,20 +32,18 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
 
         Date date = Util.parseDate((String) parameters.get("data"),"dd/MM/yyyy");
-        if(date==null) {
-            mensagem.put("msg", "Introduza uma data válida");
-            out.print(mensagem);
-            out.flush();
-            return;
+        if(date!=null) {
+            boolean result = FacadeBeans.editarDados((String) parameters.get("nome"), (String) parameters.get("email"), date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
+            if (result) {
+                mensagem.put("sucess",true);
+            } else {
+                // Falha no registo
+                mensagem.put("sucess",false);
+            }
         }
-
-        boolean result = FacadeBeans.editarDados((String) parameters.get("nome"), (String) parameters.get("email"), date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
-        if (result) {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Dados editados com sucesso.");
-        } else {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Erro na edição de dados.");
+        else {
+            // Data inválida
+            mensagem.put("sucess",false);
         }
         out.print(mensagem);
         out.flush();

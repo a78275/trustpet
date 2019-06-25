@@ -32,21 +32,19 @@ public class EditarAnimalServlet extends HttpServlet {
         if(!parameters.keySet().contains("id") || parameters.get("id").toString().equals("")) {
             result = FacadeBeans.registarAnimal((String) parameters.get("emailDono"), (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Integer.parseInt((String) parameters.get("tipo")));
             if (result) {
-                // TODO: redirecionar?
-                mensagem.put("msg", "Registo do animal feito com sucesso.");
+                mensagem.put("sucess",true);
             } else {
-                // TODO: redirecionar?
-                mensagem.put("msg", "Erro no registo do animal.");
+                // Falha no registo do animal
+                mensagem.put("sucess",false);
             }
         }
         else {
             result = FacadeBeans.editarAnimal(Integer.parseInt((String) parameters.get("id")), (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Boolean.parseBoolean((String) parameters.get("ativo")));
             if (result) {
-                // TODO: redirecionar?
-                mensagem.put("msg", "Animal editado com sucesso.");
+                mensagem.put("sucess",true);
             } else {
-                // TODO: redirecionar?
-                mensagem.put("msg", "Erro na edição do animal.");
+                // Falha na edição do animal
+                mensagem.put("sucess",false);
             }
         }
 
