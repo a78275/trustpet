@@ -1,7 +1,6 @@
 package web;
 
 import beans.FacadeBeans;
-import main.Petsitter;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -14,33 +13,29 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "SelServicosServlet", urlPatterns = {"/SelServicos"})
-public class SelServicosServlet extends HttpServlet {
-    @Override
+@WebServlet(name = "EditarHorarioServlet", urlPatterns = {"/EditarHorario"})
+public class EditarHorarioServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     }
 
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        JSONObject parameters = Util.parseBody(request.getReader());
         JSONObject mensagem = new JSONObject();
+        JSONObject parameters = Util.parseBody(request.getReader());
+        Map<Integer, List<Integer>> horario = Util.parseHorarioArray(parameters);
 
-        Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicosArray(parameters);
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
-        List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido((int) parameters.get("idPedido"), animalServicos);
-        boolean result = FacadeBeans.registarServicosPedido(animalServicos);
-
-        // Ocorreu um erro nos beans
-        if(petsitters == null || !result){
-            mensagem.put("success",false);
+        if(email != null) {
+            boolean result = FacadeBeans.editarHorario(email, horario);
+            mensagem.put("success", result);
         }
         else {
-            mensagem.put("success",true);
-            mensagem.put("petsitters", Util.parsePetsittersList(petsitters));
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

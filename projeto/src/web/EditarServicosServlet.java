@@ -29,7 +29,7 @@ public class EditarServicosServlet extends HttpServlet {
         String email = FacadeBeans.validarToken(token);
 
         if(email != null) {
-            boolean result = FacadeBeans.registarServicos(email, servicos);
+            boolean result = FacadeBeans.editarServicos(email, servicos);
             mensagem.put("success", result);
         }
         else {

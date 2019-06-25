@@ -261,14 +261,6 @@ public class FacadeBeans {
         return utilizadorBean.tipoUtilizador(email);
     }
 
-    /**
-     *
-     * @param id
-     */
-    public static int tipoAnimal(int id) {
-        return donoBean.tipoAnimal(id);
-    }
-
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {
         try {
             Context c = new InitialContext();
