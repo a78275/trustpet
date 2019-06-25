@@ -27,17 +27,18 @@ public class EditarServicosServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
         Map<Integer,Double> servicos = Util.parseServicosList(parameters);
 
-        boolean result = FacadeBeans.registarServicos((String) request.getSession().getAttribute("user"), servicos);
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
-        if (result) {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Edição bem sucedida.");
-        } else {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Erro.");
+        if(email != null) {
+            boolean result = FacadeBeans.registarServicos(email, servicos);
+            mensagem.put("sucess",result);
+        }
+        else {
+            mensagem.put("sucess",false);
         }
 
-        out.print(result);
+        out.print(mensagem);
         out.flush();
     }
 }
