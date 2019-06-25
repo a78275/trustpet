@@ -6,6 +6,7 @@ import main.FacadeDAOs;
 import main.Servico;
 import main.TipoAnimal;
 import main.TrustPetPersistentManager;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
@@ -41,34 +42,21 @@ public class RegistarPedidoServlet extends HttpServlet {
 
         Date dataInicio = Util.parseDate((String) parameters.get("dataInicio"), "dd/MM/yyyy HH:mm");
         Date dataFim = Util.parseDate((String) parameters.get("dataFim"), "dd/MM/yyyy HH:mm");
+        JSONArray animais = (JSONArray) parameters.get("animais");
 
-
-        if (dataInicio != null && dataFim != null) {
-            int idPedido = FacadeBeans.registarPedido((String) parameters.get("emailDono"), dataInicio, dataFim);
+        if (dataInicio != null && dataFim != null && animais != null) {
+            int idPedido = FacadeBeans.registarPedido((String) parameters.get("email"), dataInicio, dataFim);
 
             if (idPedido != -1) {
-                // TODO Receber tipos de animais do pedido HTTP, fazer parse corretamente
-                PersistentSession session = null;
-                try {
-                    session = TrustPetPersistentManager.instance().getSession();
-                } catch (PersistentException e) {
-                    e.printStackTrace();
-                }
-
-                List<TipoAnimal> tiposAnimal = new ArrayList<>();
-                try {
-                    tiposAnimal.add(FacadeDAOs.getTipoAnimal(session, 1));
-                } catch (PersistentException e) {
-                    e.printStackTrace();
+                List<Integer> tiposAnimal = new ArrayList<>();
+                for(int i = 0; i < animais.length(); i++) {
+                    Integer idAnimal = Integer.parseInt((String) animais.get(i));
+                    tiposAnimal.add(FacadeBeans.tipoAnimal(idAnimal));
                 }
 
                 Map<TipoAnimal, List<Servico>> servicos = FacadeBeans.getServicosPedido(tiposAnimal);
-                // TODO Passar servicos ao front end corretamente
-                /*Gson gson= new Gson();
-                String json = gson.toJson(servicos);
-                out.print(json);*/
 
-                request.getSession().setAttribute("idPedido", idPedido);
+                mensagem.put("idPedido",idPedido);
                 mensagem.put("sucess", true);
             } else {
                 mensagem.put("sucess", false);

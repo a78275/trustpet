@@ -225,7 +225,7 @@ public class FacadeBeans {
      *
      * @param tiposAnimal
      */
-    public static Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal) {
+    public static Map<TipoAnimal,List<Servico>> getServicosPedido(List<Integer> tiposAnimal) {
         return pedidoBean.getServicosPedido(tiposAnimal);
     }
 
@@ -268,6 +268,14 @@ public class FacadeBeans {
      */
     public static String tipoUtilizador(String email) {
         return utilizadorBean.tipoUtilizador(email);
+    }
+
+    /**
+     *
+     * @param id
+     */
+    public static int tipoAnimal(int id) {
+        return donoBean.tipoAnimal(id);
     }
 
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {

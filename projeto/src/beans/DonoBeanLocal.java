@@ -53,5 +53,9 @@ public interface DonoBeanLocal {
 	 */
 	boolean editarAnimal(int id, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo);
 
-
+	/**
+	 *
+	 * @param id
+	 */
+	int tipoAnimal(int id);
 }

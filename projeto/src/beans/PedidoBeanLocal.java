@@ -51,7 +51,7 @@ public interface PedidoBeanLocal {
 	 *
 	 * @param tiposAnimal
 	 */
-	Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal);
+	Map<TipoAnimal,List<Servico>> getServicosPedido(List<Integer> tiposAnimal);
 
 	/**
 	 *
