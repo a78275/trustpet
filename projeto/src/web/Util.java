@@ -31,32 +31,26 @@ public class Util {
     public static Map<Integer, List<Integer>> parseAnimalServicosArray(JSONObject parameters) {
         Map<Integer, List<Integer>> animalServicos = new HashMap<>();
         JSONArray arr = parameters.getJSONArray("animalServicos");
-
+        
         // Parse animalServicos
         for (int i = 0; i < arr.length(); i++) {
+            String[] selection = arr.getString(i).split(":");
             // Parse idAnimal
-            int idAnimal = arr.getJSONObject(i).getInt("idAnimal");
+            int idAnimal = Integer.parseInt(selection[0]);
+            int idServico = Integer.parseInt(selection[1]);
 
-            // Parse servicos
-            JSONArray servicos = arr.getJSONObject(i).getJSONArray("servicos");
+            List<Integer> servicosList = animalServicos.get(idAnimal);
 
-            for (int j = 0; j < servicos.length(); j++) {
-                int idServico = servicos.getInt(j);
-
-                List<Integer> servicosList = animalServicos.get(idAnimal);
-
-                // O animal ainda não está no map
-                if (servicosList == null) {
-                    servicosList = new ArrayList<>();
-                    servicosList.add(idServico);
-                    animalServicos.put(idAnimal, servicosList);
-                }
-
-                // O animal já está no map
-                else {
-                    servicosList.add(idServico);
-                    animalServicos.put(idAnimal, servicosList);
-                }
+            // O animal ainda não está no map
+            if (servicosList == null) {
+                servicosList = new ArrayList<>();
+                servicosList.add(idServico);
+                animalServicos.put(idAnimal, servicosList);
+            }
+            // O animal já está no map
+            else {
+                servicosList.add(idServico);
+                animalServicos.put(idAnimal, servicosList);
             }
         }
 
