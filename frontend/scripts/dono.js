@@ -66,19 +66,21 @@ var vm = new Vue({
                 '7': 'Brincar'
             }
         }],
-        petsitters: ['Maria', 'Manel'],
+        petsitters: [],
         pedidosPendentes: ['Pedido 1', 'Pedido 2'],
         dataInicio: "",
         dataFim: "",
         horaInicio: "",
-        horaFim: ""
+        horaFim: "",
+        perfil: {},
+        animaisSelecionados: []
     },
     created: async function () {
         if (localStorage.token) {
             //Validar
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/Index", {
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json; charset=utf-8',
                     'Token': localStorage.token
                 },
                 method: "GET"
@@ -89,27 +91,43 @@ var vm = new Vue({
                 //Fetch dos animais
                 const responseAnimal = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarAnimais", {
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json; charset=utf-8',
                         'Token': localStorage.token
                     },
                     method: 'GET'
                 })
                 const contentAnimal = await responseAnimal.json()
-                if (contentAnimal.sucess) {
+                if (contentAnimal.success) {
                     this.animais = JSON.parse(contentAnimal.animais)
                 }
 
                 //Fetch do dono
                 const responseDono = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPerfil", {
                     headers: {
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'application/json; charset=utf-8',
                         'Token': localStorage.token
                     },
                     method: 'GET'
                 })
                 const contentDono = await responseDono.json()
-                if (contentDono.sucess) {
-                    console.log(contentDono.nome)
+                if (contentDono.success) {
+                    this.perfil = contentDono.utilizador
+                }
+
+                if (window.location.href == "http://localhost/consultarPetsitters.html") {
+                    //Fetch dos petsitters
+                    const responsePetsitters = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPetsitters", {
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8',
+                            'Token': localStorage.token
+                        },
+                        method: 'GET'
+                    })
+                    const contentPetsitters = await responsePetsitters.json()
+                    if (contentPetsitters.success) {
+                        console.log(JSON.stringify(contentPetsitters.petsitters))
+                        this.petsitters = contentPetsitters.petsitters
+                    }
                 }
             } else {
                 window.location.replace("http://localhost/index.html")
@@ -124,6 +142,29 @@ var vm = new Vue({
                 return element.id == id
             });
             return found.servicos
+        },
+        registarPedido: async function () {
+            let dateInicio = new Date(this.dataInicio)
+            let newDataInicio = dateInicio.getDate() + "/" + (dateInicio.getMonth() + 1) + "/" + dateInicio.getFullYear()
+            let dateFim = new Date(this.dataFim)
+            let newDataFim = dateFim.getDate() + "/" + (dateFim.getMonth() + 1) + "/" + dateFim.getFullYear()
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarPedido", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    dataInicio: newDataInicio + ' ' + this.horaInicio,
+                    dataFim: newDataFim + ' ' + this.horaFim,
+                    animais: this.animaisSelecionados
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/adicionarAnimal.html")
+            }
+            console.log(JSON.stringify(this.animaisSelecionados))
         }
     }
 })

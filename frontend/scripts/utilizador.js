@@ -49,7 +49,7 @@ var vm = new Vue({
             })
             const content = await response.json()
 
-            if (content.sucess) {
+            if (content.success) {
                 localStorage.token = content.token
                 this.token = content.token
                 if (content.tipo == "dono") {
@@ -71,7 +71,7 @@ var vm = new Vue({
             })
             const content = await response.json()
 
-            if (content.sucess) {
+            if (content.success) {
                 localStorage.token = content.token
                 this.token = content.token
                 window.location.replace("http://localhost/adicionarAnimal.html")
@@ -115,13 +115,14 @@ var vm = new Vue({
         registoAnimal: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
                 headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
                 },
                 method: "POST",
                 body: JSON.stringify(this.animal)
             })
             const content = await response.json()
-            if (content.sucess) {
+            if (content.success) {
                 window.location.replace("http://localhost/adicionarAnimal.html")
             }
         },
@@ -148,8 +149,7 @@ var vm = new Vue({
                 desparasitacao: desp,
                 esterilizacao: est,
                 raca: this.raca,
-                tipo: this.tipo,
-                emailDono: 'joanacmp.97@gmail.com'
+                tipo: this.tipo
             }
             this.nome = ""
             this.avatar = ""
