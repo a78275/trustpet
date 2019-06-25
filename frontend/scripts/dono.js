@@ -52,9 +52,7 @@ Vue.component('sidebardono', {
 var vm = new Vue({
     el: "#dono",
     data: {
-        appName: "TrustPet",
         animais: [],
-        nome: "",
         servicos: [{
             'id': '1',
             'servicos': {
@@ -71,7 +69,12 @@ var vm = new Vue({
                 '7': 'Brincar'
             }
         }],
-        petsitters: ['Maria', 'Manel']
+        petsitters: ['Maria', 'Manel'],
+        pedidosPendentes: ['Pedido 1', 'Pedido 2'],
+        dataInicio: "",
+        dataFim: "",
+        horaInicio: "",
+        horaFim: ""
     },
     created: async function () {
         if (localStorage.token) {
