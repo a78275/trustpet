@@ -80,7 +80,6 @@ public class DonoBean implements DonoBeanLocal {
             return false;
         }
         return true;
-
     }
 
     @Override

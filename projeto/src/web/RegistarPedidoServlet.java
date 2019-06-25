@@ -50,7 +50,7 @@ public class RegistarPedidoServlet extends HttpServlet {
             if (idPedido != -1) {
                 List<Integer> idAnimal = new ArrayList<>();
                 for(int i = 0; i < animais.length(); i++) {
-                    idAnimal.add(Integer.parseInt((String) animais.get(i)));
+                    idAnimal.add(animais.getInt(i));
                 }
 
                 Map<Animal, List<Servico>> servicos = FacadeBeans.getServicosPedido(idAnimal);

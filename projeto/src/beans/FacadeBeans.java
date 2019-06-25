@@ -278,6 +278,15 @@ public class FacadeBeans {
         return donoBean.tipoAnimal(id);
     }
 
+    /**
+     *
+     * @param email
+     * @param tipo
+     */
+    public static List<Review> consultarReviews(String email, String tipo) {
+        return utilizadorBean.consultarReviews(email,tipo);
+    }
+
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {
         try {
             Context c = new InitialContext();

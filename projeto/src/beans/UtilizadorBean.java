@@ -1,6 +1,7 @@
 package beans;
 
 import main.*;
+import org.hibernate.Query;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
@@ -10,6 +11,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 
 @Local(UtilizadorBeanLocal.class)
 @Stateless(name = "UtilizadorBean")
@@ -326,6 +328,31 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     }
 
     @Override
+    public List<Review> consultarReviews(String email, String tipo) {
+        PersistentSession session = getSession();
+        String[] splitEmail = email.split("@");
+        String queryEmail = "%" + splitEmail[0] + "." + splitEmail[1] + "%";
+
+        List<Review> reviews = null;
+        if(tipo.equals("dono")) {
+            try {
+                reviews = FacadeDAOs.listReviews(session,"donoutilizadoremail = '" + email + "'",null);
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+
+        }
+        else if (tipo.equals("petsitter")) {
+            try {
+                reviews = FacadeDAOs.listReviews(session,"petsitterutilizadoremail = '" + email + "'",null);
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+        }
+        return reviews;
+    }
+
+    @Override
     public String tipoUtilizador(String email) {
         PersistentSession session = getSession();
         Utilizador user = null;
@@ -343,5 +370,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         else {
             return "";
         }
+
+
     }
 }
