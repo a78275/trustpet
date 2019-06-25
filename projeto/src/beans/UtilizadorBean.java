@@ -14,9 +14,26 @@ import java.util.Date;
 @Local(UtilizadorBeanLocal.class)
 @Stateless(name = "UtilizadorBean")
 public class UtilizadorBean implements UtilizadorBeanLocal {
+    private PersistentSession session;
+
+    private PersistentSession getSession() {
+        if(this.session==null){
+            try {
+                this.session= TrustPetPersistentManager.instance().getSession();
+                System.out.println("Creating new persistent session");
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Reusing persistent session");
+        }
+        return this.session;
+    }
 
     @Override
-    public boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, PersistentSession session) {
+    public boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
+        PersistentSession session = getSession();
         if (tipoUtilizador.equals("dono")) {
             Dono dono = FacadeDAOs.createDono();
             dono.setNome(nome);
@@ -74,7 +91,8 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     }
 
     @Override
-    public boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo, PersistentSession session) {
+    public boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo) {
+        PersistentSession session = getSession();
         Review review = FacadeDAOs.createReview();
         Dono dono = null;
         try {
@@ -152,7 +170,8 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     }
 
     @Override
-    public Utilizador consultarPerfil(String email, String tipoUtilizador, PersistentSession session) {
+    public Utilizador consultarPerfil(String email, String tipoUtilizador) {
+        PersistentSession session = getSession();
         if (tipoUtilizador.equals("dono")) {
             Dono dono = null;
             try {
@@ -180,7 +199,8 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     }
 
     @Override
-    public boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo, PersistentSession session) {
+    public boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo) {
+        PersistentSession session = getSession();
         // Inativação de utilizador por parte do admin
         if (nome == null && !ativo) {
             return inativarUtilizador(email, tipoUtilizador, session);
@@ -306,7 +326,8 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     }
 
     @Override
-    public String tipoUtilizador(String email, PersistentSession session) {
+    public String tipoUtilizador(String email) {
+        PersistentSession session = getSession();
         Utilizador user = null;
         try {
             user = FacadeDAOs.getUtilizador(session, email);

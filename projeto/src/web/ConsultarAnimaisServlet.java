@@ -22,14 +22,13 @@ public class ConsultarAnimaisServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         String token = request.getHeader("Token");
 
-        String emailDono = FacadeBeans.validarToken(token,session);
+        String emailDono = FacadeBeans.validarToken(token);
         if(emailDono!=null) {
-            List<Animal> animalList = FacadeBeans.consultarAnimais(emailDono,session);
+            List<Animal> animalList = FacadeBeans.consultarAnimais(emailDono);
 
             Gson gson= new Gson();
             String json = gson.toJson(animalList);

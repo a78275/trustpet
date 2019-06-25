@@ -26,15 +26,14 @@ public class IndexServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
 
         JSONObject mensagem = new JSONObject();
         String token = request.getHeader("Token");
         if(!token.equals("")) {
-            String email = FacadeBeans.validarToken(token,session);
+            String email = FacadeBeans.validarToken(token);
             if(email!=null) {
                 mensagem.put("email",email);
-                mensagem.put("tipo",FacadeBeans.tipoUtilizador(email,session));
+                mensagem.put("tipo",FacadeBeans.tipoUtilizador(email));
             }
             else {
                 mensagem.put("email","null");

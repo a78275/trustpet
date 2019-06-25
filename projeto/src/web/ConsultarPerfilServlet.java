@@ -21,20 +21,20 @@ public class ConsultarPerfilServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         String token = request.getHeader("Token");
-        String email = FacadeBeans.validarToken(token,session);
+        String email = FacadeBeans.validarToken(token);
 
         if(email!=null) {
-            String tipo = FacadeBeans.tipoUtilizador(email,session);
+            String tipo = FacadeBeans.tipoUtilizador(email);
             if(tipo !=null) {
-                Utilizador utilizador = FacadeBeans.consultarPerfil(email,tipo,session);
+                Utilizador utilizador = FacadeBeans.consultarPerfil(email,tipo);
                 //TODO Arranjar solução para seralizar utilizador
                 /*Gson gson= new Gson();
                 String json = gson.toJson(utilizador);*/
                 mensagem.put("sucess",true);
+                //TODO Passar utilizador para o frontend (em vez do nome)
                 mensagem.put("nome",utilizador.getNome());
             }
             else {

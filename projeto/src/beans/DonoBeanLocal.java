@@ -25,16 +25,14 @@ public interface DonoBeanLocal {
 	 * @param raca
 	 * @param avatar
 	 * @param tipo
-	 * @param session
 	 */
-	boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo, PersistentSession session);
+	boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo);
 
 	/**
 	 *
 	 * @param emailDono
-	 * @param session
 	 */
-	List<Animal> consultarAnimais(String emailDono, PersistentSession session);
+	List<Animal> consultarAnimais(String emailDono);
 
 	/**
 	 *
@@ -52,9 +50,8 @@ public interface DonoBeanLocal {
 	 * @param raca
 	 * @param avatar
 	 * @param ativo
-	 * @param session
 	 */
-	boolean editarAnimal(int id, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo, PersistentSession session);
+	boolean editarAnimal(int id, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo);
 
 
 }

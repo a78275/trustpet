@@ -32,24 +32,6 @@ public class Util {
         return res;
     }
 
-    public static PersistentSession getSession(HttpServletRequest request) {
-        HttpSession httpSession = request.getSession(true);
-        PersistentSession session = null;
-        try {
-            Object hsession = httpSession.getAttribute("hsession");
-            if(hsession!=null) {
-                System.out.println("Reusing persistent session");
-                session = (PersistentSession) hsession;
-            } else {
-                System.out.println("Creating new persistent session");
-                session = TrustPetPersistentManager.instance().getSession();
-                request.getSession().setAttribute("hsession", session);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return session;
-    }
 
     public static Map<Integer, List<Integer>> parseAnimalServicos(JSONObject parameters) {
         Map<Integer, List<Integer>> animalServicos = new HashMap<>();

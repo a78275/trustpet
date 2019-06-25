@@ -12,27 +12,24 @@ public interface AutenticarBeanLocal {
      * @param email
      * @param password
      */
-    boolean autenticar(String email, String password, PersistentSession session);
+    boolean autenticar(String email, String password);
 
     /**
      *
      * @param token
-     * @param session
      */
-    String validarToken(String token, PersistentSession session);
+    String validarToken(String token);
 
     /**
      *
      * @param email
-     * @param session
      */
-    String setToken(String email, PersistentSession session);
+    String setToken(String email);
 
     /**
      *
      * @param email
      * @param password
-     * @param session
      */
-    boolean autenticarAdministrador(String email, String password, PersistentSession session);
+    boolean autenticarAdministrador(String email, String password);
 }

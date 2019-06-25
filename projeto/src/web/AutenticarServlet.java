@@ -25,22 +25,21 @@ public class AutenticarServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
-        PersistentSession session = Util.getSession(request);
         JSONObject parameters = Util.parseBody(request.getReader());
 
         String email = (String) parameters.get("email");
         String password = (String) parameters.get("password");
 
-        boolean result = FacadeBeans.autenticar(email, password, session);
+        boolean result = FacadeBeans.autenticar(email, password);
 
 
         if (result) {
             mensagem.put("sucess",true);
-            String token = FacadeBeans.setToken(email,session);
+            String token = FacadeBeans.setToken(email);
             mensagem.put("token",token);
 
 
-            String tipo = FacadeBeans.tipoUtilizador(email,session);
+            String tipo = FacadeBeans.tipoUtilizador(email);
 
             //Guardar tipo do utilizador da sessão atual
             if(tipo.equals("petsitter")) {

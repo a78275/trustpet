@@ -20,10 +20,9 @@ public class ConsultarPetsittersServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
 
-        List<Petsitter> ps = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"),session);
+        List<Petsitter> ps = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"));
         //TODO Descobrir porque é que o horario e tipos de animais nao da para passar para JSON
         Gson gson= new Gson();
         String json = gson.toJson(ps);

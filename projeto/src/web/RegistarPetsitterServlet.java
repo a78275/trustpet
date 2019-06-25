@@ -30,7 +30,6 @@ public class RegistarPetsitterServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
@@ -44,7 +43,7 @@ public class RegistarPetsitterServlet extends HttpServlet {
 
         String email = (String) parameters.get("email");
 
-        boolean result = FacadeBeans.registarUtilizador((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), "petsitter", (String) parameters.get("concelho"), (String) parameters.get("distrito"),session);
+        boolean result = FacadeBeans.registarUtilizador((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), "petsitter", (String) parameters.get("concelho"), (String) parameters.get("distrito"));
         if (result) {
             // TODO: redirecionar?
             mensagem.put("msg", "Registo de petsitter feito com sucesso.");

@@ -25,13 +25,12 @@ public class EditarAnimalServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
         boolean result;
 
         if(!parameters.keySet().contains("id") || parameters.get("id").toString().equals("")) {
-            result = FacadeBeans.registarAnimal((String) parameters.get("emailDono"), (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Integer.parseInt((String) parameters.get("tipo")),session);
+            result = FacadeBeans.registarAnimal((String) parameters.get("emailDono"), (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Integer.parseInt((String) parameters.get("tipo")));
             if (result) {
                 // TODO: redirecionar?
                 mensagem.put("msg", "Registo do animal feito com sucesso.");
@@ -41,7 +40,7 @@ public class EditarAnimalServlet extends HttpServlet {
             }
         }
         else {
-            result = FacadeBeans.editarAnimal(Integer.parseInt((String) parameters.get("id")), (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Boolean.parseBoolean((String) parameters.get("ativo")),session);
+            result = FacadeBeans.editarAnimal(Integer.parseInt((String) parameters.get("id")), (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Boolean.parseBoolean((String) parameters.get("ativo")));
             if (result) {
                 // TODO: redirecionar?
                 mensagem.put("msg", "Animal editado com sucesso.");

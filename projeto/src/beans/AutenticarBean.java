@@ -17,9 +17,26 @@ import java.util.Random;
 @Local(AutenticarBeanLocal.class)
 @Stateless(name="AutenticarBean")
 public class AutenticarBean implements AutenticarBeanLocal {
+    private PersistentSession session;
+
+    private PersistentSession getSession() {
+        if(this.session==null){
+            try {
+                this.session= TrustPetPersistentManager.instance().getSession();
+                System.out.println("Creating new persistent session");
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Reusing persistent session");
+        }
+        return this.session;
+    }
 
     @Override
-    public boolean autenticar(String email, String password, PersistentSession session) {
+    public boolean autenticar(String email, String password) {
+        PersistentSession session = getSession();
         // Dono
         Dono dono = null;
         try {
@@ -66,7 +83,8 @@ public class AutenticarBean implements AutenticarBeanLocal {
     }
 
     @Override
-    public String validarToken(String token, PersistentSession session) {
+    public String validarToken(String token) {
+        PersistentSession session = getSession();
         List<Utilizador> utilizadorList = null;
         try {
             utilizadorList = FacadeDAOs.listUtilizadores(session,"token='"+token+"'",null);
@@ -83,7 +101,8 @@ public class AutenticarBean implements AutenticarBeanLocal {
     }
 
     @Override
-    public String setToken(String email, PersistentSession session) {
+    public String setToken(String email) {
+        PersistentSession session = getSession();
         Utilizador utilizador = null;
         try {
             utilizador = FacadeDAOs.getUtilizador(session,email);
@@ -109,7 +128,8 @@ public class AutenticarBean implements AutenticarBeanLocal {
     }
 
     @Override
-    public boolean autenticarAdministrador(String email, String password, PersistentSession session) {
+    public boolean autenticarAdministrador(String email, String password) {
+        PersistentSession session = getSession();
         // Administrador
         Administrador administrador = null;
         try {

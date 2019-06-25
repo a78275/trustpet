@@ -28,7 +28,6 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
@@ -40,7 +39,7 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
             return;
         }
 
-        boolean result = FacadeBeans.editarDados((String) parameters.get("nome"), (String) parameters.get("email"), date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true, session);
+        boolean result = FacadeBeans.editarDados((String) parameters.get("nome"), (String) parameters.get("email"), date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
         if (result) {
             // TODO: redirecionar?
             mensagem.put("msg", "Dados editados com sucesso.");

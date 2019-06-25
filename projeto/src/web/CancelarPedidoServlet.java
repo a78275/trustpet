@@ -24,11 +24,10 @@ public class CancelarPedidoServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
-        boolean result = FacadeBeans.cancelarPedido(Integer.parseInt((String) parameters.get("idPedido")), session);
+        boolean result = FacadeBeans.cancelarPedido(Integer.parseInt((String) parameters.get("idPedido")));
         if (result) {
             // TODO: redirecionar?
             mensagem.put("msg", "Pedido registado com sucesso.");

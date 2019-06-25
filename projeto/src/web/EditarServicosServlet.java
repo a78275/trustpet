@@ -23,12 +23,11 @@ public class EditarServicosServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
         Map<Integer,Double> servicos = Util.parseServicos(parameters);
 
-        boolean result = FacadeBeans.registarServicos((String) request.getSession().getAttribute("user"), servicos, session);
+        boolean result = FacadeBeans.registarServicos((String) request.getSession().getAttribute("user"), servicos);
 
         if (result) {
             // TODO: redirecionar?

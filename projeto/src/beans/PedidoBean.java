@@ -15,9 +15,26 @@ import java.util.*;
 @Local(PedidoBeanLocal.class)
 @Stateless(name = "PedidoBean")
 public class PedidoBean implements PedidoBeanLocal {
+    private PersistentSession session;
+
+    private PersistentSession getSession() {
+        if(this.session==null){
+            try {
+                this.session= TrustPetPersistentManager.instance().getSession();
+                System.out.println("Creating new persistent session");
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Reusing persistent session");
+        }
+        return this.session;
+    }
 
     @Override
-    public Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session) {
+    public Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal) {
+        PersistentSession session = getSession();
         String condition;
         Map<TipoAnimal,List<Servico>> servicosAnimais = new HashMap<>();
         for (TipoAnimal tipo : tiposAnimal) {
@@ -46,12 +63,14 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
-    public boolean registarServicosPedido(Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+    public boolean registarServicosPedido(Map<Integer, List<Integer>> animalServicos) {
+        PersistentSession session = getSession();
         return false;
     }
 
     @Override
-    public int registarPedido(String emailDono, Date dataInicio, Date dataFim, PersistentSession session) {
+    public int registarPedido(String emailDono, Date dataInicio, Date dataFim) {
+        PersistentSession session = getSession();
         // Criar pedido
         Pedido pedido = FacadeDAOs.createPedido();
 
@@ -92,7 +111,8 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
-    public boolean concluirPedido(String emailPetsitter, int idPedido, PersistentSession session) {
+    public boolean concluirPedido(String emailPetsitter, int idPedido) {
+        PersistentSession session = getSession();
         // Get do pedido
         Pedido pedido = null;
         try {
@@ -146,7 +166,8 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
-    public List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+    public List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
+        PersistentSession session = getSession();
         Pedido pedido=null;
         try {
             pedido = FacadeDAOs.getPedido(session, idPedido);
@@ -435,7 +456,8 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
-    public boolean cancelarPedido(int idPedido, PersistentSession session) {
+    public boolean cancelarPedido(int idPedido) {
+        PersistentSession session = getSession();
         // Get do pedido
         Pedido pedido = null;
         try {
@@ -460,7 +482,8 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
-    public List<Pedido> consultarPedidos(String email, PersistentSession session) {
+    public List<Pedido> consultarPedidos(String email) {
+        PersistentSession session = getSession();
         try {
         // Get dos pedidos do utilizador
             return FacadeDAOs.listPedido(session, "dono='" + email + "' OR petsitter='" + email + "'", null);
