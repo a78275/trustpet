@@ -68,7 +68,7 @@ public class RegistarPedidoServlet extends HttpServlet {
 
                 mensagem.put("servicos",servicosArray);
                 mensagem.put("idPedido", idPedido);
-                mensagem.put("sucess", true);
+                mensagem.put("success", true);
             } else {
                 mensagem.put("success", false);
             }
