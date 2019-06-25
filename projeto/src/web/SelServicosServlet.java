@@ -29,10 +29,11 @@ public class SelServicosServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
         JSONObject mensagem = new JSONObject();
 
+        int idPedido = (int) parameters.get("idPedido");
         Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicosArray(parameters);
 
-        List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido((int) parameters.get("idPedido"), animalServicos);
-        boolean result = FacadeBeans.registarServicosPedido(animalServicos);
+        List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
+        boolean result = FacadeBeans.registarServicosPedido(idPedido, animalServicos);
 
         // Ocorreu um erro nos beans
         if(petsitters == null || !result){
