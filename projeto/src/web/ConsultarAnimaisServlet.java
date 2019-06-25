@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -24,17 +25,19 @@ public class ConsultarAnimaisServlet extends HttpServlet {
         PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
-        String emailDono = (String) request.getSession().getAttribute("user");
+        String token = request.getHeader("Token");
+
+        String emailDono = FacadeBeans.validarToken(token,session);
         if(emailDono!=null) {
             List<Animal> animalList = FacadeBeans.consultarAnimais(emailDono,session);
 
             Gson gson= new Gson();
             String json = gson.toJson(animalList);
-            mensagem.put("sucesso",true);
+            mensagem.put("sucess",true);
             mensagem.put("animais",json);
         }
         else {
-            mensagem.put("sucesso",false);
+            mensagem.put("sucess",false);
         }
         out.print(mensagem);
         out.flush();

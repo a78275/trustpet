@@ -37,7 +37,7 @@ public class RegistarDonoServlet extends HttpServlet {
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
-        Date date = Util.parseDate((String) parameters.get("data"),"dd/MM/yyyy");
+        Date date = Util.parseDate((String) parameters.get("dataNasc"),"dd/MM/yyyy");
         if(date==null) {
             mensagem.put("msg", "Introduza uma data válida");
             out.print(mensagem);

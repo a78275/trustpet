@@ -253,7 +253,44 @@ public class FacadeBeans {
      * @param session
      */
     public static boolean registarServicosPedido(Map<Integer,List<Integer>> animalServicos, PersistentSession session) {
-        return FacadeBeans.registarServicosPedido(animalServicos,session);
+        return pedidoBean.registarServicosPedido(animalServicos,session);
+    }
+
+    /**
+     *
+     * @param token
+     * @param session
+     */
+    public static String validarToken(String token, PersistentSession session) {
+        return autenticarBean.validarToken(token, session);
+    }
+
+    /**
+     *
+     * @param email
+     * @param session
+     */
+    public static String setToken(String email, PersistentSession session) {
+        return autenticarBean.setToken(email, session);
+    }
+
+    /**
+     *
+     * @param email
+     * @param password
+     * @param session
+     */
+    public static boolean autenticarAdministrador(String email, String password, PersistentSession session) {
+        return autenticarBean.autenticarAdministrador(email,password,session);
+    }
+
+    /**
+     *
+     * @param email
+     * @param session
+     */
+    public static String tipoUtilizador(String email, PersistentSession session) {
+        return utilizadorBean.tipoUtilizador(email,session);
     }
 
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {

@@ -32,6 +32,7 @@ public class DonoCriteria extends AbstractORMCriteria {
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
 	public final IntegerExpression nrAvaliacoes;
+	public final StringExpression token;
 	public final CollectionExpression animais;
 	
 	public DonoCriteria(Criteria criteria) {
@@ -49,6 +50,7 @@ public class DonoCriteria extends AbstractORMCriteria {
 		distrito = new StringExpression("distrito", this);
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this);
 		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this);
+		token = new StringExpression("token", this);
 		animais = new CollectionExpression("ORM_Animais", this);
 	}
 	
@@ -57,7 +59,7 @@ public class DonoCriteria extends AbstractORMCriteria {
 	}
 	
 	public DonoCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public AnimalCriteria createAnimaisCriteria() {

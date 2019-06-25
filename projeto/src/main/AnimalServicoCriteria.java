@@ -39,7 +39,7 @@ public class AnimalServicoCriteria extends AbstractORMCriteria {
 	}
 	
 	public AnimalServicoCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public ServicoCriteria createServicoCriteria() {

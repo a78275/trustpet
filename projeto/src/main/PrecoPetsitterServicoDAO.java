@@ -21,7 +21,7 @@ import java.util.List;
 public class PrecoPetsitterServicoDAO {
 	public static PrecoPetsitterServico loadPrecoPetsitterServicoByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadPrecoPetsitterServicoByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static PrecoPetsitterServico getPrecoPetsitterServicoByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getPrecoPetsitterServicoByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static PrecoPetsitterServico loadPrecoPetsitterServicoByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadPrecoPetsitterServicoByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static PrecoPetsitterServico getPrecoPetsitterServicoByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getPrecoPetsitterServicoByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static List queryPrecoPetsitterServico(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryPrecoPetsitterServico(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static List queryPrecoPetsitterServico(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryPrecoPetsitterServico(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static PrecoPetsitterServico[] listPrecoPetsitterServicoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listPrecoPetsitterServicoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static PrecoPetsitterServico[] listPrecoPetsitterServicoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listPrecoPetsitterServicoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static PrecoPetsitterServico loadPrecoPetsitterServicoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadPrecoPetsitterServicoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static PrecoPetsitterServico loadPrecoPetsitterServicoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadPrecoPetsitterServicoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static java.util.Iterator iteratePrecoPetsitterServicoByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iteratePrecoPetsitterServicoByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static java.util.Iterator iteratePrecoPetsitterServicoByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iteratePrecoPetsitterServicoByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static boolean save(main.PrecoPetsitterServico precoPetsitterServico) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().saveObject(precoPetsitterServico);
+			TrustPetPersistentManager.instance().saveObject(precoPetsitterServico);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static boolean delete(main.PrecoPetsitterServico precoPetsitterServico) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().deleteObject(precoPetsitterServico);
+			TrustPetPersistentManager.instance().deleteObject(precoPetsitterServico);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static boolean refresh(main.PrecoPetsitterServico precoPetsitterServico) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().refresh(precoPetsitterServico);
+			TrustPetPersistentManager.instance().getSession().refresh(precoPetsitterServico);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class PrecoPetsitterServicoDAO {
 	
 	public static boolean evict(main.PrecoPetsitterServico precoPetsitterServico) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().evict(precoPetsitterServico);
+			TrustPetPersistentManager.instance().getSession().evict(precoPetsitterServico);
 			return true;
 		}
 		catch (Exception e) {

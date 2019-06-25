@@ -21,7 +21,7 @@ import java.util.List;
 public class DiaDAO {
 	public static Dia loadDiaByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadDiaByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class DiaDAO {
 	
 	public static Dia getDiaByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getDiaByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class DiaDAO {
 	
 	public static Dia loadDiaByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadDiaByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class DiaDAO {
 	
 	public static Dia getDiaByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getDiaByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class DiaDAO {
 	
 	public static List queryDia(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryDia(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class DiaDAO {
 	
 	public static List queryDia(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryDia(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class DiaDAO {
 	
 	public static Dia[] listDiaByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listDiaByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class DiaDAO {
 	
 	public static Dia[] listDiaByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listDiaByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class DiaDAO {
 	
 	public static Dia loadDiaByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadDiaByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class DiaDAO {
 	
 	public static Dia loadDiaByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadDiaByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class DiaDAO {
 	
 	public static java.util.Iterator iterateDiaByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateDiaByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class DiaDAO {
 	
 	public static java.util.Iterator iterateDiaByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateDiaByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class DiaDAO {
 	
 	public static boolean save(main.Dia dia) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().saveObject(dia);
+			TrustPetPersistentManager.instance().saveObject(dia);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class DiaDAO {
 	
 	public static boolean delete(main.Dia dia) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().deleteObject(dia);
+			TrustPetPersistentManager.instance().deleteObject(dia);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class DiaDAO {
 	
 	public static boolean refresh(main.Dia dia) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().refresh(dia);
+			TrustPetPersistentManager.instance().getSession().refresh(dia);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class DiaDAO {
 	
 	public static boolean evict(main.Dia dia) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().evict(dia);
+			TrustPetPersistentManager.instance().getSession().evict(dia);
 			return true;
 		}
 		catch (Exception e) {

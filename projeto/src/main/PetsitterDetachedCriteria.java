@@ -32,6 +32,7 @@ public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
 	public final IntegerExpression nrAvaliacoes;
+	public final StringExpression token;
 	public final IntegerExpression horarioId;
 	public final AssociationExpression horario;
 	public final CollectionExpression animais;
@@ -51,6 +52,7 @@ public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this.getDetachedCriteria());
 		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this.getDetachedCriteria());
+		token = new StringExpression("token", this.getDetachedCriteria());
 		horarioId = new IntegerExpression("horario.id", this.getDetachedCriteria());
 		horario = new AssociationExpression("horario", this.getDetachedCriteria());
 		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());
@@ -71,6 +73,7 @@ public class PetsitterDetachedCriteria extends AbstractORMDetachedCriteria {
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this.getDetachedCriteria());
 		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this.getDetachedCriteria());
+		token = new StringExpression("token", this.getDetachedCriteria());
 		horarioId = new IntegerExpression("horario.id", this.getDetachedCriteria());
 		horario = new AssociationExpression("horario", this.getDetachedCriteria());
 		animais = new CollectionExpression("ORM_Animais", this.getDetachedCriteria());

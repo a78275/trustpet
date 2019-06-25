@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Map;
@@ -25,7 +26,6 @@ public class AutenticarServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         PersistentSession session = Util.getSession(request);
-
         JSONObject parameters = Util.parseBody(request.getReader());
 
         String email = (String) parameters.get("email");
@@ -33,26 +33,20 @@ public class AutenticarServlet extends HttpServlet {
 
         boolean result = FacadeBeans.autenticar(email, password, session);
 
+
         if (result) {
             mensagem.put("sucess",true);
+            String token = FacadeBeans.setToken(email,session);
+            mensagem.put("token",token);
 
-            // Guardar email do utilizador da sessão atual
-            request.getSession().setAttribute("user", email);
 
-            Utilizador user = null;
-            try {
-                user = FacadeDAOs.getDono(session,email);
-            } catch (PersistentException e) {
-                e.printStackTrace();
-            }
+            String tipo = FacadeBeans.tipoUtilizador(email,session);
 
             //Guardar tipo do utilizador da sessão atual
-            if(user==null) {
-                request.getSession().setAttribute("tipo", "petsitter");
+            if(tipo.equals("petsitter")) {
                 mensagem.put("tipo","petsitter");
             }
-            else {
-                request.getSession().setAttribute("tipo", "dono");
+            else if (tipo.equals("dono")){
                 mensagem.put("tipo","dono");
             }
         } else {

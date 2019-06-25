@@ -71,8 +71,23 @@ var vm = new Vue({
         //msg: ""
     },
     created: async function () {
-        //const response = await fetch("http://localhost:8080/TrustPet_Web_exploded/Autenticar")
-        //this.msg = await response.json()
+        if (localStorage.token) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/Index", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Token': localStorage.token
+                },
+                method: "GET"
+            })
+            const content = await response.json()
+            if (content.email) {
+                if (content.tipo == 'dono') {
+                    window.location.replace("http://localhost/indexDono.html")
+                } else if (content.tipo == 'petsitter') {
+                    //window.location.replace("http://localhost/indexPetsitter.html")
+                }
+            }
+        }
     },
     methods: {
         login: async function () {
@@ -89,7 +104,8 @@ var vm = new Vue({
             const content = await response.json()
 
             if (content.sucess) {
-                console.log(content.tipo)
+                localStorage.token = content.token
+                this.token = content.token
                 if (content.tipo == "dono") {
                     window.location.replace("http://localhost/indexDono.html")
                 } else if (content.tipo == "petsitter") {

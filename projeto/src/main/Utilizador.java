@@ -60,6 +60,8 @@ public class Utilizador {
 	
 	private int nrAvaliacoes;
 	
+	private String token;
+	
 	public void setEmail(String value) {
 		this.email = value;
 	}
@@ -166,6 +168,14 @@ public class Utilizador {
 	
 	public int getNrAvaliacoes() {
 		return nrAvaliacoes;
+	}
+	
+	public void setToken(String value) {
+		this.token = value;
+	}
+	
+	public String getToken() {
+		return token;
 	}
 	
 	public String toString() {

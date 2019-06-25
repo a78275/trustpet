@@ -47,7 +47,7 @@ public class ReviewCriteria extends AbstractORMCriteria {
 	}
 	
 	public ReviewCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public PetsitterCriteria createPetsitterCriteria() {

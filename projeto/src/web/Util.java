@@ -13,7 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import main.TrustpetPersistentManager;
+import main.TrustPetPersistentManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.orm.PersistentSession;
@@ -33,7 +33,7 @@ public class Util {
     }
 
     public static PersistentSession getSession(HttpServletRequest request) {
-        HttpSession httpSession = request.getSession();
+        HttpSession httpSession = request.getSession(true);
         PersistentSession session = null;
         try {
             Object hsession = httpSession.getAttribute("hsession");
@@ -42,7 +42,7 @@ public class Util {
                 session = (PersistentSession) hsession;
             } else {
                 System.out.println("Creating new persistent session");
-                session = TrustpetPersistentManager.instance().getSession();
+                session = TrustPetPersistentManager.instance().getSession();
                 request.getSession().setAttribute("hsession", session);
             }
         } catch (Exception e) {

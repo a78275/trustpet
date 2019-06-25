@@ -93,7 +93,7 @@ public class DiaSetCollection extends org.orm.util.ORMSet {
 	}
 	
 	protected PersistentManager getPersistentManager() throws PersistentException {
-		return TrustpetPersistentManager.instance();
+		return TrustPetPersistentManager.instance();
 	}
 	
 }

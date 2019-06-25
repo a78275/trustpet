@@ -54,6 +54,7 @@ var vm = new Vue({
     data: {
         appName: "TrustPet",
         animais: [],
+        nome: "",
         servicos: [{
             'id': '1',
             'servicos': {
@@ -73,15 +74,49 @@ var vm = new Vue({
         petsitters: ['Maria', 'Manel']
     },
     created: async function () {
-        const response = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarAnimais")
-        const content = await response.json()
-        if (content.sucess) {
-            this.animais = content.animais
-            console.log(this.animais)
-        } else {
-            window.location.replace("http://localhost/")
-        }
+        if (localStorage.token) {
+            //Validar
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/Index", {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Token': localStorage.token
+                },
+                method: "GET"
+            })
+            const content = await response.json()
+            if (content.email) {
 
+                //Fetch dos animais
+                const responseAnimal = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarAnimais", {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Token': localStorage.token
+                    },
+                    method: 'GET'
+                })
+                const contentAnimal = await responseAnimal.json()
+                if (contentAnimal.sucess) {
+                    this.animais = JSON.parse(contentAnimal.animais)
+                }
+
+                //Fetch do dono
+                const responseDono = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPerfil", {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Token': localStorage.token
+                    },
+                    method: 'GET'
+                })
+                const contentDono = await responseDono.json()
+                if (contentDono.sucess) {
+                    console.log(contentDono.nome)
+                }
+            } else {
+                window.location.replace("http://localhost/index.html")
+            }
+        } else {
+            window.location.replace("http://localhost/index.html")
+        }
     },
     methods: {
         getServicos: function (id) {

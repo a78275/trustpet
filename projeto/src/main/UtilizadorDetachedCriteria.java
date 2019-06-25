@@ -32,6 +32,7 @@ public class UtilizadorDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
 	public final IntegerExpression nrAvaliacoes;
+	public final StringExpression token;
 	
 	public UtilizadorDetachedCriteria() {
 		super(main.Utilizador.class, main.UtilizadorCriteria.class);
@@ -48,6 +49,7 @@ public class UtilizadorDetachedCriteria extends AbstractORMDetachedCriteria {
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this.getDetachedCriteria());
 		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this.getDetachedCriteria());
+		token = new StringExpression("token", this.getDetachedCriteria());
 	}
 	
 	public UtilizadorDetachedCriteria(DetachedCriteria aDetachedCriteria) {
@@ -65,6 +67,7 @@ public class UtilizadorDetachedCriteria extends AbstractORMDetachedCriteria {
 		distrito = new StringExpression("distrito", this.getDetachedCriteria());
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this.getDetachedCriteria());
 		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this.getDetachedCriteria());
+		token = new StringExpression("token", this.getDetachedCriteria());
 	}
 	
 	public Utilizador uniqueUtilizador(PersistentSession session) {
