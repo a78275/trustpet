@@ -34,14 +34,13 @@ public class SelServicosServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject parameters = Util.parseBody(request.getReader());
 
         int idPedido = (int) request.getSession().getAttribute("idPedido");
 
         Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicos(parameters);
 
-        List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos, session);
+        List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
 
         Gson gson= new Gson();
         String json = gson.toJson(petsitters);

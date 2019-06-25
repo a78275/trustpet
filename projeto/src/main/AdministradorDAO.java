@@ -21,7 +21,7 @@ import java.util.List;
 public class AdministradorDAO {
 	public static Administrador loadAdministradorByORMID(String email) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadAdministradorByORMID(session, email);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class AdministradorDAO {
 	
 	public static Administrador getAdministradorByORMID(String email) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getAdministradorByORMID(session, email);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class AdministradorDAO {
 	
 	public static Administrador loadAdministradorByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadAdministradorByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class AdministradorDAO {
 	
 	public static Administrador getAdministradorByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getAdministradorByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class AdministradorDAO {
 	
 	public static List queryAdministrador(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryAdministrador(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class AdministradorDAO {
 	
 	public static List queryAdministrador(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryAdministrador(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class AdministradorDAO {
 	
 	public static Administrador[] listAdministradorByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listAdministradorByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class AdministradorDAO {
 	
 	public static Administrador[] listAdministradorByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listAdministradorByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class AdministradorDAO {
 	
 	public static Administrador loadAdministradorByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadAdministradorByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class AdministradorDAO {
 	
 	public static Administrador loadAdministradorByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadAdministradorByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class AdministradorDAO {
 	
 	public static java.util.Iterator iterateAdministradorByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateAdministradorByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class AdministradorDAO {
 	
 	public static java.util.Iterator iterateAdministradorByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateAdministradorByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class AdministradorDAO {
 	
 	public static boolean save(main.Administrador administrador) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().saveObject(administrador);
+			TrustPetPersistentManager.instance().saveObject(administrador);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class AdministradorDAO {
 	
 	public static boolean delete(main.Administrador administrador) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().deleteObject(administrador);
+			TrustPetPersistentManager.instance().deleteObject(administrador);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class AdministradorDAO {
 	
 	public static boolean refresh(main.Administrador administrador) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().refresh(administrador);
+			TrustPetPersistentManager.instance().getSession().refresh(administrador);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class AdministradorDAO {
 	
 	public static boolean evict(main.Administrador administrador) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().evict(administrador);
+			TrustPetPersistentManager.instance().getSession().evict(administrador);
 			return true;
 		}
 		catch (Exception e) {

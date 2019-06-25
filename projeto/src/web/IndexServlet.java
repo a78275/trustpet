@@ -17,15 +17,10 @@ import java.io.PrintWriter;
 import java.util.List;
 import java.util.Map;
 
-@WebServlet(name = "InativarUtilizadorServlet", urlPatterns = {"/InativarUtilizador"})
-public class InativarUtilizadorServlet extends HttpServlet {
+@WebServlet(name = "IndexServlet", urlPatterns = {"/Index"})
+public class IndexServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -33,17 +28,27 @@ public class InativarUtilizadorServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         JSONObject mensagem = new JSONObject();
-        JSONObject parameters = Util.parseBody(request.getReader());
-
-        boolean autenticacao = FacadeBeans.autenticarAdministrador((String) parameters.get("email"), (String) parameters.get("password"));
-        if(autenticacao) {
-            boolean result = FacadeBeans.editarDados(null, (String) parameters.get("emailDono"), null, null, false, null, null, null, (String) parameters.get("tipoUtilizador"), null, null, false);
-            mensagem.put("result",result);
+        String token = request.getHeader("Token");
+        if(!token.equals("")) {
+            String email = FacadeBeans.validarToken(token);
+            if(email!=null) {
+                mensagem.put("email",email);
+                mensagem.put("tipo",FacadeBeans.tipoUtilizador(email));
+            }
+            else {
+                mensagem.put("email","null");
+            }
         }
         else {
-            mensagem.put("result",false);
+            mensagem.put("result","");
         }
+
         out.print(mensagem);
         out.flush();
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
     }
 }

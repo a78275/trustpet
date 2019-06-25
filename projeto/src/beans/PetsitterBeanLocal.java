@@ -14,40 +14,35 @@ public interface PetsitterBeanLocal {
 	 *
 	 * @param emailPetsitter
 	 * @param tipos
-	 * @param session
 	 */
-	boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos, PersistentSession session);
+	boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos);
 
 	/**
 	 *
 	 * @param emailPetsitter
 	 * @param servicos
-	 * @param session
 	 */
-	boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session);
+	boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos);
 
 	/**
 	 *
 	 * @param emailPetsitter
 	 * @param horario
-	 * @param session
 	 */
-	boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario, PersistentSession session);
+	boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario);
 
 	/**
 	 *
 	 * @param filtro
-	 * @param session
 	 * @param ordem
 	 */
-	List<Petsitter> consultarPetsitters(String filtro, String ordem, PersistentSession session);
+	List<Petsitter> consultarPetsitters(String filtro, String ordem);
 
 	/**
 	 *
 	 * @param emailPetsitter
 	 * @param servicos
-	 * @param session
 	 */
-	boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session);
+	boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos);
 
 }

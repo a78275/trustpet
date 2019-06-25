@@ -19,50 +19,43 @@ public interface PedidoBeanLocal {
 	 * @param emailDono
 	 * @param dataInicio
 	 * @param dataFim
-	 * @param session
 	 */
-	int registarPedido(String emailDono, Date dataInicio, Date dataFim, PersistentSession session);
+	int registarPedido(String emailDono, Date dataInicio, Date dataFim);
 	/**
 	 *
 	 * @param emailPetsitter
 	 * @param idPedido
-	 * @param session
 	 */
-	boolean concluirPedido(String emailPetsitter, int idPedido, PersistentSession session);
+	boolean concluirPedido(String emailPetsitter, int idPedido);
 
 	/**
 	 *
 	 * @param idPedido
 	 * @param animalServicos
-	 * @param session
 	 */
-	List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos, PersistentSession session);
+	List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos);
 
 	/**
 	 *
 	 * @param idPedido
-	 * @param session
 	 */
-	boolean cancelarPedido(int idPedido, PersistentSession session);
+	boolean cancelarPedido(int idPedido);
 
 	/**
 	 *
 	 * @param email
-	 * @param session
 	 */
-	List<Pedido> consultarPedidos(String email, PersistentSession session);
+	List<Pedido> consultarPedidos(String email);
 
 	/**
 	 *
 	 * @param tiposAnimal
-	 * @param session
 	 */
-	Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal, PersistentSession session);
+	Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal);
 
 	/**
 	 *
 	 * @param animalServicos
-	 * @param session
 	 */
-	boolean registarServicosPedido(Map<Integer,List<Integer>> animalServicos, PersistentSession session);
+	boolean registarServicosPedido(Map<Integer,List<Integer>> animalServicos);
 }

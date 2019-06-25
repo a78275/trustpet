@@ -31,12 +31,11 @@ public class EditarTiposAnimaisServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
         List<Integer> tipos = Util.parseTiposAnimaisList(parameters);
 
-        boolean result = FacadeBeans.registarTiposAnimais((String) request.getSession().getAttribute("user"), tipos, session);
+        boolean result = FacadeBeans.registarTiposAnimais((String) request.getSession().getAttribute("user"), tipos);
 
         if (result) {
             // TODO: redirecionar?

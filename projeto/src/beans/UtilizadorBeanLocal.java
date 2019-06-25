@@ -21,9 +21,8 @@ public interface UtilizadorBeanLocal {
 	 * @param tipoUtilizador
 	 * @param concelho
 	 * @param distrito
-	 * @param session
 	 */
-	boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, PersistentSession session);
+	boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito);
 
 	/**
 	 *
@@ -32,17 +31,15 @@ public interface UtilizadorBeanLocal {
 	 * @param avaliacao
 	 * @param comentario
 	 * @param alvo
-	 * @param session
 	 */
-	boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo, PersistentSession session);
+	boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo);
 
 	/**
 	 *
 	 * @param email
 	 * @param tipoUtilizador
-	 * @param session
 	 */
-	Utilizador consultarPerfil(String email, String tipoUtilizador, PersistentSession session);
+	Utilizador consultarPerfil(String email, String tipoUtilizador);
 
 	/**
 	 *
@@ -58,9 +55,12 @@ public interface UtilizadorBeanLocal {
 	 * @param concelho
 	 * @param distrito
 	 * @param ativo
-	 * @param session
 	 */
-	boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo, PersistentSession session);
+	boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo);
 
-
+	/**
+	 *
+	 * @param email
+	 */
+	String tipoUtilizador(String email);
 }

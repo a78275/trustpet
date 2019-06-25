@@ -24,11 +24,10 @@ public class AvaliarPetsitterServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
-        boolean result = FacadeBeans.avaliarUtilizador((String) parameters.get("emailDono"), (String) parameters.get("emailPetsitter"), Integer.parseInt((String) parameters.get("avaliacao")), (String) parameters.get("comentario"), (String) parameters.get("alvo"), session);
+        boolean result = FacadeBeans.avaliarUtilizador((String) parameters.get("emailDono"), (String) parameters.get("emailPetsitter"), Integer.parseInt((String) parameters.get("avaliacao")), (String) parameters.get("comentario"), (String) parameters.get("alvo"));
 
         if (result) {
             // TODO: redirecionar?

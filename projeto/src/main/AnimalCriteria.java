@@ -61,7 +61,7 @@ public class AnimalCriteria extends AbstractORMCriteria {
 	}
 	
 	public AnimalCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public TipoAnimalCriteria createTipoCriteria() {

@@ -18,8 +18,8 @@ import org.orm.cfg.JDBCConnectionSetting;
 import org.hibernate.*;
 import java.util.Properties;
 
-public class TrustpetPersistentManager extends PersistentManager {
-	private static final String PROJECT_NAME = "Trustpet";
+public class TrustPetPersistentManager extends PersistentManager {
+	private static final String PROJECT_NAME = "TrustPet";
 	private static PersistentManager _instance = null;
 	private static SessionType _sessionType = SessionType.THREAD_BASE;
 	private static int _timeToAlive = 60000;
@@ -27,7 +27,7 @@ public class TrustpetPersistentManager extends PersistentManager {
 	private static Properties _extraProperties = null;
 	private static String _configurationFile = null;
 	
-	private TrustpetPersistentManager() throws PersistentException {
+	private TrustPetPersistentManager() throws PersistentException {
 		super(_connectionSetting, _sessionType, _timeToAlive, new String[] {}, _extraProperties, _configurationFile);
 		setFlushMode(FlushMode.AUTO);
 	}
@@ -38,7 +38,7 @@ public class TrustpetPersistentManager extends PersistentManager {
 	
 	public static synchronized final PersistentManager instance() throws PersistentException {
 		if (_instance == null) {
-			_instance = new TrustpetPersistentManager();
+			_instance = new TrustPetPersistentManager();
 		}
 		
 		return _instance;

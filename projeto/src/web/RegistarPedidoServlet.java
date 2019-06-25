@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import main.FacadeDAOs;
 import main.Servico;
 import main.TipoAnimal;
+import main.TrustPetPersistentManager;
 import org.json.JSONObject;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
@@ -34,7 +35,6 @@ public class RegistarPedidoServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
-        PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
@@ -47,7 +47,7 @@ public class RegistarPedidoServlet extends HttpServlet {
             return;
         }
 
-        int idPedido = FacadeBeans.registarPedido((String) parameters.get("emailDono"), dataInicio, dataFim, session);
+        int idPedido = FacadeBeans.registarPedido((String) parameters.get("emailDono"), dataInicio, dataFim);
         if(idPedido==-1) {
             mensagem.put("msg", "Erro na criação do pedido.");
             out.print(mensagem);
@@ -57,13 +57,20 @@ public class RegistarPedidoServlet extends HttpServlet {
             out.println("Pedido ID: " + idPedido);
 
             // TODO Receber tipos de animais do pedido HTTP, fazer parse corretamente
+            PersistentSession session = null;
+            try {
+                session = TrustPetPersistentManager.instance().getSession();
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+
             List<TipoAnimal> tiposAnimal = new ArrayList<>();
             try {
                 tiposAnimal.add(FacadeDAOs.getTipoAnimal(session,1));
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
-            Map<TipoAnimal,List<Servico>> servicos = FacadeBeans.getServicosPedido(tiposAnimal,session);
+            Map<TipoAnimal,List<Servico>> servicos = FacadeBeans.getServicosPedido(tiposAnimal);
             out.println("Servicos: ");
             // TODO Passar servicos ao front end corretamente
             /*Gson gson= new Gson();

@@ -3,6 +3,7 @@ package web;
 import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Petsitter;
+import org.json.JSONObject;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -20,14 +21,21 @@ public class ConsultarPetsittersServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
+        JSONObject mensagem = new JSONObject();
 
-        List<Petsitter> ps = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"),session);
+        List<Petsitter> ps = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"));
 
-        String json = Util.parsePetsittersList(ps);
+        // Não existem petsitters com os critérios pretendidos
+        if(ps == null || ps.isEmpty()){
+            mensagem.put("sucess",false);
+        }
+        else {
+            mensagem.put("sucess",true);
+            mensagem.put("petsitters", Util.parsePetsittersList(ps));
+        }
 
-        out.print(json);
+        out.print(mensagem);
         out.flush();
     }
 

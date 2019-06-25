@@ -3,6 +3,7 @@ import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Animal;
 import main.Utilizador;
+import org.json.JSONObject;
 import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
@@ -20,22 +21,26 @@ public class ConsultarPerfilServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
-        String email = (String) request.getSession().getAttribute("user");
-        String tipo = (String) request.getSession().getAttribute("tipo");
+        JSONObject mensagem = new JSONObject();
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
-        if(email!=null && tipo !=null) {
-            Utilizador utilizador = FacadeBeans.consultarPerfil(email,tipo,session);
-
-            String json = Util.parseUtilizador(utilizador);
-
-            out.print(json);
+        if(email!=null) {
+            String tipo = FacadeBeans.tipoUtilizador(email);
+            if(tipo !=null) {
+                Utilizador utilizador = FacadeBeans.consultarPerfil(email,tipo);
+                mensagem.put("sucess",true);
+                mensagem.put("utilizador", Util.parseUtilizador(utilizador));
+            }
+            else {
+                mensagem.put("sucess",false);
+            }
         }
         else {
-            out.print("Não está autenticado na sessão ativa.");
+            mensagem.put("sucess",false);
         }
-
+        out.print(mensagem);
         out.flush();
     }
 

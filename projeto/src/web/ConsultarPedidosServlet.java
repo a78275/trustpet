@@ -19,10 +19,9 @@ public class ConsultarPedidosServlet extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        PersistentSession session = Util.getSession(request);
         PrintWriter out = response.getWriter();
 
-        List<Pedido> pedidos = FacadeBeans.consultarPedidos((String) request.getSession().getAttribute("user"), session);
+        List<Pedido> pedidos = FacadeBeans.consultarPedidos((String) request.getSession().getAttribute("user"));
 
         Gson gson= new Gson();
         String json = gson.toJson(pedidos);

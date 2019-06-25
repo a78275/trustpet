@@ -2,6 +2,7 @@ package main;
 
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
+import web.Util;
 
 import java.util.Arrays;
 import java.util.List;
@@ -366,4 +367,40 @@ public class FacadeDAOs {
 			return Arrays.asList(ServicoDAO.listServicoByQuery(session, condition, orderBy));
 		}
 	}
+
+	/**
+	 *
+	 * @param session
+	 * @param email
+	 */
+	public static Utilizador getUtilizador(PersistentSession session, String email) throws PersistentException {
+		if(session == null) {
+			return UtilizadorDAO.getUtilizadorByORMID(email);
+		}
+		else {
+			return UtilizadorDAO.getUtilizadorByORMID(session, email);
+		}
+	}
+
+	/**
+	 *
+	 * @param session
+	 * @param condition
+	 * @param orderBy
+	 */
+	public static List<Utilizador> listUtilizadores (PersistentSession session, String condition, String orderBy) throws PersistentException {
+		if (session == null) {
+			return Arrays.asList(UtilizadorDAO.listUtilizadorByQuery(condition, orderBy));
+		} else {
+			return Arrays.asList(UtilizadorDAO.listUtilizadorByQuery(session, condition, orderBy));
+		}
+	}
+
+    /**
+     *
+     * @param utilizador
+     */
+    public static boolean saveUtilizador(Utilizador utilizador) throws PersistentException {
+        return UtilizadorDAO.save(utilizador);
+    }
 }

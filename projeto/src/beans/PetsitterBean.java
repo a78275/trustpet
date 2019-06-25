@@ -12,9 +12,26 @@ import java.util.Map;
 @Local(PetsitterBeanLocal.class)
 @Stateless(name="PetsitterBean")
 public class PetsitterBean implements PetsitterBeanLocal {
+    private PersistentSession session;
+
+    private PersistentSession getSession() {
+        if(this.session==null){
+            try {
+                this.session= TrustPetPersistentManager.instance().getSession();
+                System.out.println("Creating new persistent session");
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+        }
+        else {
+            System.out.println("Reusing persistent session");
+        }
+        return this.session;
+    }
 
     @Override
-    public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos, PersistentSession session) {
+    public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
+        PersistentSession session = getSession();
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -51,7 +68,8 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     @Override
-    public boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session) {
+    public boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
+        PersistentSession session = getSession();
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -93,7 +111,8 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     @Override
-    public boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario, PersistentSession session) {
+    public boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario) {
+        PersistentSession session = getSession();
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -166,7 +185,8 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     @Override
-    public List<Petsitter> consultarPetsitters(String filtro, String ordem,PersistentSession session) {
+    public List<Petsitter> consultarPetsitters(String filtro, String ordem) {
+        PersistentSession session = getSession();
         try {
             // Get dos Petsitters
             return FacadeDAOs.listPetsitters(session, filtro, ordem);
@@ -177,7 +197,8 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     @Override
-    public boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos, PersistentSession session) {
+    public boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
+        PersistentSession session = getSession();
         // Get do petsitter
         Petsitter petsitter = null;
         try {

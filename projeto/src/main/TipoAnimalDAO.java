@@ -21,7 +21,7 @@ import java.util.List;
 public class TipoAnimalDAO {
 	public static TipoAnimal loadTipoAnimalByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadTipoAnimalByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class TipoAnimalDAO {
 	
 	public static TipoAnimal getTipoAnimalByORMID(int id) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getTipoAnimalByORMID(session, id);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class TipoAnimalDAO {
 	
 	public static TipoAnimal loadTipoAnimalByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadTipoAnimalByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class TipoAnimalDAO {
 	
 	public static TipoAnimal getTipoAnimalByORMID(int id, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getTipoAnimalByORMID(session, id, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class TipoAnimalDAO {
 	
 	public static List queryTipoAnimal(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryTipoAnimal(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class TipoAnimalDAO {
 	
 	public static List queryTipoAnimal(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryTipoAnimal(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class TipoAnimalDAO {
 	
 	public static TipoAnimal[] listTipoAnimalByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listTipoAnimalByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class TipoAnimalDAO {
 	
 	public static TipoAnimal[] listTipoAnimalByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listTipoAnimalByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class TipoAnimalDAO {
 	
 	public static TipoAnimal loadTipoAnimalByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadTipoAnimalByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class TipoAnimalDAO {
 	
 	public static TipoAnimal loadTipoAnimalByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadTipoAnimalByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class TipoAnimalDAO {
 	
 	public static java.util.Iterator iterateTipoAnimalByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateTipoAnimalByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class TipoAnimalDAO {
 	
 	public static java.util.Iterator iterateTipoAnimalByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateTipoAnimalByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class TipoAnimalDAO {
 	
 	public static boolean save(main.TipoAnimal tipoAnimal) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().saveObject(tipoAnimal);
+			TrustPetPersistentManager.instance().saveObject(tipoAnimal);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class TipoAnimalDAO {
 	
 	public static boolean delete(main.TipoAnimal tipoAnimal) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().deleteObject(tipoAnimal);
+			TrustPetPersistentManager.instance().deleteObject(tipoAnimal);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class TipoAnimalDAO {
 	
 	public static boolean refresh(main.TipoAnimal tipoAnimal) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().refresh(tipoAnimal);
+			TrustPetPersistentManager.instance().getSession().refresh(tipoAnimal);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class TipoAnimalDAO {
 	
 	public static boolean evict(main.TipoAnimal tipoAnimal) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().evict(tipoAnimal);
+			TrustPetPersistentManager.instance().getSession().evict(tipoAnimal);
 			return true;
 		}
 		catch (Exception e) {

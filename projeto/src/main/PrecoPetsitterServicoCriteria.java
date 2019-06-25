@@ -41,7 +41,7 @@ public class PrecoPetsitterServicoCriteria extends AbstractORMCriteria {
 	}
 	
 	public PrecoPetsitterServicoCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public ServicoCriteria createServicoCriteria() {

@@ -35,7 +35,7 @@ public class DiaCriteria extends AbstractORMCriteria {
 	}
 	
 	public DiaCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public HoraCriteria createHorasCriteria() {

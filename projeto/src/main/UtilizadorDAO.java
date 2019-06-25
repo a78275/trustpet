@@ -21,7 +21,7 @@ import java.util.List;
 public class UtilizadorDAO {
 	public static Utilizador loadUtilizadorByORMID(String email) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadUtilizadorByORMID(session, email);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class UtilizadorDAO {
 	
 	public static Utilizador getUtilizadorByORMID(String email) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getUtilizadorByORMID(session, email);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class UtilizadorDAO {
 	
 	public static Utilizador loadUtilizadorByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadUtilizadorByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class UtilizadorDAO {
 	
 	public static Utilizador getUtilizadorByORMID(String email, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getUtilizadorByORMID(session, email, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class UtilizadorDAO {
 	
 	public static List queryUtilizador(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryUtilizador(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class UtilizadorDAO {
 	
 	public static List queryUtilizador(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryUtilizador(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class UtilizadorDAO {
 	
 	public static Utilizador[] listUtilizadorByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listUtilizadorByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class UtilizadorDAO {
 	
 	public static Utilizador[] listUtilizadorByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listUtilizadorByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class UtilizadorDAO {
 	
 	public static Utilizador loadUtilizadorByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadUtilizadorByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class UtilizadorDAO {
 	
 	public static Utilizador loadUtilizadorByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadUtilizadorByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class UtilizadorDAO {
 	
 	public static java.util.Iterator iterateUtilizadorByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateUtilizadorByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class UtilizadorDAO {
 	
 	public static java.util.Iterator iterateUtilizadorByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateUtilizadorByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class UtilizadorDAO {
 	
 	public static boolean save(main.Utilizador utilizador) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().saveObject(utilizador);
+			TrustPetPersistentManager.instance().saveObject(utilizador);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class UtilizadorDAO {
 	
 	public static boolean delete(main.Utilizador utilizador) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().deleteObject(utilizador);
+			TrustPetPersistentManager.instance().deleteObject(utilizador);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class UtilizadorDAO {
 	
 	public static boolean refresh(main.Utilizador utilizador) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().refresh(utilizador);
+			TrustPetPersistentManager.instance().getSession().refresh(utilizador);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class UtilizadorDAO {
 	
 	public static boolean evict(main.Utilizador utilizador) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().evict(utilizador);
+			TrustPetPersistentManager.instance().getSession().evict(utilizador);
 			return true;
 		}
 		catch (Exception e) {

@@ -21,7 +21,7 @@ import java.util.List;
 public class HoraDAO {
 	public static Hora loadHoraByORMID(int hora) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadHoraByORMID(session, hora);
 		}
 		catch (Exception e) {
@@ -32,7 +32,7 @@ public class HoraDAO {
 	
 	public static Hora getHoraByORMID(int hora) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getHoraByORMID(session, hora);
 		}
 		catch (Exception e) {
@@ -43,7 +43,7 @@ public class HoraDAO {
 	
 	public static Hora loadHoraByORMID(int hora, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadHoraByORMID(session, hora, lockMode);
 		}
 		catch (Exception e) {
@@ -54,7 +54,7 @@ public class HoraDAO {
 	
 	public static Hora getHoraByORMID(int hora, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return getHoraByORMID(session, hora, lockMode);
 		}
 		catch (Exception e) {
@@ -105,7 +105,7 @@ public class HoraDAO {
 	
 	public static List queryHora(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryHora(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -116,7 +116,7 @@ public class HoraDAO {
 	
 	public static List queryHora(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return queryHora(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -127,7 +127,7 @@ public class HoraDAO {
 	
 	public static Hora[] listHoraByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listHoraByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -138,7 +138,7 @@ public class HoraDAO {
 	
 	public static Hora[] listHoraByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return listHoraByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -204,7 +204,7 @@ public class HoraDAO {
 	
 	public static Hora loadHoraByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadHoraByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -215,7 +215,7 @@ public class HoraDAO {
 	
 	public static Hora loadHoraByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return loadHoraByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -242,7 +242,7 @@ public class HoraDAO {
 	
 	public static java.util.Iterator iterateHoraByQuery(String condition, String orderBy) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateHoraByQuery(session, condition, orderBy);
 		}
 		catch (Exception e) {
@@ -253,7 +253,7 @@ public class HoraDAO {
 	
 	public static java.util.Iterator iterateHoraByQuery(String condition, String orderBy, org.hibernate.LockMode lockMode) throws PersistentException {
 		try {
-			PersistentSession session = TrustpetPersistentManager.instance().getSession();
+			PersistentSession session = TrustPetPersistentManager.instance().getSession();
 			return iterateHoraByQuery(session, condition, orderBy, lockMode);
 		}
 		catch (Exception e) {
@@ -301,7 +301,7 @@ public class HoraDAO {
 	
 	public static boolean save(main.Hora hora) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().saveObject(hora);
+			TrustPetPersistentManager.instance().saveObject(hora);
 			return true;
 		}
 		catch (Exception e) {
@@ -312,7 +312,7 @@ public class HoraDAO {
 	
 	public static boolean delete(main.Hora hora) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().deleteObject(hora);
+			TrustPetPersistentManager.instance().deleteObject(hora);
 			return true;
 		}
 		catch (Exception e) {
@@ -323,7 +323,7 @@ public class HoraDAO {
 	
 	public static boolean refresh(main.Hora hora) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().refresh(hora);
+			TrustPetPersistentManager.instance().getSession().refresh(hora);
 			return true;
 		}
 		catch (Exception e) {
@@ -334,7 +334,7 @@ public class HoraDAO {
 	
 	public static boolean evict(main.Hora hora) throws PersistentException {
 		try {
-			TrustpetPersistentManager.instance().getSession().evict(hora);
+			TrustPetPersistentManager.instance().getSession().evict(hora);
 			return true;
 		}
 		catch (Exception e) {

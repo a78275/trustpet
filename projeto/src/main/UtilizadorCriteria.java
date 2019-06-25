@@ -32,6 +32,7 @@ public class UtilizadorCriteria extends AbstractORMCriteria {
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
 	public final IntegerExpression nrAvaliacoes;
+	public final StringExpression token;
 	
 	public UtilizadorCriteria(Criteria criteria) {
 		super(criteria);
@@ -48,6 +49,7 @@ public class UtilizadorCriteria extends AbstractORMCriteria {
 		distrito = new StringExpression("distrito", this);
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this);
 		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this);
+		token = new StringExpression("token", this);
 	}
 	
 	public UtilizadorCriteria(PersistentSession session) {
@@ -55,7 +57,7 @@ public class UtilizadorCriteria extends AbstractORMCriteria {
 	}
 	
 	public UtilizadorCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public Utilizador uniqueUtilizador() {

@@ -6,8 +6,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-
-
 @WebFilter(filterName="CORSFilter", asyncSupported=true, urlPatterns={"/*"})
 public class CORSFilter implements Filter {
     
@@ -24,7 +22,7 @@ public class CORSFilter implements Filter {
 
             response.addHeader("Access-Control-Allow-Origin", "*");
             response.addHeader("Access-Control-Allow-Methods", "GET, POST");
-            response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept");
+            response.addHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Accept,Token");
             response.addHeader("Access-Control-Allow-Credentials", "true");
             response.addHeader("Access-Control-Max-Age", "1728000");
         }

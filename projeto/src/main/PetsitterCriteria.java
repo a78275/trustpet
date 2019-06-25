@@ -32,6 +32,7 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 	public final StringExpression distrito;
 	public final FloatExpression avaliacaoMedia;
 	public final IntegerExpression nrAvaliacoes;
+	public final StringExpression token;
 	public final IntegerExpression horarioId;
 	public final AssociationExpression horario;
 	public final CollectionExpression animais;
@@ -51,6 +52,7 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 		distrito = new StringExpression("distrito", this);
 		avaliacaoMedia = new FloatExpression("avaliacaoMedia", this);
 		nrAvaliacoes = new IntegerExpression("nrAvaliacoes", this);
+		token = new StringExpression("token", this);
 		horarioId = new IntegerExpression("horario.id", this);
 		horario = new AssociationExpression("horario", this);
 		animais = new CollectionExpression("ORM_Animais", this);
@@ -61,7 +63,7 @@ public class PetsitterCriteria extends AbstractORMCriteria {
 	}
 	
 	public PetsitterCriteria() throws PersistentException {
-		this(TrustpetPersistentManager.instance().getSession());
+		this(TrustPetPersistentManager.instance().getSession());
 	}
 	
 	public HorarioCriteria createHorarioCriteria() {
