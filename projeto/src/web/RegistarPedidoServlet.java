@@ -64,7 +64,6 @@ public class RegistarPedidoServlet extends HttpServlet {
                 }
 
                 Map<Animal, List<Servico>> servicos = FacadeBeans.getServicosPedido(idAnimal);
-                System.out.println("\n" + servicos);
                 JSONArray servicosArray = Util.parseAnimalServicosMap(servicos);
 
                 mensagem.put("servicos",servicosArray);
