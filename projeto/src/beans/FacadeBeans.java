@@ -224,8 +224,8 @@ public class FacadeBeans {
      *
      * @param animalServicos
      */
-    public static boolean registarServicosPedido(Map<Integer,List<Integer>> animalServicos) {
-        return pedidoBean.registarServicosPedido(animalServicos);
+    public static boolean registarServicosPedido(int idPedido, Map<Integer,List<Integer>> animalServicos) {
+        return pedidoBean.registarServicosPedido(idPedido, animalServicos);
     }
 
     /**
@@ -268,6 +268,16 @@ public class FacadeBeans {
      */
     public static List<Review> consultarReviews(String email, String tipo) {
         return utilizadorBean.consultarReviews(email,tipo);
+    }
+
+    /**
+     *
+     * @param idPedido
+     * @param dataInicio
+     * @param dataFim
+     */
+    public static int editarPedido(int idPedido, Date dataInicio, Date dataFim) {
+        return pedidoBean.editarPedido(idPedido,dataInicio,dataFim);
     }
 
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {
