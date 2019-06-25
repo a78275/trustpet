@@ -2,10 +2,8 @@ package web;
 
 import beans.FacadeBeans;
 import com.google.gson.Gson;
-import main.FacadeDAOs;
-import main.Servico;
-import main.TipoAnimal;
-import main.TrustPetPersistentManager;
+import main.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
@@ -41,35 +39,26 @@ public class RegistarPedidoServlet extends HttpServlet {
 
         Date dataInicio = Util.parseDate((String) parameters.get("dataInicio"), "dd/MM/yyyy HH:mm");
         Date dataFim = Util.parseDate((String) parameters.get("dataFim"), "dd/MM/yyyy HH:mm");
+        JSONArray animais = (JSONArray) parameters.get("animais");
 
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
-        if (dataInicio != null && dataFim != null) {
-            int idPedido = FacadeBeans.registarPedido((String) parameters.get("emailDono"), dataInicio, dataFim);
+        if (email!= null && dataInicio != null && dataFim != null && animais != null) {
+            int idPedido = FacadeBeans.registarPedido(email, dataInicio, dataFim);
 
             if (idPedido != -1) {
-                // TODO Receber tipos de animais do pedido HTTP, fazer parse corretamente
-                PersistentSession session = null;
-                try {
-                    session = TrustPetPersistentManager.instance().getSession();
-                } catch (PersistentException e) {
-                    e.printStackTrace();
+                List<Integer> idAnimal = new ArrayList<>();
+                for(int i = 0; i < animais.length(); i++) {
+                    idAnimal.add(Integer.parseInt((String) animais.get(i)));
                 }
 
-                List<TipoAnimal> tiposAnimal = new ArrayList<>();
-                try {
-                    tiposAnimal.add(FacadeDAOs.getTipoAnimal(session, 1));
-                } catch (PersistentException e) {
-                    e.printStackTrace();
-                }
+                Map<Animal, List<Servico>> servicos = FacadeBeans.getServicosPedido(idAnimal);
+                JSONArray servicosArray = Util.parseAnimalServicosMap(servicos);
 
-                Map<TipoAnimal, List<Servico>> servicos = FacadeBeans.getServicosPedido(tiposAnimal);
-                // TODO Passar servicos ao front end corretamente
-                /*Gson gson= new Gson();
-                String json = gson.toJson(servicos);
-                out.print(json);*/
-
-                request.getSession().setAttribute("idPedido", idPedido);
-                mensagem.put("success", true);
+                mensagem.put("servicos",servicosArray);
+                mensagem.put("idPedido", idPedido);
+                mensagem.put("sucess", true);
             } else {
                 mensagem.put("success", false);
             }
