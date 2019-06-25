@@ -28,9 +28,7 @@ public class ConsultarPerfilServlet extends HttpServlet {
         if(email!=null && tipo !=null) {
             Utilizador utilizador = FacadeBeans.consultarPerfil(email,tipo,session);
 
-            //TODO Arranjar solução para seralizar utilizador
-            Gson gson= new Gson();
-            String json = gson.toJson(utilizador);
+            String json = Util.parseUtilizador(utilizador);
 
             out.print(json);
         }

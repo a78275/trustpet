@@ -24,15 +24,13 @@ public class ConsultarPetsittersServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
 
         List<Petsitter> ps = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"),session);
-        //TODO Descobrir porque é que o horario e tipos de animais nao da para passar para JSON
-        Gson gson= new Gson();
-        String json = gson.toJson(ps);
+
+        String json = Util.parsePetsittersList(ps);
 
         out.print(json);
         out.flush();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("\n\n\n\n\nREQUEST: " + request.getParameter("email") + "\n\n\n\n");
     }
 }

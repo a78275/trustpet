@@ -26,7 +26,7 @@ public class EditarServicosServlet extends HttpServlet {
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
-        Map<Integer,Double> servicos = Util.parseServicos(parameters);
+        Map<Integer,Double> servicos = Util.parseServicosList(parameters);
 
         boolean result = FacadeBeans.registarServicos((String) request.getSession().getAttribute("user"), servicos, session);
 

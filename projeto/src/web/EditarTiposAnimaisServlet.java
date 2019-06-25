@@ -34,7 +34,7 @@ public class EditarTiposAnimaisServlet extends HttpServlet {
         PersistentSession session = Util.getSession(request);
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
-        List<Integer> tipos = Util.parseTiposAnimais(parameters);
+        List<Integer> tipos = Util.parseTiposAnimaisList(parameters);
 
         boolean result = FacadeBeans.registarTiposAnimais((String) request.getSession().getAttribute("user"), tipos, session);
 
