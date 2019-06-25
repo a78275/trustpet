@@ -18,48 +18,55 @@ public class PedidoBean implements PedidoBeanLocal {
     private PersistentSession session;
 
     private PersistentSession getSession() {
-        if(this.session==null){
+        if (this.session == null) {
             try {
-                this.session= TrustPetPersistentManager.instance().getSession();
+                this.session = TrustPetPersistentManager.instance().getSession();
                 System.out.println("Creating new persistent session");
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
-        }
-        else {
+        } else {
             System.out.println("Reusing persistent session");
         }
         return this.session;
     }
 
     @Override
-    public Map<TipoAnimal,List<Servico>> getServicosPedido(List<TipoAnimal> tiposAnimal) {
+    public Map<Animal, List<Servico>> getServicosPedido(List<Integer> idAnimal) {
         PersistentSession session = getSession();
-        String condition;
-        Map<TipoAnimal,List<Servico>> servicosAnimais = new HashMap<>();
-        for (TipoAnimal tipo : tiposAnimal) {
-            List<Servico> servicos = null;
-            List<Servico> servicosTipo = new ArrayList<>();
-            try {
-                servicos = FacadeDAOs.listServicos(session,null,null);
-            } catch (PersistentException e) {
-                e.printStackTrace();
-            }
-            if(servicos==null) {
-                // Não há servicos para o tipoAnimal
-                //TODO Isto é possível?
-                return null;
-            }
-            else {
-                for(Servico s : servicos) {
-                    if(s.tipoAnimais.contains(tipo)) {
-                        servicosTipo.add(s);
-                    }
-                }
-                servicosAnimais.put(tipo,servicosTipo);
-            }
+
+        List<Servico> servicos = null;
+        try {
+            servicos = FacadeDAOs.listServicos(session, null, null);
+        } catch (PersistentException e) {
+            e.printStackTrace();
         }
-        return servicosAnimais;
+
+        if(servicos!=null) {
+            Map<Animal, List<Servico>> servicosAnimais = new HashMap<>();
+            for (Integer id : idAnimal) {
+                Animal animal = null;
+                try {
+                    animal = FacadeDAOs.getAnimal(session, id);
+                } catch (PersistentException e) {
+                    e.printStackTrace();
+                }
+                if (animal != null) {
+                    List<Servico> servicosAnimal = new ArrayList<>();
+
+                    for (Servico s : servicos) {
+                        if (s.tipoAnimais.contains(animal.getTipo())) {
+                            servicosAnimal.add(s);
+                        }
+                    }
+                    servicosAnimais.put(animal,servicosAnimal);
+                }
+            }
+            return servicosAnimais;
+        }
+        else {
+            return null;
+        }
     }
 
     @Override
@@ -81,7 +88,7 @@ public class PedidoBean implements PedidoBeanLocal {
         } catch (PersistentException e) {
             e.printStackTrace();
         }
-        if(dono==null) {
+        if (dono == null) {
             // Retornar -1 em caso de falha
             return -1;
         }
@@ -168,14 +175,14 @@ public class PedidoBean implements PedidoBeanLocal {
     @Override
     public List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
         PersistentSession session = getSession();
-        Pedido pedido=null;
+        Pedido pedido = null;
         try {
             pedido = FacadeDAOs.getPedido(session, idPedido);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
         // Pedido não existe
-        if(pedido==null) {
+        if (pedido == null) {
             return null;
         }
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
@@ -267,14 +274,13 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         // Cálculo da interseção entre datas
-        if(pedidoDataInicio != null && pedidoDataFim != null){
+        if (pedidoDataInicio != null && pedidoDataFim != null) {
             if ((pedidoDataFim.after(dataInicio) && pedidoDataFim.before(dataFim)) ||
-                (pedidoDataInicio.after(dataInicio) && pedidoDataInicio.before(dataFim)) ||
-                (dataInicio.after(pedidoDataInicio) && dataFim.before(pedidoDataFim)) ||
-                (dataInicio.equals(pedidoDataInicio) && dataFim.equals(pedidoDataFim))){
+                    (pedidoDataInicio.after(dataInicio) && pedidoDataInicio.before(dataFim)) ||
+                    (dataInicio.after(pedidoDataInicio) && dataFim.before(pedidoDataFim)) ||
+                    (dataInicio.equals(pedidoDataInicio) && dataFim.equals(pedidoDataFim))) {
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -324,10 +330,9 @@ public class PedidoBean implements PedidoBeanLocal {
         int diferenca;
 
         if (dataInicioDia > dataFimDia) {
-            diferenca= (7-dataInicioDia+1)+dataFimDia;
-        }
-        else {
-            diferenca= dataFimDia-dataInicioDia+1;
+            diferenca = (7 - dataInicioDia + 1) + dataFimDia;
+        } else {
+            diferenca = dataFimDia - dataInicioDia + 1;
         }
 
         Horario horario = petsitter.getHorario();
@@ -369,32 +374,30 @@ public class PedidoBean implements PedidoBeanLocal {
                 }
 
                 //Dia inicial e final
-                if(dia.getDia() == dataFimDia) {
+                if (dia.getDia() == dataFimDia) {
                     contar = false;
-                    if (dia.horas.toArray().length<fator) {
+                    if (dia.horas.toArray().length < fator) {
                         return false;
                     }
-                    diferenca-=1;
-                }
-                else if (dia.getDia() == dataInicioDia) {
+                    diferenca -= 1;
+                } else if (dia.getDia() == dataInicioDia) {
                     contar = true;
                 }
 
                 //Verificação da disponibilidade nos dias do pedido
                 if (contar) {
-                    if (dia.horas.toArray().length<fator) {
+                    if (dia.horas.toArray().length < fator) {
                         return false;
                     }
-                    diferenca-=1;
+                    diferenca -= 1;
                 }
 
             }
 
-            if(diferenca==0) {
+            if (diferenca == 0) {
                 //Disponivel em todos os dias de um pedido com vários dias
                 return true;
-            }
-            else {
+            } else {
                 //Não está disponivel em todos os dias de um pedido com vários dias
                 return false;
             }
@@ -485,7 +488,7 @@ public class PedidoBean implements PedidoBeanLocal {
     public List<Pedido> consultarPedidos(String email) {
         PersistentSession session = getSession();
         try {
-        // Get dos pedidos do utilizador
+            // Get dos pedidos do utilizador
             return FacadeDAOs.listPedido(session, "dono='" + email + "' OR petsitter='" + email + "'", null);
         } catch (PersistentException e) {
             e.printStackTrace();

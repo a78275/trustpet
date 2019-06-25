@@ -3,14 +3,12 @@ import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Animal;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -30,13 +28,19 @@ public class ConsultarAnimaisServlet extends HttpServlet {
         if(emailDono!=null) {
             List<Animal> animalList = FacadeBeans.consultarAnimais(emailDono);
 
-            Gson gson= new Gson();
-            String json = gson.toJson(animalList);
-            mensagem.put("sucess",true);
-            mensagem.put("animais",json);
+            // Erro nos beans
+            if (animalList == null) {
+                mensagem.put("success", false);
+            }
+            else {
+                Gson gson= new Gson();
+                String json = gson.toJson(animalList);
+                mensagem.put("success",true);
+                mensagem.put("animais",json);
+            }
         }
         else {
-            mensagem.put("sucess",false);
+            mensagem.put("success",false);
         }
         out.print(mensagem);
         out.flush();

@@ -1,21 +1,15 @@
 package web;
 
 import beans.FacadeBeans;
-import main.FacadeDAOs;
-import main.Utilizador;
 import org.json.JSONObject;
-import org.orm.PersistentException;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
 
 @WebServlet(name = "Autenticar", urlPatterns = {"/Autenticar"})
 public class AutenticarServlet extends HttpServlet {
@@ -32,7 +26,7 @@ public class AutenticarServlet extends HttpServlet {
 
         boolean result = FacadeBeans.autenticar(email, password);
         if (result) {
-            mensagem.put("sucess",true);
+            mensagem.put("success", true);
             String token = FacadeBeans.setToken(email);
             mensagem.put("token",token);
 
@@ -44,7 +38,7 @@ public class AutenticarServlet extends HttpServlet {
                 mensagem.put("tipo","dono");
             }
         } else {
-            mensagem.put("sucess",false);
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

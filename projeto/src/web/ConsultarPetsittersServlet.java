@@ -24,15 +24,15 @@ public class ConsultarPetsittersServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
 
-        List<Petsitter> ps = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"));
+        List<Petsitter> petsitters = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"));
 
-        // Não existem petsitters com os critérios pretendidos
-        if(ps == null || ps.isEmpty()){
-            mensagem.put("sucess",false);
+        // Erro nos beans
+        if(petsitters == null){
+            mensagem.put("success", false);
         }
         else {
-            mensagem.put("sucess",true);
-            mensagem.put("petsitters", Util.parsePetsittersList(ps));
+            mensagem.put("success", true);
+            mensagem.put("petsitters", Util.parsePetsittersList(petsitters));
         }
 
         out.print(mensagem);

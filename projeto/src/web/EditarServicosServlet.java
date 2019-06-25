@@ -1,7 +1,6 @@
 package web;
 import beans.FacadeBeans;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 
 @WebServlet(name = "EditarServicosServlet", urlPatterns = {"/EditarServicos"})
@@ -25,19 +23,20 @@ public class EditarServicosServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
-        Map<Integer,Double> servicos = Util.parseServicosList(parameters);
+        Map<Integer,Double> servicos = Util.parseServicosArray(parameters);
 
-        boolean result = FacadeBeans.registarServicos((String) request.getSession().getAttribute("user"), servicos);
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
-        if (result) {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Edição bem sucedida.");
-        } else {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Erro.");
+        if(email != null) {
+            boolean result = FacadeBeans.registarServicos(email, servicos);
+            mensagem.put("success", result);
+        }
+        else {
+            mensagem.put("success", false);
         }
 
-        out.print(result);
+        out.print(mensagem);
         out.flush();
     }
 }

@@ -1,23 +1,15 @@
 package web;
 
 import java.io.BufferedReader;
-import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import main.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 public class Util {
     public static String hash(String original) {
@@ -34,7 +26,7 @@ public class Util {
     }
 
 
-    public static Map<Integer, List<Integer>> parseAnimalServicos(JSONObject parameters) {
+    public static Map<Integer, List<Integer>> parseAnimalServicosArray(JSONObject parameters) {
         Map<Integer, List<Integer>> animalServicos = new HashMap<>();
         JSONArray arr = parameters.getJSONArray("animalServicos");
 
@@ -69,7 +61,7 @@ public class Util {
         return animalServicos;
     }
 
-    public static Map<Integer,Double> parseServicosList(JSONObject parameters) {
+    public static Map<Integer,Double> parseServicosArray(JSONObject parameters) {
         Map<Integer, Double> servicos = new HashMap<>();
         JSONArray arr = parameters.getJSONArray("servicos");
 
@@ -86,7 +78,7 @@ public class Util {
         return servicos;
     }
 
-    public static List<Integer> parseTiposAnimaisList(JSONObject parameters) {
+    public static List<Integer> parseTiposAnimaisArray(JSONObject parameters) {
         List<Integer> tipos = new ArrayList<>();
         JSONArray arr = parameters.getJSONArray("tipos");
 
@@ -101,219 +93,260 @@ public class Util {
         return tipos;
     }
 
-    public static String parsePetsittersList(List<Petsitter> ps) {
-        // Build JSON array
+    public static JSONArray parseAnimalServicosMap(Map<Animal, List<Servico>> animalServicos) {
+        JSONArray arr = new JSONArray();
+
+        // Parse animalServicos
+        for(Map.Entry<Animal, List<Servico>> e : animalServicos.entrySet()){
+            JSONObject obj = new JSONObject();
+
+            obj.put("nome", e.getKey().getNome());
+            obj.put("avatar", e.getKey().getAvatar());
+            obj.put("servicos", parseServicosList(e.getValue()));
+
+            arr.put(obj);
+        }
+
+        return arr;
+    }
+
+    private static JSONArray parseServicosList(List<Servico> servicos) {
+        JSONArray arr = new JSONArray();
+
+        for (Servico s : servicos){
+            JSONObject obj = parseServico(s);
+
+            arr.put(obj);
+        }
+
+        return arr;
+    }
+
+    public static JSONArray parsePetsittersList(List<Petsitter> ps) {
         Gson gson = new Gson();
-        StringBuilder sb = new StringBuilder();
-        sb.append("{\"petsitters\":[");
+        JSONArray arr = new JSONArray();
 
         for (Petsitter p : ps) {
-            sb.append(parsePetsitter(p));
-            sb.append(",");
+            arr.put(parsePetsitter(p));
         }
 
-        String json = sb.toString();
-        // Tirar última vírgula
-        if(!ps.isEmpty()) {
-            json = json.substring(0, json.length() - 1);
-        }
-        // Fechar lista
-        json = json + "]}";
-
-        return json;
+        return arr;
     }
 
-    public static String parseUtilizador(Utilizador utilizador) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("\"email\":\"" + utilizador.getEmail() + "\",");
-        sb.append("\"password\":\"" + utilizador.getPassword() + "\",");
-        sb.append("\"nome\":\"" + utilizador.getNome() + "\",");
-        sb.append("\"avatar\":\"" + utilizador.getAvatar() + "\",");
-        sb.append("\"dataNasc\":\"" + utilizador.getDataNasc() + "\",");
-        sb.append("\"contacto\":\"" + utilizador.getContacto() + "\",");
-        sb.append("\"jardim\":\"" + utilizador.getJardim() + "\",");
-        sb.append("\"morada\":\"" + utilizador.getMorada() + "\",");
-        sb.append("\"ativo\":\"" + utilizador.getAtivo() + "\",");
-        sb.append("\"concelho\":\"" + utilizador.getConcelho() + "\",");
-        sb.append("\"distrito\":\"" + utilizador.getDistrito() + "\",");
-        sb.append("\"avaliacaoMedia\":\"" + utilizador.getAvaliacaoMedia() + "\",");
-        sb.append("\"nrAvaliacoes\":\"" + utilizador.getNrAvaliacoes() + "\"");
-        sb.append("}");
+    public static JSONObject parseUtilizador(Utilizador utilizador) {
+        JSONObject obj = new JSONObject();
 
-        return sb.toString();
+        obj.put("email", utilizador.getEmail());
+        obj.put("password", utilizador.getPassword());
+        obj.put("nome", utilizador.getNome());
+        obj.put("avatar", utilizador.getAvatar());
+        obj.put("dataNasc", utilizador.getDataNasc());
+        obj.put("contacto", utilizador.getContacto());
+        obj.put("jardim", utilizador.getJardim());
+        obj.put("morada", utilizador.getMorada());
+        obj.put("ativo", utilizador.getAtivo());
+        obj.put("concelho", utilizador.getConcelho());
+        obj.put("distrito", utilizador.getDistrito());
+        obj.put("avaliacaoMedia", utilizador.getAvaliacaoMedia());
+        obj.put("nrAvaliacoes", utilizador.getNrAvaliacoes());
+
+        return obj;
     }
 
-    public static String parseDono(Dono dono) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("\"email\":\"" + dono.getEmail() + "\",");
-        sb.append("\"password\":\"" + dono.getPassword() + "\",");
-        sb.append("\"nome\":\"" + dono.getNome() + "\",");
-        sb.append("\"avatar\":\"" + dono.getAvatar() + "\",");
-        sb.append("\"dataNasc\":\"" + dono.getDataNasc() + "\",");
-        sb.append("\"contacto\":\"" + dono.getContacto() + "\",");
-        sb.append("\"jardim\":\"" + dono.getJardim() + "\",");
-        sb.append("\"morada\":\"" + dono.getMorada() + "\",");
-        sb.append("\"ativo\":\"" + dono.getAtivo() + "\",");
-        sb.append("\"concelho\":\"" + dono.getConcelho() + "\",");
-        sb.append("\"distrito\":\"" + dono.getDistrito() + "\",");
-        sb.append("\"avaliacaoMedia\":\"" + dono.getAvaliacaoMedia() + "\",");
-        sb.append("\"nrAvaliacoes\":\"" + dono.getNrAvaliacoes() + "\",");
-        sb.append("\"animais\":" + parseAnimaisCollection(dono.animais));
-        sb.append("}");
+    public static JSONObject parseDono(Dono dono) {
+        JSONObject obj = new JSONObject();
 
-        return sb.toString();
+        obj.put("email", dono.getEmail());
+        obj.put("password", dono.getPassword());
+        obj.put("nome", dono.getNome());
+        obj.put("avatar", dono.getAvatar());
+        obj.put("dataNasc", dono.getDataNasc());
+        obj.put("contacto", dono.getContacto());
+        obj.put("jardim", dono.getJardim());
+        obj.put("morada", dono.getMorada());
+        obj.put("ativo", dono.getAtivo());
+        obj.put("concelho", dono.getConcelho());
+        obj.put("distrito", dono.getDistrito());
+        obj.put("avaliacaoMedia", dono.getAvaliacaoMedia());
+        obj.put("nrAvaliacoes", dono.getNrAvaliacoes());
+        obj.put("animais", parseAnimaisCollection(dono.animais));
+
+        return obj;
     }
 
-    private static String parseAnimaisCollection(AnimalSetCollection animais) {
+    private static JSONArray parseAnimaisCollection(AnimalSetCollection animais) {
         Iterator iter = animais.getIterator();
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        JSONArray arr = new JSONArray();
 
         while (iter.hasNext()){
-            sb.append(parseAnimal((Animal) iter.next()));
-            sb.append(",");
+            arr.put(parseAnimal((Animal) iter.next()));
         }
 
-        String json = sb.toString();
-        // Tirar última vírgula
-        if(!animais.isEmpty()) {
-            json = json.substring(0, json.length() - 1);
-        }
-
-        // Fechar lista
-        json = json + "]";
-
-        return json;
+        return arr;
     }
 
-    private static String parseAnimal(Animal animal) {
+    private static JSONObject parseAnimal(Animal animal) {
         Gson gson = new Gson();
-        return gson.toJson(animal);
+        return new JSONObject(gson.toJson(animal));
     }
 
-    public static String parsePetsitter(Petsitter petsitter) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("\"email\":\"" + petsitter.getEmail() + "\",");
-        sb.append("\"password\":\"" + petsitter.getPassword() + "\",");
-        sb.append("\"nome\":\"" + petsitter.getNome() + "\",");
-        sb.append("\"avatar\":\"" + petsitter.getAvatar() + "\",");
-        sb.append("\"dataNasc\":\"" + petsitter.getDataNasc() + "\",");
-        sb.append("\"contacto\":\"" + petsitter.getContacto() + "\",");
-        sb.append("\"jardim\":\"" + petsitter.getJardim() + "\",");
-        sb.append("\"morada\":\"" + petsitter.getMorada() + "\",");
-        sb.append("\"ativo\":\"" + petsitter.getAtivo() + "\",");
-        sb.append("\"concelho\":\"" + petsitter.getConcelho() + "\",");
-        sb.append("\"distrito\":\"" + petsitter.getDistrito() + "\",");
-        sb.append("\"avaliacaoMedia\":\"" + petsitter.getAvaliacaoMedia() + "\",");
-        sb.append("\"nrAvaliacoes\":\"" + petsitter.getNrAvaliacoes() + "\",");
-        sb.append("\"horario\":" + parseHorario(petsitter.getHorario()) + ",");
-        sb.append("\"tiposAnimais\":" + parseTiposAnimaisCollection(petsitter.animais));
-        sb.append("}");
+    public static JSONObject parsePetsitter(Petsitter petsitter) {
+        JSONObject obj = new JSONObject();
 
-        return sb.toString();
+        obj.put("email", petsitter.getEmail());
+        obj.put("password", petsitter.getPassword());
+        obj.put("nome", petsitter.getNome());
+        obj.put("avatar", petsitter.getAvatar());
+        obj.put("dataNasc", petsitter.getDataNasc());
+        obj.put("contacto", petsitter.getContacto());
+        obj.put("jardim", petsitter.getJardim());
+        obj.put("morada", petsitter.getMorada());
+        obj.put("ativo", petsitter.getAtivo());
+        obj.put("concelho", petsitter.getConcelho());
+        obj.put("distrito", petsitter.getDistrito());
+        obj.put("avaliacaoMedia", petsitter.getAvaliacaoMedia());
+        obj.put("nrAvaliacoes", petsitter.getNrAvaliacoes());
+        obj.put("horario", parseHorario(petsitter.getHorario()));
+        obj.put("animais", parseTiposAnimaisCollection(petsitter.animais));
+
+        return obj;
     }
 
-    private static String parseTiposAnimaisCollection(TipoAnimalSetCollection animais) {
+    private static JSONArray parseTiposAnimaisCollection(TipoAnimalSetCollection animais) {
         Iterator iter = animais.getIterator();
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        JSONArray arr = new JSONArray();
 
         while (iter.hasNext()){
-            sb.append(parseTipoAnimal((TipoAnimal) iter.next()));
-            sb.append(",");
+            arr.put(parseTipoAnimal((TipoAnimal) iter.next()));
         }
 
-        String json = sb.toString();
-        // Tirar última vírgula
-        if(!animais.isEmpty()) {
-            json = json.substring(0, json.length() - 1);
-        }
-
-        // Fechar lista
-        json = json + "]";
-
-        return json;
+        return arr;
     }
 
-    private static String parseTipoAnimal(TipoAnimal tipoAnimal) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("\"id\":\"" + tipoAnimal.getId() + "\",");
-        sb.append("\"tipo\":\"" + tipoAnimal.getTipo() + "\"");
-        sb.append("}");
+    private static JSONObject parseTipoAnimal(TipoAnimal tipoAnimal) {
+        JSONObject obj = new JSONObject();
 
-        return sb.toString();
+        obj.put("id", tipoAnimal.getId());
+        obj.put("tipo", tipoAnimal.getTipo());
+
+        return obj;
     }
 
-    private static String parseHorario(Horario horario) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("\"id\":\"" + horario.getId() + "\",");
-        sb.append("\"dias\":" + parseDiasCollection(horario.dias));
-        sb.append("}");
+    private static JSONObject parseHorario(Horario horario) {
+        JSONObject obj = new JSONObject();
 
-        return sb.toString();
+        obj.put("id", horario.getId());
+        obj.put("dias", parseDiasCollection(horario.dias));
+
+        return obj;
     }
 
-    private static String parseDiasCollection(DiaSetCollection dias) {
+    private static JSONArray parseDiasCollection(DiaSetCollection dias) {
         Iterator iter = dias.getIterator();
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        JSONArray arr = new JSONArray();
 
         while (iter.hasNext()){
-            sb.append(parseDia((Dia) iter.next()));
-            sb.append(",");
+            arr.put(parseDia((Dia) iter.next()));
         }
 
-        String json = sb.toString();
-        // Tirar última vírgula
-        if(!dias.isEmpty()) {
-            json = json.substring(0, json.length() - 1);
-        }
-
-        // Fechar lista
-        json = json + "]";
-
-        return json;
+        return arr;
     }
 
-    private static String parseDia(Dia dia) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("{");
-        sb.append("\"dia\":\"" + dia.getDia() + "\",");
-        sb.append("\"horas\":" + parseHorasCollection(dia.horas));
-        sb.append("}");
+    private static JSONObject parseDia(Dia dia) {
+        JSONObject obj = new JSONObject();
 
-        return sb.toString();
+        obj.put("id", dia.getId());
+        obj.put("dia", dia.getDia());
+        obj.put("horas", parseHorasCollection(dia.horas));
+
+        return obj;
     }
 
-    private static String parseHorasCollection(HoraSetCollection horas) {
+    private static JSONArray parseHorasCollection(HoraSetCollection horas) {
         Iterator iter = horas.getIterator();
-        StringBuilder sb = new StringBuilder();
-        sb.append("[");
+        JSONArray arr = new JSONArray();
 
         while (iter.hasNext()){
-            sb.append(parseHora((Hora) iter.next()));
-            sb.append(",");
+            arr.put(parseHora((Hora) iter.next()));
         }
 
-        String json = sb.toString();
-        // Tirar última vírgula
-        if(!horas.isEmpty()) {
-            json = json.substring(0, json.length() - 1);
-        }
-
-        // Fechar lista
-        json = json + "]";
-
-        return json;
+        return arr;
     }
 
-    private static String parseHora(Hora hora) {
-        return "\"" + hora.getHora() + "\"";
+    private static JSONObject parseHora(Hora hora) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("hora", hora.getHora());
+
+        return obj;
+    }
+
+    public static JSONArray parsePedidosList(List<Pedido> pedidos) {
+        JSONArray arr = new JSONArray();
+
+        for (Pedido p : pedidos) {
+            arr.put(parsePedido(p));
+        }
+
+        return arr;
+    }
+
+    private static JSONObject parsePedido(Pedido pedido) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("id", pedido.getId());
+        obj.put("petsitter", parsePetsitter(pedido.getPetsitter()));
+        obj.put("dono", parseDono(pedido.getDono()));
+        obj.put("preco", pedido.getPreco());
+        obj.put("ativo", pedido.getAtivo());
+        obj.put("dataInicio", pedido.getDataInicio());
+        obj.put("dataFim", pedido.getDataFim());
+        obj.put("animalServicos", parseAnimalServicosCollection(pedido.animalServicos));
+        obj.put("servicos", parseServicosCollection(pedido.servicos));
+
+        return obj;
+    }
+
+    private static JSONArray parseServicosCollection(PrecoPetsitterServicoSetCollection servicos) {
+        Iterator iter = servicos.getIterator();
+        JSONArray arr = new JSONArray();
+
+        while (iter.hasNext()){
+            arr.put(parseServico((Servico) iter.next()));
+        }
+
+        return arr;
+    }
+
+    private static JSONArray parseAnimalServicosCollection(AnimalServicoSetCollection animalServicos) {
+        Iterator iter = animalServicos.getIterator();
+        JSONArray arr = new JSONArray();
+
+        while (iter.hasNext()){
+            arr.put(parseAnimalServico((AnimalServico) iter.next()));
+        }
+
+        return arr;
+    }
+
+    private static JSONObject parseAnimalServico(AnimalServico animalServico) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("id", animalServico.getId());
+        obj.put("servico", parseServico(animalServico.getServico()));
+        obj.put("animal", parseAnimal(animalServico.getAnimal()));
+
+        return obj;
+    }
+
+    private static JSONObject parseServico(Servico servico) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("id", servico.getId());
+        obj.put("designacao", servico.getDesignacao());
+        obj.put("tipoAnimais", parseTiposAnimaisCollection(servico.tipoAnimais));
+
+        return obj;
     }
 
     public static JSONObject parseBody (BufferedReader reader) {

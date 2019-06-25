@@ -1,7 +1,6 @@
 package web;
 import beans.FacadeBeans;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
 
 @WebServlet(name = "CancelarPedidoServlet", urlPatterns = {"/CancelarPedido"})
 public class CancelarPedidoServlet extends HttpServlet {
@@ -28,13 +26,9 @@ public class CancelarPedidoServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
 
         boolean result = FacadeBeans.cancelarPedido(Integer.parseInt((String) parameters.get("idPedido")));
-        if (result) {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Pedido registado com sucesso.");
-        } else {
-            // TODO: redirecionar?
-            mensagem.put("msg", "Erro ao registar pedido.");
-        }
+
+        mensagem.put("success", result);
+
         out.print(mensagem);
         out.flush();
     }

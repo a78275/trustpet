@@ -2,22 +2,15 @@ package web;
 
 import beans.FacadeBeans;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
-import java.util.Map;
 
 @WebServlet(name = "RegistarDonoServlet", urlPatterns = {"/RegistarDono"})
 public class RegistarDonoServlet extends HttpServlet {
@@ -37,23 +30,21 @@ public class RegistarDonoServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
 
         Date date = Util.parseDate((String) parameters.get("dataNasc"),"dd/MM/yyyy");
-        if(date!=null) {
+        if(date != null) {
             String email = (String) parameters.get("email");
-
             boolean result = FacadeBeans.registarUtilizador((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), "dono", (String) parameters.get("concelho"), (String) parameters.get("distrito"));
+
             if (result) {
-                mensagem.put("sucess",true);
                 String token = FacadeBeans.setToken(email);
-                mensagem.put("token",token);
+                mensagem.put("token", token);
                 mensagem.put("tipo","dono");
-            } else {
-                // Falha no registo
-                mensagem.put("sucess",false);
             }
+
+            mensagem.put("success", result);
         }
         else {
             // Data inválida
-            mensagem.put("sucess",false);
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

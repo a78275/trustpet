@@ -26,19 +26,21 @@ public class ConsultarPerfilServlet extends HttpServlet {
         String token = request.getHeader("Token");
         String email = FacadeBeans.validarToken(token);
 
-        if(email!=null) {
+        if(email != null) {
             String tipo = FacadeBeans.tipoUtilizador(email);
-            if(tipo !=null) {
+
+            // Erro nos beans
+            if(tipo != null) {
                 Utilizador utilizador = FacadeBeans.consultarPerfil(email,tipo);
-                mensagem.put("sucess",true);
+                mensagem.put("success", true);
                 mensagem.put("utilizador", Util.parseUtilizador(utilizador));
             }
             else {
-                mensagem.put("sucess",false);
+                mensagem.put("success", false);
             }
         }
         else {
-            mensagem.put("sucess",false);
+            mensagem.put("success",false);
         }
         out.print(mensagem);
         out.flush();

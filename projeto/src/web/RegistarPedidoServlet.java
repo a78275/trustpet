@@ -1,10 +1,9 @@
 package web;
+
 import beans.FacadeBeans;
 import com.google.gson.Gson;
-import main.FacadeDAOs;
-import main.Servico;
-import main.TipoAnimal;
-import main.TrustPetPersistentManager;
+import main.*;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
@@ -38,48 +37,36 @@ public class RegistarPedidoServlet extends HttpServlet {
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
-        Date dataInicio = Util.parseDate((String) parameters.get("dataInicio"),"dd/MM/yyyy HH:mm");
-        Date dataFim = Util.parseDate((String) parameters.get("dataFim"),"dd/MM/yyyy HH:mm");
-        if(dataInicio==null || dataFim==null) {
-            mensagem.put("msg", "Introduza datas válidas");
-            out.print(mensagem);
-            out.flush();
-            return;
-        }
+        Date dataInicio = Util.parseDate((String) parameters.get("dataInicio"), "dd/MM/yyyy HH:mm");
+        Date dataFim = Util.parseDate((String) parameters.get("dataFim"), "dd/MM/yyyy HH:mm");
+        JSONArray animais = (JSONArray) parameters.get("animais");
 
-        int idPedido = FacadeBeans.registarPedido((String) parameters.get("emailDono"), dataInicio, dataFim);
-        if(idPedido==-1) {
-            mensagem.put("msg", "Erro na criação do pedido.");
-            out.print(mensagem);
-            out.flush();
-        }
-        else {
-            out.println("Pedido ID: " + idPedido);
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
-            // TODO Receber tipos de animais do pedido HTTP, fazer parse corretamente
-            PersistentSession session = null;
-            try {
-                session = TrustPetPersistentManager.instance().getSession();
-            } catch (PersistentException e) {
-                e.printStackTrace();
+        if (email!= null && dataInicio != null && dataFim != null && animais != null) {
+            int idPedido = FacadeBeans.registarPedido(email, dataInicio, dataFim);
+
+            if (idPedido != -1) {
+                List<Integer> idAnimal = new ArrayList<>();
+                for(int i = 0; i < animais.length(); i++) {
+                    idAnimal.add(Integer.parseInt((String) animais.get(i)));
+                }
+
+                Map<Animal, List<Servico>> servicos = FacadeBeans.getServicosPedido(idAnimal);
+                JSONArray servicosArray = Util.parseAnimalServicosMap(servicos);
+
+                mensagem.put("servicos",servicosArray);
+                mensagem.put("idPedido", idPedido);
+                mensagem.put("sucess", true);
+            } else {
+                mensagem.put("success", false);
             }
-
-            List<TipoAnimal> tiposAnimal = new ArrayList<>();
-            try {
-                tiposAnimal.add(FacadeDAOs.getTipoAnimal(session,1));
-            } catch (PersistentException e) {
-                e.printStackTrace();
-            }
-            Map<TipoAnimal,List<Servico>> servicos = FacadeBeans.getServicosPedido(tiposAnimal);
-            out.println("Servicos: ");
-            // TODO Passar servicos ao front end corretamente
-            /*Gson gson= new Gson();
-            String json = gson.toJson(servicos);
-            out.print(json);*/
-
-            request.getSession().setAttribute("idPedido", idPedido);
-
-            out.flush();
+        } else {
+            mensagem.put("success", false);
         }
+
+        out.print(mensagem);
+        out.flush();
     }
 }
