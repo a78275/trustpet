@@ -1,13 +1,11 @@
 package web;
 
-import java.io.BufferedReader;
 import java.security.MessageDigest;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import main.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -27,7 +25,7 @@ public class Util {
     }
 
 
-    public static Map<Integer, List<Integer>> parseAnimalServicos(JSONObject parameters) {
+    public static Map<Integer, List<Integer>> parseAnimalServicosArray(JSONObject parameters) {
         Map<Integer, List<Integer>> animalServicos = new HashMap<>();
         JSONArray arr = parameters.getJSONArray("animalServicos");
 
@@ -62,7 +60,7 @@ public class Util {
         return animalServicos;
     }
 
-    public static Map<Integer,Double> parseServicosList(JSONObject parameters) {
+    public static Map<Integer,Double> parseServicosArray(JSONObject parameters) {
         Map<Integer, Double> servicos = new HashMap<>();
         JSONArray arr = parameters.getJSONArray("servicos");
 
@@ -79,7 +77,7 @@ public class Util {
         return servicos;
     }
 
-    public static List<Integer> parseTiposAnimaisList(JSONObject parameters) {
+    public static List<Integer> parseTiposAnimaisArray(JSONObject parameters) {
         List<Integer> tipos = new ArrayList<>();
         JSONArray arr = parameters.getJSONArray("tipos");
 
@@ -92,6 +90,35 @@ public class Util {
         }
 
         return tipos;
+    }
+
+    public static JSONArray parseAnimalServicosMap(Map<Animal, List<Servico>> animalServicos) {
+        JSONArray arr = new JSONArray();
+
+        // Parse animalServicos
+        for(Map.Entry<Animal, List<Servico>> e : animalServicos.entrySet()){
+            JSONObject obj = new JSONObject();
+
+            obj.put("nome", e.getKey().getNome());
+            obj.put("avatar", e.getKey().getAvatar());
+            obj.put("servicos", parseServicosList(e.getValue()));
+
+            arr.put(obj);
+        }
+
+        return arr;
+    }
+
+    private static JSONArray parseServicosList(List<Servico> servicos) {
+        JSONArray arr = new JSONArray();
+
+        for (Servico s : servicos){
+            JSONObject obj = parseServico(s);
+
+            arr.put(obj);
+        }
+
+        return arr;
     }
 
     public static JSONArray parsePetsittersList(List<Petsitter> ps) {
