@@ -42,10 +42,14 @@ public class RegistarPetsitterServlet extends HttpServlet {
             return;
         }
 
-        boolean result = FacadeBeans.registarUtilizador((String) parameters.get("nome"), (String) parameters.get("email"), date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), "petsitter", (String) parameters.get("concelho"), (String) parameters.get("distrito"),session);
+        String email = (String) parameters.get("email");
+
+        boolean result = FacadeBeans.registarUtilizador((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), "petsitter", (String) parameters.get("concelho"), (String) parameters.get("distrito"),session);
         if (result) {
             // TODO: redirecionar?
             mensagem.put("msg", "Registo de petsitter feito com sucesso.");
+            // Guardar email do utilizador da sessão atual
+            request.getSession().setAttribute("user", email);
         } else {
             // TODO: redirecionar?
             mensagem.put("msg", "Erro no registo.");

@@ -5,10 +5,10 @@ import org.orm.PersistentSession;
 import javax.ejb.Local;
 
 @Local
-public interface AutenticarBeanLocal {
+public interface AutenticarBeanLocal2 {
 
 	/**
-	 * 
+	 *
 	 * @param email
 	 * @param password
 	 */

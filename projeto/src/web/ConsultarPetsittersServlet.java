@@ -14,7 +14,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "ConsultarPetsitters", urlPatterns = {"/ConsultarPetsitters"})
+@WebServlet(name = "ConsultarPetsittersServlet", urlPatterns = {"/ConsultarPetsitters"})
 public class ConsultarPetsittersServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");

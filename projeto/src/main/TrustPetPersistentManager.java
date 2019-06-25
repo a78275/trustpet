@@ -8,7 +8,7 @@
  */
 
 /**
- * Licensee: bernardo(Universidade do Minho)
+ * Licensee: claudia(Universidade do Minho)
  * License Type: Academic
  */
 package main;

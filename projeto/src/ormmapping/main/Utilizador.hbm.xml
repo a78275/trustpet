@@ -22,6 +22,7 @@ License Type: Academic
 		<property name="distrito" column="Distrito" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="avaliacaoMedia" column="AvaliacaoMedia" type="float" not-null="true" lazy="false"/>
 		<property name="nrAvaliacoes" column="NrAvaliacoes" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="token" column="Token" type="string" length="255" not-null="false" lazy="false"/>
 		<joined-subclass name="main.Dono" table="Dono" lazy="false">
 			<key>
 				<column name="UtilizadorEmail"/>
