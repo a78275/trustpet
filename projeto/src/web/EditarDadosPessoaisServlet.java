@@ -30,20 +30,17 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
         Date date = Util.parseDate((String) parameters.get("data"),"dd/MM/yyyy");
-        if(date!=null) {
-            boolean result = FacadeBeans.editarDados((String) parameters.get("nome"), (String) parameters.get("email"), date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
-            if (result) {
-                mensagem.put("sucess",true);
-            } else {
-                // Falha no registo
-                mensagem.put("sucess",false);
-            }
+
+        if(date != null) {
+            boolean result = FacadeBeans.editarDados((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
+            mensagem.put("success", result);
         }
         else {
-            // Data inválida
-            mensagem.put("sucess",false);
+            mensagem.put("success",false);
         }
         out.print(mensagem);
         out.flush();

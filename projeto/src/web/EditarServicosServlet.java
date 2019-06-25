@@ -30,10 +30,10 @@ public class EditarServicosServlet extends HttpServlet {
 
         if(email != null) {
             boolean result = FacadeBeans.registarServicos(email, servicos);
-            mensagem.put("sucess",result);
+            mensagem.put("success", result);
         }
         else {
-            mensagem.put("sucess",false);
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

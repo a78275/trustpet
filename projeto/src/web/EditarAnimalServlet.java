@@ -27,25 +27,18 @@ public class EditarAnimalServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
+
         boolean result;
 
         if(!parameters.keySet().contains("id") || parameters.get("id").toString().equals("")) {
-            result = FacadeBeans.registarAnimal((String) parameters.get("emailDono"), (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Integer.parseInt((String) parameters.get("tipo")));
-            if (result) {
-                mensagem.put("sucess",true);
-            } else {
-                // Falha no registo do animal
-                mensagem.put("sucess",false);
-            }
+            result = FacadeBeans.registarAnimal(email, (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Integer.parseInt((String) parameters.get("tipo")));
+            mensagem.put("success", result);
         }
         else {
             result = FacadeBeans.editarAnimal(Integer.parseInt((String) parameters.get("id")), (String) parameters.get("nome"), Integer.parseInt((String) parameters.get("idade")), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Boolean.parseBoolean((String) parameters.get("ativo")));
-            if (result) {
-                mensagem.put("sucess",true);
-            } else {
-                // Falha na edição do animal
-                mensagem.put("sucess",false);
-            }
+            mensagem.put("success", result);
         }
 
         out.print(mensagem);

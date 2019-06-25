@@ -26,7 +26,7 @@ public class AutenticarServlet extends HttpServlet {
 
         boolean result = FacadeBeans.autenticar(email, password);
         if (result) {
-            mensagem.put("sucess",true);
+            mensagem.put("success", true);
             String token = FacadeBeans.setToken(email);
             mensagem.put("token",token);
 
@@ -38,7 +38,7 @@ public class AutenticarServlet extends HttpServlet {
                 mensagem.put("tipo","dono");
             }
         } else {
-            mensagem.put("sucess",false);
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);
