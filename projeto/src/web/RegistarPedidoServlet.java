@@ -41,8 +41,11 @@ public class RegistarPedidoServlet extends HttpServlet {
         Date dataFim = Util.parseDate((String) parameters.get("dataFim"), "dd/MM/yyyy HH:mm");
         JSONArray animais = (JSONArray) parameters.get("animais");
 
-        if (dataInicio != null && dataFim != null && animais != null) {
-            int idPedido = FacadeBeans.registarPedido((String) parameters.get("email"), dataInicio, dataFim);
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
+
+        if (email!= null && dataInicio != null && dataFim != null && animais != null) {
+            int idPedido = FacadeBeans.registarPedido(email, dataInicio, dataFim);
 
             if (idPedido != -1) {
                 List<Integer> idAnimal = new ArrayList<>();
@@ -51,8 +54,9 @@ public class RegistarPedidoServlet extends HttpServlet {
                 }
 
                 Map<Animal, List<Servico>> servicos = FacadeBeans.getServicosPedido(idAnimal);
+                JSONArray servicosArray = Util.parseAnimalServicosMap(servicos);
 
-                mensagem.put("servicos",servicos);
+                mensagem.put("servicos",servicosArray);
                 mensagem.put("idPedido", idPedido);
                 mensagem.put("sucess", true);
             } else {
