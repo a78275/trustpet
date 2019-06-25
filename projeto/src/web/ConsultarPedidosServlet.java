@@ -1,8 +1,8 @@
 package web;
 import beans.FacadeBeans;
-import com.google.gson.Gson;
 import main.Pedido;
-import org.orm.PersistentSession;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -20,17 +20,38 @@ public class ConsultarPedidosServlet extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
 
         PrintWriter out = response.getWriter();
+        JSONObject mensagem = new JSONObject();
+        String token = request.getHeader("Token");
 
-        List<Pedido> pedidos = FacadeBeans.consultarPedidos((String) request.getSession().getAttribute("user"));
+        String emailDono = FacadeBeans.validarToken(token);
+        //TODO:apagar
+        System.out.println(emailDono);
 
-        Gson gson= new Gson();
-        String json = gson.toJson(pedidos);
+        if(emailDono != null) {
+            List<Pedido> pedidos = FacadeBeans.consultarPedidos(emailDono);
 
-        out.print(json);
+            //TODO: APAGAR
+            for (Pedido p : pedidos){
+                System.out.println(p.getId());
+            }
+
+            // Não existem pedidos
+            if (pedidos == null) {
+                mensagem.put("sucess", false);
+            }
+            else {
+                mensagem.put("sucess",true);
+                mensagem.put("pedidos", Util.parsePedidosList(pedidos));
+            }
+        }
+        else {
+            mensagem.put("sucess", false);
+        }
+
+        out.print(mensagem);
         out.flush();
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("\n\n\n\n\nREQUEST: " + request.getParameter("email") + "\n\n\n\n");
     }
 }

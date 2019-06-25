@@ -1,14 +1,8 @@
 package web;
 
 import beans.FacadeBeans;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import main.Pedido;
 import main.Petsitter;
-import org.json.JSONArray;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -35,17 +27,24 @@ public class SelServicosServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         JSONObject parameters = Util.parseBody(request.getReader());
+        JSONObject mensagem = new JSONObject();
 
-        int idPedido = (int) request.getSession().getAttribute("idPedido");
+        int idPedido = (int) parameters.get("idPedido");
 
-        Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicos(parameters);
+        Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicosArray(parameters);
 
         List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
 
-        Gson gson= new Gson();
-        String json = gson.toJson(petsitters);
+        // Ocorreu um erro nos beans
+        if(petsitters == null){
+            mensagem.put("sucess",false);
+        }
+        else {
+            mensagem.put("sucess",true);
+            mensagem.put("petsitters", Util.parsePetsittersList(petsitters));
+        }
 
-        out.print(json);
+        out.print(mensagem);
         out.flush();
     }
 }
