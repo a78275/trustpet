@@ -32,21 +32,8 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
-    public Map<TipoAnimal, List<Servico>> getServicosPedido(List<Integer> idTiposAnimal) {
+    public Map<Animal, List<Servico>> getServicosPedido(List<Integer> idAnimal) {
         PersistentSession session = getSession();
-
-        List<TipoAnimal> tiposAnimal = new ArrayList<>();
-        for (Integer id : idTiposAnimal) {
-            TipoAnimal tipo = null;
-            try {
-                tipo = FacadeDAOs.getTipoAnimal(session, id);
-            } catch (PersistentException e) {
-                e.printStackTrace();
-            }
-            if (tipo != null) {
-                tiposAnimal.add(tipo);
-            }
-        }
 
         List<Servico> servicos = null;
         try {
@@ -56,16 +43,24 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         if(servicos!=null) {
-            Map<TipoAnimal, List<Servico>> servicosAnimais = new HashMap<>();
-            for (TipoAnimal tipo : tiposAnimal) {
-                List<Servico> servicosTipo = new ArrayList<>();
-
-                for (Servico s : servicos) {
-                    if (s.tipoAnimais.contains(tipo)) {
-                        servicosTipo.add(s);
-                    }
+            Map<Animal, List<Servico>> servicosAnimais = new HashMap<>();
+            for (Integer id : idAnimal) {
+                Animal animal = null;
+                try {
+                    animal = FacadeDAOs.getAnimal(session, id);
+                } catch (PersistentException e) {
+                    e.printStackTrace();
                 }
-                servicosAnimais.put(tipo, servicosTipo);
+                if (animal != null) {
+                    List<Servico> servicosAnimal = new ArrayList<>();
+
+                    for (Servico s : servicos) {
+                        if (s.tipoAnimais.contains(animal.getTipo())) {
+                            servicosAnimal.add(s);
+                        }
+                    }
+                    servicosAnimais.put(animal,servicosAnimal);
+                }
             }
             return servicosAnimais;
         }

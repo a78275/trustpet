@@ -2,10 +2,7 @@ package web;
 
 import beans.FacadeBeans;
 import com.google.gson.Gson;
-import main.FacadeDAOs;
-import main.Servico;
-import main.TipoAnimal;
-import main.TrustPetPersistentManager;
+import main.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.orm.PersistentException;
@@ -48,15 +45,15 @@ public class RegistarPedidoServlet extends HttpServlet {
             int idPedido = FacadeBeans.registarPedido((String) parameters.get("email"), dataInicio, dataFim);
 
             if (idPedido != -1) {
-                List<Integer> tiposAnimal = new ArrayList<>();
+                List<Integer> idAnimal = new ArrayList<>();
                 for(int i = 0; i < animais.length(); i++) {
-                    Integer idAnimal = Integer.parseInt((String) animais.get(i));
-                    tiposAnimal.add(FacadeBeans.tipoAnimal(idAnimal));
+                    idAnimal.add(Integer.parseInt((String) animais.get(i)));
                 }
 
-                Map<TipoAnimal, List<Servico>> servicos = FacadeBeans.getServicosPedido(tiposAnimal);
+                Map<Animal, List<Servico>> servicos = FacadeBeans.getServicosPedido(idAnimal);
 
-                mensagem.put("idPedido",idPedido);
+                mensagem.put("servicos",servicos);
+                mensagem.put("idPedido", idPedido);
                 mensagem.put("sucess", true);
             } else {
                 mensagem.put("sucess", false);

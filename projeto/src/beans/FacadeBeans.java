@@ -223,10 +223,10 @@ public class FacadeBeans {
     }
     /**
      *
-     * @param tiposAnimal
+     * @param idAnimal
      */
-    public static Map<TipoAnimal,List<Servico>> getServicosPedido(List<Integer> tiposAnimal) {
-        return pedidoBean.getServicosPedido(tiposAnimal);
+    public static Map<Animal,List<Servico>> getServicosPedido(List<Integer> idAnimal) {
+        return pedidoBean.getServicosPedido(idAnimal);
     }
 
     /**

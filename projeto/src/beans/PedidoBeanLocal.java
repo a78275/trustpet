@@ -1,9 +1,6 @@
 package beans;
 
-import main.Pedido;
-import main.Petsitter;
-import main.Servico;
-import main.TipoAnimal;
+import main.*;
 import org.orm.PersistentSession;
 
 import javax.ejb.Local;
@@ -49,9 +46,9 @@ public interface PedidoBeanLocal {
 
 	/**
 	 *
-	 * @param tiposAnimal
+	 * @param idAnimal
 	 */
-	Map<TipoAnimal,List<Servico>> getServicosPedido(List<Integer> tiposAnimal);
+	Map<Animal, List<Servico>> getServicosPedido(List<Integer> idAnimal);
 
 	/**
 	 *
