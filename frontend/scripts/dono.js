@@ -30,9 +30,6 @@ Vue.component('sidebardono', {
                 <li>
                     <a href="#">Adicionar Animal</a>
                 </li>
-                <li>
-                    <a href="#">Remover Animal</a>
-                </li>
             </ul>
         </li>
         <li class="sec2">
