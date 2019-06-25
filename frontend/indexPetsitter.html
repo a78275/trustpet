@@ -24,27 +24,31 @@
 </head>
 
 <body>
-    <div class="wrapper" id="dono">
+    <div class="wrapper" id="utilizador">
         <!-- Navbar -->
-        <div>
-            <sidebardono></sidebardono>
+        <div id="petsitter">
+            <sidebarpetsitter></sidebarpetsitter>
         </div>
         <!-- Page Content -->
-        <div id="content" style="background-color: #f7eceb;">
+        <div id="content">
             <button type="button" id="sidebarCollapse">
                 <i class="fas fa-align-left"></i>
             </button>
-
-            <section class="p-2">
-                <div class="justify-content-center">
-                    <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">PEDIDOS PENDENTES</h1>
-                    <div class="card m-3" style="color:#545871;" v-for="pedido in pedidosPendentes">
-                        <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:1em;">{{ pedido }}</h1>
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="mt-3"
-                            style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+            <!-- Description -->
+            <section class="intro-text" id="description">
+                <div class="row">
+                    <div class="col-lg-7 col-md-5 col-sm-2">
                     </div>
+                    <div class="col-lg-5 col-md-7 col-sm-10">
+                        <div id="slogan">
+                            <b>Cuidamos dos seus animais enquanto está fora!</b>
+                        </div>
+                        <a id="darkbluebtn" class="btn btn-xl js-scroll-trigger" href="selAnimaisData.html">Efetuar
+                            Pedido</a>
+                    </div>
+                </div>
             </section>
-
+            <trustpetinfo></trustpetinfo>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -60,5 +64,8 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="scripts/sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="scripts/dono.js"></script>
+    <script src="scripts/utilizador.js"></script>
+    <script src="scripts/petsitter.js"></script>
 </body>
+
+</html>

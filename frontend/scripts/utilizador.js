@@ -1,57 +1,70 @@
-Vue.component('trustpetinfo', {
+Vue.component('form-perfil', {
     template: `
-<div>
-    <!-- Services -->
-    <section id="services">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h3 class="section-subheading"><b>Opções destinadas às suas necessidades.</b></h3>
-                </div>
+<div id="userRegister">
+    <form class="mx-5 my-5">
+        <div class="form-group">
+            <label for="nome">Nome</label>
+            <input type="text" class="form-control" id="nome" v-model="nome"
+                placeholder="Introduza o seu nome" required>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="email">E-mail</label>
+                <input type="email" class="form-control" id="email" v-model="email"
+                    placeholder="Introduza o seu endereço de e-mail" required>
             </div>
-            <div class="row text-center">
-                <div class="col-4" id="service">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fas fa-tree fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading">Passeio</h4>
-                    <p class="text-muted">Passeamos o seu animal, limpamos dejetos e asseguramos a hidratação do
-                        mesmo.</p>
-                </div>
-                <div class="col-4" id="service">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fas fa-home fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading"><i>Petsitting</i> em sua casa</h4>
-                    <p class="text-muted">Tomamos conta do seu animal em sua casa, assegurando conforto,
-                        alimentação, hidratação, carinho e brincadeiras.</p>
-                </div>
-                <div class="col-4" id="service">
-                    <span class="fa-stack fa-4x">
-                        <i class="fas fa-circle fa-stack-2x"></i>
-                        <i class="fas fa-bed fa-stack-1x fa-inverse"></i>
-                    </span>
-                    <h4 class="service-heading"><i>Petsitting</i> em casa do <i>Petsitter</i></h4>
-                    <p class="text-muted">Tomamos conta do seu animal, assegurando conforto, alimentação,
-                        hidratação, carinho e brincadeiras.</p>
-                </div>
+            <div class="form-group col-md-6">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" v-model="password"
+                    placeholder="Introduza uma palavra-passe" required>
             </div>
         </div>
-    </section>
-    <!-- Contact -->
-    <section id="contacts">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <p id="contacttext" class="section-subheading">Contacte-nos!</p>
-                    <p id="email">trustpet@email.com</p>
-                </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="datanascimento">Data de nascimento</label>
+                <input type="date" class="form-control" id="datanascimento" v-model="dataNasc"
+                    placeholder="Introduza a sua data de nascimento" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="contacto">Contacto</label>
+                <input type="text" class="form-control" id="contacto" v-model="contacto"
+                    placeholder="Introduza o seu número de telemóvel" required>
             </div>
         </div>
-    </section>
-</div>`
+        <div class="form-group">
+            <label for="morada">Morada</label>
+            <input type="text" class="form-control" id="morada" v-model="morada"
+                placeholder="Introduza a sua morada e número da porta" required>
+        </div>
+        <div class="form-group">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="jardim"
+                    v-model="jardim">
+                <label class="form-check-label" for="jardim">
+                    Tem Jardim?
+                </label>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="distrito">Distrito</label>
+                <input type="text" class="form-control" id="distrito" v-model="distrito"
+                    placeholder="Introduza o seu distrito" required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="concelho">Concelho</label>
+                <input type="text" class="form-control" id="concelho" v-model="concelho"
+                    placeholder="Introduza o seu concelho" required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="pic">Fotografia</label>
+            <input type="text" class="form-control" id="pic" v-model="avatar"
+                placeholder="Introduza o url da fotografia" required>
+        </div>
+    </form>
+</div>
+`
 })
 
 Vue.component('side', {
@@ -65,16 +78,36 @@ Vue.component('side', {
 var vm = new Vue({
     el: "#utilizador",
     data: {
-        appName: "TrustPet",
         email: "",
-        password: ""
-        //msg: ""
+        password: "",
+        nome: "",
+        dataNasc: "",
+        contacto: "",
+        morada: "",
+        jardim: "",
+        distrito: "",
+        concelho: "",
+        avatar: "",
+        tiposAnimal: [{ 'id': '1', 'tipo': 'Gato' }, { 'id': '2', 'tipo': 'Cão' }, { 'id': '3', 'tipo': 'Pássaro' }, { 'id': '4', 'tipo': 'Tartaruga' }],
+        tipo: "",
+        idade: "",
+        raca: "",
+        sexo: "",
+        porte: "",
+        alergias: "",
+        doencas: "",
+        comportamento: "",
+        vacinas: "",
+        desparasitacao: "",
+        esterilizacao: "",
+        utilizador: {},
+        animais: []
     },
     created: async function () {
         if (localStorage.token) {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/Index", {
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'application/json; charset=utf-8',
                     'Token': localStorage.token
                 },
                 method: "GET"
@@ -84,7 +117,7 @@ var vm = new Vue({
                 if (content.tipo == 'dono') {
                     window.location.replace("http://localhost/indexDono.html")
                 } else if (content.tipo == 'petsitter') {
-                    //window.location.replace("http://localhost/indexPetsitter.html")
+                    window.location.replace("http://localhost/indexPetsitter.html")
                 }
             }
         }
@@ -93,7 +126,7 @@ var vm = new Vue({
         login: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/Autenticar", {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json; charset=utf-8'
                 },
                 method: "POST",
                 body: JSON.stringify({
@@ -112,6 +145,106 @@ var vm = new Vue({
                     window.location.replace("http://localhost/indexPetsitter.html")
                 }
             }
+        },
+        registoDono: async function () {
+            let date = new Date(this.dataNasc)
+            let newDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarDono", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: this.utilizador
+            })
+            await registoAnimais()
+            const content = await response.json()
+        },
+        criarUtilizador: async function () {
+            let date = new Date(this.dataNasc)
+            let newDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+            this.utilizador = JSON.stringify({
+                email: this.email,
+                password: this.password,
+                nome: this.nome,
+                avatar: this.avatar,
+                dataNasc: newDate,
+                contacto: this.contacto,
+                jardim: this.jardim,
+                morada: this.morada,
+                concelho: this.concelho,
+                distrito: this.distrito
+            })
+            this.email = ""
+            this.password = ""
+            this.nome = ""
+            this.dataNasc = ""
+            this.contacto = ""
+            this.morada = ""
+            this.jardim = ""
+            this.distrito = ""
+            this.concelho = ""
+            this.avatar = ""
+        },
+        registoPetsitter: async function () {
+
+        },
+        registoAnimais: async function () {
+            for (var i = 0; i < this.animais.length; i++) {
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    method: "POST",
+                    body: this.animais[i]
+                })
+                const content = await response.json()
+                if (!content.sucess) {
+                    i--
+                }
+                console.log(JSON.stringify(content))
+            }
+        },
+        criarAnimal: async function () {
+            let vac = "false"
+            if (this.vacinas != "")
+                vac = "true"
+            let desp = "false"
+            if (this.desparasitacao != "")
+                desp = "true"
+            let est = "false"
+            if (this.esterilizacao != "")
+                est = "true"
+            let animal = JSON.stringify({
+                nome: this.nome,
+                avatar: this.avatar,
+                idade: this.idade,
+                porte: this.porte,
+                sexo: this.sexo,
+                alergias: this.alergias,
+                doencas: this.doencas,
+                comportamento: this.comportamento,
+                vacinas: vac,
+                desparasitacao: desp,
+                esterilizacao: est,
+                raca: this.raca,
+                tipo: this.tipo,
+                emailDono: 'joanacmp.97@gmail.com'
+            })
+            this.nome = ""
+            this.avatar = ""
+            this.idade = ""
+            this.porte = ""
+            this.sexo = ""
+            this.alergias = ""
+            this.doencas = ""
+            this.comportamento = ""
+            this.vacinas = ""
+            this.desparasitacao = ""
+            this.esterilizacao = ""
+            this.tipo = ""
+            this.raca = ""
+
+            this.animais.push(animal)
         }
     }
 })
