@@ -29,18 +29,16 @@ public class SelServicosServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
         JSONObject mensagem = new JSONObject();
 
-        int idPedido = (int) parameters.get("idPedido");
-
         Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicosArray(parameters);
 
-        List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
+        List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido((int) parameters.get("idPedido"), animalServicos);
 
         // Ocorreu um erro nos beans
         if(petsitters == null){
-            mensagem.put("sucess",false);
+            mensagem.put("success",false);
         }
         else {
-            mensagem.put("sucess",true);
+            mensagem.put("success",true);
             mensagem.put("petsitters", Util.parsePetsittersList(petsitters));
         }
 

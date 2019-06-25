@@ -69,12 +69,12 @@ public class RegistarPedidoServlet extends HttpServlet {
                 out.print(json);*/
 
                 request.getSession().setAttribute("idPedido", idPedido);
-                mensagem.put("sucess", true);
+                mensagem.put("success", true);
             } else {
-                mensagem.put("sucess", false);
+                mensagem.put("success", false);
             }
         } else {
-            mensagem.put("sucess", false);
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

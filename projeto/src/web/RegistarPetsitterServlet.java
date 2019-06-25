@@ -36,21 +36,19 @@ public class RegistarPetsitterServlet extends HttpServlet {
         Date date = Util.parseDate((String) parameters.get("dataNasc"),"dd/MM/yyyy");
         if(date!=null) {
             String email = (String) parameters.get("email");
-
             boolean result = FacadeBeans.registarUtilizador((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), "petsitter", (String) parameters.get("concelho"), (String) parameters.get("distrito"));
+
             if (result) {
-                mensagem.put("sucess",true);
                 String token = FacadeBeans.setToken(email);
-                mensagem.put("token",token);
-                mensagem.put("tipo","petsitter");
-            } else {
-                // Falha no registo
-                mensagem.put("sucess",false);
+                mensagem.put("token", token);
+                mensagem.put("tipo", "petsitter");
             }
+
+            mensagem.put("success", result);
         }
         else {
             // Data inválida
-            mensagem.put("sucess",false);
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

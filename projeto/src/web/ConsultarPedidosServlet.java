@@ -24,28 +24,21 @@ public class ConsultarPedidosServlet extends HttpServlet {
         String token = request.getHeader("Token");
 
         String emailDono = FacadeBeans.validarToken(token);
-        //TODO:apagar
-        System.out.println(emailDono);
 
         if(emailDono != null) {
             List<Pedido> pedidos = FacadeBeans.consultarPedidos(emailDono);
 
-            //TODO: APAGAR
-            for (Pedido p : pedidos){
-                System.out.println(p.getId());
-            }
-
-            // Não existem pedidos
+            // Erro nos beans
             if (pedidos == null) {
-                mensagem.put("sucess", false);
+                mensagem.put("success", false);
             }
             else {
-                mensagem.put("sucess",true);
+                mensagem.put("success",true);
                 mensagem.put("pedidos", Util.parsePedidosList(pedidos));
             }
         }
         else {
-            mensagem.put("sucess", false);
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

@@ -34,10 +34,10 @@ public class EditarTiposAnimaisServlet extends HttpServlet {
 
         if(email != null) {
             boolean result = FacadeBeans.registarTiposAnimais(email, tipos);
-            mensagem.put("sucess",result);
+            mensagem.put("success", result);
         }
         else {
-            mensagem.put("sucess",false);
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

@@ -28,19 +28,19 @@ public class ConsultarAnimaisServlet extends HttpServlet {
         if(emailDono!=null) {
             List<Animal> animalList = FacadeBeans.consultarAnimais(emailDono);
 
-            // Não existem pedidos
+            // Erro nos beans
             if (animalList == null) {
-                mensagem.put("sucess", false);
+                mensagem.put("success", false);
             }
             else {
                 Gson gson= new Gson();
                 String json = gson.toJson(animalList);
-                mensagem.put("sucess",true);
+                mensagem.put("success",true);
                 mensagem.put("animais",json);
             }
         }
         else {
-            mensagem.put("sucess",false);
+            mensagem.put("success",false);
         }
         out.print(mensagem);
         out.flush();

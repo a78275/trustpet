@@ -26,12 +26,12 @@ public class ConsultarPetsittersServlet extends HttpServlet {
 
         List<Petsitter> petsitters = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"));
 
-        // Ocorreu um erro nos beans
+        // Erro nos beans
         if(petsitters == null){
-            mensagem.put("sucess",false);
+            mensagem.put("success", false);
         }
         else {
-            mensagem.put("sucess",true);
+            mensagem.put("success", true);
             mensagem.put("petsitters", Util.parsePetsittersList(petsitters));
         }
 

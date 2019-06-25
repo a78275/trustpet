@@ -32,15 +32,15 @@ public class IndexServlet extends HttpServlet {
         if(!token.equals("")) {
             String email = FacadeBeans.validarToken(token);
             if(email!=null) {
-                mensagem.put("email",email);
-                mensagem.put("tipo",FacadeBeans.tipoUtilizador(email));
+                mensagem.put("email", email);
+                mensagem.put("tipo", FacadeBeans.tipoUtilizador(email));
             }
             else {
-                mensagem.put("email","null");
+                mensagem.put("email", "null");
             }
         }
         else {
-            mensagem.put("result","");
+            mensagem.put("result", "");
         }
 
         out.print(mensagem);
