@@ -17,7 +17,7 @@ License Type: Academic
 		<property name="show_sql">false</property>
 		<property name="query.substitutions">true 1, false 0, yes 'Y', no 'N'</property>
 		<!-- mapping files -->
-		<mapping resource="" />
+		<mapping resource="ormmapping/main/Administrador.hbm.xml" />
 		<mapping resource="ormmapping/main/Animal.hbm.xml" />
 		<mapping resource="ormmapping/main/AnimalServico.hbm.xml" />
 		<mapping resource="ormmapping/main/Dia.hbm.xml" />
