@@ -33,7 +33,8 @@ var vm = new Vue({
         esterilizacao: "",
         utilizador: {},
         animal: {},
-        animais: []
+        animais: [],
+        tiposAnimaisSelecionados: []
     },
     methods: {
         registoPetsitter: async function () {
@@ -54,6 +55,22 @@ var vm = new Vue({
             }
             else {
                 window.location.replace("http://localhost/registoPerfilPetsitter.html")
+            }
+        },
+        registoTiposAnimais: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarTiposAnimais", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    tipos: this.tiposAnimaisSelecionados
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/registoServicos.html")
             }
         },
         login: async function () {
