@@ -117,7 +117,7 @@ var vm = new Vue({
                 const contentDono = await responseDono.json()
                 if (contentDono.success) {
                     this.perfil = contentDono.utilizador
-                    console.log(JSON.stringify(contentDono.reviews))
+                    this.reviews = contentDono.reviews
                 }
 
                 const responsePedidos = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPedidos", {
@@ -209,26 +209,23 @@ var vm = new Vue({
         logout: function () {
             localStorage.token = ""
         },
-        avaliar: function (id) {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarPetsitter", {
+        avaliar: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
                     'Token': localStorage.token
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    animalServicos: this.servicosAnimaisSelecionados,
-                    idPedido: localStorage.idPedido
+                    emailAlvo: id,
+                    comentario: this.comentario,
+                    avaliacao: this.pontuacao
                 })
             })
             const content = await response.json()
             if (content.success) {
-                localStorage.petsitters = JSON.stringify(content.petsitters)
-                window.location.replace("http://localhost/selPetsitter.html")
+                console.log("review feita com sucesso!")
             }
-            console.log(id)
-            console.log(this.comentario)
-            console.log(this.pontuacao)
         }
     }
 })
