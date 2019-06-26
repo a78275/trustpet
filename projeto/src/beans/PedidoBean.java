@@ -97,7 +97,12 @@ public class PedidoBean implements PedidoBeanLocal {
 
             // Adicionar serviços novos
             for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
-                animalServicos.put(e.getKey(),e.getValue());
+                for(int s : e.getValue()) {
+                    AnimalServico animalServico = registarAnimalServico(e.getKey(),s,session);
+                    if(animalServico!=null) {
+                        pedido.animalServicos.add(animalServico);
+                    }
+                }
             }
 
             // Gravar pedido
@@ -111,6 +116,31 @@ public class PedidoBean implements PedidoBeanLocal {
         }
         else {
             return false;
+        }
+    }
+
+    private AnimalServico registarAnimalServico (int idAnimal, int idServico, PersistentSession session) {
+        AnimalServico animalServico = FacadeDAOs.createAnimalServico();
+        Animal animal = null;
+        Servico servico = null;
+        try {
+            animal = FacadeDAOs.getAnimal(session,idAnimal);
+            servico = FacadeDAOs.getServico(session,idServico);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        if(animal!=null && servico!=null) {
+            animalServico.setAnimal(animal);
+            animalServico.setServico(servico);
+            try {
+                FacadeDAOs.saveAnimalServico(animalServico);
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+            return animalServico;
+        }
+        else {
+            return null;
         }
     }
 
@@ -178,24 +208,7 @@ public class PedidoBean implements PedidoBeanLocal {
             return false;
         }
 
-        // Get dos precoPetsitterServicos
-        Map<Integer, Double> servicoPreco = null;
-        try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + petsitter.getEmail() + "'", null);
-            servicoPreco = new HashMap<>();
-            for (PrecoPetsitterServico precoPetsitterServico : precoPetsitterServicos) {
-                servicoPreco.put(precoPetsitterServico.getServico().getId(), precoPetsitterServico.getPreco());
-            }
-        } catch (PersistentException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        // Set do preço
-        double preco = 0;
-        for (AnimalServico animalServico : pedido.animalServicos.toArray()) {
-            preco += servicoPreco.get(animalServico.getServico().getId());
-        }
+        double preco = calcularPreco(pedido,petsitter);
         pedido.setPreco(preco);
 
         // Save do pedido na BD
@@ -210,8 +223,33 @@ public class PedidoBean implements PedidoBeanLocal {
         return save;
     }
 
+    private double calcularPreco (Pedido pedido, Petsitter petsitter) {
+        // Get dos precoPetsitterServicos
+        Map<Integer, Double> servicoPreco = null;
+        try {
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + petsitter.getEmail() + "'", null);
+            servicoPreco = new HashMap<>();
+            for (PrecoPetsitterServico precoPetsitterServico : precoPetsitterServicos) {
+                servicoPreco.put(precoPetsitterServico.getServico().getId(), precoPetsitterServico.getPreco());
+            }
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        if(servicoPreco!=null) {
+            // Set do preço
+            double preco = 0;
+            for (AnimalServico animalServico : pedido.animalServicos.toArray()) {
+                preco += servicoPreco.get(animalServico.getServico().getId());
+            }
+            return preco;
+        }
+        else {
+            return 0;
+        }
+    }
+
     @Override
-    public List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
+    public Map<Petsitter,Double> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
         PersistentSession session = getSession();
         Pedido pedido = null;
         try {
@@ -247,18 +285,18 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         // Buscar Petsitters
-        return getPetsitters(session, emailsPetsitters);
+        return getPetsitters(session, emailsPetsitters, pedido);
     }
 
-    private List<Petsitter> getPetsitters(PersistentSession session, Set<String> emailsPetsitters) {
-        List<Petsitter> petsitters = new ArrayList<>();
+    private Map<Petsitter,Double> getPetsitters(PersistentSession session, Set<String> emailsPetsitters, Pedido pedido) {
+
+        Map<Petsitter,Double> petsitters = new HashMap<>();
         if (emailsPetsitters != null) {
             for (String emailPetsitter : emailsPetsitters) {
                 try {
                     Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
-                    if (!petsitters.add(petsitter)) {
-                        return null;
-                    }
+                    double preco = calcularPreco(pedido,petsitter);
+                    petsitters.put(petsitter,preco);
                 } catch (PersistentException e) {
                     e.printStackTrace();
                     return null;
