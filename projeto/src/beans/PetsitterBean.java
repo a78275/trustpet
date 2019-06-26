@@ -84,7 +84,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
     }
 
     private boolean createPrecoPetsitterServicos(Map<Integer, Double> servicos, PersistentSession session, Petsitter petsitter) {
-        //TODO É preciso ser uma transação esta inserção de serviços?
         for (Map.Entry<Integer, Double> e : servicos.entrySet()) {
             Servico servico = null;
             try {
@@ -94,16 +93,21 @@ public class PetsitterBean implements PetsitterBeanLocal {
                 // Não existe serviço
                 return false;
             }
-            PrecoPetsitterServico precoPetsitterServico = FacadeDAOs.createPrecoPetsitterServico();
-            precoPetsitterServico.setServico(servico);
-            precoPetsitterServico.setPetsitter(petsitter);
-            precoPetsitterServico.setPreco(e.getValue());
+            if(servico!=null) {
+                PrecoPetsitterServico precoPetsitterServico = FacadeDAOs.createPrecoPetsitterServico();
+                precoPetsitterServico.setServico(servico);
+                precoPetsitterServico.setPetsitter(petsitter);
+                precoPetsitterServico.setPreco(e.getValue());
 
-            try {
-                FacadeDAOs.savePrecoPetsitterServico(precoPetsitterServico);
-            } catch (PersistentException e1) {
-                // Erro ao guardar PreçoPetsitterServico
-                e1.printStackTrace();
+                try {
+                    FacadeDAOs.savePrecoPetsitterServico(precoPetsitterServico);
+                } catch (PersistentException e1) {
+                    // Erro ao guardar PreçoPetsitterServico
+                    e1.printStackTrace();
+                    return false;
+                }
+            }
+            else {
                 return false;
             }
         }

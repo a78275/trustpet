@@ -225,25 +225,29 @@ public class Util {
     }
 
     public static JSONObject parsePetsitter(Petsitter petsitter) {
-        JSONObject obj = new JSONObject();
+        if (petsitter!=null) {
+            JSONObject obj = new JSONObject();
+            obj.put("email", petsitter.getEmail());
+            obj.put("password", petsitter.getPassword());
+            obj.put("nome", petsitter.getNome());
+            obj.put("avatar", petsitter.getAvatar());
+            obj.put("dataNasc", petsitter.getDataNasc());
+            obj.put("contacto", petsitter.getContacto());
+            obj.put("jardim", petsitter.getJardim());
+            obj.put("morada", petsitter.getMorada());
+            obj.put("ativo", petsitter.getAtivo());
+            obj.put("concelho", petsitter.getConcelho());
+            obj.put("distrito", petsitter.getDistrito());
+            obj.put("avaliacaoMedia", petsitter.getAvaliacaoMedia());
+            obj.put("nrAvaliacoes", petsitter.getNrAvaliacoes());
+            obj.put("horario", parseHorario(petsitter.getHorario()));
+            obj.put("animais", parseTiposAnimaisCollection(petsitter.animais));
+            return obj;
+        }
+        else {
+            return null;
+        }
 
-        obj.put("email", petsitter.getEmail());
-        obj.put("password", petsitter.getPassword());
-        obj.put("nome", petsitter.getNome());
-        obj.put("avatar", petsitter.getAvatar());
-        obj.put("dataNasc", petsitter.getDataNasc());
-        obj.put("contacto", petsitter.getContacto());
-        obj.put("jardim", petsitter.getJardim());
-        obj.put("morada", petsitter.getMorada());
-        obj.put("ativo", petsitter.getAtivo());
-        obj.put("concelho", petsitter.getConcelho());
-        obj.put("distrito", petsitter.getDistrito());
-        obj.put("avaliacaoMedia", petsitter.getAvaliacaoMedia());
-        obj.put("nrAvaliacoes", petsitter.getNrAvaliacoes());
-        obj.put("horario", parseHorario(petsitter.getHorario()));
-        obj.put("animais", parseTiposAnimaisCollection(petsitter.animais));
-
-        return obj;
     }
 
     private static JSONArray parseTiposAnimaisCollection(TipoAnimalSetCollection animais) {
