@@ -39,7 +39,8 @@ var vm = new Vue({
         preco1: "",
         preco2: "",
         preco3: "",
-        preco4: ""
+        preco4: "",
+        horario: []
     },
     methods: {
         registoPetsitter: async function () {
@@ -80,14 +81,22 @@ var vm = new Vue({
         },
         registoServicos: async function () {
             var servicosSelecionados = []
-            var s = '1:' + this.preco1
-            servicosSelecionados.push(s)
-            s = '2:' + this.preco2
-            servicosSelecionados.push(s)
-            s = '3:' + this.preco3
-            servicosSelecionados.push(s)
-            s = '4:' + this.preco4
-            servicosSelecionados.push(s)
+            if (this.preco1 != '') {
+                var s = '1:' + this.preco1
+                servicosSelecionados.push(s)
+            }
+            if (this.preco2 != '') {
+                s = '2:' + this.preco2
+                servicosSelecionados.push(s)
+            }
+            if (this.preco3 != '') {
+                s = '3:' + this.preco3
+                servicosSelecionados.push(s)
+            }
+            if (this.preco4 != '') {
+                s = '4:' + this.preco4
+                servicosSelecionados.push(s)
+            }
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarServicos", {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8',
@@ -99,8 +108,26 @@ var vm = new Vue({
                 })
             })
             const content = await response.json()
+            console.log(JSON.stringify(content))
             if (content.success) {
-                window.location.replace("http://localhost/registoServicos.html")
+                window.location.replace("http://localhost/registoHorario.html")
+            }
+        },
+        registoHorario: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarHorario", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    horario: this.horario
+                })
+            })
+            const content = await response.json()
+            console.log(JSON.stringify(content))
+            if (content.success) {
+                window.location.replace("http://localhost/indexPetsitter.html")
             }
         },
         login: async function () {
