@@ -86,14 +86,18 @@
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="idade">Idade</label>
-                                    <input type="number" class="form-control" id="idade" v-model="idade"
-                                        placeholder="Introduza a idade do seu animal" required>
-                                </div>
-                                <div class="form-group col-md-6">
                                     <label for="raca">Raça</label>
                                     <input type="text" class="form-control" id="raca" v-model="raca"
                                         placeholder="Introduza a raça do seu animal" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="tipo">Idade</label>
+                                    <select class="form-control" id="idade" v-model="idade" required>
+                                        <option>Bebé</option>
+                                        <option>Jovem</option>
+                                        <option>Adulto</option>
+                                        <option>Sénior</option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-row">
@@ -118,30 +122,40 @@
                                         <option>Pequeno</option>
                                         <option>Médio</option>
                                         <option>Grande</option>
+                                        <option>Muito Grande</option>
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="alergias">Alergias</label>
-                                <input type="text" class="form-control" id="alergias" v-model="alergias"
-                                    placeholder="Introduza as alergias do seu animal" required>
+                            <div class="form-row">
+                                <div class="form-group shadow-textarea col-md-6">
+                                    <label for="alergias">Alergias</label>
+                                    <textarea class="form-control z-depth-1" rows="3" id="alergias" v-model="alergias"
+                                        placeholder="O seu animal tem alergias? Quais?"></textarea>
+                                </div>
+                                <div class="form-group shadow-textarea col-md-6">
+                                    <label for="doencas">Doenças</label>
+                                    <textarea class="form-control z-depth-1" rows="3" id="doencas" v-model="doencas"
+                                        placeholder="O seu animal tem doenças? Quais?"></textarea>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label for="doencas">Doenças</label>
-                                <input type="text" class="form-control" id="doencas" v-model="doencas"
-                                    placeholder="Introduza as doenças do seu animal" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="comportamento">Comportamentos estranhos</label>
-                                <input type="text" class="form-control" id="comportamento" v-model="comportamento"
-                                    placeholder="Introduza comportamentos estranhos do seu animal" required>
+                            <div class="form-row">
+                                <div class="form-group shadow-textarea col-md-6">
+                                    <label for="comportamento">Comportamentos estranhos</label>
+                                    <textarea class="form-control z-depth-1" rows="3" id="comportamento" v-model="comportamento"
+                                        placeholder="O seu animal tem comportamentos estranhos? Quais?"></textarea>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="pic">Fotografia</label>
+                                    <input type="text" class="form-control" id="pic" v-model="avatar"
+                                        placeholder="Introduza o URL da fotografia do seu animal" required>
+                                </div>
                             </div>
                             <div class="form-group">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="vacinas"
                                         v-model="vacinas">
                                     <label class="form-check-label" for="vacinas">
-                                        Vacinado?
+                                        Tem vacinas em dia?
                                     </label>
                                 </div>
                             </div>
@@ -150,7 +164,7 @@
                                     <input class="form-check-input" type="checkbox" value="" id="esterilizacao"
                                         v-model="esterilizacao">
                                     <label class="form-check-label" for="esterilizacao">
-                                        Esterilizado?
+                                        É esterilizado?
                                     </label>
                                 </div>
                             </div>
@@ -159,14 +173,9 @@
                                     <input class="form-check-input" type="checkbox" value="" id="desparasitacao"
                                         v-model="desparasitacao">
                                     <label class="form-check-label" for="desparasitacao">
-                                        Desparasitado?
+                                        Tem desparasitação em dia?
                                     </label>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="pic">Fotografia</label>
-                                <input type="text" class="form-control" id="pic" v-model="avatar"
-                                    placeholder="Introduza o url da fotografia do seu animal" required>
                             </div>
                         </form>
                     </div>

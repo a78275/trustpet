@@ -21,6 +21,7 @@ var vm = new Vue({
         avatar: "",
         tiposAnimal: [{ 'id': '1', 'tipo': 'Gato' }, { 'id': '2', 'tipo': 'Cão' }, { 'id': '3', 'tipo': 'Pássaro' }, { 'id': '4', 'tipo': 'Tartaruga' }],
         tipo: "",
+        idades: ['Bebé', 'Jovem', 'Adulto', 'Sénior'],
         idade: "",
         raca: "",
         sexo: "",
