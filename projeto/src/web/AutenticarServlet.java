@@ -25,7 +25,6 @@ public class AutenticarServlet extends HttpServlet {
         String password = (String) parameters.get("password");
 
         boolean result = FacadeBeans.autenticar(email, password);
-        System.out.println("\n\n"+result);
         if (result) {
             mensagem.put("success", true);
             String token = FacadeBeans.setToken(email);
