@@ -182,6 +182,19 @@ var vm = new Vue({
                 }
             }
         },
+        camposObrigatorios: async function () {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Change content
+            x.textContent = "É necessário preencher todos os campos obrigatórios."
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        },
         registoDono: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarDono", {
                 headers: {
