@@ -294,5 +294,12 @@ var vm = new Vue({
 
             this.animais.push(this.animal)
         },
+        registo: function () {
+            if (this.tipo == "dono") {
+                window.location.replace("http://localhost/registoPerfilDono.html")
+            } else if (this.tipo == "petsitter") {
+                window.location.replace("http://localhost/registoPerfilPetsitter.html")
+            }
+        }
     }
 })

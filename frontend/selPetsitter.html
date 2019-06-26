@@ -51,6 +51,67 @@
                     </div>
                 </div>
             </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" v-for="petsitter in petsitters"
+                v-bind:key="petsitter.id">
+                <div class="card m-3" style="color:#545871;">
+                    <img :src=petsitter.avatar class="mt-3"
+                        style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                    <span class="text-center mt-2">
+                        <span class="text-uppercase text-center"
+                            style="font-size:1.7em; font-weight: 500;">{{ petsitter.nome }}&nbsp;</span>
+                    </span>
+                    <hr
+                        style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
+
+                    <table class="table table-bordered"
+                        style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
+                        <tbody style="color: #545871;">
+                            <tr>
+                                <td style="text-align: center;">
+                                    <i class='fa fa-birthday-cake' style="font-size:25px;color:#ebd0ce;"></i>
+                                    <br>{{ petsitter.dataNasc }}
+                                </td>
+
+                                <td style="text-align: center;">
+                                    <span
+                                        style="font-weight:600;font-size:20px;color:#ebd0ce;">{{ petsitter.concelho }}</span>
+                                    <br>Concelho
+                                </td>
+
+                                <td style="text-align: center;">
+                                    <i class='fas fa-star' style="font-size:25px;color:#ebd0ce;"></i>
+                                    <br>{{ petsitter.avaliacaoMedia }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td v-if="petsitter.jardim==true" style="text-align: center;">
+                                    <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                                    <br>Jardim
+                                </td>
+                                <td v-else style="text-align: center;">
+                                    <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                                    <br>Jardim
+                                </td>
+
+                                <td style="text-align: center;">
+                                    <span
+                                        style="font-weight:500;font-size:20px;color:#ebd0ce;">{{ petsitter.distrito }}</span>
+                                    <br>Distrito
+                                </td>
+
+                                <td style="text-align: center;">
+                                    <i class='fas fa-edit' style="font-size:25px;color:#ebd0ce;"></i>
+                                    <br>{{ petsitter.nrAvaliacoes }}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button id="bluepinkbtn" class="mb-3"
+                        style="width: 40%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
+                        Avaliar</button>
+                </div>
+            </div>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
