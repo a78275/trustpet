@@ -330,9 +330,6 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     @Override
     public List<Review> consultarReviews(String email, String tipo) {
         PersistentSession session = getSession();
-        String[] splitEmail = email.split("@");
-        String queryEmail = "%" + splitEmail[0] + "." + splitEmail[1] + "%";
-
         List<Review> reviews = null;
         if(tipo.equals("dono")) {
             try {
