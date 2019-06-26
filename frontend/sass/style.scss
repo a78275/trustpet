@@ -349,25 +349,6 @@ body {
   }
 }
 
-#darkbluebtnDisabled {
-    font-weight: 500;
-    border: none;
-    border-radius: 45px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease 0s;
-    cursor: pointer;
-    outline: none;
-    font-size: 1.2em;
-    text-align: center;
-    margin-left: 2%;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-right: 40px;
-    padding-left: 40px;
-    background-color: $dark-grey;
-    color: #fff;
-}
-
 #bluepinkbtn {
     font-weight: 500;
     border: none;
@@ -524,4 +505,16 @@ body {
   @keyframes fadeout {
     from {bottom: 30px; opacity: 1;}
     to {bottom: 0; opacity: 0;}
+  }
+
+.shadow-textarea textarea.form-control::placeholder {
+    font-weight: 300;
+}
+.shadow-textarea textarea.form-control {
+    padding-left: 0.8rem;
+}
+
+form .error {
+    color: firebrick;
+    font-size: 0.9rem;
   }
