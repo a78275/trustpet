@@ -70,64 +70,73 @@
                     <div id="userRegister">
                         <form class="mx-5 my-5">
                             <div class="form-group">
-                                <label for="nome">Nome</label>
+                                <label for="nome">Nome *</label>
                                 <input type="text" class="form-control" id="nome" v-model="nome"
                                     placeholder="Introduza o seu nome" required>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="email">E-mail</label>
+                                    <label for="email">E-mail *</label>
                                     <input type="email" class="form-control" id="email" v-model="email"
                                         placeholder="Introduza o seu endereço de e-mail" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="password">Password</label>
+                                    <label for="password">Password *</label>
                                     <input type="password" class="form-control" id="password" v-model="password"
                                         placeholder="Introduza uma palavra-passe" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="datanascimento">Data de nascimento</label>
+                                    <label for="datanascimento">Data de nascimento *</label>
                                     <input type="date" class="form-control" id="datanascimento" v-model="dataNasc"
                                         placeholder="Introduza a sua data de nascimento" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="contacto">Contacto</label>
+                                    <label for="contacto">Contacto *</label>
                                     <input type="text" class="form-control" id="contacto" v-model="contacto"
                                         placeholder="Introduza o seu número de telemóvel" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="morada">Morada</label>
-                                <input type="text" class="form-control" id="morada" v-model="morada"
-                                    placeholder="Introduza a sua morada e número da porta" required>
-                            </div>
-                            <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="jardim"
-                                        v-model="jardim">
-                                    <label class="form-check-label" for="jardim">
-                                        Tem Jardim?
-                                    </label>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label for="pic">Fotografia</label>
+                                    <input type="text" class="form-control" id="pic" v-model="avatar"
+                                        placeholder="Introduza o URL da fotografia">
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="morada">Morada *</label>
+                                    <input type="text" class="form-control" id="morada" v-model="morada"
+                                        placeholder="Introduza a sua morada" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="distrito">Distrito</label>
+                                    <label for="distrito">Distrito *</label>
                                     <input type="text" class="form-control" id="distrito" v-model="distrito"
                                         placeholder="Introduza o seu distrito" required>
                                 </div>
                                 <div class="form-group col-md-6">
-                                    <label for="concelho">Concelho</label>
+                                    <label for="concelho">Concelho *</label>
                                     <input type="text" class="form-control" id="concelho" v-model="concelho"
                                         placeholder="Introduza o seu concelho" required>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label for="pic">Fotografia</label>
-                                <input type="text" class="form-control" id="pic" v-model="avatar"
-                                    placeholder="Introduza o url da fotografia" required>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="jardim"
+                                            v-model="jardim">
+                                        <label class="form-check-label" for="jardim">
+                                            Tem Jardim? *
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <div class="float-right" style="color:#545871">
+                                        * - Campos obrigatórios.
+                                    </div>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -141,7 +150,10 @@
                             <a href="registo.html"><button class="btn" id="whitebtn">Voltar</button></a>
                         </div>
                         <div class="text-right col-6">
-                            <button type="button" v-on:click="criarUtilizador()" id="darkbluebtn" data-toggle="modal"
+                            <button 
+                                v-if="nome === '' || email === '' || password === '' || datanascimento === '' || morada === '' || contacto === '' || distrito === '' || concelho === ''"
+                                type="button" id="darkbluebtnDisabled" disabled>Seguinte</button>
+                            <button v-else type="button" v-on:click="criarUtilizador()" id="darkbluebtn" data-toggle="modal"
                                 data-target="#confirmarPerfil">Seguinte</button>
 
                             <div class="modal fade" id="confirmarPerfil" tabindex="-1" role="dialog"
@@ -240,6 +252,9 @@
             </footer>
         </div>
     </div>
+    <!-- Snackbar -->
+    <div id="snackbar"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/utilizador.js"></script>
 </body>

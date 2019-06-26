@@ -37,25 +37,53 @@ var vm = new Vue({
     },
     methods: {
         login: async function () {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/Autenticar", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    email: this.email,
-                    password: this.password
-                })
-            })
-            const content = await response.json()
+            if(this.email === '' || this.password === ''){
+                // Get the snackbar DIV
+                var x = document.getElementById("snackbar");
 
-            if (content.success) {
-                localStorage.token = content.token
-                this.token = content.token
-                if (content.tipo == "dono") {
-                    window.location.replace("http://localhost/indexDono.html")
-                } else if (content.tipo == "petsitter") {
-                    window.location.replace("http://localhost/indexPetsitter.html")
+                // Change content
+                x.textContent = "O email e a password são campos obrigatórios."
+
+                // Add the "show" class to DIV
+                x.className = "show";
+
+                // After 3 seconds, remove the show class from DIV
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+            }
+            else {
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/Autenticar", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8'
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        email: this.email,
+                        password: this.password
+                    })
+                })
+                const content = await response.json()
+
+                if (content.success) {
+                    localStorage.token = content.token
+                    this.token = content.token
+                    if (content.tipo == "dono") {
+                        window.location.replace("http://localhost/indexDono.html")
+                    } else if (content.tipo == "petsitter") {
+                        window.location.replace("http://localhost/indexPetsitter.html")
+                    }
+                }
+                else {
+                    // Get the snackbar DIV
+                    var x = document.getElementById("snackbar");
+
+                    // Change content
+                    x.textContent = "Credenciais erradas."
+
+                    // Add the "show" class to DIV
+                    x.className = "show";
+
+                    // After 3 seconds, remove the show class from DIV
+                    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
                 }
             }
         },
@@ -74,10 +102,30 @@ var vm = new Vue({
             if (content.success) {
                 localStorage.token = content.token
                 this.token = content.token
+                this.email = ""
+                this.password = ""
+                this.nome = ""
+                this.dataNasc = ""
+                this.contacto = ""
+                this.morada = ""
+                this.jardim = ""
+                this.distrito = ""
+                this.concelho = ""
+                this.avatar = ""
                 window.location.replace("http://localhost/adicionarAnimal.html")
             }
             else {
-                window.location.replace("http://localhost/registoPerfilDono.html")
+                // Get the snackbar DIV
+                var x = document.getElementById("snackbar");
+
+                // Change content
+                x.textContent = "Ocorreu um erro ao efetuar o registo."
+
+                // Add the "show" class to DIV
+                x.className = "show";
+
+                // After 3 seconds, remove the show class from DIV
+                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
             }
         },
         criarUtilizador: async function () {
@@ -98,16 +146,6 @@ var vm = new Vue({
                 concelho: this.concelho,
                 distrito: this.distrito
             }
-            this.email = ""
-            this.password = ""
-            this.nome = ""
-            this.dataNasc = ""
-            this.contacto = ""
-            this.morada = ""
-            this.jardim = ""
-            this.distrito = ""
-            this.concelho = ""
-            this.avatar = ""
         },
         registoPetsitter: async function () {
 
