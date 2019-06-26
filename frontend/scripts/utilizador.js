@@ -19,7 +19,8 @@ var vm = new Vue({
         distrito: "",
         concelho: "",
         avatar: "",
-        tiposAnimal: [{ 'id': '1', 'tipo': 'Gato' }, { 'id': '2', 'tipo': 'Cão' }, { 'id': '3', 'tipo': 'Pássaro' }, { 'id': '4', 'tipo': 'Tartaruga' }],
+        tiposAnimal: [{ 'id': '1', 'tipo': 'Gato', 'img': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5fBKv_d93io82eZokxqn_4jsHFSolEpiqeNPxjxy12DIiM0T' }, { 'id': '2', 'tipo': 'Cão', 'img': 'https://essencecuidados.com.br/wp-content/uploads/2016/10/dog.jpg' }, { 'id': '3', 'tipo': 'Pássaro', 'img': 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/19/pinyon-jay-bird.jpg' }, { 'id': '4', 'tipo': 'Tartaruga', 'img': 'https://oliveridleyproject.org/wp-content/uploads/2018/05/Olive-ridley-turtle-baby-patient-Luna-recovering-rescue-centre-ORP.jpg' }],
+        servicos: [{ 'id': '1', 'designacao': 'Tomar conta' }, { 'id': '2', 'designacao': 'Levar à rua' }, { 'id': '3', 'designacao': 'Alimentar' }, { 'id': '4', 'designacao': 'Dar banho' }],
         tipo: "",
         idade: "",
         raca: "",
@@ -34,7 +35,11 @@ var vm = new Vue({
         utilizador: {},
         animal: {},
         animais: [],
-        tiposAnimaisSelecionados: []
+        tiposAnimaisSelecionados: [],
+        preco1: "",
+        preco2: "",
+        preco3: "",
+        preco4: ""
     },
     methods: {
         registoPetsitter: async function () {
@@ -73,8 +78,33 @@ var vm = new Vue({
                 window.location.replace("http://localhost/registoServicos.html")
             }
         },
+        registoServicos: async function () {
+            var servicosSelecionados = []
+            var s = '1:' + this.preco1
+            servicosSelecionados.push(s)
+            s = '2:' + this.preco2
+            servicosSelecionados.push(s)
+            s = '3:' + this.preco3
+            servicosSelecionados.push(s)
+            s = '4:' + this.preco4
+            servicosSelecionados.push(s)
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarServicos", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    servicos: servicosSelecionados
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/registoServicos.html")
+            }
+        },
         login: async function () {
-            if(this.email === '' || this.password === ''){
+            if (this.email === '' || this.password === '') {
                 // Get the snackbar DIV
                 var x = document.getElementById("snackbar");
 
@@ -85,7 +115,7 @@ var vm = new Vue({
                 x.className = "show";
 
                 // After 3 seconds, remove the show class from DIV
-                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
             }
             else {
                 const response = await fetch("http://localhost:8080/trustpet_war_exploded/Autenticar", {
@@ -120,7 +150,7 @@ var vm = new Vue({
                     x.className = "show";
 
                     // After 3 seconds, remove the show class from DIV
-                    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
                 }
             }
         },
@@ -160,7 +190,7 @@ var vm = new Vue({
                 x.className = "show";
 
                 // After 3 seconds, remove the show class from DIV
-                setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
             }
         },
         criarUtilizador: async function () {
@@ -236,6 +266,6 @@ var vm = new Vue({
             this.raca = ""
 
             this.animais.push(this.animal)
-        }
+        },
     }
 })
