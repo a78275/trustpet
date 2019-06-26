@@ -41,7 +41,7 @@ public class SelServicosServlet extends HttpServlet {
         }
         else {
             mensagem.put("success",true);
-            mensagem.put("petsitters", Util.parsePetsittersList(petsitters));
+            mensagem.put("petsitters", Util.parsePetsittersListPreco(petsitters));
         }
 
         out.print(mensagem);

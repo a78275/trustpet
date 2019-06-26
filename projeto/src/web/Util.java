@@ -167,7 +167,17 @@ public class Util {
         return arr;
     }
 
-    public static JSONArray parsePetsittersList(Map<Petsitter,Double> ps) {
+    public static JSONArray parsePetsittersList(List<Petsitter> ps) {
+        JSONArray arr = new JSONArray();
+
+        for (Petsitter p : ps) {
+            arr.put(parsePetsitter(p));
+        }
+
+        return arr;
+    }
+
+    public static JSONArray parsePetsittersListPreco(Map<Petsitter,Double> ps) {
         JSONArray arr = new JSONArray();
 
         for (Map.Entry<Petsitter, Double> p : ps.entrySet()) {
