@@ -35,10 +35,40 @@
                 <i class="fas fa-align-left"></i>
             </button>
 
-            <section class="p-2">
-                <div class="justify-content-center">
+            <section class="row p-2">
+                <div class="col-12 justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">PEDIDOS PENDENTES</h1>
                     <div class="card m-3" style="color:#545871;" v-for="pedido in pedidosPendentes">
+                        <div id="marcacao" class="px-5 pt-3 text-center">
+                            <p>
+                                <span style="font-size:1.5em; font-weight: 500; color: #545871;">Início:
+                                </span>
+                                <span style="font-size:1.2em; font-weight: 400; color: #9597a6;">{{ pedido.dataInicio }}
+                                </span>
+                            </p>
+                            <p>
+                                <span style="font-size:1.5em; font-weight: 500; color: #545871;">Fim:
+                                </span>
+                                <span style="font-size:1.2em; font-weight: 400; color: #9597a6;">{{ pedido.dataFim }}
+                                </span>
+                            </p>
+                        </div>
+                        <hr
+                            style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
+
+                        <div id="animaisServicos" class="row px-5 pt-3 text-center" v-for="s in pedido.animalServicos">
+                            <div class="col-4">
+                                <img :src=s.animal.avatar class="mt-3"
+                                    style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                                <label>{{ s.animal.nome }}</label>
+                            </div>
+                            <div class="col-8">
+                                <ul>
+                                    <li v-for="servico in s">{{ servico }}</li>
+                                </ul>
+                            </div>
+                        </div>
+
                         <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:1em;">{{ pedido }}</h1>
                         <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="mt-3"
                             style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">

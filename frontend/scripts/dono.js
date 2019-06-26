@@ -28,7 +28,7 @@ Vue.component('sidebardono', {
                     <a href="#">Editar Dados dos Animais</a>
                 </li>
                 <li>
-                    <a href="#">Adicionar Animal</a>
+                    <a href="adicionarAnimal.html">Adicionar Animal</a>
                 </li>
             </ul>
         </li>
@@ -67,7 +67,7 @@ var vm = new Vue({
             }
         }],
         petsitters: [],
-        pedidosPendentes: ['Pedido 1', 'Pedido 2'],
+        pedidosPendentes: [],
         dataInicio: "",
         dataFim: "",
         horaInicio: "",
@@ -75,7 +75,10 @@ var vm = new Vue({
         perfil: {},
         animaisSelecionados: [],
         listaServicos: [],
-        servicosAnimaisSelecionados: []
+        servicosAnimaisSelecionados: [],
+        petsitter: {},
+        comentario: "",
+        pontuacao: 0
     },
     created: async function () {
         if (localStorage.token) {
@@ -114,6 +117,19 @@ var vm = new Vue({
                 const contentDono = await responseDono.json()
                 if (contentDono.success) {
                     this.perfil = contentDono.utilizador
+                    this.reviews = contentDono.reviews
+                }
+
+                const responsePedidos = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPedidos", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: 'GET'
+                })
+                const contentPedidos = await responsePedidos.json()
+                if (contentPedidos.success) {
+                    this.pedidosPendentes = contentPedidos.pedidos
                 }
 
                 if (window.location.href == "http://localhost/consultarPetsitters.html") {
@@ -135,7 +151,9 @@ var vm = new Vue({
                     this.dataInicio = localStorage.dataInicio
                     this.dataFim = localStorage.dataFim
                 }
-
+                if (window.location.href == "http://localhost/selPetsitter.html") {
+                    this.petsitters = JSON.parse(localStorage.petsitters)
+                }
             } else {
                 window.location.replace("http://localhost/index.html")
             }
@@ -184,12 +202,30 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
-                localStorage.petsitters = content.petsitters
+                localStorage.petsitters = JSON.stringify(content.petsitters)
                 window.location.replace("http://localhost/selPetsitter.html")
             }
         },
         logout: function () {
             localStorage.token = ""
+        },
+        avaliar: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    emailAlvo: id,
+                    comentario: this.comentario,
+                    avaliacao: this.pontuacao
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                console.log("review feita com sucesso!")
+            }
         }
     }
 })

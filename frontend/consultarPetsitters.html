@@ -23,6 +23,50 @@
         crossorigin="anonymous"></script>
 </head>
 
+<style>
+    .rate {
+        float: left;
+        height: 46px;
+        padding: 0 10px;
+    }
+
+    .rate:not(:checked)>input {
+        position: absolute;
+        top: -9999px;
+    }
+
+    .rate:not(:checked)>label {
+        float: right;
+        width: 1em;
+        overflow: hidden;
+        white-space: nowrap;
+        cursor: pointer;
+        font-size: 30px;
+        color: #ccc;
+    }
+
+    .rate:not(:checked)>label:before {
+        content: '★ ';
+    }
+
+    .rate>input:checked~label {
+        color: #ebd0ce;
+    }
+
+    .rate:not(:checked)>label:hover,
+    .rate:not(:checked)>label:hover~label {
+        color: #ebd0ce;
+    }
+
+    .rate>input:checked+label:hover,
+    .rate>input:checked+label:hover~label,
+    .rate>input:checked~label:hover,
+    .rate>input:checked~label:hover~label,
+    .rate>label:hover~input:checked~label {
+        color: #ebd0ce;
+    }
+</style>
+
 <body>
     <div class="wrapper" id="dono">
         <!-- Navbar -->
@@ -97,10 +141,59 @@
                                         </tr>
                                     </tbody>
                                 </table>
-
-                                <button id="bluepinkbtn" class="mb-3"
+                                <button id="bluepinkbtn" class="btn mb-3" type="button" data-toggle="modal"
+                                    data-target="#avaliar"
                                     style="width: 40%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
                                     Avaliar</button>
+
+                                <div class="modal fade" id="avaliar" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" style="color: #545871;"
+                                                    id="exampleModalLongTitle">
+                                                    Avaliar Petsitter
+                                                </h5>
+                                                <button type="button" id="submitRegistoDono" class="close"
+                                                    data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="form-group"
+                                                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                                                    <div class="form-group shadow-textarea">
+                                                        <textarea class="form-control z-depth-1" rows="3"
+                                                            v-model="comentario"
+                                                            placeholder="Faça um comentário ao petsitter"></textarea>
+                                                    </div>
+                                                </div>
+
+                                                <div class="rate ml-3">
+                                                    <input type="radio" id="star5" v-model="pontuacao" value="5" />
+                                                    <label for="star5" title="text">5 stars</label>
+                                                    <input type="radio" id="star4" v-model="pontuacao" value="4" />
+                                                    <label for="star4" title="text">4 stars</label>
+                                                    <input type="radio" id="star3" v-model="pontuacao" value="3" />
+                                                    <label for="star3" title="text">3 stars</label>
+                                                    <input type="radio" id="star2" v-model="pontuacao" value="2" />
+                                                    <label for="star2" title="text">2 stars</label>
+                                                    <input type="radio" id="star1" v-model="pontuacao" value="1" />
+                                                    <label for="star1" title="text">1 star</label>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn" id="pinkbtn"
+                                                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                                                    data-dismiss="modal">Voltar</button>
+                                                <button type="button" v-on:click="avaliar(petsitter.email)"
+                                                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                                                    id="darkbluebtn">Enviar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

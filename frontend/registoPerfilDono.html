@@ -15,7 +15,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-    
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-    
+
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
         crossorigin="anonymous"></script>
@@ -82,15 +82,16 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="password">Password <span style="color:firebrick"><b>*</b></span></label>
-                                    <input type="password" name="password" class="form-control" id="password" v-model="password"
-                                        placeholder="Introduza uma palavra-passe" required>
+                                    <input type="password" name="password" class="form-control" id="password"
+                                        v-model="password" placeholder="Introduza uma palavra-passe" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
-                                    <label for="datanascimento">Data de nascimento <span style="color:firebrick"><b>*</b></span></label>
-                                    <input type="date" name="dataNasc" class="form-control" id="datanascimento" v-model="dataNasc"
-                                        placeholder="Introduza a sua data de nascimento" required>
+                                    <label for="datanascimento">Data de nascimento <span
+                                            style="color:firebrick"><b>*</b></span></label>
+                                    <input type="date" name="dataNasc" class="form-control" id="datanascimento"
+                                        v-model="dataNasc" placeholder="Introduza a sua data de nascimento" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="contacto">Contacto <span style="color:firebrick"><b>*</b></span></label>
@@ -98,8 +99,8 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="inputGroupPrepend">+351</span>
                                         </div>
-                                        <input name="contacto" type="text" class="form-control" id="contacto" v-model="contacto"
-                                            placeholder="Introduza o seu número de telemóvel"
+                                        <input name="contacto" type="text" class="form-control" id="contacto"
+                                            v-model="contacto" placeholder="Introduza o seu número de telemóvel"
                                             aria-describedby="inputGroupPrepend" required>
                                     </div>
                                 </div>
@@ -119,20 +120,20 @@
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <label for="distrito">Distrito <span style="color:firebrick"><b>*</b></span></label>
-                                    <input type="text" name="distrito" class="form-control" id="distrito" v-model="distrito"
-                                        placeholder="Introduza o seu distrito" required>
+                                    <input type="text" name="distrito" class="form-control" id="distrito"
+                                        v-model="distrito" placeholder="Introduza o seu distrito" required>
                                 </div>
                                 <div class="form-group col-md-6">
                                     <label for="concelho">Concelho <span style="color:firebrick"><b>*</b></span></label>
-                                    <input type="text" name="concelho" class="form-control" id="concelho" v-model="concelho"
-                                        placeholder="Introduza o seu concelho" required>
+                                    <input type="text" name="concelho" class="form-control" id="concelho"
+                                        v-model="concelho" placeholder="Introduza o seu concelho" required>
                                 </div>
                             </div>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <div class="form-check">
-                                        <input name="jardim" class="form-check-input" type="checkbox" value="" id="jardim"
-                                            v-model="jardim">
+                                        <input name="jardim" class="form-check-input" type="checkbox" value=""
+                                            id="jardim" v-model="jardim">
                                         <label class="form-check-label" for="jardim">
                                             Tem Jardim? <span style="color:firebrick"><b>*</b></span>
                                         </label>
@@ -140,7 +141,8 @@
                                 </div>
                                 <div class="form-group col-md-6">
                                     <div class="float-right">
-                                        <span style="color:firebrick"><b>*</b></span> <span style="color:#545871">- Campos obrigatórios.</span>
+                                        <span style="color:firebrick"><b>*</b></span> <span style="color:#545871">-
+                                            Campos obrigatórios.</span>
                                     </div>
                                 </div>
                             </div>
@@ -156,7 +158,8 @@
                             <a href="registo.html"><button class="btn" id="whitebtn">Voltar</button></a>
                         </div>
                         <div class="text-right col-6">
-                            <button v-if="email === '' || nome === '' || password === '' || distrito ==='' || concelho === '' || contacto === '' || dataNasc === '' || morada === ''"
+                            <button
+                                v-if="email === '' || nome === '' || password === '' || distrito ==='' || concelho === '' || contacto === '' || dataNasc === '' || morada === ''"
                                 type="button" v-on:click="camposObrigatorios()" id="darkbluebtn">Seguinte</button>
                             <button v-else type="button" id="darkbluebtn" data-toggle="modal"
                                 data-target="#confirmarPerfil">Seguinte</button>
@@ -169,7 +172,8 @@
                                             <h5 class="modal-title" style="color: #545871;" id="exampleModalLongTitle">
                                                 Nova Conta
                                             </h5>
-                                            <button type="button" id="submitRegistoDono" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" id="submitRegistoDono" class="close"
+                                                data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
