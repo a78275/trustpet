@@ -24,7 +24,7 @@ public class AnimalCriteria extends AbstractORMCriteria {
 	public final AssociationExpression tipo;
 	public final StringExpression nome;
 	public final StringExpression avatar;
-	public final IntegerExpression idade;
+	public final StringExpression idade;
 	public final StringExpression porte;
 	public final StringExpression sexo;
 	public final StringExpression alergias;
@@ -43,7 +43,7 @@ public class AnimalCriteria extends AbstractORMCriteria {
 		tipo = new AssociationExpression("tipo", this);
 		nome = new StringExpression("nome", this);
 		avatar = new StringExpression("avatar", this);
-		idade = new IntegerExpression("idade", this);
+		idade = new StringExpression("idade", this);
 		porte = new StringExpression("porte", this);
 		sexo = new StringExpression("sexo", this);
 		alergias = new StringExpression("alergias", this);
