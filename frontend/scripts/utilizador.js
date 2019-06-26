@@ -22,6 +22,7 @@ var vm = new Vue({
         tiposAnimal: [{ 'id': '1', 'tipo': 'Gato', 'img': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5fBKv_d93io82eZokxqn_4jsHFSolEpiqeNPxjxy12DIiM0T' }, { 'id': '2', 'tipo': 'Cão', 'img': 'https://essencecuidados.com.br/wp-content/uploads/2016/10/dog.jpg' }, { 'id': '3', 'tipo': 'Pássaro', 'img': 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/19/pinyon-jay-bird.jpg' }, { 'id': '4', 'tipo': 'Tartaruga', 'img': 'https://oliveridleyproject.org/wp-content/uploads/2018/05/Olive-ridley-turtle-baby-patient-Luna-recovering-rescue-centre-ORP.jpg' }],
         servicos: [{ 'id': '1', 'designacao': 'Tomar conta' }, { 'id': '2', 'designacao': 'Levar à rua' }, { 'id': '3', 'designacao': 'Alimentar' }, { 'id': '4', 'designacao': 'Dar banho' }],
         tipo: "",
+        idades: ['Bebé', 'Jovem', 'Adulto', 'Sénior'],
         idade: "",
         raca: "",
         sexo: "",
