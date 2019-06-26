@@ -1,6 +1,7 @@
 package beans;
 
 import main.*;
+import org.json.JSONObject;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
@@ -70,9 +71,49 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     @Override
-    public boolean registarServicosPedido(Map<Integer, List<Integer>> animalServicos) {
+    public boolean registarServicosPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
         PersistentSession session = getSession();
-        return false;
+        Pedido pedido = null;
+        try {
+            pedido=FacadeDAOs.getPedido(session,idPedido);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+
+        if(pedido!=null) {
+            // Remover serviços antigos
+            if(!pedido.animalServicos.isEmpty()) {
+                AnimalServicoSetCollection servicoSet = pedido.animalServicos;
+                List<AnimalServico> servicosAntigos = null;
+                try {
+                    servicosAntigos = FacadeDAOs.listAnimalServico(session,"pedidoid = '" + idPedido + "'",null);
+                } catch (PersistentException e) {
+                    e.printStackTrace();
+                }
+                if(servicosAntigos!=null) {
+                    for (AnimalServico servicoAntigo : servicosAntigos) {
+                        servicoSet.remove(servicoAntigo);
+                    }
+                }
+            }
+
+            // Adicionar serviços novos
+            for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
+                animalServicos.put(e.getKey(),e.getValue());
+            }
+
+            // Gravar pedido
+            try {
+                FacadeDAOs.savePedido(pedido);
+            } catch (PersistentException e) {
+                e.printStackTrace();
+                return false;
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
@@ -168,7 +209,6 @@ public class PedidoBean implements PedidoBeanLocal {
             return false;
         }
 
-        // Se for bem sucedido retornar ID senão retornar -1
         return save;
     }
 
@@ -227,12 +267,7 @@ public class PedidoBean implements PedidoBeanLocal {
                 }
             }
         }
-
-        if (petsitters.isEmpty()) {
-            return null;
-        } else {
-            return petsitters;
-        }
+        return petsitters;
     }
 
     private Set<String> removePetsittersComPedidos(PersistentSession session, Set<String> emailsPetsitters, Date dataInicio, Date dataFim) {
@@ -540,5 +575,43 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         return true;
+    }
+
+    @Override
+    public int editarPedido(int idPedido, Date dataInicio, Date dataFim) {
+        PersistentSession session = getSession();
+        // Get do pedido
+        Pedido pedido = null;
+        try {
+            pedido = FacadeDAOs.getPedido(session,idPedido);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+
+        if(pedido == null) {
+            return -1;
+        }
+
+        // Set das datas
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        String parsedDataInicio = format.format(dataInicio);
+        pedido.setDataInicio(parsedDataInicio);
+        String parsedDataFim = format.format(dataInicio);
+        pedido.setDataFim(parsedDataFim);
+
+        // Set do estado
+        pedido.setAtivo(true);
+
+        // Save do pedido na BD
+        try {
+            FacadeDAOs.savePedido(pedido);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            // Retornar -1 em caso de falha
+            return -1;
+        }
+
+        // Se for bem sucedido retornar ID
+        return pedido.getId();
     }
 }

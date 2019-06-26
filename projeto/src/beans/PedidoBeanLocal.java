@@ -52,7 +52,16 @@ public interface PedidoBeanLocal {
 
 	/**
 	 *
+	 * @param idPedido
 	 * @param animalServicos
 	 */
-	boolean registarServicosPedido(Map<Integer,List<Integer>> animalServicos);
+	boolean registarServicosPedido(int idPedido, Map<Integer,List<Integer>> animalServicos);
+
+	/**
+	 *
+	 * @param idPedido
+	 * @param dataInicio
+	 * @param dataFim
+	 */
+	int editarPedido(int idPedido, Date dataInicio, Date dataFim);
 }

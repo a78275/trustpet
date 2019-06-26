@@ -1,17 +1,15 @@
 package web;
 
-import java.io.BufferedReader;
-import java.security.MessageDigest;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.*;
-
 import com.google.gson.Gson;
 import main.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.persistence.criteria.CriteriaBuilder;
+import java.io.BufferedReader;
+import java.security.MessageDigest;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class Util {
     public static String hash(String original) {
@@ -31,32 +29,26 @@ public class Util {
     public static Map<Integer, List<Integer>> parseAnimalServicosArray(JSONObject parameters) {
         Map<Integer, List<Integer>> animalServicos = new HashMap<>();
         JSONArray arr = parameters.getJSONArray("animalServicos");
-
+        
         // Parse animalServicos
         for (int i = 0; i < arr.length(); i++) {
+            String[] selection = arr.getString(i).split(":");
             // Parse idAnimal
-            int idAnimal = arr.getJSONObject(i).getInt("idAnimal");
+            int idAnimal = Integer.parseInt(selection[0]);
+            int idServico = Integer.parseInt(selection[1]);
 
-            // Parse servicos
-            JSONArray servicos = arr.getJSONObject(i).getJSONArray("servicos");
+            List<Integer> servicosList = animalServicos.get(idAnimal);
 
-            for (int j = 0; j < servicos.length(); j++) {
-                int idServico = servicos.getInt(j);
-
-                List<Integer> servicosList = animalServicos.get(idAnimal);
-
-                // O animal ainda não está no map
-                if (servicosList == null) {
-                    servicosList = new ArrayList<>();
-                    servicosList.add(idServico);
-                    animalServicos.put(idAnimal, servicosList);
-                }
-
-                // O animal já está no map
-                else {
-                    servicosList.add(idServico);
-                    animalServicos.put(idAnimal, servicosList);
-                }
+            // O animal ainda não está no map
+            if (servicosList == null) {
+                servicosList = new ArrayList<>();
+                servicosList.add(idServico);
+                animalServicos.put(idAnimal, servicosList);
+            }
+            // O animal já está no map
+            else {
+                servicosList.add(idServico);
+                animalServicos.put(idAnimal, servicosList);
             }
         }
 
@@ -133,6 +125,7 @@ public class Util {
         for(Map.Entry<Animal, List<Servico>> e : animalServicos.entrySet()){
             JSONObject obj = new JSONObject();
 
+            obj.put("id", e.getKey().getId());
             obj.put("nome", e.getKey().getNome());
             obj.put("avatar", e.getKey().getAvatar());
             obj.put("servicos", parseServicosList(e.getValue()));
@@ -143,11 +136,21 @@ public class Util {
         return arr;
     }
 
+    private static JSONObject parseServicoSel(Servico servico) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("id", servico.getId());
+        obj.put("designacao", servico.getDesignacao());
+        //obj.put("tipoAnimais", parseTiposAnimaisCollection(servico.tipoAnimais));
+
+        return obj;
+    }
+
     private static JSONArray parseServicosList(List<Servico> servicos) {
         JSONArray arr = new JSONArray();
 
         for (Servico s : servicos){
-            JSONObject obj = parseServico(s);
+            JSONObject obj = parseServicoSel(s);
 
             arr.put(obj);
         }

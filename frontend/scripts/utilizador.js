@@ -33,9 +33,46 @@ var vm = new Vue({
         esterilizacao: "",
         utilizador: {},
         animal: {},
-        animais: []
+        animais: [],
+        tiposAnimaisSelecionados: []
     },
     methods: {
+        registoPetsitter: async function () {
+            console.log("registo petsitter")
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarPetsitter", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: JSON.stringify(this.utilizador)
+            })
+            const content = await response.json()
+
+            if (content.success) {
+                localStorage.token = content.token
+                this.token = content.token
+                window.location.replace("http://localhost/registoTiposAnimais.html")
+            }
+            else {
+                window.location.replace("http://localhost/registoPerfilPetsitter.html")
+            }
+        },
+        registoTiposAnimais: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarTiposAnimais", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    tipos: this.tiposAnimaisSelecionados
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/registoServicos.html")
+            }
+        },
         login: async function () {
             if(this.email === '' || this.password === ''){
                 // Get the snackbar DIV
@@ -88,8 +125,6 @@ var vm = new Vue({
             }
         },
         registoDono: async function () {
-            let date = new Date(this.dataNasc)
-            let newDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarDono", {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8'
@@ -146,9 +181,6 @@ var vm = new Vue({
                 concelho: this.concelho,
                 distrito: this.distrito
             }
-        },
-        registoPetsitter: async function () {
-
         },
         registoAnimal: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
