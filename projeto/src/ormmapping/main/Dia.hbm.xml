@@ -11,9 +11,10 @@ License Type: Academic
 			</generator>
 		</id>
 		<property name="dia" column="Dia" type="integer" length="10" not-null="true" lazy="false"/>
-		<set name="ORM_Horas" lazy="true" cascade="save-update,lock" inverse="false">
+		<set name="ORM_Horas" table="Dia_Hora" lazy="true" cascade="save-update,lock">
 			<key column="DiaId" not-null="true"/>
-			<one-to-many class="main.Hora"/>
+			<many-to-many column="HoraHora" class="main.Hora">
+			</many-to-many>
 		</set>
 	</class>
 </hibernate-mapping>

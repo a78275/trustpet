@@ -10,9 +10,10 @@ License Type: Academic
 			<generator class="native">
 			</generator>
 		</id>
-		<set name="ORM_Dias" lazy="true" cascade="all-delete-orphan" inverse="false">
+		<set name="ORM_Dias" table="Horario_Dia" lazy="true" cascade="save-update,lock">
 			<key column="HorarioId" not-null="true"/>
-			<one-to-many class="main.Dia"/>
+			<many-to-many column="DiaId" class="main.Dia">
+			</many-to-many>
 		</set>
 	</class>
 </hibernate-mapping>

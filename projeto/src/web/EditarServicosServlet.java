@@ -23,12 +23,12 @@ public class EditarServicosServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
-        Map<Integer,Double> servicos = Util.parseServicosArray(parameters);
 
         String token = request.getHeader("Token");
         String email = FacadeBeans.validarToken(token);
 
         if(email != null) {
+            Map<Integer,Double> servicos = Util.parseServicosArray(parameters);
             boolean result = FacadeBeans.editarServicos(email, servicos);
             mensagem.put("success", result);
         }

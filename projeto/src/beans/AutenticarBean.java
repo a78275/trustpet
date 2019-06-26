@@ -110,7 +110,7 @@ public class AutenticarBean implements AutenticarBeanLocal {
             e.printStackTrace();
         }
         if(utilizador!=null) {
-            RandomString randomString = new RandomString(10,new SecureRandom(),email);
+            RandomString randomString = new RandomString(20,new SecureRandom(),email);
             String token = randomString.nextString();
             utilizador.setToken(token);
 

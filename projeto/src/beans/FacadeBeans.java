@@ -60,7 +60,7 @@ public class FacadeBeans {
      * @param raca
      * @param avatar
      */
-    public static boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo) {
+    public static boolean registarAnimal(String emailDono, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo) {
         return donoBean.registarAnimal(emailDono,nome,idade,porte,sexo,alergias,doencas,comportamento,vacinas,desparasitacao,esterilizacao,raca,avatar,tipo);
     }
 
@@ -209,7 +209,7 @@ public class FacadeBeans {
      * @param avatar
      * @param ativo
      */
-    public static boolean editarAnimal(int id, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo) {
+    public static boolean editarAnimal(int id, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo) {
         return donoBean.editarAnimal(id, nome, idade, porte, sexo, alergias, doencas, comportamento, vacinas, desparasitacao, esterilizacao, raca, avatar, ativo);
     }
     /**

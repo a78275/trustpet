@@ -66,7 +66,7 @@ public class Dia {
 		return ORM_horas;
 	}
 	
-	public final main.HoraSetCollection horas = new main.HoraSetCollection(this, _ormAdapter, ORMConstants.KEY_DIA_HORAS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final main.HoraSetCollection horas = new main.HoraSetCollection(this, _ormAdapter, ORMConstants.KEY_DIA_HORAS, ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());

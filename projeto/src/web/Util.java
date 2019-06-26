@@ -33,7 +33,7 @@ public class Util {
         // Parse animalServicos
         for (int i = 0; i < arr.length(); i++) {
             String[] selection = arr.getString(i).split(":");
-            // Parse idAnimal
+
             int idAnimal = Integer.parseInt(selection[0]);
             int idServico = Integer.parseInt(selection[1]);
 
@@ -61,11 +61,9 @@ public class Util {
 
         // Parse servicos
         for (int i = 0; i < arr.length(); i++) {
-            // Parse idServico
-            int idServico = arr.getJSONObject(i).getInt("idServico");
-            // Parse preço
-            double preco = arr.getJSONObject(i).getDouble("preco");
-
+            String[] selection = arr.getString(i).split(":");
+            int idServico = Integer.parseInt(selection[0]);
+            double preco = Double.parseDouble(selection[1]);
             servicos.put(idServico, preco);
         }
 
@@ -78,10 +76,21 @@ public class Util {
 
         // Parse horario
         for (int i = 0; i < arr.length(); i++) {
-            // Parse idDia
-            int idDia = arr.getJSONObject(i).getInt("idDia");
-            // Parse horas
-            List<Integer> horas = parseHorasArray(arr.getJSONObject(i).getJSONArray("horas"));
+            String[] selection = arr.getString(i).split(":");
+            int idDia = Integer.parseInt(selection[0]);
+            int hora = Integer.parseInt(selection[1]);
+
+            List<Integer> horas = horario.get(idDia);
+
+            if (horas == null) {
+                horas = new ArrayList<>();
+                horas.add(hora);
+                horario.put(idDia,horas);
+            }
+            else {
+                horas.add(hora);
+                horario.put(idDia,horas);
+            }
 
             horario.put(idDia, horas);
         }
@@ -227,25 +236,29 @@ public class Util {
     }
 
     public static JSONObject parsePetsitter(Petsitter petsitter) {
-        JSONObject obj = new JSONObject();
+        if (petsitter!=null) {
+            JSONObject obj = new JSONObject();
+            obj.put("email", petsitter.getEmail());
+            obj.put("password", petsitter.getPassword());
+            obj.put("nome", petsitter.getNome());
+            obj.put("avatar", petsitter.getAvatar());
+            obj.put("dataNasc", petsitter.getDataNasc());
+            obj.put("contacto", petsitter.getContacto());
+            obj.put("jardim", petsitter.getJardim());
+            obj.put("morada", petsitter.getMorada());
+            obj.put("ativo", petsitter.getAtivo());
+            obj.put("concelho", petsitter.getConcelho());
+            obj.put("distrito", petsitter.getDistrito());
+            obj.put("avaliacaoMedia", petsitter.getAvaliacaoMedia());
+            obj.put("nrAvaliacoes", petsitter.getNrAvaliacoes());
+            obj.put("horario", parseHorario(petsitter.getHorario()));
+            obj.put("animais", parseTiposAnimaisCollection(petsitter.animais));
+            return obj;
+        }
+        else {
+            return null;
+        }
 
-        obj.put("email", petsitter.getEmail());
-        obj.put("password", petsitter.getPassword());
-        obj.put("nome", petsitter.getNome());
-        obj.put("avatar", petsitter.getAvatar());
-        obj.put("dataNasc", petsitter.getDataNasc());
-        obj.put("contacto", petsitter.getContacto());
-        obj.put("jardim", petsitter.getJardim());
-        obj.put("morada", petsitter.getMorada());
-        obj.put("ativo", petsitter.getAtivo());
-        obj.put("concelho", petsitter.getConcelho());
-        obj.put("distrito", petsitter.getDistrito());
-        obj.put("avaliacaoMedia", petsitter.getAvaliacaoMedia());
-        obj.put("nrAvaliacoes", petsitter.getNrAvaliacoes());
-        obj.put("horario", parseHorario(petsitter.getHorario()));
-        obj.put("animais", parseTiposAnimaisCollection(petsitter.animais));
-
-        return obj;
     }
 
     private static JSONArray parseTiposAnimaisCollection(TipoAnimalSetCollection animais) {

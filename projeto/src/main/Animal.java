@@ -38,7 +38,7 @@ public class Animal {
 	
 	private String avatar;
 	
-	private int idade;
+	private String idade;
 	
 	private String porte;
 	
@@ -88,11 +88,11 @@ public class Animal {
 		return avatar;
 	}
 	
-	public void setIdade(int value) {
+	public void setIdade(String value) {
 		this.idade = value;
 	}
 	
-	public int getIdade() {
+	public String getIdade() {
 		return idade;
 	}
 	

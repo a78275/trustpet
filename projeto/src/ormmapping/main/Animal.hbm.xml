@@ -14,7 +14,7 @@ License Type: Academic
 		</many-to-one>
 		<property name="nome" column="Nome" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="avatar" column="Avatar" type="string" length="255" not-null="false" lazy="false"/>
-		<property name="idade" column="Idade" type="integer" length="10" not-null="true" lazy="false"/>
+		<property name="idade" column="Idade" type="string" length="255" not-null="true" lazy="false"/>
 		<property name="porte" column="Porte" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="sexo" column="Sexo" type="string" length="255" not-null="false" lazy="false"/>
 		<property name="alergias" column="Alergias" type="string" length="255" not-null="false" lazy="false"/>

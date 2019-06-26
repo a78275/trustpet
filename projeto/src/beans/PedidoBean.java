@@ -524,7 +524,7 @@ public class PedidoBean implements PedidoBeanLocal {
         PersistentSession session = getSession();
         try {
             // Get dos pedidos do utilizador
-            return FacadeDAOs.listPedido(session, "dono='" + email + "' OR petsitter='" + email + "'", null);
+            return FacadeDAOs.listPedido(session, "dono='" + email + "' OR petsitter='" + email + "' AND ativo='" + true + "'", null);
         } catch (PersistentException e) {
             e.printStackTrace();
             return null;

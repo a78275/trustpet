@@ -56,7 +56,7 @@ public class Horario {
 		return ORM_dias;
 	}
 	
-	public final main.DiaSetCollection dias = new main.DiaSetCollection(this, _ormAdapter, ORMConstants.KEY_HORARIO_DIAS, ORMConstants.KEY_MUL_ONE_TO_MANY);
+	public final main.DiaSetCollection dias = new main.DiaSetCollection(this, _ormAdapter, ORMConstants.KEY_HORARIO_DIAS, ORMConstants.KEY_MUL_MANY_TO_MANY);
 	
 	public String toString() {
 		return String.valueOf(getId());
