@@ -132,14 +132,16 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
         // Set horario
         boolean successo = setHorario(horario, session, newHorario);
-        if (successo){
-            return true;
+        if (!successo){
+            return false;
         }
 
         // Save horario
         boolean save = false;
         try {
+            petsitter.setHorario(newHorario);
             save = FacadeDAOs.saveHorario(newHorario);
+            save = save && FacadeDAOs.savePetsitter(petsitter);
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
@@ -150,20 +152,19 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     private boolean setHorario(Map<Integer, List<Integer>> horario, PersistentSession session, Horario newHorario) {
         for(Map.Entry<Integer, List<Integer>> e : horario.entrySet()){
-
             // Create e set do dia
             Dia dia = FacadeDAOs.createDia();
             dia.setDia(e.getKey());
 
             // Set das horas
             for(Integer h : e.getValue()){
+                System.out.println("\n"+h);
                 // Get da hora
                 Hora hora = null;
                 try {
                     hora = FacadeDAOs.getHora(session, h);
                 } catch (PersistentException e1) {
                     e1.printStackTrace();
-                    return false;
                 }
 
                 // Add hora
@@ -173,7 +174,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
             // Save do dia
             try {
                 boolean save = FacadeDAOs.saveDia(dia);
-
                 if(!save){
                     return false;
                 }

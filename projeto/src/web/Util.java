@@ -76,10 +76,21 @@ public class Util {
 
         // Parse horario
         for (int i = 0; i < arr.length(); i++) {
-            // Parse idDia
-            int idDia = arr.getJSONObject(i).getInt("idDia");
-            // Parse horas
-            List<Integer> horas = parseHorasArray(arr.getJSONObject(i).getJSONArray("horas"));
+            String[] selection = arr.getString(i).split(":");
+            int idDia = Integer.parseInt(selection[0]);
+            int hora = Integer.parseInt(selection[1]);
+
+            List<Integer> horas = horario.get(idDia);
+
+            if (horas == null) {
+                horas = new ArrayList<>();
+                horas.add(hora);
+                horario.put(idDia,horas);
+            }
+            else {
+                horas.add(hora);
+                horario.put(idDia,horas);
+            }
 
             horario.put(idDia, horas);
         }
