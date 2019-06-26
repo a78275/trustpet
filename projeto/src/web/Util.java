@@ -494,4 +494,44 @@ public class Util {
         }
         return date;
     }
+
+    public static JSONArray parseReviews(List<Review> reviewsList) {
+        JSONArray arr = new JSONArray();
+
+        for (Review r : reviewsList) {
+            arr.put(parseReview(r));
+        }
+
+        return arr;
+    }
+
+    private static JSONObject parseReview(Review review) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("data", review.getData());
+        obj.put("pontuacao", review.getPontuacao());
+        obj.put("comentario", review.getComentario());
+        obj.put("dono", parseDonoReview(review.getDono()));
+        obj.put("petsitter", parsePetsitterReview(review.getPetsitter()));
+
+        return obj;
+    }
+
+    private static JSONObject parseDonoReview(Dono dono) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("nome", dono.getNome());
+        obj.put("avatar", dono.getAvatar());
+
+        return obj;
+    }
+
+    private static JSONObject parsePetsitterReview(Petsitter petsitter) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("nome", petsitter.getNome());
+        obj.put("avatar", petsitter.getAvatar());
+
+        return obj;
+    }
 }
