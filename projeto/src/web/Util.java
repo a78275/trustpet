@@ -279,7 +279,6 @@ public class Util {
         else {
             return null;
         }
-
     }
 
     private static JSONArray parseTiposAnimaisCollection(TipoAnimalSetCollection animais) {
@@ -365,16 +364,70 @@ public class Util {
         JSONObject obj = new JSONObject();
 
         obj.put("id", pedido.getId());
-        obj.put("petsitter", parsePetsitter(pedido.getPetsitter()));
-        obj.put("dono", parseDono(pedido.getDono()));
+        obj.put("petsitter", parsePetsitterPedido(pedido.getPetsitter()));
+        obj.put("dono", parseDonoPedido(pedido.getDono()));
         obj.put("preco", pedido.getPreco());
         obj.put("ativo", pedido.getAtivo());
         obj.put("dataInicio", pedido.getDataInicio());
         obj.put("dataFim", pedido.getDataFim());
-        obj.put("animalServicos", parseAnimalServicosCollection(pedido.animalServicos));
+        obj.put("animalServicos", parseAnimalServicosCollectionPedido(pedido.animalServicos));
         obj.put("servicos", parseServicosCollection(pedido.servicos));
 
         return obj;
+    }
+
+    private static JSONArray parseAnimalServicosCollectionPedido(AnimalServicoSetCollection animalServicos) {
+        Iterator iter = animalServicos.getIterator();
+        JSONArray arr = new JSONArray();
+
+        while (iter.hasNext()){
+            arr.put(parseAnimalServicoPedido((AnimalServico) iter.next()));
+        }
+
+        return arr;
+    }
+
+    private static JSONObject parseAnimalServicoPedido(AnimalServico animalServico) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("id", animalServico.getId());
+        obj.put("servico", parseServico(animalServico.getServico()));
+        obj.put("animal", parseAnimalPedido(animalServico.getAnimal()));
+
+        return obj;
+    }
+
+    private static JSONObject parseAnimalPedido(Animal animal) {
+        if (animal!=null) {
+            JSONObject obj = new JSONObject();
+            obj.put("nome", animal.getNome());
+            obj.put("avatar", animal.getAvatar());
+            return obj;
+        }
+        else {
+            return null;
+        }
+    }
+
+    private static JSONObject parseDonoPedido(Dono dono) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("email", dono.getEmail());
+        obj.put("avatar", dono.getAvatar());
+
+        return obj;
+    }
+
+    private static JSONObject parsePetsitterPedido(Petsitter petsitter) {
+        if (petsitter!=null) {
+            JSONObject obj = new JSONObject();
+            obj.put("email", petsitter.getEmail());
+            obj.put("avatar", petsitter.getAvatar());
+            return obj;
+        }
+        else {
+            return null;
+        }
     }
 
     private static JSONArray parseServicosCollection(PrecoPetsitterServicoSetCollection servicos) {
