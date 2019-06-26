@@ -4,6 +4,7 @@ import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Review;
 import main.Utilizador;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import javax.servlet.ServletException;
@@ -35,9 +36,8 @@ public class ConsultarPerfilServlet extends HttpServlet {
                 mensagem.put("success", true);
                 mensagem.put("utilizador", Util.parseUtilizador(utilizador));
 
-                List<Review> reviews = FacadeBeans.consultarReviews(email,tipo);
-                Gson gson = new Gson();
-                mensagem.put("reviews",gson.toJson(reviews));
+                List<Review> reviewsList = FacadeBeans.consultarReviews(email,tipo);
+                mensagem.put("reviews", Util.parseReviews(reviewsList));
             } else {
                 mensagem.put("success", false);
             }
