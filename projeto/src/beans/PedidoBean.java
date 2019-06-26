@@ -1,13 +1,11 @@
 package beans;
 
 import main.*;
-import org.json.JSONObject;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
-import java.awt.print.Book;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -596,7 +594,7 @@ public class PedidoBean implements PedidoBeanLocal {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String parsedDataInicio = format.format(dataInicio);
         pedido.setDataInicio(parsedDataInicio);
-        String parsedDataFim = format.format(dataInicio);
+        String parsedDataFim = format.format(dataFim);
         pedido.setDataFim(parsedDataFim);
 
         // Set do estado
