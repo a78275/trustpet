@@ -49,6 +49,21 @@ Vue.component('sidebardono', {
 var vm = new Vue({
     el: "#dono",
     data: {
+        nome: "",
+        avatar: "",
+        tipo: "",
+        idades: ['Bebé', 'Jovem', 'Adulto', 'Sénior'],
+        idade: "",
+        raca: "",
+        sexo: "",
+        porte: "",
+        alergias: "",
+        doencas: "",
+        comportamento: "",
+        vacinas: "",
+        desparasitacao: "",
+        esterilizacao: "",
+        animal: {},
         animais: [],
         servicos: [{
             'id': '1',
@@ -66,6 +81,7 @@ var vm = new Vue({
                 '7': 'Brincar'
             }
         }],
+        tiposAnimal: [{ 'id': '1', 'tipo': 'Gato', 'img': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5fBKv_d93io82eZokxqn_4jsHFSolEpiqeNPxjxy12DIiM0T' }, { 'id': '2', 'tipo': 'Cão', 'img': 'https://essencecuidados.com.br/wp-content/uploads/2016/10/dog.jpg' }, { 'id': '3', 'tipo': 'Pássaro', 'img': 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/19/pinyon-jay-bird.jpg' }, { 'id': '4', 'tipo': 'Tartaruga', 'img': 'https://oliveridleyproject.org/wp-content/uploads/2018/05/Olive-ridley-turtle-baby-patient-Luna-recovering-rescue-centre-ORP.jpg' }],
         petsitters: [],
         pedidosPendentes: [],
         dataInicio: "",
@@ -225,6 +241,46 @@ var vm = new Vue({
             const content = await response.json()
             if (content.success) {
                 console.log("review feita com sucesso!")
+            }
+        },
+        registoAnimal: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify(this.animal)
+            })
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/adicionarAnimal.html")
+            }
+        },
+        criarAnimal: async function () {
+            let vac = "false"
+            if (this.vacinas != "")
+                vac = "true"
+            let desp = "false"
+            if (this.desparasitacao != "")
+                desp = "true"
+            let est = "false"
+            if (this.esterilizacao != "")
+                est = "true"
+            this.animal = {
+                nome: this.nome,
+                avatar: this.avatar,
+                idade: this.idade,
+                porte: this.porte,
+                sexo: this.sexo,
+                alergias: this.alergias,
+                doencas: this.doencas,
+                comportamento: this.comportamento,
+                vacinas: vac,
+                desparasitacao: desp,
+                esterilizacao: est,
+                raca: this.raca,
+                tipo: this.tipo
             }
         }
     }

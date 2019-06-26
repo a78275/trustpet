@@ -71,7 +71,7 @@
                                         <input class="form-check-input mx-3" type="radio" name="typeuser" id="dono"
                                             value="dono" v-model="tipo">
                                         <img src="img/dono.png" id="avatar" class="mx-3 d-block" width="200" />
-                                        <p class="text-center">Dono</p>
+                                        <p class="text-center pt-3">Dono</p>
                                     </label>
                                 </div>
                                 <div class="col-6">
@@ -79,7 +79,7 @@
                                         <input class="form-check-input mx-3" type="radio" name="typeuser" id="petsitter"
                                             value="petsitter" v-model="tipo">
                                         <img src="img/petsitter.png" id="avatar" class="mx-3 d-block" width="200" />
-                                        <p class="text-center">Petsitter</p>
+                                        <p class="text-center pt-3">Petsitter</p>
                                     </label>
                                 </div>
                             </div>
@@ -89,7 +89,7 @@
             </div>
             <footer class="row mt-5">
                 <div class="col-6 text-center my-3">
-                    <a href="login.html"><button id="whitebtn" class="btn">Voltar</button></a>
+                    <button class="btn" id="whitebtn" onclick="goBack()">Voltar</button>
                 </div>
                 <div class="col-6 text-center my-3">
                     <button id="darkbluebtn" class="btn" v-on:click="registo()">Seguinte</button>
@@ -97,6 +97,11 @@
             </footer>
         </div>
     </div>
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/utilizador.js"></script>
 </body>
