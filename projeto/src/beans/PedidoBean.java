@@ -98,10 +98,7 @@ public class PedidoBean implements PedidoBeanLocal {
             // Adicionar serviços novos
             for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
                 for(int s : e.getValue()) {
-                    AnimalServico animalServico = registarAnimalServico(e.getKey(),s,session);
-                    if(animalServico!=null) {
-                        pedido.animalServicos.add(animalServico);
-                    }
+                    AnimalServico animalServico = registarAnimalServico(e.getKey(),s,pedido,session);
                 }
             }
 
@@ -119,7 +116,7 @@ public class PedidoBean implements PedidoBeanLocal {
         }
     }
 
-    private AnimalServico registarAnimalServico (int idAnimal, int idServico, PersistentSession session) {
+    private AnimalServico registarAnimalServico (int idAnimal, int idServico, Pedido pedido, PersistentSession session) {
         AnimalServico animalServico = FacadeDAOs.createAnimalServico();
         Animal animal = null;
         Servico servico = null;
@@ -132,6 +129,7 @@ public class PedidoBean implements PedidoBeanLocal {
         if(animal!=null && servico!=null) {
             animalServico.setAnimal(animal);
             animalServico.setServico(servico);
+            pedido.animalServicos.add(animalServico);
             try {
                 FacadeDAOs.saveAnimalServico(animalServico);
             } catch (PersistentException e) {
