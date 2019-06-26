@@ -68,7 +68,7 @@
                         </div>
                     </div>
                     <div id="userRegister">
-                        <form class="mx-5 my-5" name="registoDono">
+                        <form class="mx-5 my-5">
                             <div class="form-group">
                                 <label for="nome">Nome <span style="color:firebrick"><b>*</b></span></label>
                                 <input type="text" name="nome" class="form-control" id="nome" v-model="nome"
@@ -156,7 +156,9 @@
                             <a href="registo.html"><button class="btn" id="whitebtn">Voltar</button></a>
                         </div>
                         <div class="text-right col-6">
-                            <button type="button" id="darkbluebtn" data-toggle="modal"
+                            <button v-if="email === '' || nome === '' || password === '' || distrito ==='' || concelho === '' || contacto === '' || dataNasc === '' || morada === ''"
+                                type="button" v-on:click="camposObrigatorios()" id="darkbluebtn">Seguinte</button>
+                            <button v-else type="button" id="darkbluebtn" data-toggle="modal"
                                 data-target="#confirmarPerfil">Seguinte</button>
 
                             <div class="modal fade" id="confirmarPerfil" tabindex="-1" role="dialog"
@@ -167,7 +169,7 @@
                                             <h5 class="modal-title" style="color: #545871;" id="exampleModalLongTitle">
                                                 Nova Conta
                                             </h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <button type="button" id="submitRegistoDono" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -260,11 +262,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/utilizador.js"></script>
-    <!-- Inclusão do jQuery-->
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <!-- Inclusão do Plugin jQuery Validation-->
-    <script src="http://jqueryvalidation.org/files/dist/jquery.validate.js"></script>
-    <script src="scripts/validarForm.js"></script>
 </body>
 
 </html>
