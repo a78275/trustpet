@@ -32,7 +32,7 @@ public class SelServicosServlet extends HttpServlet {
         int idPedido = Integer.parseInt(parameters.getString("idPedido"));
         Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicosArray(parameters);
 
-        List<Petsitter> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
+        Map<Petsitter,Double> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
         boolean result = FacadeBeans.registarServicosPedido(idPedido, animalServicos);
 
         // Ocorreu um erro nos beans

@@ -30,7 +30,7 @@ public interface PedidoBeanLocal {
 	 * @param idPedido
 	 * @param animalServicos
 	 */
-	List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos);
+	Map<Petsitter,Double> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos);
 
 	/**
 	 *

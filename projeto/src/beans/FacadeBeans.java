@@ -118,7 +118,7 @@ public class FacadeBeans {
      * @param idPedido
      * @param animalServicos
      */
-    public static List<Petsitter> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
+    public static Map<Petsitter,Double> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
         return pedidoBean.getPetsittersPedido(idPedido, animalServicos);
     }
 

@@ -167,12 +167,11 @@ public class Util {
         return arr;
     }
 
-    public static JSONArray parsePetsittersList(List<Petsitter> ps) {
-        Gson gson = new Gson();
+    public static JSONArray parsePetsittersList(Map<Petsitter,Double> ps) {
         JSONArray arr = new JSONArray();
 
-        for (Petsitter p : ps) {
-            arr.put(parsePetsitter(p));
+        for (Map.Entry<Petsitter, Double> p : ps.entrySet()) {
+            arr.put(parsePetsitterPreco(p.getKey(),p.getValue()));
         }
 
         return arr;
@@ -233,6 +232,18 @@ public class Util {
     private static JSONObject parseAnimal(Animal animal) {
         Gson gson = new Gson();
         return new JSONObject(gson.toJson(animal));
+    }
+
+    public static JSONObject parsePetsitterPreco(Petsitter petsitter,double preco) {
+        if (petsitter!=null) {
+            JSONObject obj = parsePetsitter(petsitter);
+            obj.put("preco",preco);
+            return obj;
+        }
+        else {
+            return null;
+        }
+
     }
 
     public static JSONObject parsePetsitter(Petsitter petsitter) {

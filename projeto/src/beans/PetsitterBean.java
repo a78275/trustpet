@@ -158,7 +158,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
             // Set das horas
             for(Integer h : e.getValue()){
-                System.out.println("\n"+h);
                 // Get da hora
                 Hora hora = null;
                 try {
