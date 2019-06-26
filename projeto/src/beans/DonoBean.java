@@ -32,7 +32,7 @@ public class DonoBean implements DonoBeanLocal {
     }
 
     @Override
-    public boolean registarAnimal(String emailDono, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo) {
+    public boolean registarAnimal(String emailDono, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo) {
         PersistentSession session = getSession();
         Animal animal = FacadeDAOs.createAnimal();
         animal.setNome(nome);
@@ -105,7 +105,7 @@ public class DonoBean implements DonoBeanLocal {
     }
 
     @Override
-    public boolean editarAnimal(int id, String nome, int idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo) {
+    public boolean editarAnimal(int id, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo) {
         PersistentSession session = getSession();
         Animal animal = null;
         try {

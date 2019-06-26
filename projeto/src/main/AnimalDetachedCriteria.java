@@ -24,7 +24,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 	public final AssociationExpression tipo;
 	public final StringExpression nome;
 	public final StringExpression avatar;
-	public final IntegerExpression idade;
+	public final StringExpression idade;
 	public final StringExpression porte;
 	public final StringExpression sexo;
 	public final StringExpression alergias;
@@ -43,7 +43,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 		tipo = new AssociationExpression("tipo", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
 		avatar = new StringExpression("avatar", this.getDetachedCriteria());
-		idade = new IntegerExpression("idade", this.getDetachedCriteria());
+		idade = new StringExpression("idade", this.getDetachedCriteria());
 		porte = new StringExpression("porte", this.getDetachedCriteria());
 		sexo = new StringExpression("sexo", this.getDetachedCriteria());
 		alergias = new StringExpression("alergias", this.getDetachedCriteria());
@@ -63,7 +63,7 @@ public class AnimalDetachedCriteria extends AbstractORMDetachedCriteria {
 		tipo = new AssociationExpression("tipo", this.getDetachedCriteria());
 		nome = new StringExpression("nome", this.getDetachedCriteria());
 		avatar = new StringExpression("avatar", this.getDetachedCriteria());
-		idade = new IntegerExpression("idade", this.getDetachedCriteria());
+		idade = new StringExpression("idade", this.getDetachedCriteria());
 		porte = new StringExpression("porte", this.getDetachedCriteria());
 		sexo = new StringExpression("sexo", this.getDetachedCriteria());
 		alergias = new StringExpression("alergias", this.getDetachedCriteria());

@@ -33,7 +33,7 @@ public class Util {
         // Parse animalServicos
         for (int i = 0; i < arr.length(); i++) {
             String[] selection = arr.getString(i).split(":");
-            // Parse idAnimal
+
             int idAnimal = Integer.parseInt(selection[0]);
             int idServico = Integer.parseInt(selection[1]);
 
@@ -61,11 +61,9 @@ public class Util {
 
         // Parse servicos
         for (int i = 0; i < arr.length(); i++) {
-            // Parse idServico
-            int idServico = arr.getJSONObject(i).getInt("idServico");
-            // Parse preço
-            double preco = arr.getJSONObject(i).getDouble("preco");
-
+            String[] selection = arr.getString(i).split(":");
+            int idServico = Integer.parseInt(selection[0]);
+            double preco = Double.parseDouble(selection[1]);
             servicos.put(idServico, preco);
         }
 
