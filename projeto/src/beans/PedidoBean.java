@@ -225,7 +225,7 @@ public class PedidoBean implements PedidoBeanLocal {
         // Get dos precoPetsitterServicos
         Map<Integer, Double> servicoPreco = null;
         try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + petsitter.getEmail() + "'", null);
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitterutilizadoremail='" + petsitter.getEmail() + "'", null);
             servicoPreco = new HashMap<>();
             for (PrecoPetsitterServico precoPetsitterServico : precoPetsitterServicos) {
                 servicoPreco.put(precoPetsitterServico.getServico().getId(), precoPetsitterServico.getPreco());
@@ -326,7 +326,7 @@ public class PedidoBean implements PedidoBeanLocal {
 
     private boolean checkPedidoNoHorario(Pedido pedido, Date dataInicio, Date dataFim) {
         // Get das datas de inicio e fim do pedido
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date pedidoDataInicio = null;
         Date pedidoDataFim = null;
         try {
