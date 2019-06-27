@@ -30,7 +30,6 @@ public class ConsultarPerfilServlet extends HttpServlet {
         if (email != null) {
             String tipo = FacadeBeans.tipoUtilizador(email);
 
-            // Erro nos beans
             if (tipo != null) {
                 Utilizador utilizador = FacadeBeans.consultarPerfil(email, tipo);
                 mensagem.put("success", true);
@@ -68,9 +67,8 @@ public class ConsultarPerfilServlet extends HttpServlet {
                 mensagem.put("success", true);
                 mensagem.put("utilizador", Util.parseUtilizador(utilizador));
 
-                List<Review> reviews = FacadeBeans.consultarReviews(emailConsulta,tipo);
-                Gson gson = new Gson();
-                mensagem.put("reviews",gson.toJson(reviews));
+                List<Review> reviewsList = FacadeBeans.consultarReviews(email,tipo);
+                mensagem.put("reviews", Util.parseReviews(reviewsList));
             } else {
                 mensagem.put("success", false);
             }
