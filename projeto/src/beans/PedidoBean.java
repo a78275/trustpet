@@ -168,7 +168,7 @@ public class PedidoBean implements PedidoBeanLocal {
         String parsedDataFim = format.format(dataInicio);
         pedido.setDataFim(parsedDataFim);
 
-        // Set do estado
+        //TODO Tirar
         pedido.setAtivo(true);
 
         // Save do pedido na BD
@@ -208,6 +208,7 @@ public class PedidoBean implements PedidoBeanLocal {
 
         double preco = calcularPreco(pedido,petsitter);
         pedido.setPreco(preco);
+        pedido.setAtivo(true);
 
         // Save do pedido na BD
         boolean save = false;
@@ -326,7 +327,7 @@ public class PedidoBean implements PedidoBeanLocal {
 
     private boolean checkPedidoNoHorario(Pedido pedido, Date dataInicio, Date dataFim) {
         // Get das datas de inicio e fim do pedido
-        DateFormat format = new SimpleDateFormat("dd/MM/yyyy 'às' HH:mm");
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         Date pedidoDataInicio = null;
         Date pedidoDataFim = null;
         try {

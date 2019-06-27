@@ -1,7 +1,10 @@
 package web;
 
 import beans.FacadeBeans;
+import main.TrustPetPersistentManager;
 import org.json.JSONObject;
+import org.orm.PersistentException;
+import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,15 +30,20 @@ public class AutenticarServlet extends HttpServlet {
         boolean result = FacadeBeans.autenticar(email, password);
         if (result) {
             mensagem.put("success", true);
-            String token = FacadeBeans.setToken(email);
-            mensagem.put("token",token);
 
             String tipo = FacadeBeans.tipoUtilizador(email);
-            if(tipo.equals("petsitter")) {
-                mensagem.put("tipo","petsitter");
+            if (tipo.equals("petsitter")) {
+                mensagem.put("tipo", "petsitter");
+            } else if (tipo.equals("dono")) {
+                mensagem.put("tipo", "dono");
             }
-            else if (tipo.equals("dono")){
-                mensagem.put("tipo","dono");
+
+            String tokenAtual = FacadeBeans.isAutenticado(email);
+            if (tokenAtual == null || tokenAtual.equals("")) {
+                String token = FacadeBeans.setToken(email);
+                mensagem.put("token", token);
+            } else {
+                mensagem.put("token", tokenAtual);
             }
         } else {
             mensagem.put("success", false);

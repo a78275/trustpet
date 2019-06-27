@@ -36,50 +36,19 @@ public class AutenticarBean implements AutenticarBeanLocal {
 
     @Override
     public boolean autenticar(String email, String password) {
-        PersistentSession session = getSession();
-        // Dono
-        Dono dono = null;
+        Utilizador utilizador = null;
         try {
-            dono = FacadeDAOs.getDono(session, email);
+            utilizador = FacadeDAOs.getUtilizador(session,email);
         } catch (PersistentException e) {
             e.printStackTrace();
+        }
+
+        if(utilizador!=null) {
+            return utilizador.getPassword().equals(password);
+        }
+        else {
             return false;
         }
-
-        // Dono existe
-        if(dono != null){
-            // Password correta
-            if(dono.getPassword().equals(password)){
-                return true;
-            }
-            // Password errada
-            else {
-                return false;
-            }
-        }
-
-        // Petsitter
-        Petsitter petsitter = null;
-        try {
-            petsitter = FacadeDAOs.getPetsitter(session, email);
-        } catch (PersistentException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        // Dono existe
-        if(petsitter != null){
-            // Password correta
-            if(petsitter.getPassword().equals(password)){
-                return true;
-            }
-            // Password errada
-            else {
-                return false;
-            }
-        }
-
-        return false;
     }
 
     @Override
@@ -153,6 +122,46 @@ public class AutenticarBean implements AutenticarBeanLocal {
         return false;
     }
 
+    @Override
+    public String isAutenticado(String email) {
+        PersistentSession session = getSession();
+        Utilizador utilizador = null;
+        try {
+            utilizador = FacadeDAOs.getUtilizador(session,email);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+
+        if(utilizador==null) {
+            return null;
+        }
+        else {
+            return utilizador.getToken();
+        }
+    }
+
+    @Override
+    public boolean logout(String email) {
+        PersistentSession session = getSession();
+        Utilizador utilizador = null;
+        try {
+            utilizador = FacadeDAOs.getUtilizador(session,email);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        if(utilizador!=null) {
+            utilizador.setToken("");
+            try {
+                FacadeDAOs.saveUtilizador(utilizador);
+            } catch (PersistentException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 }
 
 
