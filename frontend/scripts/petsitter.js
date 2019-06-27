@@ -46,7 +46,7 @@ var vm = new Vue({
         perfil: {},
         tiposAnimais: [],
         servicos: [],
-        horario: [],
+        horario: {},
         reviews: [],
         tiposAnimal: [{ 'id': '1', 'tipo': 'Gato', 'img': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5fBKv_d93io82eZokxqn_4jsHFSolEpiqeNPxjxy12DIiM0T' }, { 'id': '2', 'tipo': 'Cão', 'img': 'https://essencecuidados.com.br/wp-content/uploads/2016/10/dog.jpg' }, { 'id': '3', 'tipo': 'Pássaro', 'img': 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/19/pinyon-jay-bird.jpg' }, { 'id': '4', 'tipo': 'Tartaruga', 'img': 'https://oliveridleyproject.org/wp-content/uploads/2018/05/Olive-ridley-turtle-baby-patient-Luna-recovering-rescue-centre-ORP.jpg' }]
     },
@@ -74,7 +74,10 @@ var vm = new Vue({
                 const contentPetsitter = await responsePetsitter.json()
                 if (contentPetsitter.success) {
                     this.perfil = contentPetsitter.utilizador
+                    this.servicos = contentPetsitter.servicos
+                    this.tiposAnimais = this.perfil.animais
                     this.reviews = contentPetsitter.reviews
+                    this.horario = this.perfil.horario
                 }
                 /*
                 //Fetch dos animais
