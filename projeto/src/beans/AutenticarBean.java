@@ -17,28 +17,12 @@ import java.util.Random;
 @Local(AutenticarBeanLocal.class)
 @Stateless(name="AutenticarBean")
 public class AutenticarBean implements AutenticarBeanLocal {
-    private PersistentSession session;
-
-    private PersistentSession getSession() {
-        if(this.session==null){
-            try {
-                this.session= TrustPetPersistentManager.instance().getSession();
-                System.out.println("Creating new persistent session");
-            } catch (PersistentException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            System.out.println("Reusing persistent session");
-        }
-        return this.session;
-    }
-
     @Override
     public boolean autenticar(String email, String password) {
+        
         Utilizador utilizador = null;
         try {
-            utilizador = FacadeDAOs.getUtilizador(session,email);
+            utilizador = FacadeDAOs.getUtilizador(email);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -53,10 +37,10 @@ public class AutenticarBean implements AutenticarBeanLocal {
 
     @Override
     public String validarToken(String token) {
-        PersistentSession session = getSession();
+        
         List<Utilizador> utilizadorList = null;
         try {
-            utilizadorList = FacadeDAOs.listUtilizadores(session,"token='"+token+"'",null);
+            utilizadorList = FacadeDAOs.listUtilizadores("token='"+token+"'",null);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -71,10 +55,10 @@ public class AutenticarBean implements AutenticarBeanLocal {
 
     @Override
     public String setToken(String email) {
-        PersistentSession session = getSession();
+        
         Utilizador utilizador = null;
         try {
-            utilizador = FacadeDAOs.getUtilizador(session,email);
+            utilizador = FacadeDAOs.getUtilizador(email);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -98,11 +82,11 @@ public class AutenticarBean implements AutenticarBeanLocal {
 
     @Override
     public boolean autenticarAdministrador(String email, String password) {
-        PersistentSession session = getSession();
+        
         // Administrador
         Administrador administrador = null;
         try {
-            administrador = FacadeDAOs.getAdministrador(session, email);
+            administrador = FacadeDAOs.getAdministrador(email);
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
@@ -124,10 +108,10 @@ public class AutenticarBean implements AutenticarBeanLocal {
 
     @Override
     public String isAutenticado(String email) {
-        PersistentSession session = getSession();
+        
         Utilizador utilizador = null;
         try {
-            utilizador = FacadeDAOs.getUtilizador(session,email);
+            utilizador = FacadeDAOs.getUtilizador(email);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -142,10 +126,10 @@ public class AutenticarBean implements AutenticarBeanLocal {
 
     @Override
     public boolean logout(String email) {
-        PersistentSession session = getSession();
+        
         Utilizador utilizador = null;
         try {
-            utilizador = FacadeDAOs.getUtilizador(session,email);
+            utilizador = FacadeDAOs.getUtilizador(email);
         } catch (PersistentException e) {
             e.printStackTrace();
         }

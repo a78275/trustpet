@@ -2,7 +2,6 @@ package beans;
 
 import main.*;
 import org.orm.PersistentException;
-import org.orm.PersistentSession;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -13,30 +12,13 @@ import java.util.Map;
 @Local(PetsitterBeanLocal.class)
 @Stateless(name="PetsitterBean")
 public class PetsitterBean implements PetsitterBeanLocal {
-    private PersistentSession session;
-
-    private PersistentSession getSession() {
-        if(this.session==null){
-            try {
-                this.session= TrustPetPersistentManager.instance().getSession();
-                System.out.println("Creating new persistent session");
-            } catch (PersistentException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            System.out.println("Reusing persistent session");
-        }
-        return this.session;
-    }
-
     @Override
     public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
-        PersistentSession session = getSession();
+        
         // Get do petsitter
         Petsitter petsitter = null;
         try {
-            petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+            petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
@@ -46,7 +28,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
         for(int idTipo : tipos) {
             TipoAnimal animal = null;
             try {
-                animal = FacadeDAOs.getTipoAnimal(session, idTipo);
+                animal = FacadeDAOs.getTipoAnimal(idTipo);
             } catch (PersistentException e) {
                 e.printStackTrace();
                 return false;
@@ -70,25 +52,25 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
-        PersistentSession session = getSession();
+        
         // Get do petsitter
         Petsitter petsitter = null;
         try {
-            petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+            petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
         }
 
         // Create e save dos precoPetsitterServicos
-        return createPrecoPetsitterServicos(servicos, session, petsitter);
+        return createPrecoPetsitterServicos(servicos, petsitter);
     }
 
-    private boolean createPrecoPetsitterServicos(Map<Integer, Double> servicos, PersistentSession session, Petsitter petsitter) {
+    private boolean createPrecoPetsitterServicos(Map<Integer, Double> servicos, Petsitter petsitter) {
         for (Map.Entry<Integer, Double> e : servicos.entrySet()) {
             Servico servico = null;
             try {
-                servico = FacadeDAOs.getServico(session, e.getKey());
+                servico = FacadeDAOs.getServico(e.getKey());
             } catch (PersistentException e1) {
                 e1.printStackTrace();
                 // Não existe serviço
@@ -117,11 +99,11 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario) {
-        PersistentSession session = getSession();
+        
         // Get do petsitter
         Petsitter petsitter = null;
         try {
-            petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+            petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
@@ -132,7 +114,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
         newHorario = FacadeDAOs.createHorario();
 
         // Set horario
-        boolean successo = setHorario(horario, session, newHorario);
+        boolean successo = setHorario(horario, newHorario);
         if (!successo){
             return false;
         }
@@ -151,7 +133,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
         return save;
     }
 
-    private boolean setHorario(Map<Integer, List<Integer>> horario, PersistentSession session, Horario newHorario) {
+    private boolean setHorario(Map<Integer, List<Integer>> horario, Horario newHorario) {
         for(Map.Entry<Integer, List<Integer>> e : horario.entrySet()){
             // Create e set do dia
             Dia dia = FacadeDAOs.createDia();
@@ -162,7 +144,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
                 // Get da hora
                 Hora hora = null;
                 try {
-                    hora = FacadeDAOs.getHora(session, h);
+                    hora = FacadeDAOs.getHora(h);
                 } catch (PersistentException e1) {
                     e1.printStackTrace();
                 }
@@ -190,10 +172,10 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public List<Petsitter> consultarPetsitters(String filtro, String ordem) {
-        PersistentSession session = getSession();
+        
         try {
             // Get dos Petsitters
-            return FacadeDAOs.listPetsitters(session, filtro, ordem);
+            return FacadeDAOs.listPetsitters(filtro, ordem);
         } catch (PersistentException e) {
             e.printStackTrace();
             return null;
@@ -202,11 +184,11 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
-        PersistentSession session = getSession();
+        
         // Get do petsitter
         Petsitter petsitter = null;
         try {
-            petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+            petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
@@ -214,7 +196,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
         // Delete dos antigos
         try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + emailPetsitter + "'", null);
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("petsitterutilizadoremail='" + emailPetsitter + "'", null);
             for(PrecoPetsitterServico p : precoPetsitterServicos){
                 boolean delete = FacadeDAOs.deletePrecoPetsitterServico(p);
 
@@ -229,13 +211,13 @@ public class PetsitterBean implements PetsitterBeanLocal {
         }
 
         // Create e save dos precoPetsitterServicos
-        return createPrecoPetsitterServicos(servicos, session, petsitter);
+        return createPrecoPetsitterServicos(servicos, petsitter);
     }
 
     @Override
     public Map<String, Double> getServicosPetsitter(String email) {
         try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + email + "'", null);
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("petsitterutilizadoremail='" + email + "'", null);
             Map<String, Double> servicos = new HashMap<>();
             for (PrecoPetsitterServico ps : precoPetsitterServicos){
                 servicos.put(ps.getServico().getDesignacao(), ps.getPreco());

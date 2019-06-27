@@ -1,8 +1,6 @@
 package main;
 
 import org.orm.PersistentException;
-import org.orm.PersistentSession;
-import web.Util;
 
 import java.util.Arrays;
 import java.util.List;
@@ -14,18 +12,12 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param condition
 	 * @param orderBy
 	 */
-	public static List<Review> listReviews(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		if(session == null) {
-            return Arrays.asList(ReviewDAO.listReviewByQuery(condition, orderBy));
-        }
-        else {
-            return Arrays.asList(ReviewDAO.listReviewByQuery(session, condition, orderBy));
-        }
+	public static List<Review> listReviews(String condition, String orderBy) throws PersistentException {
+		return Arrays.asList(ReviewDAO.listReviewByQuery(condition, orderBy));
 	}
 
     /**
@@ -45,32 +37,20 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param condition
 	 * @param orderBy
 	 */
-	public static List<Petsitter> listPetsitters(PersistentSession session, String condition, String orderBy) throws PersistentException {
-        if(session == null) {
-            return Arrays.asList(PetsitterDAO.listPetsitterByQuery(condition, orderBy));
-        }
-        else {
-            return Arrays.asList(PetsitterDAO.listPetsitterByQuery(session, condition, orderBy));
-        }
+	public static List<Petsitter> listPetsitters(String condition, String orderBy) throws PersistentException {
+        return Arrays.asList(PetsitterDAO.listPetsitterByQuery(condition, orderBy));
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param email
 	 */
-	public static Petsitter getPetsitter(PersistentSession session, String email) throws PersistentException {
-        if(session == null) {
-            return PetsitterDAO.getPetsitterByORMID(email);
-        }
-        else {
-            return PetsitterDAO.getPetsitterByORMID(session, email);
-        }
+	public static Petsitter getPetsitter(String email) throws PersistentException {
+        return PetsitterDAO.getPetsitterByORMID(email);
 	}
 
 	public static Petsitter createPetsitter() {
@@ -82,17 +62,11 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param email
 	 */
-	public static Dono getDono(PersistentSession session, String email) throws PersistentException {
-        if(session == null) {
-            return DonoDAO.getDonoByORMID(email);
-        }
-        else {
-            return DonoDAO.getDonoByORMID(session, email);
-        }
+	public static Dono getDono(String email) throws PersistentException {
+        return DonoDAO.getDonoByORMID(email);
 	}
 
 	/**
@@ -104,17 +78,11 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param id
 	 */
-	public static PrecoPetsitterServico getPrecoPetsitterServico(PersistentSession session, int id) throws PersistentException {
-        if(session == null) {
-            return PrecoPetsitterServicoDAO.getPrecoPetsitterServicoByORMID(id);
-        }
-        else {
-            return PrecoPetsitterServicoDAO.getPrecoPetsitterServicoByORMID(session, id);
-        }
+	public static PrecoPetsitterServico getPrecoPetsitterServico(int id) throws PersistentException {
+		return PrecoPetsitterServicoDAO.getPrecoPetsitterServicoByORMID(id);
 	}
 
 	/**
@@ -126,18 +94,12 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param condition
 	 * @param orderBy
 	 */
-	public static List<PrecoPetsitterServico> listPrecoPetsitterServico(PersistentSession session, String condition, String orderBy) throws PersistentException {
-        if(session == null) {
-            return Arrays.asList(PrecoPetsitterServicoDAO.listPrecoPetsitterServicoByQuery(condition, orderBy));
-        }
-        else {
-            return Arrays.asList(PrecoPetsitterServicoDAO.listPrecoPetsitterServicoByQuery(session, condition, orderBy));
-        }
+	public static List<PrecoPetsitterServico> listPrecoPetsitterServico(String condition, String orderBy) throws PersistentException {
+        return Arrays.asList(PrecoPetsitterServicoDAO.listPrecoPetsitterServicoByQuery(condition, orderBy));
 	}
 
 	public static PrecoPetsitterServico createPrecoPetsitterServico() {
@@ -161,17 +123,11 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param id
 	 */
-	public static Horario getHorario(PersistentSession session, int id) throws PersistentException {
-        if(session == null) {
-            return HorarioDAO.getHorarioByORMID(id);
-        }
-        else {
-            return HorarioDAO.getHorarioByORMID(session, id);
-        }
+	public static Horario getHorario(int id) throws PersistentException {
+        return HorarioDAO.getHorarioByORMID(id);
 	}
 
 	public static Horario createHorario() {
@@ -187,17 +143,11 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param id
 	 */
-	public static Animal getAnimal(PersistentSession session, int id) throws PersistentException {
-        if(session == null) {
-            return AnimalDAO.getAnimalByORMID(id);
-        }
-        else {
-            return AnimalDAO.getAnimalByORMID(session, id);
-        }
+	public static Animal getAnimal(int id) throws PersistentException {
+        return AnimalDAO.getAnimalByORMID(id);
 	}
 
 	public static Animal createAnimal() {
@@ -205,18 +155,12 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param condition
 	 * @param orderBy
 	 */
-	public static List<Animal> listAnimal(PersistentSession session, String condition, String orderBy) throws PersistentException {
-        if(session == null) {
-            return Arrays.asList(AnimalDAO.listAnimalByQuery(condition, orderBy));
-        }
-        else {
-            return Arrays.asList(AnimalDAO.listAnimalByQuery(session, condition, orderBy));
-        }
+	public static List<Animal> listAnimal(String condition, String orderBy) throws PersistentException {
+        return Arrays.asList(AnimalDAO.listAnimalByQuery(condition, orderBy));
 	}
 
 	/**
@@ -228,17 +172,11 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param id
 	 */
-	public static Pedido getPedido(PersistentSession session, int id) throws PersistentException {
-        if(session == null) {
-            return PedidoDAO.getPedidoByORMID(id);
-        }
-        else {
-            return PedidoDAO.getPedidoByORMID(session, id);
-        }
+	public static Pedido getPedido(int id) throws PersistentException {
+        return PedidoDAO.getPedidoByORMID(id);
 	}
 
 	public static Pedido createPedido() {
@@ -246,60 +184,36 @@ public class FacadeDAOs {
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param condition
 	 * @param orderBy
 	 */
-	public static List<Pedido> listPedido(PersistentSession session, String condition, String orderBy) throws PersistentException {
-        if(session == null) {
-            return Arrays.asList(PedidoDAO.listPedidoByQuery(condition, orderBy));
-        }
-        else {
-            return Arrays.asList(PedidoDAO.listPedidoByQuery(session, condition, orderBy));
-        }
+	public static List<Pedido> listPedido(String condition, String orderBy) throws PersistentException {
+        return Arrays.asList(PedidoDAO.listPedidoByQuery(condition, orderBy));
 	}
 
 	/**
-	 * 
-	 * @param session
+	 *
 	 * @param email
 	 */
-	public static Administrador getAdministrador(PersistentSession session, String email) throws PersistentException {
-        if(session == null) {
-            return AdministradorDAO.getAdministradorByORMID(email);
-        }
-        else {
-            return AdministradorDAO.getAdministradorByORMID(session, email);
-        }
+	public static Administrador getAdministrador(String email) throws PersistentException {
+        return AdministradorDAO.getAdministradorByORMID(email);
 	}
 
     /**
      *
-     * @param session
      * @param id
      */
-    public static Servico getServico(PersistentSession session, int id) throws PersistentException {
-        if(session == null) {
-            return ServicoDAO.getServicoByORMID(id);
-        }
-        else {
-            return ServicoDAO.getServicoByORMID(session, id);
-        }
+    public static Servico getServico(int id) throws PersistentException {
+        return ServicoDAO.getServicoByORMID(id);
     }
 
     /**
      *
-     * @param session
      * @param id
      */
-    public static TipoAnimal getTipoAnimal(PersistentSession session, int id) throws PersistentException {
-        if(session == null) {
-            return TipoAnimalDAO.getTipoAnimalByORMID(id);
-        }
-        else {
-            return TipoAnimalDAO.getTipoAnimalByORMID(session, id);
-        }
+    public static TipoAnimal getTipoAnimal(int id) throws PersistentException {
+        return TipoAnimalDAO.getTipoAnimalByORMID(id);
     }
 
     /**
@@ -316,16 +230,11 @@ public class FacadeDAOs {
 
     /**
      *
-     * @param session
      * @param condition
      * @param orderBy
      */
-    public static List<AnimalServico> listAnimalServico(PersistentSession session, String condition, String orderBy) throws PersistentException {
-        if (session == null) {
-            return Arrays.asList(AnimalServicoDAO.listAnimalServicoByQuery(condition, orderBy));
-        } else {
-            return Arrays.asList(AnimalServicoDAO.listAnimalServicoByQuery(session, condition, orderBy));
-        }
+    public static List<AnimalServico> listAnimalServico(String condition, String orderBy) throws PersistentException {
+        return Arrays.asList(AnimalServicoDAO.listAnimalServicoByQuery(condition, orderBy));
     }
 
     public static Dia createDia() {
@@ -342,58 +251,36 @@ public class FacadeDAOs {
 
     /**
      *
-     * @param session
      * @param id
      */
-    public static Hora getHora(PersistentSession session, int id) throws PersistentException {
-        if(session == null) {
-            return HoraDAO.getHoraByORMID(id);
-        }
-        else {
-            return HoraDAO.getHoraByORMID(session, id);
-        }
+    public static Hora getHora(int id) throws PersistentException {
+        return HoraDAO.getHoraByORMID(id);
     }
 
 	/**
 	 *
-	 * @param session
 	 * @param condition
 	 * @param orderBy
 	 */
-	public static List<Servico> listServicos(PersistentSession session, String condition, String orderBy) throws PersistentException {
-		if (session == null) {
-			return Arrays.asList(ServicoDAO.listServicoByQuery(condition, orderBy));
-		} else {
-			return Arrays.asList(ServicoDAO.listServicoByQuery(session, condition, orderBy));
-		}
+	public static List<Servico> listServicos(String condition, String orderBy) throws PersistentException {
+		return Arrays.asList(ServicoDAO.listServicoByQuery(condition, orderBy));
 	}
 
 	/**
 	 *
-	 * @param session
 	 * @param email
 	 */
-	public static Utilizador getUtilizador(PersistentSession session, String email) throws PersistentException {
-		if(session == null) {
-			return UtilizadorDAO.getUtilizadorByORMID(email);
-		}
-		else {
-			return UtilizadorDAO.getUtilizadorByORMID(session, email);
-		}
+	public static Utilizador getUtilizador(String email) throws PersistentException {
+		return UtilizadorDAO.getUtilizadorByORMID(email);
 	}
 
 	/**
 	 *
-	 * @param session
 	 * @param condition
 	 * @param orderBy
 	 */
-	public static List<Utilizador> listUtilizadores (PersistentSession session, String condition, String orderBy) throws PersistentException {
-		if (session == null) {
-			return Arrays.asList(UtilizadorDAO.listUtilizadorByQuery(condition, orderBy));
-		} else {
-			return Arrays.asList(UtilizadorDAO.listUtilizadorByQuery(session, condition, orderBy));
-		}
+	public static List<Utilizador> listUtilizadores (String condition, String orderBy) throws PersistentException {
+		return Arrays.asList(UtilizadorDAO.listUtilizadorByQuery(condition, orderBy));
 	}
 
     /**

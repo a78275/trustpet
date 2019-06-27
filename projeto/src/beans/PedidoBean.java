@@ -14,29 +14,14 @@ import java.util.*;
 @Local(PedidoBeanLocal.class)
 @Stateless(name = "PedidoBean")
 public class PedidoBean implements PedidoBeanLocal {
-    private PersistentSession session;
-
-    private PersistentSession getSession() {
-        if (this.session == null) {
-            try {
-                this.session = TrustPetPersistentManager.instance().getSession();
-                System.out.println("Creating new persistent session");
-            } catch (PersistentException e) {
-                e.printStackTrace();
-            }
-        } else {
-            System.out.println("Reusing persistent session");
-        }
-        return this.session;
-    }
 
     @Override
     public Map<Animal, List<Servico>> getServicosPedido(List<Integer> idAnimal) {
-        PersistentSession session = getSession();
+        
 
         List<Servico> servicos = null;
         try {
-            servicos = FacadeDAOs.listServicos(session, null, null);
+            servicos = FacadeDAOs.listServicos(null, null);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -46,7 +31,7 @@ public class PedidoBean implements PedidoBeanLocal {
             for (Integer id : idAnimal) {
                 Animal animal = null;
                 try {
-                    animal = FacadeDAOs.getAnimal(session, id);
+                    animal = FacadeDAOs.getAnimal(id);
                 } catch (PersistentException e) {
                     e.printStackTrace();
                 }
@@ -70,10 +55,10 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public boolean registarServicosPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
-        PersistentSession session = getSession();
+        
         Pedido pedido = null;
         try {
-            pedido=FacadeDAOs.getPedido(session,idPedido);
+            pedido=FacadeDAOs.getPedido(idPedido);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -84,7 +69,7 @@ public class PedidoBean implements PedidoBeanLocal {
                 AnimalServicoSetCollection servicoSet = pedido.animalServicos;
                 List<AnimalServico> servicosAntigos = null;
                 try {
-                    servicosAntigos = FacadeDAOs.listAnimalServico(session,"pedidoid = '" + idPedido + "'",null);
+                    servicosAntigos = FacadeDAOs.listAnimalServico("pedidoid = '" + idPedido + "'",null);
                 } catch (PersistentException e) {
                     e.printStackTrace();
                 }
@@ -98,7 +83,7 @@ public class PedidoBean implements PedidoBeanLocal {
             // Adicionar serviços novos
             for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
                 for(int s : e.getValue()) {
-                    AnimalServico animalServico = registarAnimalServico(e.getKey(),s,pedido,session);
+                    AnimalServico animalServico = registarAnimalServico(e.getKey(),s,pedido);
                 }
             }
 
@@ -116,13 +101,13 @@ public class PedidoBean implements PedidoBeanLocal {
         }
     }
 
-    private AnimalServico registarAnimalServico (int idAnimal, int idServico, Pedido pedido, PersistentSession session) {
+    private AnimalServico registarAnimalServico (int idAnimal, int idServico, Pedido pedido) {
         AnimalServico animalServico = FacadeDAOs.createAnimalServico();
         Animal animal = null;
         Servico servico = null;
         try {
-            animal = FacadeDAOs.getAnimal(session,idAnimal);
-            servico = FacadeDAOs.getServico(session,idServico);
+            animal = FacadeDAOs.getAnimal(idAnimal);
+            servico = FacadeDAOs.getServico(idServico);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -144,14 +129,14 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public int registarPedido(String emailDono, Date dataInicio, Date dataFim) {
-        PersistentSession session = getSession();
+        
         // Criar pedido
         Pedido pedido = FacadeDAOs.createPedido();
 
         // Set do dono
         Dono dono = null;
         try {
-            dono = FacadeDAOs.getDono(session, emailDono);
+            dono = FacadeDAOs.getDono(emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -186,11 +171,11 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public boolean concluirPedido(String emailPetsitter, int idPedido) {
-        PersistentSession session = getSession();
+        
         // Get do pedido
         Pedido pedido = null;
         try {
-            pedido = FacadeDAOs.getPedido(session, idPedido);
+            pedido = FacadeDAOs.getPedido(idPedido);
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
@@ -199,7 +184,7 @@ public class PedidoBean implements PedidoBeanLocal {
         // Set do petsitter
         Petsitter petsitter = null;
         try {
-            petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+            petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
             pedido.setPetsitter(petsitter);
         } catch (PersistentException e) {
             e.printStackTrace();
@@ -226,7 +211,7 @@ public class PedidoBean implements PedidoBeanLocal {
         // Get dos precoPetsitterServicos
         Map<Integer, Double> servicoPreco = null;
         try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitterutilizadoremail='" + petsitter.getEmail() + "'", null);
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("petsitterutilizadoremail='" + petsitter.getEmail() + "'",null);
             servicoPreco = new HashMap<>();
             for (PrecoPetsitterServico precoPetsitterServico : precoPetsitterServicos) {
                 servicoPreco.put(precoPetsitterServico.getServico().getId(), precoPetsitterServico.getPreco());
@@ -249,10 +234,10 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public Map<Petsitter,Double> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
-        PersistentSession session = getSession();
+        
         Pedido pedido = null;
         try {
-            pedido = FacadeDAOs.getPedido(session, idPedido);
+            pedido = FacadeDAOs.getPedido(idPedido);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -271,29 +256,29 @@ public class PedidoBean implements PedidoBeanLocal {
         }
 
         // Buscar Petsitters que fazem os serviços pretendidos
-        Set<String> emailsPetsitters = getPetsittersServico(animalServicos, session);
+        Set<String> emailsPetsitters = getPetsittersServico(animalServicos);
 
         // Buscar Petsitters que trabalham neste horário
         if (emailsPetsitters != null) {
-            emailsPetsitters = getPetsittersHorario(dataInicio, dataFim, session, emailsPetsitters);
+            emailsPetsitters = getPetsittersHorario(dataInicio, dataFim, emailsPetsitters);
         }
 
         // Remover Petsitters que têm pedidos neste horário
         if (emailsPetsitters != null) {
-            emailsPetsitters = removePetsittersComPedidos(session, emailsPetsitters, dataInicio, dataFim);
+            emailsPetsitters = removerPetsittersComPedidos(emailsPetsitters, dataInicio, dataFim);
         }
 
         // Buscar Petsitters
-        return getPetsitters(session, emailsPetsitters, pedido);
+        return getPetsitters(emailsPetsitters, pedido);
     }
 
-    private Map<Petsitter,Double> getPetsitters(PersistentSession session, Set<String> emailsPetsitters, Pedido pedido) {
+    private Map<Petsitter,Double> getPetsitters(Set<String> emailsPetsitters, Pedido pedido) {
 
         Map<Petsitter,Double> petsitters = new HashMap<>();
         if (emailsPetsitters != null) {
             for (String emailPetsitter : emailsPetsitters) {
                 try {
-                    Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+                    Petsitter petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
                     double preco = calcularPreco(pedido,petsitter);
                     petsitters.put(petsitter,preco);
                 } catch (PersistentException e) {
@@ -305,15 +290,15 @@ public class PedidoBean implements PedidoBeanLocal {
         return petsitters;
     }
 
-    private Set<String> removePetsittersComPedidos(PersistentSession session, Set<String> emailsPetsitters, Date dataInicio, Date dataFim) {
+    private Set<String> removerPetsittersComPedidos(Set<String> emailsPetsitters, Date dataInicio, Date dataFim) {
         try {
-            List<Pedido> pedidos = FacadeDAOs.listPedido(session, null, null);
+            List<Pedido> pedidos = FacadeDAOs.listPedido(null, null);
             for (Pedido pedido : pedidos) {
                 if (checkPedidoNoHorario(pedido, dataInicio, dataFim)) {
-                    String emailPetsitter = pedido.getPetsitter().getEmail();
-
-                    if (!emailsPetsitters.remove(emailPetsitter)) {
-                        return null;
+                    Petsitter petsitter = pedido.getPetsitter();
+                    if(petsitter != null) {
+                        String emailPetsitter = petsitter.getEmail();
+                        emailsPetsitters.remove(emailPetsitter);
                     }
                 }
             }
@@ -345,33 +330,25 @@ public class PedidoBean implements PedidoBeanLocal {
 
         // Cálculo da interseção entre datas
         if (pedidoDataInicio != null && pedidoDataFim != null) {
-            if ((pedidoDataFim.after(dataInicio) && pedidoDataFim.before(dataFim)) ||
+            return (pedidoDataFim.after(dataInicio) && pedidoDataFim.before(dataFim)) ||
                     (pedidoDataInicio.after(dataInicio) && pedidoDataInicio.before(dataFim)) ||
                     (dataInicio.after(pedidoDataInicio) && dataFim.before(pedidoDataFim)) ||
-                    (dataInicio.equals(pedidoDataInicio) && dataFim.equals(pedidoDataFim))) {
-                return true;
-            } else {
-                return false;
-            }
+                    (dataInicio.equals(pedidoDataInicio) && dataFim.equals(pedidoDataFim));
         }
 
         return false;
     }
 
-    private Set<String> getPetsittersHorario(Date dataInicio, Date dataFim, PersistentSession session, Set<String> emailsPetsitters) {
+    private Set<String> getPetsittersHorario(Date dataInicio, Date dataFim, Set<String> emailsPetsitters) {
         Set<String> emailsPetsittersAux = new HashSet<>();
         for (String emailPetsitter : emailsPetsitters) {
             try {
-                Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+                Petsitter petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
                 if (checkPetsitterHorario(petsitter, dataInicio, dataFim)) {
-                    if (!emailsPetsittersAux.add(petsitter.getEmail())) {
-                        return null;
-                    }
+                    emailsPetsittersAux.add(petsitter.getEmail());
                 }
 
-                if (!emailsPetsitters.retainAll(emailsPetsittersAux)) {
-                    return null;
-                }
+                emailsPetsitters.retainAll(emailsPetsittersAux);
             } catch (PersistentException e) {
                 e.printStackTrace();
                 return null;
@@ -477,7 +454,7 @@ public class PedidoBean implements PedidoBeanLocal {
         }
     }
 
-    private Set<String> getPetsittersServico(Map<Integer, List<Integer>> animalServicos, PersistentSession session) {
+    private Set<String> getPetsittersServico(Map<Integer, List<Integer>> animalServicos) {
         Set<String> emailsPetsitters = new HashSet<>();
         boolean firstIter = true;
         for (Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()) {
@@ -486,12 +463,10 @@ public class PedidoBean implements PedidoBeanLocal {
                 for (int servico : e.getValue()) {
                     try {
                         // Get precoPetsitterServicos do serviço
-                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servico='" + servico + "'", null);
+                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("servicoid='" + servico + "'",null);
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
-                            if (!emailsPetsitters.add(pps.getPetsitter().getEmail())) {
-                                return null;
-                            }
+                            emailsPetsitters.add(pps.getPetsitter().getEmail());
                         }
                     } catch (PersistentException e1) {
                         e1.printStackTrace();
@@ -505,13 +480,11 @@ public class PedidoBean implements PedidoBeanLocal {
                 for (int servico : e.getValue()) {
                     try {
                         // Get precoPetsitterServicos do serviço
-                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servico='" + servico + "'", null);
+                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("servicoid='" + servico + "'",null);
                         Set<String> emailsPetsittersAux = new HashSet<>();
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
-                            if (!emailsPetsittersAux.add(pps.getPetsitter().getEmail())) {
-                                return null;
-                            }
+                            emailsPetsittersAux.add(pps.getPetsitter().getEmail());
                         }
                         // Interseção dos dois sets
                         if (!emailsPetsitters.retainAll(emailsPetsittersAux)) {
@@ -530,11 +503,11 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public boolean cancelarPedido(int idPedido) {
-        PersistentSession session = getSession();
+        
         // Get do pedido
         Pedido pedido = null;
         try {
-            pedido = FacadeDAOs.getPedido(session, idPedido);
+            pedido = FacadeDAOs.getPedido(idPedido);
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
@@ -556,22 +529,22 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public List<Pedido> consultarPedidos(String email) {
-        PersistentSession session = getSession();
+        
         try {
             // Get dos pedidos do utilizador
-            return FacadeDAOs.listPedido(session, "dono='" + email + "' OR petsitter='" + email + "' AND ativo='" + true + "'", "dataInicio");
+            return FacadeDAOs.listPedido("donoutilizadoremail='" + email + "' OR petsitterutilizadoremail='" + email + "' AND ativo='" + true + "'", "dataInicio");
         } catch (PersistentException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    private boolean setAnimalServicos(PersistentSession session, Pedido pedido, Map<Integer, List<Integer>> animalServicos) {
+    private boolean setAnimalServicos(Pedido pedido, Map<Integer, List<Integer>> animalServicos) {
         for (Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()) {
             // Get do animal
             Animal animal = null;
             try {
-                animal = FacadeDAOs.getAnimal(session, e.getKey());
+                animal = FacadeDAOs.getAnimal(e.getKey());
             } catch (PersistentException e1) {
                 e1.printStackTrace();
                 return false;
@@ -581,7 +554,7 @@ public class PedidoBean implements PedidoBeanLocal {
             Servico servico = null;
             for (int idServico : e.getValue()) {
                 try {
-                    servico = FacadeDAOs.getServico(session, idServico);
+                    servico = FacadeDAOs.getServico(idServico);
                 } catch (PersistentException e1) {
                     e1.printStackTrace();
                     return false;
@@ -614,11 +587,11 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public int editarPedido(int idPedido, Date dataInicio, Date dataFim) {
-        PersistentSession session = getSession();
+        
         // Get do pedido
         Pedido pedido = null;
         try {
-            pedido = FacadeDAOs.getPedido(session,idPedido);
+            pedido = FacadeDAOs.getPedido(idPedido);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
