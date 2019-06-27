@@ -214,7 +214,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
         // Delete dos antigos
         try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + emailPetsitter + "'", null);
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitterutilizadoremail='" + emailPetsitter + "'", null);
             for(PrecoPetsitterServico p : precoPetsitterServicos){
                 boolean delete = FacadeDAOs.deletePrecoPetsitterServico(p);
 
@@ -235,7 +235,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
     @Override
     public Map<String, Double> getServicosPetsitter(String email) {
         try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + email + "'", null);
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitterutilizadoremail='" + email + "'", null);
             Map<String, Double> servicos = new HashMap<>();
             for (PrecoPetsitterServico ps : precoPetsitterServicos){
                 servicos.put(ps.getServico().getDesignacao(), ps.getPreco());

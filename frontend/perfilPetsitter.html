@@ -49,7 +49,7 @@
                             style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
 
                         <table class="table table-bordered"
-                            style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
+                            style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed; border:1px solid #ebd0ce;">
                             <tbody style="color: #545871;">
                                 <tr>
                                     <td style="text-align: center;">
@@ -133,7 +133,24 @@
             <section>
                 <div class="justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">SERVIÇOS FORNECIDOS</h1>
-                    {{servicos}}
+                </div>
+                <div class="row pb-4">
+                    <div class="my-3" style="width: 80%; margin-left: auto; margin-right: auto;">
+                        <table class="table" style="table-layout: fixed;">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Serviço</th>
+                                    <th scope="col">Preço</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="s in servicos">
+                                    <td>{{ s.servico}}</td>
+                                    <td>{{ s.preco}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
@@ -142,49 +159,47 @@
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">HORÁRIO</h1>
                 </div>
                 <div class="row pb-4">
-                    <div style="width: 80%; margin-left: auto; margin-right: auto;">
-                        <form class="my-3">
-                            <table class="table" style="table-layout: fixed;">
-                                <thead>
-                                    <tr>
-                                        <th scope="col"></th>
-                                        <th scope="col">Dom</th>
-                                        <th scope="col">Seg</th>
-                                        <th scope="col">Ter</th>
-                                        <th scope="col">Qua</th>
-                                        <th scope="col">Qui</th>
-                                        <th scope="col">Sex</th>
-                                        <th scope="col">Sáb</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr v-for="i in 24">
-                                        <th scope="row">{{ i }}h</th>
-                                        <td style="text-align: center;">
-                                            <input :id="`hora${i}`" type="checkbox" :value="`1:${i}`" v-model="horario">
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <input :id="`hora${i}`" type="checkbox" :value="`2:${i}`" v-model="horario">
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <input :id="`hora${i}`" type="checkbox" :value="`3:${i}`" v-model="horario">
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <input :id="`hora${i}`" type="checkbox" :value="`4:${i}`" v-model="horario">
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <input :id="`hora${i}`" type="checkbox" :value="`5:${i}`" v-model="horario">
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <input :id="`hora${i}`" type="checkbox" :value="`6:${i}`" v-model="horario">
-                                        </td>
-                                        <td style="text-align: center;">
-                                            <input :id="`hora${i}`" type="checkbox" :value="`7:${i}`" v-model="horario">
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </form>
+                    <div class="my-3" style="width: 80%; margin-left: auto; margin-right: auto;">
+                        <table class="table" style="table-layout: fixed;">
+                            <thead>
+                                <tr>
+                                    <th scope="col"></th>
+                                    <th scope="col">Dom</th>
+                                    <th scope="col">Seg</th>
+                                    <th scope="col">Ter</th>
+                                    <th scope="col">Qua</th>
+                                    <th scope="col">Qui</th>
+                                    <th scope="col">Sex</th>
+                                    <th scope="col">Sáb</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="i in 24">
+                                    <th scope="row">{{ i }}h</th>
+
+                                    <td v-if="temHora(1,i)" class="table-success"></td>
+                                    <td v-else class="table-danger"></td>
+
+                                    <td v-if="temHora(2,i)" class="table-success"></td>
+                                    <td v-else class="table-danger"></td>
+
+                                    <td v-if="temHora(3,i)" class="table-success"></td>
+                                    <td v-else class="table-danger"></td>
+
+                                    <td v-if="temHora(4,i)" class="table-success"></td>
+                                    <td v-else class="table-danger"></td>
+
+                                    <td v-if="temHora(5,i)" class="table-success"></td>
+                                    <td v-else class="table-danger"></td>
+
+                                    <td v-if="temHora(6,i)" class="table-success"></td>
+                                    <td v-else class="table-danger"></td>
+
+                                    <td v-if="temHora(7,i)" class="table-success"></td>
+                                    <td v-else class="table-danger"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </section>

@@ -145,8 +145,8 @@
                             <button
                                 v-if="email === '' || nome === '' || password === '' || distrito ==='' || concelho === '' || contacto === '' || dataNasc === '' || morada === ''"
                                 type="button" v-on:click="camposObrigatorios()" id="darkbluebtn">Seguinte</button>
-                            <button v-else type="button" id="darkbluebtn" data-toggle="modal"
-                                data-target="#confirmarPerfil">Seguinte</button>
+                            <button v-else type="button" v-on:click="criarUtilizador()" id="darkbluebtn"
+                                data-toggle="modal" data-target="#confirmarPerfil">Seguinte</button>
 
                             <div class="modal fade" id="confirmarPerfil" tabindex="-1" role="dialog"
                                 aria-labelledby="exampleModalLongTitle" aria-hidden="true">
