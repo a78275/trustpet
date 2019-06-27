@@ -201,25 +201,26 @@
             <section class="p-2">
                 <div class="justify-content-center text-center">
                     <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">REVIEWS</h1>
-                    <div class="card m-3" style="color:#545871;">
+                    <div class="card m-3" style="color:#545871;" v-for="review in reviews">
                         <table class="" style="width:97%; margin-left: auto; margin-right: auto;">
                             <tbody style="color: #545871;">
                                 <tr>
                                     <td style="text-align: center;">
-                                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="m-3"
+                                        <img :src=review.petsitter.avatar class="m-3"
                                             style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
                                     </td>
 
                                     <td style="text-align: left;">
                                         <h2 class="text-uppercase" style="font-size:1.7em; font-weight: 500;">
-                                            Maria</h2>
-                                        <p class="muted-text">20/06/2019</p>
-                                        <p>Bom moço, cuidou dos cães. Make petsitters great again!</p>
+                                            {{ review.petsitter.nome }}</h2>
+                                        <p class="muted-text">{{ review.data }}</p>
+                                        <p>{{ review.comentario }}</p>
                                     </td>
 
                                     <td style="text-align: center;" class="my-auto">
                                         <i class="fas fa-star" style="font-size:40px; color:#ebd0ce"></i>
-                                        <h1 class="pt-3" style="color:#545871; font-size:1.5em;">4</h1>
+                                        <h1 class="pt-3" style="color:#545871; font-size:1.5em;">{{ review.pontuacao }}
+                                        </h1>
                                     </td>
                                 </tr>
                             </tbody>

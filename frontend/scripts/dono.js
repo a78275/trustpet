@@ -94,7 +94,8 @@ var vm = new Vue({
         servicosAnimaisSelecionados: [],
         petsitter: {},
         comentario: "",
-        pontuacao: 0
+        pontuacao: 0,
+        reviews: []
     },
     created: async function () {
         if (localStorage.token) {

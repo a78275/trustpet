@@ -25,7 +25,7 @@
 
 <style>
     .rate {
-        float: left;
+        float: right;
         height: 46px;
         padding: 0 10px;
     }
@@ -64,6 +64,33 @@
     .rate>input:checked~label:hover~label,
     .rate>label:hover~input:checked~label {
         color: #ebd0ce;
+    }
+
+    .blockHead:after {
+        color: #ebd0ce;
+        border-left: 20px solid;
+        border-top: 20px solid transparent;
+        border-bottom: 20px solid transparent;
+        display: inline-block;
+        content: '';
+        position: absolute;
+        right: -20px;
+        top: 0;
+    }
+
+    .blockHead {
+        background-color: #ebd0ce;
+        height: 40px;
+        line-height: 40px;
+        display: inline-block;
+        position: relative;
+    }
+
+    .blocktext {
+        color: white;
+        font-weight: bold;
+        padding-left: 10px;
+        font-size: 10;
     }
 </style>
 
@@ -153,7 +180,7 @@
                                             <div class="modal-header">
                                                 <h5 class="modal-title" style="color: #545871;"
                                                     id="exampleModalLongTitle">
-                                                    Avaliar Petsitter
+                                                    Avaliar Petsitter - {{ petsitter.nome }}
                                                 </h5>
                                                 <button type="button" id="submitRegistoDono" class="close"
                                                     data-dismiss="modal" aria-label="Close">
@@ -169,18 +196,38 @@
                                                             placeholder="Faça um comentário ao petsitter"></textarea>
                                                     </div>
                                                 </div>
-
-                                                <div class="rate ml-3">
-                                                    <input type="radio" id="star5" v-model="pontuacao" value="5" />
-                                                    <label for="star5" title="text">5 stars</label>
-                                                    <input type="radio" id="star4" v-model="pontuacao" value="4" />
-                                                    <label for="star4" title="text">4 stars</label>
-                                                    <input type="radio" id="star3" v-model="pontuacao" value="3" />
-                                                    <label for="star3" title="text">3 stars</label>
-                                                    <input type="radio" id="star2" v-model="pontuacao" value="2" />
-                                                    <label for="star2" title="text">2 stars</label>
-                                                    <input type="radio" id="star1" v-model="pontuacao" value="1" />
-                                                    <label for="star1" title="text">1 star</label>
+                                                <div class="row"
+                                                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                                                    <div class="col-6 blockHead" v-if="pontuacao == ''"><span
+                                                            class="blocktext">Clicar para classificar</span>
+                                                    </div>
+                                                    <div class="col-6 blockHead" v-if="pontuacao == 1"><span
+                                                            class="blocktext">Muito Mau</span>
+                                                    </div>
+                                                    <div class="col-6 blockHead" v-if="pontuacao == '2'"><span
+                                                            class="blocktext">Mau</span>
+                                                    </div>
+                                                    <div class="col-6 blockHead" v-if="pontuacao == '3'"><span
+                                                            class="blocktext">Médio</span>
+                                                    </div>
+                                                    <div class="col-6 blockHead" v-if="pontuacao == '4'"><span
+                                                            class="blocktext">Bom</span>
+                                                    </div>
+                                                    <div class="col-6 blockHead" v-if="pontuacao == '5'"><span
+                                                            class="blocktext">Muito Bom</span>
+                                                    </div>
+                                                    <div class="col-5 rate">
+                                                        <input type="radio" id="star5" v-model="pontuacao" value="5" />
+                                                        <label for="star5" title="text">5 stars</label>
+                                                        <input type="radio" id="star4" v-model="pontuacao" value="4" />
+                                                        <label for="star4" title="text">4 stars</label>
+                                                        <input type="radio" id="star3" v-model="pontuacao" value="3" />
+                                                        <label for="star3" title="text">3 stars</label>
+                                                        <input type="radio" id="star2" v-model="pontuacao" value="2" />
+                                                        <label for="star2" title="text">2 stars</label>
+                                                        <input type="radio" id="star1" v-model="pontuacao" value="1" />
+                                                        <label for="star1" title="text">1 star</label>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
