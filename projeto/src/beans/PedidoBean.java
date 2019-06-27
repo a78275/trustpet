@@ -271,15 +271,18 @@ public class PedidoBean implements PedidoBeanLocal {
 
         // Buscar Petsitters que fazem os serviços pretendidos
         Set<String> emailsPetsitters = getPetsittersServico(animalServicos, session);
+        System.out.println("servicos - " + emailsPetsitters.toString());
 
         // Buscar Petsitters que trabalham neste horário
         if (emailsPetsitters != null) {
             emailsPetsitters = getPetsittersHorario(dataInicio, dataFim, session, emailsPetsitters);
+            System.out.println("trabhorario - " + emailsPetsitters.toString());
         }
 
         // Remover Petsitters que têm pedidos neste horário
         if (emailsPetsitters != null) {
             emailsPetsitters = removePetsittersComPedidos(session, emailsPetsitters, dataInicio, dataFim);
+            System.out.println("pedservicos - " + emailsPetsitters.toString());
         }
 
         // Buscar Petsitters
@@ -485,7 +488,7 @@ public class PedidoBean implements PedidoBeanLocal {
                 for (int servico : e.getValue()) {
                     try {
                         // Get precoPetsitterServicos do serviço
-                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servico='" + servico + "'", null);
+                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servicoid='" + servico + "'", null);
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
                             if (!emailsPetsitters.add(pps.getPetsitter().getEmail())) {
@@ -504,7 +507,7 @@ public class PedidoBean implements PedidoBeanLocal {
                 for (int servico : e.getValue()) {
                     try {
                         // Get precoPetsitterServicos do serviço
-                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servico='" + servico + "'", null);
+                        List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servicoid='" + servico + "'", null);
                         Set<String> emailsPetsittersAux = new HashSet<>();
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
@@ -558,7 +561,7 @@ public class PedidoBean implements PedidoBeanLocal {
         PersistentSession session = getSession();
         try {
             // Get dos pedidos do utilizador
-            return FacadeDAOs.listPedido(session, "dono='" + email + "' OR petsitter='" + email + "' AND ativo='" + true + "'", "dataInicio");
+            return FacadeDAOs.listPedido(session, "donoutilizadoremail='" + email + "' OR petsitterutilizadoremail='" + email + "' AND ativo='" + true + "'", "dataInicio");
         } catch (PersistentException e) {
             e.printStackTrace();
             return null;
