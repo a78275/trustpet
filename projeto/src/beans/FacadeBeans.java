@@ -280,6 +280,15 @@ public class FacadeBeans {
         return pedidoBean.editarPedido(idPedido,dataInicio,dataFim);
     }
 
+    /**
+     *
+     * @param email
+     */
+
+    public static Map<String, Double> getServicosPetsitter(String email){
+        return petsitterBean.getServicosPetsitter(email);
+    }
+
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {
         try {
             Context c = new InitialContext();

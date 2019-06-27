@@ -6,6 +6,7 @@ import org.orm.PersistentSession;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -229,5 +230,20 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
         // Create e save dos precoPetsitterServicos
         return createPrecoPetsitterServicos(servicos, session, petsitter);
+    }
+
+    @Override
+    public Map<String, Double> getServicosPetsitter(String email) {
+        try {
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitter='" + email + "'", null);
+            Map<String, Double> servicos = new HashMap<>();
+            for (PrecoPetsitterServico ps : precoPetsitterServicos){
+                servicos.put(ps.getServico().getDesignacao(), ps.getPreco());
+            }
+
+            return servicos;
+        } catch (PersistentException e) {
+            return null;
+        }
     }
 }
