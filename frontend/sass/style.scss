@@ -369,7 +369,7 @@ body {
 
   &:hover{
     color: $dark-blue;
-    background-color: $light-pink;
+    background-color: $pink;
     text-decoration: none;
     box-shadow: 0px 5px 5px rgba(2, 29, 44, 0.705);
     transform: translateY(-5px);
@@ -395,8 +395,8 @@ body {
     color: $dark-blue;
 
     &:hover{
-      color: $dark-blue;
-      background-color: white;
+      color: white;
+      background-color: $dark-blue;
       text-decoration: none;
       box-shadow: 0px 5px 5px rgba(2, 29, 44, 0.705);
       transform: translateY(-5px);
