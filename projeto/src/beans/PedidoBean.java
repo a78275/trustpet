@@ -272,18 +272,15 @@ public class PedidoBean implements PedidoBeanLocal {
 
         // Buscar Petsitters que fazem os serviços pretendidos
         Set<String> emailsPetsitters = getPetsittersServico(animalServicos, session);
-        System.out.println("servicos - " + emailsPetsitters.toString());
 
         // Buscar Petsitters que trabalham neste horário
         if (emailsPetsitters != null) {
             emailsPetsitters = getPetsittersHorario(dataInicio, dataFim, session, emailsPetsitters);
-            System.out.println("trabhorario - " + emailsPetsitters.toString());
         }
 
         // Remover Petsitters que têm pedidos neste horário
         if (emailsPetsitters != null) {
-            emailsPetsitters = removePetsittersComPedidos(session, emailsPetsitters, dataInicio, dataFim);
-            System.out.println("pedservicos - " + emailsPetsitters.toString());
+            emailsPetsitters = removerPetsittersComPedidos(session, emailsPetsitters, dataInicio, dataFim);
         }
 
         // Buscar Petsitters
@@ -308,15 +305,15 @@ public class PedidoBean implements PedidoBeanLocal {
         return petsitters;
     }
 
-    private Set<String> removePetsittersComPedidos(PersistentSession session, Set<String> emailsPetsitters, Date dataInicio, Date dataFim) {
+    private Set<String> removerPetsittersComPedidos(PersistentSession session, Set<String> emailsPetsitters, Date dataInicio, Date dataFim) {
         try {
             List<Pedido> pedidos = FacadeDAOs.listPedido(session, null, null);
             for (Pedido pedido : pedidos) {
                 if (checkPedidoNoHorario(pedido, dataInicio, dataFim)) {
-                    String emailPetsitter = pedido.getPetsitter().getEmail();
-
-                    if (!emailsPetsitters.remove(emailPetsitter)) {
-                        return null;
+                    Petsitter petsitter = pedido.getPetsitter();
+                    if(petsitter != null) {
+                        String emailPetsitter = petsitter.getEmail();
+                        emailsPetsitters.remove(emailPetsitter);
                     }
                 }
             }
@@ -348,14 +345,10 @@ public class PedidoBean implements PedidoBeanLocal {
 
         // Cálculo da interseção entre datas
         if (pedidoDataInicio != null && pedidoDataFim != null) {
-            if ((pedidoDataFim.after(dataInicio) && pedidoDataFim.before(dataFim)) ||
+            return (pedidoDataFim.after(dataInicio) && pedidoDataFim.before(dataFim)) ||
                     (pedidoDataInicio.after(dataInicio) && pedidoDataInicio.before(dataFim)) ||
                     (dataInicio.after(pedidoDataInicio) && dataFim.before(pedidoDataFim)) ||
-                    (dataInicio.equals(pedidoDataInicio) && dataFim.equals(pedidoDataFim))) {
-                return true;
-            } else {
-                return false;
-            }
+                    (dataInicio.equals(pedidoDataInicio) && dataFim.equals(pedidoDataFim));
         }
 
         return false;
@@ -367,14 +360,10 @@ public class PedidoBean implements PedidoBeanLocal {
             try {
                 Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
                 if (checkPetsitterHorario(petsitter, dataInicio, dataFim)) {
-                    if (!emailsPetsittersAux.add(petsitter.getEmail())) {
-                        return null;
-                    }
+                    emailsPetsittersAux.add(petsitter.getEmail());
                 }
 
-                if (!emailsPetsitters.retainAll(emailsPetsittersAux)) {
-                    return null;
-                }
+                emailsPetsitters.retainAll(emailsPetsittersAux);
             } catch (PersistentException e) {
                 e.printStackTrace();
                 return null;
@@ -492,9 +481,7 @@ public class PedidoBean implements PedidoBeanLocal {
                         List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "servicoid='" + servico + "'", null);
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
-                            if (!emailsPetsitters.add(pps.getPetsitter().getEmail())) {
-                                return null;
-                            }
+                            emailsPetsitters.add(pps.getPetsitter().getEmail());
                         }
                     } catch (PersistentException e1) {
                         e1.printStackTrace();
@@ -512,9 +499,7 @@ public class PedidoBean implements PedidoBeanLocal {
                         Set<String> emailsPetsittersAux = new HashSet<>();
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
-                            if (!emailsPetsittersAux.add(pps.getPetsitter().getEmail())) {
-                                return null;
-                            }
+                            emailsPetsittersAux.add(pps.getPetsitter().getEmail());
                         }
                         // Interseção dos dois sets
                         if (!emailsPetsitters.retainAll(emailsPetsittersAux)) {
