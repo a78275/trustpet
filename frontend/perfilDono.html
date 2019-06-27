@@ -23,6 +23,12 @@
         crossorigin="anonymous"></script>
 </head>
 
+<style>
+    .table td {
+        border: #ebd0ce solid 1px !important;
+    }
+</style>
+
 <body>
     <div class="wrapper" id="dono">
         <!-- Navbar -->
@@ -45,16 +51,33 @@
                             <h2 class="text-uppercase" style="font-size:1.7em; font-weight: 500;">
                                 {{ perfil.nome }}</h2>
                         </span>
-                        <hr
-                            style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
-
                         <table class="table table-bordered"
                             style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
                             <tbody style="color: #545871;">
                                 <tr>
                                     <td style="text-align: center;">
-                                        <i class='fa fa-birthday-cake' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.dataNasc }}
+                                        <i class='fas fa-at' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ perfil.email }}
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <i class='fas fa-home' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ perfil.morada }}
+                                    </td>
+
+                                    <td v-if="perfil.jardim==true" style="text-align: center;">
+                                        <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>Jardim
+                                    </td>
+                                    <td v-else style="text-align: center;">
+                                        <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>Jardim
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <i class='fa fa-phone' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ perfil.contacto }}
                                     </td>
 
                                     <td style="text-align: center;">
@@ -69,13 +92,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td v-if="perfil.jardim==true" style="text-align: center;">
-                                        <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>Jardim
-                                    </td>
-                                    <td v-else style="text-align: center;">
-                                        <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>Jardim
+                                    <td style="text-align: center;">
+                                        <i class='fa fa-birthday-cake' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ perfil.dataNasc }}
                                     </td>
 
                                     <td style="text-align: center;">
@@ -89,22 +108,6 @@
                                         <br>{{ perfil.nrAvaliacoes }}
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td style="text-align: center;">
-                                        <i class='fas fa-at' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.email }}
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <i class='fa fa-phone' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.contacto }}
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <i class='fas fa-home' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.morada }}
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>
@@ -114,6 +117,15 @@
             <section>
                 <div class="justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">OS SEUS ANIMAIS</h1>
+                    <div v-if="animais.length==0" class="alert alert-danger" role="alert">
+                        <h4 class="alert-heading">Ainda não tem animais registados!</h4>
+                        <p>Aww yeah, you successfully read this important alert message. This example text is going to
+                            run a bit longer so
+                            that you can see how spacing within an alert works with this kind of content.</p>
+                        <hr>
+                        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and
+                            tidy.</p>
+                    </div>
                     <div class="row mx-1">
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" v-for="animal in animais"
                             v-bind:key="animal.id">
@@ -126,9 +138,6 @@
                                     style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
                                 <h3 class="text-uppercase text-center mt-2">{{ animal.nome }}</h3>
                                 <p class="text-center">{{ animal.raca }}</p>
-                                <hr
-                                    style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
-
                                 <table class="table table-bordered"
                                     style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
                                     <tbody style="color: #545871;">
@@ -199,7 +208,7 @@
             </section>
 
             <section class="p-2">
-                <div class="justify-content-center text-center">
+                <div class="justify-content-center text-center" v-if="reviews.length>0">
                     <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">REVIEWS</h1>
                     <div class="card m-3" style="color:#545871;" v-for="review in reviews">
                         <table class="" style="width:97%; margin-left: auto; margin-right: auto;">
