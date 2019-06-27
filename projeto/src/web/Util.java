@@ -534,4 +534,17 @@ public class Util {
 
         return obj;
     }
+
+    public static JSONArray parseServicosPetsitterMap(Map<String, Double> servicosPetsitter) {
+        JSONArray arr = new JSONArray();
+
+        for (Map.Entry<String, Double> e : servicosPetsitter.entrySet()) {
+            JSONObject obj = new JSONObject();
+            obj.put("servico", e.getKey());
+            obj.put("preco", e.getValue());
+            arr.put(obj);
+        }
+
+        return arr;
+    }
 }

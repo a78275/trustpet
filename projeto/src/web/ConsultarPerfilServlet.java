@@ -2,8 +2,7 @@ package web;
 
 import beans.FacadeBeans;
 import com.google.gson.Gson;
-import main.Review;
-import main.Utilizador;
+import main.*;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -14,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
 import java.util.List;
 
 @WebServlet(name = "ConsultarPerfilServlet", urlPatterns = {"/ConsultarPerfil"})
@@ -33,11 +33,20 @@ public class ConsultarPerfilServlet extends HttpServlet {
             // Erro nos beans
             if (tipo != null) {
                 Utilizador utilizador = FacadeBeans.consultarPerfil(email, tipo);
-                mensagem.put("success", true);
-                mensagem.put("utilizador", Util.parseUtilizador(utilizador));
+                if (utilizador != null) {
+                    List<Review> reviewsList = FacadeBeans.consultarReviews(email, tipo);
+                    mensagem.put("reviews", Util.parseReviews(reviewsList));
 
-                List<Review> reviewsList = FacadeBeans.consultarReviews(email,tipo);
-                mensagem.put("reviews", Util.parseReviews(reviewsList));
+                    if (tipo.equals("petsitter")) {
+                        Petsitter petsitter = (Petsitter) utilizador;
+                        mensagem.put("utilizador", Util.parsePetsitter(petsitter));
+                        mensagem.put("servicos", Util.parseServicosPetsitterMap(FacadeBeans.getServicosPetsitter(email)));
+                    } else if (tipo.equals("dono")) {
+                        Dono dono = (Dono) utilizador;
+                        mensagem.put("utilizador", Util.parseDono(dono));
+                    }
+
+                    mensagem.put("success", true);
             } else {
                 mensagem.put("success", false);
             }
@@ -63,17 +72,28 @@ public class ConsultarPerfilServlet extends HttpServlet {
         if (email != null) {
             String tipo = FacadeBeans.tipoUtilizador(emailConsulta);
 
-            Utilizador utilizador = FacadeBeans.consultarPerfil(emailConsulta,tipo);
-            if (utilizador != null) {
-                mensagem.put("success", true);
-                mensagem.put("utilizador", Util.parseUtilizador(utilizador));
+            if (tipo != null){
+                Utilizador utilizador = FacadeBeans.consultarPerfil(emailConsulta, tipo);
+                if (utilizador != null) {
+                    List<Review> reviewsList = FacadeBeans.consultarReviews(email, tipo);
+                    mensagem.put("reviews", Util.parseReviews(reviewsList));
 
-                List<Review> reviews = FacadeBeans.consultarReviews(emailConsulta,tipo);
-                Gson gson = new Gson();
-                mensagem.put("reviews",gson.toJson(reviews));
+                    if (tipo.equals("petsitter")) {
+                        Petsitter petsitter = (Petsitter) utilizador;
+                        mensagem.put("utilizador", Util.parsePetsitter(petsitter));
+                        mensagem.put("servicos", Util.parsePrecoServico(FacadeBeans.getPrecoServico(emailConsulta)));
+                    } else if (tipo.equals("dono")) {
+                        Dono dono = (Dono) utilizador;
+                        mensagem.put("utilizador", Util.parseDono(dono));
+                    }
+
+                    mensagem.put("success", true);
+                }
             } else {
                 mensagem.put("success", false);
             }
+        } else {
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);
