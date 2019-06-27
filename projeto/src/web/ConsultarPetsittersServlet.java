@@ -3,6 +3,7 @@ package web;
 import beans.FacadeBeans;
 import com.google.gson.Gson;
 import main.Petsitter;
+import main.Review;
 import org.json.JSONObject;
 import org.orm.PersistentSession;
 
@@ -26,13 +27,12 @@ public class ConsultarPetsittersServlet extends HttpServlet {
 
         List<Petsitter> petsitters = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"));
 
-        // Erro nos beans
-        if(petsitters == null){
-            mensagem.put("success", false);
-        }
-        else {
+        if(petsitters != null){
             mensagem.put("success", true);
             mensagem.put("petsitters", Util.parsePetsittersList(petsitters));
+        }
+        else {
+            mensagem.put("success", false);
         }
 
         out.print(mensagem);

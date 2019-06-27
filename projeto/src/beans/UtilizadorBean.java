@@ -333,7 +333,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         List<Review> reviews = null;
         if(tipo.equals("dono")) {
             try {
-                reviews = FacadeDAOs.listReviews(session,"donoutilizadoremail = '" + email + "'",null);
+                reviews = FacadeDAOs.listReviews(session,"donoutilizadoremail = '" + email + "' AND alvo = 'dono'",null);
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
@@ -341,7 +341,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         }
         else if (tipo.equals("petsitter")) {
             try {
-                reviews = FacadeDAOs.listReviews(session,"petsitterutilizadoremail = '" + email + "'",null);
+                reviews = FacadeDAOs.listReviews(session,"petsitterutilizadoremail = '" + email + "' AND alvo = 'petsitter'",null);
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
