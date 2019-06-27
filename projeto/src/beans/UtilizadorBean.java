@@ -17,40 +17,12 @@ import java.util.List;
 @Local(UtilizadorBeanLocal.class)
 @Stateless(name = "UtilizadorBean")
 public class UtilizadorBean implements UtilizadorBeanLocal {
-    //private PersistentSession session;
-
-    /*private PersistentSession getSession() {
-        if(this.session==null){
-            try {
-                this.session= TrustPetPersistentManager.instance().getSession();
-                System.out.println("Creating new persistent session");
-            } catch (PersistentException e) {
-                e.printStackTrace();
-            }
-        }
-        else {
-            System.out.println("Reusing persistent session");
-        }
-        return this.session;
-    }*/
-
-    private PersistentSession getSession() {
-        PersistentSession session = null;
-        try {
-            session= TrustPetPersistentManager.instance().getSession();
-            System.out.println("Creating new persistent session");
-        } catch (PersistentException e) {
-            e.printStackTrace();
-        }
-        return session;
-    }
 
     @Override
     public boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
-        PersistentSession session = getSession();
         Utilizador utilizador = null;
         try {
-            utilizador=FacadeDAOs.getUtilizador(session,email);
+            utilizador=FacadeDAOs.getUtilizador(email);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -116,11 +88,10 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public boolean avaliarUtilizador(String emailDono, String emailPetsitter, int avaliacao, String comentario, String alvo) {
-        PersistentSession session = getSession();
         Review review = FacadeDAOs.createReview();
         Dono dono = null;
         try {
-            dono = FacadeDAOs.getDono(session, emailDono);
+            dono = FacadeDAOs.getDono(emailDono);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -132,7 +103,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         review.setDono(dono);
         Petsitter petsitter = null;
         try {
-            petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
+            petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
         } catch (PersistentException e) {
             e.printStackTrace();
         }
@@ -195,11 +166,11 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public Utilizador consultarPerfil(String email, String tipoUtilizador) {
-        PersistentSession session = getSession();
+        
         if (tipoUtilizador.equals("dono")) {
             Dono dono = null;
             try {
-                dono = FacadeDAOs.getDono(session, email);
+                dono = FacadeDAOs.getDono(email);
             } catch (PersistentException e) {
                 // Dono não existe
                 e.printStackTrace();
@@ -209,7 +180,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         } else if (tipoUtilizador.equals("petsitter")) {
             Petsitter petsitter = null;
             try {
-                petsitter = FacadeDAOs.getPetsitter(session, email);
+                petsitter = FacadeDAOs.getPetsitter(email);
             } catch (PersistentException e) {
                 // Petsitter não existe
                 e.printStackTrace();
@@ -224,22 +195,21 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo) {
-        PersistentSession session = getSession();
         // Inativação de utilizador por parte do admin
         if (nome == null && !ativo) {
-            return inativarUtilizador(email, tipoUtilizador, session);
+            return inativarUtilizador(email, tipoUtilizador);
         }
         // Editar dados por parte dos utilizadores
         else {
-            return editarDadosUtilizador(nome, email, dataNasc, contacto, jardim, morada, password, avatar, tipoUtilizador, concelho, distrito, ativo, session);
+            return editarDadosUtilizador(nome, email, dataNasc, contacto, jardim, morada, password, avatar, tipoUtilizador, concelho, distrito, ativo);
         }
     }
 
-    private boolean inativarUtilizador(String email, String tipoUtilizador, PersistentSession session) {
+    private boolean inativarUtilizador(String email, String tipoUtilizador) {
         if (tipoUtilizador.equals("dono")) {
             Dono dono = null;
             try {
-                dono = FacadeDAOs.getDono(session, email);
+                dono = FacadeDAOs.getDono(email);
             } catch (PersistentException e) {
                 // Dono não existe
                 e.printStackTrace();
@@ -258,7 +228,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         } else if (tipoUtilizador.equals("petsitter")) {
             Petsitter petsitter = null;
             try {
-                petsitter = FacadeDAOs.getPetsitter(session, email);
+                petsitter = FacadeDAOs.getPetsitter(email);
             } catch (PersistentException e) {
                 // Petsitter não existe
                 e.printStackTrace();
@@ -280,11 +250,11 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         }
     }
 
-    private boolean editarDadosUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo, PersistentSession session) {
+    private boolean editarDadosUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo) {
         if (tipoUtilizador.equals("dono")) {
             Dono dono = null;
             try {
-                dono = FacadeDAOs.getDono(session, email);
+                dono = FacadeDAOs.getDono(email);
             } catch (PersistentException e) {
                 // Dono não existe
                 e.printStackTrace();
@@ -315,7 +285,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         } else if (tipoUtilizador.equals("petsitter")) {
             Petsitter petsitter = null;
             try {
-                petsitter = FacadeDAOs.getPetsitter(session, email);
+                petsitter = FacadeDAOs.getPetsitter(email);
             } catch (PersistentException e) {
                 // Petsitter não existe
                 e.printStackTrace();
@@ -351,11 +321,10 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public List<Review> consultarReviews(String email, String tipo) {
-        PersistentSession session = getSession();
         List<Review> reviews = null;
         if(tipo.equals("dono")) {
             try {
-                reviews = FacadeDAOs.listReviews(session,"donoutilizadoremail = '" + email + "' AND alvo = 'dono'",null);
+                reviews = FacadeDAOs.listReviews("donoutilizadoremail = '" + email + "' AND alvo = 'dono'",null);
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
@@ -363,7 +332,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         }
         else if (tipo.equals("petsitter")) {
             try {
-                reviews = FacadeDAOs.listReviews(session,"petsitterutilizadoremail = '" + email + "' AND alvo = 'petsitter'",null);
+                reviews = FacadeDAOs.listReviews("petsitterutilizadoremail = '" + email + "' AND alvo = 'petsitter'",null);
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
@@ -373,10 +342,9 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public String tipoUtilizador(String email) {
-        PersistentSession session = getSession();
         Utilizador user = null;
         try {
-            user = FacadeDAOs.getUtilizador(session, email);
+            user = FacadeDAOs.getUtilizador(email);
         } catch (PersistentException e) {
             e.printStackTrace();
         }

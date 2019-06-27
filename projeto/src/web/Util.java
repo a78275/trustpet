@@ -303,11 +303,15 @@ public class Util {
 
     private static JSONObject parseHorario(Horario horario) {
         JSONObject obj = new JSONObject();
+        if(horario!=null) {
+            obj.put("id", horario.getId());
+            obj.put("dias", parseDiasCollection(horario.dias));
 
-        obj.put("id", horario.getId());
-        obj.put("dias", parseDiasCollection(horario.dias));
-
-        return obj;
+            return obj;
+        }
+        else {
+            return null;
+        }
     }
 
     private static JSONArray parseDiasCollection(DiaSetCollection dias) {
