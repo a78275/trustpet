@@ -168,7 +168,7 @@ public class PedidoBean implements PedidoBeanLocal {
         String parsedDataFim = format.format(dataInicio);
         pedido.setDataFim(parsedDataFim);
 
-        // Set do estado
+        //TODO Tirar
         pedido.setAtivo(true);
 
         // Save do pedido na BD
@@ -208,6 +208,7 @@ public class PedidoBean implements PedidoBeanLocal {
 
         double preco = calcularPreco(pedido,petsitter);
         pedido.setPreco(preco);
+        pedido.setAtivo(true);
 
         // Save do pedido na BD
         boolean save = false;

@@ -33,4 +33,16 @@ public interface AutenticarBeanLocal {
      * @param password
      */
     boolean autenticarAdministrador(String email, String password);
+
+    /**
+     *
+     * @param email
+     */
+    String isAutenticado(String email);
+
+    /**
+     *
+     * @param email
+     */
+    boolean logout(String email);
 }

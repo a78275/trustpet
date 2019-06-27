@@ -1,6 +1,5 @@
 package beans;
 
-import org.orm.PersistentSession;
 import main.*;
 
 import javax.naming.Context;
@@ -288,6 +287,24 @@ public class FacadeBeans {
     public static Map<String, Double> getServicosPetsitter(String email){
         return petsitterBean.getServicosPetsitter(email);
     }
+
+    /**
+     *
+     * @param email
+     */
+    public static String isAutenticado(String email) {
+        return autenticarBean.isAutenticado(email);
+    }
+
+    /**
+     *
+     * @param email
+     */
+    public static boolean logout(String email) {
+        return autenticarBean.logout(email);
+    }
+
+
 
     private static AutenticarBeanLocal lookupAutenticarBeanLocal() {
         try {
