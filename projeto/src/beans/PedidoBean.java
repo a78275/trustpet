@@ -14,20 +14,32 @@ import java.util.*;
 @Local(PedidoBeanLocal.class)
 @Stateless(name = "PedidoBean")
 public class PedidoBean implements PedidoBeanLocal {
-    private PersistentSession session;
+    //private PersistentSession session;
 
-    private PersistentSession getSession() {
-        if (this.session == null) {
+    /*private PersistentSession getSession() {
+        if(this.session==null){
             try {
-                this.session = TrustPetPersistentManager.instance().getSession();
+                this.session= TrustPetPersistentManager.instance().getSession();
                 System.out.println("Creating new persistent session");
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
-        } else {
+        }
+        else {
             System.out.println("Reusing persistent session");
         }
         return this.session;
+    }*/
+
+    private PersistentSession getSession() {
+        PersistentSession session = null;
+        try {
+            session= TrustPetPersistentManager.instance().getSession();
+            System.out.println("Creating new persistent session");
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        return session;
     }
 
     @Override
@@ -206,7 +218,7 @@ public class PedidoBean implements PedidoBeanLocal {
             return false;
         }
 
-        double preco = calcularPreco(pedido,petsitter);
+        double preco = calcularPreco(pedido,petsitter,session);
         pedido.setPreco(preco);
         pedido.setAtivo(true);
 
@@ -222,7 +234,7 @@ public class PedidoBean implements PedidoBeanLocal {
         return save;
     }
 
-    private double calcularPreco (Pedido pedido, Petsitter petsitter) {
+    private double calcularPreco (Pedido pedido, Petsitter petsitter, PersistentSession session) {
         // Get dos precoPetsitterServicos
         Map<Integer, Double> servicoPreco = null;
         try {
@@ -294,7 +306,7 @@ public class PedidoBean implements PedidoBeanLocal {
             for (String emailPetsitter : emailsPetsitters) {
                 try {
                     Petsitter petsitter = FacadeDAOs.getPetsitter(session, emailPetsitter);
-                    double preco = calcularPreco(pedido,petsitter);
+                    double preco = calcularPreco(pedido,petsitter,session);
                     petsitters.put(petsitter,preco);
                 } catch (PersistentException e) {
                     e.printStackTrace();

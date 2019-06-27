@@ -14,9 +14,9 @@ import java.util.Set;
 @Local(DonoBeanLocal.class)
 @Stateless(name="DonoBean")
 public class DonoBean implements DonoBeanLocal {
-    private PersistentSession session;
+    //private PersistentSession session;
 
-    private PersistentSession getSession() {
+    /*private PersistentSession getSession() {
         if(this.session==null){
             try {
                 this.session= TrustPetPersistentManager.instance().getSession();
@@ -29,11 +29,28 @@ public class DonoBean implements DonoBeanLocal {
             System.out.println("Reusing persistent session");
         }
         return this.session;
+    }*/
+
+    private PersistentSession getSession() {
+        PersistentSession session = null;
+        try {
+            session= TrustPetPersistentManager.instance().getSession();
+            System.out.println("Creating new persistent session");
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        return session;
     }
 
     @Override
     public boolean registarAnimal(String emailDono, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo) {
-        PersistentSession session = getSession();
+        PersistentSession session = null;
+        try {
+            session = TrustPetPersistentManager.instance().getSession();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        ;
         Animal animal = FacadeDAOs.createAnimal();
         animal.setNome(nome);
         animal.setIdade(idade);
@@ -84,7 +101,13 @@ public class DonoBean implements DonoBeanLocal {
 
     @Override
     public List<Animal> consultarAnimais(String emailDono) {
-        PersistentSession session = getSession();
+        PersistentSession session = null;
+        try {
+            session = TrustPetPersistentManager.instance().getSession();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        ;
         Dono dono = null;
         try {
             dono = FacadeDAOs.getDono(session,emailDono);
@@ -106,7 +129,13 @@ public class DonoBean implements DonoBeanLocal {
 
     @Override
     public boolean editarAnimal(int id, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo) {
-        PersistentSession session = getSession();
+        PersistentSession session = null;
+        try {
+            session = TrustPetPersistentManager.instance().getSession();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        ;
         Animal animal = null;
         try {
             animal= FacadeDAOs.getAnimal(session,id);

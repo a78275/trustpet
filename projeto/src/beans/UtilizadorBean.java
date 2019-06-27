@@ -17,9 +17,9 @@ import java.util.List;
 @Local(UtilizadorBeanLocal.class)
 @Stateless(name = "UtilizadorBean")
 public class UtilizadorBean implements UtilizadorBeanLocal {
-    private PersistentSession session;
+    //private PersistentSession session;
 
-    private PersistentSession getSession() {
+    /*private PersistentSession getSession() {
         if(this.session==null){
             try {
                 this.session= TrustPetPersistentManager.instance().getSession();
@@ -32,6 +32,17 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             System.out.println("Reusing persistent session");
         }
         return this.session;
+    }*/
+
+    private PersistentSession getSession() {
+        PersistentSession session = null;
+        try {
+            session= TrustPetPersistentManager.instance().getSession();
+            System.out.println("Creating new persistent session");
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        return session;
     }
 
     @Override

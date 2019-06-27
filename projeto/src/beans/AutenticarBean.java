@@ -17,9 +17,9 @@ import java.util.Random;
 @Local(AutenticarBeanLocal.class)
 @Stateless(name="AutenticarBean")
 public class AutenticarBean implements AutenticarBeanLocal {
-    private PersistentSession session;
+    //private PersistentSession session;
 
-    private PersistentSession getSession() {
+    /*private PersistentSession getSession() {
         if(this.session==null){
             try {
                 this.session= TrustPetPersistentManager.instance().getSession();
@@ -32,10 +32,22 @@ public class AutenticarBean implements AutenticarBeanLocal {
             System.out.println("Reusing persistent session");
         }
         return this.session;
+    }*/
+
+    private PersistentSession getSession() {
+        PersistentSession session = null;
+        try {
+            session= TrustPetPersistentManager.instance().getSession();
+            System.out.println("Creating new persistent session");
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        return session;
     }
 
     @Override
     public boolean autenticar(String email, String password) {
+        PersistentSession session = getSession();
         Utilizador utilizador = null;
         try {
             utilizador = FacadeDAOs.getUtilizador(session,email);

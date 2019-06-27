@@ -13,9 +13,9 @@ import java.util.Map;
 @Local(PetsitterBeanLocal.class)
 @Stateless(name="PetsitterBean")
 public class PetsitterBean implements PetsitterBeanLocal {
-    private PersistentSession session;
+    //private PersistentSession session;
 
-    private PersistentSession getSession() {
+    /*private PersistentSession getSession() {
         if(this.session==null){
             try {
                 this.session= TrustPetPersistentManager.instance().getSession();
@@ -28,11 +28,28 @@ public class PetsitterBean implements PetsitterBeanLocal {
             System.out.println("Reusing persistent session");
         }
         return this.session;
+    }*/
+
+    private PersistentSession getSession() {
+        PersistentSession session = null;
+        try {
+            session= TrustPetPersistentManager.instance().getSession();
+            System.out.println("Creating new persistent session");
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        return session;
     }
 
     @Override
     public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
-        PersistentSession session = getSession();
+        PersistentSession session = null;
+        try {
+            session = TrustPetPersistentManager.instance().getSession();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        ;
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -70,7 +87,13 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
-        PersistentSession session = getSession();
+        PersistentSession session = null;
+        try {
+            session = TrustPetPersistentManager.instance().getSession();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        ;
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -117,7 +140,13 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario) {
-        PersistentSession session = getSession();
+        PersistentSession session = null;
+        try {
+            session = TrustPetPersistentManager.instance().getSession();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        ;
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -190,7 +219,13 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public List<Petsitter> consultarPetsitters(String filtro, String ordem) {
-        PersistentSession session = getSession();
+        PersistentSession session = null;
+        try {
+            session = TrustPetPersistentManager.instance().getSession();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        ;
         try {
             // Get dos Petsitters
             return FacadeDAOs.listPetsitters(session, filtro, ordem);
@@ -202,7 +237,12 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
-        PersistentSession session = getSession();
+        PersistentSession session = null;
+        try {
+            session = TrustPetPersistentManager.instance().getSession();
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -234,6 +274,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public Map<String, Double> getServicosPetsitter(String email) {
+        PersistentSession session = getSession();
         try {
             List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico(session, "petsitterutilizadoremail='" + email + "'", null);
             Map<String, Double> servicos = new HashMap<>();
