@@ -22,7 +22,7 @@ Vue.component('sidebardono', {
                     <a href="perfilDono.html">Consultar Perfil</a>
                 </li>
                 <li>
-                    <a href="#">Editar Dados Pessoais</a>
+                    <a href="editarDadosDono.html">Editar Dados Pessoais</a>
                 </li>
                 <li>
                     <a href="#">Editar Dados dos Animais</a>
@@ -49,6 +49,14 @@ Vue.component('sidebardono', {
 var vm = new Vue({
     el: "#dono",
     data: {
+        email: "",
+        password: "",
+        dataNasc: "",
+        contacto: "",
+        morada: "",
+        jardim: "",
+        distrito: "",
+        concelho: "",
         nome: "",
         avatar: "",
         tipo: "",
@@ -95,7 +103,8 @@ var vm = new Vue({
         petsitter: {},
         comentario: "",
         pontuacao: 0,
-        reviews: []
+        reviews: [],
+        utilizador: {}
     },
     created: async function () {
         if (localStorage.token) {
@@ -170,6 +179,20 @@ var vm = new Vue({
                 }
                 if (window.location.href == "http://localhost/selPetsitter.html") {
                     this.petsitters = JSON.parse(localStorage.petsitters)
+                }
+                if (window.location.href == "http://localhost/editarDadosDono.html") {
+                    let date = this.perfil.dataNasc.split("/")
+                    let newDate = + date[2] + "-" + date[1] + "-" + date[0]
+                    this.nome = this.perfil.nome
+                    this.email = this.perfil.email
+                    this.password = this.perfil.password
+                    this.dataNasc = newDate
+                    this.contacto = this.perfil.contacto
+                    this.avatar = this.perfil.avatar
+                    this.morada = this.perfil.morada
+                    this.distrito = this.perfil.distrito
+                    this.concelho = this.perfil.concelho
+                    this.jardim = this.perfil.jardim
                 }
             } else {
                 window.location.replace("http://localhost/index.html")
@@ -282,6 +305,67 @@ var vm = new Vue({
                 esterilizacao: est,
                 raca: this.raca,
                 tipo: this.tipo
+            }
+        },
+        camposObrigatorios: async function () {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Change content
+            x.textContent = "É necessário preencher todos os campos obrigatórios."
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        },
+        registoDono: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarDono", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: JSON.stringify(this.utilizador)
+            })
+            const content = await response.json()
+
+            if (content.success) {
+                localStorage.token = content.token
+                this.token = content.token
+                window.location.replace("http://localhost/adicionarAnimal.html")
+            }
+            else {
+                // Get the snackbar DIV
+                var x = document.getElementById("snackbar");
+
+                // Change content
+                x.textContent = "Ocorreu um erro ao efetuar o registo."
+
+                // Add the "show" class to DIV
+                x.className = "show";
+
+                // After 3 seconds, remove the show class from DIV
+                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            }
+        },
+        criarUtilizador: async function () {
+            let jard = "false"
+            if (this.jardim)
+                jard = "true"
+            let date = new Date(this.dataNasc)
+            let newDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+            this.utilizador = {
+                email: this.email,
+                password: this.password,
+                nome: this.nome,
+                avatar: this.avatar,
+                dataNasc: newDate,
+                contacto: this.contacto,
+                jardim: jard,
+                morada: this.morada,
+                concelho: this.concelho,
+                distrito: this.distrito
             }
         }
     }

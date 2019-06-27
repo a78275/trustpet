@@ -76,6 +76,9 @@
                     <div class="row pb-4">
                         <div style="width: 80%; margin-left: auto; margin-right: auto;">
                             <form class="my-3">
+                                <th><input type="checkbox" id="selectall1" /></th>
+                                <th>Cell phone</th>
+                                <th>Rating</th>
                                 <table class="table table-striped" style="table-layout: fixed;">
                                     <thead>
                                         <tr>
@@ -93,31 +96,31 @@
                                         <tr v-for="i in 24">
                                             <th scope="row">{{ i }}h</th>
                                             <td style="text-align: center;">
-                                                <input class="form-check-input" type="checkbox" :value="`1:${i}`"
+                                                <input :id="`hora${i}`" type="checkbox" :value="`1:${i}`"
                                                     v-model="horario">
                                             </td>
                                             <td style="text-align: center;">
-                                                <input class="form-check-input" type="checkbox" :value="`2:${i}`"
+                                                <input :id="`hora${i}`" type="checkbox" :value="`2:${i}`"
                                                     v-model="horario">
                                             </td>
                                             <td style="text-align: center;">
-                                                <input class="form-check-input" type="checkbox" :value="`3:${i}`"
+                                                <input :id="`hora${i}`" type="checkbox" :value="`3:${i}`"
                                                     v-model="horario">
                                             </td>
                                             <td style="text-align: center;">
-                                                <input class="form-check-input" type="checkbox" :value="`4:${i}`"
+                                                <input :id="`hora${i}`" type="checkbox" :value="`4:${i}`"
                                                     v-model="horario">
                                             </td>
                                             <td style="text-align: center;">
-                                                <input class="form-check-input" type="checkbox" :value="`5:${i}`"
+                                                <input :id="`hora${i}`" type="checkbox" :value="`5:${i}`"
                                                     v-model="horario">
                                             </td>
                                             <td style="text-align: center;">
-                                                <input class="form-check-input" type="checkbox" :value="`6:${i}`"
+                                                <input :id="`hora${i}`" type="checkbox" :value="`6:${i}`"
                                                     v-model="horario">
                                             </td>
                                             <td style="text-align: center;">
-                                                <input class="form-check-input" type="checkbox" :value="`7:${i}`"
+                                                <input :id="`hora${i}`" type="checkbox" :value="`7:${i}`"
                                                     v-model="horario">
                                             </td>
                                         </tr>
@@ -150,6 +153,7 @@
     </script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/utilizador.js"></script>
+    <script src="scripts/checkHorario.js"></script>
 </body>
 
 </html>

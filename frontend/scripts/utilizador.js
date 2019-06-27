@@ -33,7 +33,6 @@ var vm = new Vue({
     },
     methods: {
         registoPetsitter: async function () {
-            console.log("registo petsitter")
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarPetsitter", {
                 headers: {
                     'Content-Type': 'application/json; charset=utf-8'
