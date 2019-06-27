@@ -1,5 +1,5 @@
 var vm = new Vue({
-    el: "#checkAuthentic",
+    el: "#checkPetsitter",
     created: async function () {
         if (localStorage.token) {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/Index", {
@@ -13,8 +13,6 @@ var vm = new Vue({
             if (content.email) {
                 if (content.tipo == 'dono') {
                     window.location.replace("http://localhost/indexDono.html")
-                } else if (content.tipo == 'petsitter') {
-                    window.location.replace("http://localhost/indexPetsitter.html")
                 }
             }
         }

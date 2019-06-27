@@ -349,7 +349,7 @@ var vm = new Vue({
                 setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
             }
         },
-        criarUtilizador: async function () {
+        criarUtilizador: function () {
             let jard = "false"
             if (this.jardim)
                 jard = "true"

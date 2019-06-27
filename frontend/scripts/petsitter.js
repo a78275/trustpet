@@ -115,6 +115,19 @@ var vm = new Vue({
                 return element.id == id
             })
             return found
+        },
+        temHora: function (dia, hora) {
+            var found = this.horario.dias.find(function (element) {
+                return element.dia == dia
+            })
+            var founded = found.horas.find(function (element) {
+                return element.hora == hora
+            })
+
+            if (founded != undefined)
+                return true
+            else
+                return false
         }
     }
 })
