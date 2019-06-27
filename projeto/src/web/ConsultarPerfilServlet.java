@@ -28,28 +28,7 @@ public class ConsultarPerfilServlet extends HttpServlet {
         String email = FacadeBeans.validarToken(token);
 
         if (email != null) {
-            String tipo = FacadeBeans.tipoUtilizador(email);
-
-            // Erro nos beans
-            if (tipo != null) {
-                Utilizador utilizador = FacadeBeans.consultarPerfil(email, tipo);
-                if (utilizador != null) {
-                    List<Review> reviewsList = FacadeBeans.consultarReviews(email, tipo);
-                    mensagem.put("reviews", Util.parseReviews(reviewsList));
-
-                    if (tipo.equals("petsitter")) {
-                        Petsitter petsitter = (Petsitter) utilizador;
-                        mensagem.put("utilizador", Util.parsePetsitter(petsitter));
-                        mensagem.put("servicos", Util.parseServicosPetsitterMap(FacadeBeans.getServicosPetsitter(email)));
-                    } else if (tipo.equals("dono")) {
-                        Dono dono = (Dono) utilizador;
-                        mensagem.put("utilizador", Util.parseDono(dono));
-                    }
-
-                    mensagem.put("success", true);
-            } else {
-                mensagem.put("success", false);
-            }
+            consultarPerfil(mensagem, email);
         } else {
             mensagem.put("success", false);
         }
@@ -70,33 +49,39 @@ public class ConsultarPerfilServlet extends HttpServlet {
         String emailConsulta = (String) parameters.get("emailConsulta");
 
         if (email != null) {
-            String tipo = FacadeBeans.tipoUtilizador(emailConsulta);
-
-            if (tipo != null){
-                Utilizador utilizador = FacadeBeans.consultarPerfil(emailConsulta, tipo);
-                if (utilizador != null) {
-                    List<Review> reviewsList = FacadeBeans.consultarReviews(email, tipo);
-                    mensagem.put("reviews", Util.parseReviews(reviewsList));
-
-                    if (tipo.equals("petsitter")) {
-                        Petsitter petsitter = (Petsitter) utilizador;
-                        mensagem.put("utilizador", Util.parsePetsitter(petsitter));
-                        mensagem.put("servicos", Util.parsePrecoServico(FacadeBeans.getPrecoServico(emailConsulta)));
-                    } else if (tipo.equals("dono")) {
-                        Dono dono = (Dono) utilizador;
-                        mensagem.put("utilizador", Util.parseDono(dono));
-                    }
-
-                    mensagem.put("success", true);
-                }
-            } else {
-                mensagem.put("success", false);
-            }
+            consultarPerfil(mensagem, emailConsulta);
         } else {
             mensagem.put("success", false);
         }
 
         out.print(mensagem);
         out.flush();
+    }
+
+    private void consultarPerfil(JSONObject mensagem, String emailConsulta) {
+        String tipo = FacadeBeans.tipoUtilizador(emailConsulta);
+
+        if (tipo != null) {
+            Utilizador utilizador = FacadeBeans.consultarPerfil(emailConsulta, tipo);
+            if (utilizador != null) {
+                List<Review> reviewsList = FacadeBeans.consultarReviews(emailConsulta, tipo);
+                mensagem.put("reviews", Util.parseReviews(reviewsList));
+
+                if (tipo.equals("petsitter")) {
+                    Petsitter petsitter = (Petsitter) utilizador;
+                    mensagem.put("utilizador", Util.parsePetsitter(petsitter));
+                    mensagem.put("servicos", Util.parseServicosPetsitterMap(FacadeBeans.getServicosPetsitter(emailConsulta)));
+                } else if (tipo.equals("dono")) {
+                    Dono dono = (Dono) utilizador;
+                    mensagem.put("utilizador", Util.parseDono(dono));
+                }
+
+                mensagem.put("success", true);
+            } else {
+                mensagem.put("success", false);
+            }
+        } else {
+            mensagem.put("success", false);
+        }
     }
 }
