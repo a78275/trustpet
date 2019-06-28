@@ -99,7 +99,7 @@ var vm = new Vue({
             }
 
             if(servicosSelecionados.length == 0){
-                this.snackbar("É necessário fornecer pelo menos um serviço.")
+                this.snackbar("Preencha pelo menos um serviço.")
             } 
             else {
                 const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarServicos", {
@@ -126,7 +126,7 @@ var vm = new Vue({
         },
         registoHorario: async function () {
             if(this.horario.length == 0){
-                this.snackbar("É necessário selecionar pelo menos 1 hora.")
+                this.snackbar("Selecione pelo menos uma hora.")
             } 
             else {
                 const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarHorario", {

@@ -149,6 +149,36 @@ $('#concelho').on('input', function() {
     }
 });
 
+// Tipo
+$('#tipo').on('input', function() {
+    var input=$(this);
+    var valid=input.val();
+    var error_element=$("span", input.parent());
+    if(valid){
+        input.removeClass("invalid").addClass("valid");
+        error_element.removeClass("error_show").addClass("error");
+    }
+    else{
+        input.removeClass("valid").addClass("invalid");
+        error_element.removeClass("error").addClass("error_show");
+    }
+});
+
+// Idade
+$('#idade').on('input', function() {
+    var input=$(this);
+    var valid=input.val();
+    var error_element=$("span", input.parent());
+    if(valid){
+        input.removeClass("invalid").addClass("valid");
+        error_element.removeClass("error_show").addClass("error");
+    }
+    else{
+        input.removeClass("valid").addClass("invalid");
+        error_element.removeClass("error").addClass("error_show");
+    }
+});
+
 // After Form Submitted Validation
 $("#registo_submit button").click(function(event){
 	var form_data=$("#registoForm").serializeArray();
@@ -168,16 +198,16 @@ $("#registo_submit button").click(function(event){
         var valid=element.hasClass("valid");
 
 		if (!valid){
-            console.log(form_data[input]['name'])
             error_element.removeClass("error").addClass("error_show"); 
             error_free=false;
             element.removeClass("valid").addClass("invalid");
         }
-		else{
+        else{
             error_element.removeClass("error_show").addClass("error");
             element.removeClass("invalid").addClass("valid");
         }
-	}
+    }
+    
 	if (!error_free){
         // Get the snackbar DIV
         var x = document.getElementById("snackbar");
@@ -193,5 +223,66 @@ $("#registo_submit button").click(function(event){
 	}
 	else{
 		$("#confirmarPerfil").modal('toggle');
+	}
+});
+
+// After Form Submitted Validation
+$("#animal_submit button").click(function(event){
+    var error_free=true;
+    var inputs = ['nome', 'pic']
+
+	for (var input in inputs){
+        var element=$("#" + inputs[input]);
+        var error_element=$("span", element.parent());
+
+        // A fotografia é válida se não estiver preenchida
+        if(inputs[input] == "pic"){
+            if(!element.val()){
+                element.removeClass("invalid").addClass("valid");
+                error_element.removeClass("error_show").addClass("error");
+            }
+        }
+
+        var valid=element.hasClass("valid");
+
+		if (!valid){
+            error_element.removeClass("error").addClass("error_show"); 
+            error_free=false;
+            element.removeClass("valid").addClass("invalid");
+        }
+		else{
+            error_element.removeClass("error_show").addClass("error");
+            element.removeClass("invalid").addClass("valid");
+        }
+    }
+
+    // Verificar campos select
+    var selects = ["tipo", "idade"];
+    for(var s in selects){
+        var element=$("#" + selects[s]);
+        var error_element=$("span", element.parent());
+
+        if(!element.val()){
+            error_element.removeClass("error").addClass("error_show"); 
+            error_free=false;
+            element.removeClass("valid").addClass("invalid");
+        }
+    }
+
+	if (!error_free){
+        // Get the snackbar DIV
+        var x = document.getElementById("snackbar");
+
+        // Change content
+        x.textContent = "Preencha o formulário corretamente."
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+	}
+	else{
+		$("#confirmarAnimal").modal('toggle');
 	}
 });
