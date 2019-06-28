@@ -17,8 +17,6 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public Map<Animal, List<Servico>> getServicosPedido(List<Integer> idAnimal) {
-        
-
         List<Servico> servicos = null;
         try {
             servicos = FacadeDAOs.listServicos(null, null);
@@ -129,7 +127,6 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public int registarPedido(String emailDono, Date dataInicio, Date dataFim) {
-        
         // Criar pedido
         Pedido pedido = FacadeDAOs.createPedido();
 

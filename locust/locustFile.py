@@ -1,11 +1,43 @@
 import random
 import json
-from locust import HttpLocust, TaskSet, task
+from locust import HttpLocust, TaskSet, task, seq_task, TaskSequence
 from credentials import DONO_CREDENTIALS, PETSITTER_CREDENTIALS
 
 
+class PedidoBehavior(TaskSequence):
+    token=""
+    animais = []
+
+    def on_start(self):
+        if self.parent.animais is None or self.parent.token == "" or self.parent.animais == []:
+            print("Não tem login de Dono feito com animais")
+            self.interrupt()
+        else:
+            self.token = self.parent.token
+            self.animais = self.parent.animais
+
+    @seq_task(1)
+    def registarPedido(self):
+        print(str(self.animais))
+        packet_data = "{'animais': " + str(self.animais) + ", 'dataInicio': '20/05/2019 17:00','dataFim': '20/03/2020 19:00'}"
+        response = self.client.request("POST", "/RegistarPedido", data=packet_data,
+                                       headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                "Token": self.token})
+        dict_response = json.loads(response.text)
+        if dict_response["success"]:
+            print("RegistarPedido Response " + str(response) + " with idPedido " + dict_response["idPedido"] + " with Servicos " + dict_response["servicos"])
+        else:
+            print("BAD PEDIDO")
+    # @seq_task(2)
+    # def selServicos():
+
+    # @seq_task(3)
+    # def selPetsitter():
+
 class DonoBehavior(TaskSet):
+    tasks = {PedidoBehavior:10}
     token = ""
+    animais = []
 
     def on_start(self):
         if self.parent.token is None or self.parent.token == "" or self.parent.tipo != "dono":
@@ -27,34 +59,45 @@ class DonoBehavior(TaskSet):
         self.token = ""
         self.interrupt()
 
-    @task(5)
+    @task(10)
     def consultarAnimais(self):
         response = self.client.request("GET", "/ConsultarAnimais",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("ConsultarAnimais Response " + str(response) + " with Animals " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "animais" in dict_response:
+            print("ConsultarAnimais Response " + str(response) + " with Animals Count " + str(len(dict_response["animais"])))
+            self.animais = dict_response["animais"]
 
-    @task(5)
+    @task(10)
     def consultarPedidos(self):
         response = self.client.request("GET", "/ConsultarPedidos",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(response.text))
 
-    @task(5)
+    @task(10)
     def consultarPerfil(self):
         response = self.client.request("GET", "/ConsultarPerfil",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(response.text))
 
-    @task(5)
+    @task(10)
     def consultarPetsitters(self):
         response = self.client.request("GET", "/ConsultarPetsitters",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
         print("ConsultarPetsitters Response " + str(response) + " with Petsitters Count " + str(len(dict_response["petsitters"])))
+
+    @task(10)
+    def consultarPerfilPost(self):
+        packet_data = "{'emailConsulta':'petsitter1@email.com'}"
+        response = self.client.request("POST", "/ConsultarPerfil", data=packet_data,
+                                       headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                "Token": self.token})
+        print("EditarDados Response " + str(response) + " with Success " + str(response.text))
 
     @task(5)
     def adicionarAnimal(self):
@@ -64,12 +107,15 @@ class DonoBehavior(TaskSet):
                                                 "Token": self.token})
         print("AdicionarAnimal Response " + str(response) + " with Success " + str(response.text))
 
-    #def editarDadosPessoais
-    #def registarPedido
-    #def selServicos
-    #def selPetsitter
+    @task(5)
+    def editarDadosPessoais(self):
+        packet_data = "{'nome':'João','data':'20/10/1969','contacto':'3182937','jardim':'true','morada':'Rua A','password':'ola','avatar':'','tipoUtilizador':'dono','concelho':'Porto','distrito':'Porto'}"
+        response = self.client.request("POST", "/EditarDadosPessoais", data=packet_data,
+                                       headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                "Token": self.token})
+        print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+
     #def cancelarPedido
-    #def consultarPerfilPost
 
 class PetsitterBehavior(TaskSet):
     token=""
@@ -90,25 +136,54 @@ class PetsitterBehavior(TaskSet):
         self.token = ""
         self.interrupt()
 
-    @task(5)
+    @task(10)
     def consultarPerfil(self):
         response = self.client.request("GET", "/ConsultarPerfil",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(response.text))
 
-    @task(5)
+    @task(10)
     def consultarPedidos(self):
         response = self.client.request("GET", "/ConsultarPedidos",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(response.text))
 
-    #def editarDadosPessoais
-    #def editarTipos
-    #def editarServicos
+    @task(10)
+    def consultarPerfilPost(self):
+        packet_data = "{'emailConsulta':'dono1@email.com'}"
+        response = self.client.request("POST", "/ConsultarPerfil", data=packet_data,
+                                       headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                "Token": self.token})
+        print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+
+    @task(5)
+    def editarDadosPessoais(self):
+        packet_data = "{'nome':'João','data':'20/10/1969','contacto':'3182937','jardim':'true','morada':'Rua A','password':'ola','avatar':'','tipoUtilizador':'petsitter','concelho':'Porto','distrito':'Porto'}"
+        response = self.client.request("POST", "/EditarDadosPessoais", data=packet_data,
+                                       headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                "Token": self.token})
+        print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+
+    @task(5)
+    def editarTipos(self):
+        packet_data = "{'tipos':['1','2','3','4']}"
+        response = self.client.request("POST", "/EditarTiposAnimais", data=packet_data,
+                                       headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                "Token": self.token})
+        print("EditarTipos Response " + str(response) + " with Success " + str(response.text))
+
+    @task(5)
+    def editarServicos(self):
+        packet_data = "{'servicos':['1:3.5','2:4.7','3:2']}"
+        response = self.client.request("POST", "/EditarServicos", data=packet_data,
+                                       headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                "Token": self.token})
+        print("EditarServicos Response " + str(response) + " with Success " + str(response.text))
+
+    #def editarHorario
     #def cancelarPedido
-    #def consultarPerfilPost
 
 class IndexBehavior(TaskSet):
     tasks = {DonoBehavior:10,PetsitterBehavior:10}
@@ -141,10 +216,6 @@ class IndexBehavior(TaskSet):
             self.token=dict_response["token"]
             self.tipo=dict_response["tipo"]
             print("Login with Email " + self.email + " with Token " + str(self.token) + " with Tipo " + dict_response["tipo"])
-            if self.tipo=="dono":
-                self.locust.tasks = DonoBehavior
-            else:
-                self.locust.tasks = PetsitterBehavior
         else:
             print("Failed Login")
 

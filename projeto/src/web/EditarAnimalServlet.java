@@ -32,12 +32,19 @@ public class EditarAnimalServlet extends HttpServlet {
 
         boolean result;
 
+        // Registar Animal (sem id)
         if(!parameters.keySet().contains("id") || parameters.get("id").toString().equals("")) {
             result = FacadeBeans.registarAnimal(email, (String) parameters.get("nome"), (String) parameters.get("idade"), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Integer.parseInt((String) parameters.get("tipo")));
             mensagem.put("success", result);
         }
+        // Editar Animal (sem ativo)
+        else if (!parameters.keySet().contains("ativo") || parameters.get("ativo").toString().equals("")){
+            result = FacadeBeans.editarAnimal(Integer.parseInt((String) parameters.get("id")), (String) parameters.get("nome"), (String) parameters.get("idade"), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"));
+            mensagem.put("success", result);
+        }
+        // Remover Animal (id e ativo)
         else {
-            result = FacadeBeans.editarAnimal(Integer.parseInt((String) parameters.get("id")), (String) parameters.get("nome"), (String) parameters.get("idade"), (String) parameters.get("porte"), (String) parameters.get("sexo"), (String) parameters.get("alergias"), (String) parameters.get("doencas"), (String) parameters.get("comportamento"), Boolean.parseBoolean((String) parameters.get("vacinas")), Boolean.parseBoolean((String) parameters.get("desparasitacao")), Boolean.parseBoolean((String) parameters.get("esterilizacao")), (String) parameters.get("raca"), (String) parameters.get("avatar"), Boolean.parseBoolean((String) parameters.get("ativo")));
+            result = FacadeBeans.removerAnimal(Integer.parseInt((String) parameters.get("id")), Boolean.parseBoolean((String) parameters.get("ativo")));
             mensagem.put("success", result);
         }
 
