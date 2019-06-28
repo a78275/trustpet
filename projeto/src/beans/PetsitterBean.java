@@ -14,7 +14,6 @@ import java.util.Map;
 public class PetsitterBean implements PetsitterBeanLocal {
     @Override
     public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
-        
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -22,6 +21,19 @@ public class PetsitterBean implements PetsitterBeanLocal {
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
+        }
+
+        // Apagar tipos antigos
+        if(!petsitter.animais.isEmpty()) {
+            TipoAnimal[] tiposAntigos = petsitter.animais.toArray();
+            for(TipoAnimal tipo : tiposAntigos) {
+                if(!tipos.contains(tipo.getId())) {
+                    petsitter.animais.remove(tipo);
+                }
+                else {
+                    tipos.remove((Integer) tipo.getId());
+                }
+            }
         }
 
         // Set dos animais
@@ -33,7 +45,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
                 e.printStackTrace();
                 return false;
             }
-
             petsitter.animais.add(animal);
         }
 
