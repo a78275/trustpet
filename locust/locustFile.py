@@ -6,6 +6,8 @@ from credentials import DONO_CREDENTIALS, PETSITTER_CREDENTIALS
 class PedidoBehavior(TaskSequence):
     token = ""
     animais = []
+    servicos = []
+    id = 0
 
     def on_start(self):
         if self.parent.animais is None or self.parent.token == "" or self.parent.animais == []:
@@ -17,27 +19,61 @@ class PedidoBehavior(TaskSequence):
 
     @seq_task(1)
     def registarPedido(self):
-        print(str(self.animais))
-        packet_data = "{'animais': " + str(
-            self.animais) + ", 'dataInicio': '20/05/2019 17:00','dataFim': '20/03/2020 19:00'}"
-        response = self.client.request("POST", "/RegistarPedido", data=packet_data,
-                                       headers={"Content-Type": "application/x-www-form-urlencoded",
-                                                "Token": self.token})
-        dict_response = json.loads(response.text)
-        if dict_response["success"]:
-            print("RegistarPedido Response " + str(response) + " with idPedido " + dict_response[
-                "idPedido"] + " with Servicos " + dict_response["servicos"])
+        lenght = len(self.animais)
+        if lenght > 0:
+            animais = []
+            if lenght > 3:
+                for i in range(0,3):
+                    animais.append(self.animais[i]["id"])
+            else:
+                for a in self.animais:
+                    animais.append(a["id"])
+            animais_json = json.dumps(animais)
+            packet_data = "{'animais': " + animais_json + ", 'dataInicio': '30/06/2019 12:00','dataFim': '30/06/2019 13:00'}"
+            response = self.client.request("POST", "/RegistarPedido", data=packet_data,
+                                           headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                    "Token": self.token})
+            dict_response = json.loads(response.text)
+            if dict_response["success"]:
+                print("RegistarPedido Response " + str(response) + " with idPedido " + str(dict_response[
+                    "idPedido"]) + " with Servicos " + str(dict_response["servicos"]))
+                self.servicos = dict_response["servicos"]
+                self.id = dict_response["idPedido"]
+            else:
+                print("Pedido Inválido")
         else:
-            print("BAD PEDIDO")
-    # @seq_task(2)
-    # def selServicos():
+            self.interrupt()
+
+    @seq_task(2)
+    def selServicos(self):
+        print("SelServicos")
+        if len(self.servicos) > 0 or self.id == 0:
+            servicos = []
+            for servico_animal in self.servicos:
+                index_servico = random.randint(0,len(servico_animal["servicos"])-1)
+                servico_string = str(servico_animal["id"])  + ":" + str(servico_animal["servicos"][index_servico]["id"])
+                print(servico_string + "   " + str(index_servico))
+                servicos.append(servico_string)
+
+            print(servicos)
+            servicos_json = json.dumps(servicos)
+            packet_data = "{'idPedido': '" + str(self.id) + "', 'animalServicos': " + servicos_json + "}"
+            response = self.client.request("POST", "/SelServicos", data=packet_data, headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
+            dict_response = json.loads(response.text)
+
+            if dict_response["success"]:
+                print("SelServicos Response " + str(response) + " with Petsitters " + str(dict_response["petsitters"]))
+            else:
+                print("Selecao Inválida")
+        else:
+            print("Não há serviços")
+            self.interrupt()
 
     # @seq_task(3)
     # def selPetsitter():
 
-
 class DonoBehavior(TaskSet):
-    # tasks = {PedidoBehavior:10}
+    tasks = {PedidoBehavior:200}
     token = ""
     animais = []
     pedidos = []
@@ -50,15 +86,14 @@ class DonoBehavior(TaskSet):
             self.token = self.parent.token
 
 
-    @task(20)
+    @task(100)
     def consultarAnimais(self):
         response = self.client.request("GET", "/ConsultarAnimais",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
         if "animais" in dict_response:
-            print("ConsultarAnimais Response " + str(response) + " with Animals Count " + str(
-                len(dict_response["animais"])))
+            print("ConsultarAnimais Response " + str(response) + " with Animals Count " + str(len(dict_response["animais"])))
             self.animais = json.loads(dict_response["animais"])
 
     @task(20)
@@ -140,7 +175,7 @@ class DonoBehavior(TaskSet):
     def cancelarPedido(self):
         if len(self.pedidos) > 0:
             idpedido = self.pedidos.pop()["id"]
-            packet_data = "{'id':'" + str(idpedido) + "'}"
+            packet_data = "{'idPedido':'" + str(idpedido) + "'}"
             response = self.client.request("POST", "/CancelarPedido", data=packet_data,
                                            headers={"Content-Type": "application/x-www-form-urlencoded",
                                                     "Token": self.token})
@@ -213,7 +248,7 @@ class PetsitterBehavior(TaskSet):
 
     @task(10)
     def editarServicos(self):
-        packet_data = "{'servicos':['1:3.5','2:4.7','3:2']}"
+        packet_data = "{'servicos':['1:3.5','2:4.7','3:2','4:5']}"
         response = self.client.request("POST", "/EditarServicos", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
@@ -221,7 +256,7 @@ class PetsitterBehavior(TaskSet):
 
     @task(10)
     def editarHorario(self):
-        packet_data = "{'horario':['1:12','1:13','1:14','1:16','1:17','2:12','2:13','2:14','2:16','2:17','3:12','3:13','3:14','3:16','3:17']}"
+        packet_data = "{'horario':['1:12','1:13','1:14','1:16','1:17','2:12','2:13','2:14','2:16','2:17','3:12','3:13','3:14','3:16','3:17','4:12','4:13','5:12','5:13','6:12','6:13','7:12','7:13']}"
         response = self.client.request("POST", "/EditarHorario", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
@@ -231,7 +266,7 @@ class PetsitterBehavior(TaskSet):
     def cancelarPedido(self):
         if len(self.pedidos) > 0:
             idpedido = self.pedidos.pop()["id"]
-            packet_data = "{'id':'" + str(idpedido) + "'}"
+            packet_data = "{'idPedido':'" + str(idpedido) + "'}"
             response = self.client.request("POST", "/CancelarPedido", data=packet_data,headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
             print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
         else:

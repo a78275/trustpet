@@ -81,7 +81,7 @@ public class PedidoBean implements PedidoBeanLocal {
             // Adicionar serviços novos
             for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
                 for(int s : e.getValue()) {
-                    AnimalServico animalServico = registarAnimalServico(e.getKey(),s,pedido);
+                        registarAnimalServico(e.getKey(),s,pedido);
                 }
             }
 
@@ -147,7 +147,7 @@ public class PedidoBean implements PedidoBeanLocal {
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         String parsedDataInicio = format.format(dataInicio);
         pedido.setDataInicio(parsedDataInicio);
-        String parsedDataFim = format.format(dataInicio);
+        String parsedDataFim = format.format(dataFim);
         pedido.setDataFim(parsedDataFim);
 
         //TODO Tirar
@@ -231,7 +231,6 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public Map<Petsitter,Double> getPetsittersPedido(int idPedido, Map<Integer, List<Integer>> animalServicos) {
-        
         Pedido pedido = null;
         try {
             pedido = FacadeDAOs.getPedido(idPedido);

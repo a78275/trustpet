@@ -22,9 +22,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
             e.printStackTrace();
             return false;
         }
-        //System.out.println("Email: "+ emailPetsitter +"| TiposNovos: " + tipos.toString());
-        //System.out.println("TiposAntigos: " + petsitter.animais.toArray().length);
-
+        int lenghtTipos = tipos.size();
 
         // Apagar tipos antigos
         if(!petsitter.animais.isEmpty()) {
@@ -33,11 +31,9 @@ public class PetsitterBean implements PetsitterBeanLocal {
             for(TipoAnimal tipo : tiposAntigos) {
                 if(!tipos.contains(tipo.getId())) {
                     petsitter.animais.remove(tipo);
-                    //System.out.println("TipoRemovido: " + tipo.getTipo());
                 }
                 else {
                     tipos.remove((Integer) tipo.getId());
-                    //System.out.println("TipoAntigo: " + tipo.getTipo());
                 }
             }
         }
@@ -56,7 +52,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
                     return false;
                 }
                 petsitter.animais.add(animal);
-                //System.out.println("TipoAdicionado: " + animal.getTipo());
             }
 
             // Save do petsitter

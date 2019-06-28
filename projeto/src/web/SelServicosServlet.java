@@ -29,7 +29,7 @@ public class SelServicosServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
         JSONObject mensagem = new JSONObject();
 
-        int idPedido = Integer.parseInt(parameters.getString("idPedido"));
+        int idPedido = Integer.parseInt((String) parameters.getString("idPedido"));
         Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicosArray(parameters);
 
         Map<Petsitter,Double> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
