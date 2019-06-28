@@ -46,6 +46,85 @@ Vue.component('sidebardono', {
 `
 })
 
+Vue.component('card-animal', {
+    props: ['animal'],
+    template: `
+<div class="card m-3" style="color:#545871;">
+    <img v-if="animal.avatar" :src=animal.avatar class="mt-3"
+        style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+    <img v-else
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Gatto_europeo4.jpg/250px-Gatto_europeo4.jpg"
+        class="mt-3"
+        style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+    <h3 class="text-uppercase text-center mt-2">{{ animal.nome }}</h3>
+    <p class="text-center">{{ animal.raca }}</p>
+    <table class="table table-bordered"
+        style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
+        <tbody style="color: #545871;">
+            <tr>
+                <td v-if="animal.sexo=='F'" style="text-align: center;">
+                    <i class='fas fa-venus' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Fêmea
+                </td>
+                <td v-else style="text-align: center;">
+                    <i class='fas fa-mars' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Macho
+                </td>
+
+                <td style="text-align: center;">
+                    <span
+                        style="font-weight:600;font-size:20px;color:#ebd0ce;">{{ animal.idade }}</span>
+                    <br>Anos
+                </td>
+
+                <td style="text-align: center;">
+                    <span
+                        style="font-weight:500;font-size:17px;color:#ebd0ce;">{{ animal.porte }}</span>
+                    <br>Porte
+                </td>
+            </tr>
+            <tr>
+                <td v-if="animal.desparasitacao==true" style="text-align: center;">
+                    <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Desparasitação
+                </td>
+                <td v-else style="text-align: center;">
+                    <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Desparasitação
+                </td>
+
+                <td v-if="animal.esterilizacao==true" style="text-align: center;">
+                    <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Esterilização
+                </td>
+                <td v-else style="text-align: center;">
+                    <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Esterilização
+                </td>
+
+                <td v-if="animal.vacinas==true" style="text-align: center;">
+                    <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Vacinação
+                </td>
+                <td v-else style="text-align: center;">
+                    <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Vacinação
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width: 90%; margin-left: auto; margin-right: auto;">
+        <p v-if="animal.alergias">Alergias: <span
+                style="color:#ebd0ce;">{{ animal.alergias }}</span></p>
+        <p v-if="animal.doenças">Doenças: <span
+                style="color:#ebd0ce;">{{ animal.doenças }}</span></p>
+        <p v-if="animal.comportamento">Comportamento: <span
+                style="color:#ebd0ce;">{{ animal.comportamento }}</span></p>
+    </div>
+</div>
+    `
+})
+
 var vm = new Vue({
     el: "#dono",
     data: {
@@ -144,7 +223,6 @@ var vm = new Vue({
                 if (contentDono.success) {
                     this.perfil = contentDono.utilizador
                     this.reviews = contentDono.reviews
-                    console.log(this.reviews)
                 }
 
                 const responsePedidos = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPedidos", {
@@ -320,6 +398,20 @@ var vm = new Vue({
 
             // After 3 seconds, remove the show class from DIV
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        },
+        editarDadosDono: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarDadosPessoais", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: JSON.stringify(this.utilizador)
+            })
+            const content = await response.json()
+
+            if (content.success) {
+                window.location.replace("http://localhost/editarDadosDono.html")
+            }
         },
         registoDono: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarDono", {
