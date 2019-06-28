@@ -448,7 +448,7 @@ body {
   color: firebrick;
   font-size: small; }
 
-input.invalid, textarea.invalid {
+input.invalid, textarea.invalid, select.invalid {
   border-left: 4px solid #d89f9f; }
 
 /*# sourceMappingURL=style.css.map */
