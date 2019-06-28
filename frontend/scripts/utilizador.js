@@ -48,23 +48,35 @@ var vm = new Vue({
                 window.location.replace("http://localhost/registoTiposAnimais.html")
             }
             else {
+                // TODO: PÔR A DAR
+                this.snackbar("Ocorreu um erro. Tente novamente.")
                 window.location.replace("http://localhost/registoPerfilPetsitter.html")
             }
         },
         registoTiposAnimais: async function () {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarTiposAnimais", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Token': localStorage.token
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    tipos: this.tiposAnimaisSelecionados
+            if(this.tiposAnimaisSelecionados.length == 0){
+                this.snackbar("É necessário selecionar pelo menos um tipo de animal.")
+            } 
+            else {
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarTiposAnimais", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        tipos: this.tiposAnimaisSelecionados
+                    })
                 })
-            })
-            const content = await response.json()
-            if (content.success) {
-                window.location.replace("http://localhost/registoServicos.html")
+                const content = await response.json()
+                if (content.success) {
+                    window.location.replace("http://localhost/registoServicos.html")
+                }
+                else {
+                    // TODO: PÔR A DAR
+                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    window.location.replace("http://localhost/registoTiposAnimais.html")
+                }
             }
         },
         registoServicos: async function () {
@@ -85,52 +97,63 @@ var vm = new Vue({
                 s = '4:' + this.preco4
                 servicosSelecionados.push(s)
             }
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarServicos", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Token': localStorage.token
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    servicos: servicosSelecionados
+
+            if(servicosSelecionados.length == 0){
+                this.snackbar("É necessário fornecer pelo menos um serviço.")
+            } 
+            else {
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarServicos", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        servicos: servicosSelecionados
+                    })
                 })
-            })
-            const content = await response.json()
-            console.log(JSON.stringify(content))
-            if (content.success) {
-                window.location.replace("http://localhost/registoHorario.html")
+                const content = await response.json()
+                console.log(JSON.stringify(content))
+                if (content.success) {
+                    window.location.replace("http://localhost/registoHorario.html")
+                }
+                else {
+                    // TODO: PÔR A DAR
+                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    window.location.replace("http://localhost/registoServicos.html")
+                }
             }
         },
         registoHorario: async function () {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarHorario", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Token': localStorage.token
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    horario: this.horario
+            if(this.horario.length == 0){
+                this.snackbar("É necessário selecionar pelo menos 1 hora.")
+            } 
+            else {
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarHorario", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        horario: this.horario
+                    })
                 })
-            })
-            const content = await response.json()
-            console.log(JSON.stringify(content))
-            if (content.success) {
-                window.location.replace("http://localhost/indexPetsitter.html")
+                const content = await response.json()
+                console.log(JSON.stringify(content))
+                if (content.success) {
+                    window.location.replace("http://localhost/indexPetsitter.html")
+                }
+                else {
+                    // TODO: PÔR A DAR
+                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    window.location.replace("http://localhost/registoHorario.html")
+                }
             }
         },
         login: async function () {
             if (this.email === '' || this.password === '') {
-                // Get the snackbar DIV
-                var x = document.getElementById("snackbar");
-
-                // Change content
-                x.textContent = "O email e a password são campos obrigatórios."
-
-                // Add the "show" class to DIV
-                x.className = "show";
-
-                // After 3 seconds, remove the show class from DIV
-                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                this.snackbar("Introduza um e-mail e uma password.")
             }
             else {
                 const response = await fetch("http://localhost:8080/trustpet_war_exploded/Autenticar", {
@@ -153,28 +176,19 @@ var vm = new Vue({
                     } else if (content.tipo == "petsitter") {
                         window.location.replace("http://localhost/indexPetsitter.html")
                     }
+                    this.snackbar("Login efetuado com sucesso.")
                 }
                 else {
-                    // Get the snackbar DIV
-                    var x = document.getElementById("snackbar");
-
-                    // Change content
-                    x.textContent = "Credenciais erradas."
-
-                    // Add the "show" class to DIV
-                    x.className = "show";
-
-                    // After 3 seconds, remove the show class from DIV
-                    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                    this.snackbar("Credenciais erradas.")
                 }
             }
         },
-        camposObrigatorios: async function () {
+        snackbar: function (content) {
             // Get the snackbar DIV
             var x = document.getElementById("snackbar");
 
             // Change content
-            x.textContent = "É necessário preencher todos os campos obrigatórios."
+            x.textContent = content
 
             // Add the "show" class to DIV
             x.className = "show";
@@ -196,19 +210,10 @@ var vm = new Vue({
                 localStorage.token = content.token
                 this.token = content.token
                 window.location.replace("http://localhost/adicionarAnimal.html")
+                
             }
             else {
-                // Get the snackbar DIV
-                var x = document.getElementById("snackbar");
-
-                // Change content
-                x.textContent = "Ocorreu um erro ao efetuar o registo."
-
-                // Add the "show" class to DIV
-                x.className = "show";
-
-                // After 3 seconds, remove the show class from DIV
-                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                this.snackbar("Ocorreu um erro ao efetuar o registo.")
             }
         },
         criarUtilizador: function () {

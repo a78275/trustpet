@@ -85,8 +85,7 @@
                                 Confirmação </div>
                         </div>
                     </div>
-                    <h1 class="p-2 my-2 text-center" style="color: #545871; font-size: 1.5em;">Selecione o tipo de
-                        animais que cuida
+                    <h1 class="p-2 my-2 text-center" style="color: #545871; font-size: 1.5em;">Selecione as espécies de animais que pretende cuidar
                     </h1>
                     <div class="row my-4" style="width: 80%; margin-left: auto; margin-right: auto;">
                         <div class=" col-xs-12 col-6 text-center" v-for="t in tiposAnimal" v:bind-key="t.id">
@@ -119,6 +118,9 @@
             </footer>
         </div>
     </div>
+    <!-- Snackbar -->
+    <div id="snackbar"></div>
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/utilizador.js"></script>
     <script src="scripts/checkbox.js"></script>
