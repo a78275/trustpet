@@ -25,7 +25,7 @@ Vue.component('sidebardono', {
                     <a href="editarDadosDono.html">Editar Dados Pessoais</a>
                 </li>
                 <li>
-                    <a href="#">Editar Dados dos Animais</a>
+                    <a href="editarAnimais.html">Editar Dados dos Animais</a>
                 </li>
                 <li>
                     <a href="adicionarAnimal.html">Adicionar Animal</a>
@@ -49,7 +49,7 @@ Vue.component('sidebardono', {
 Vue.component('card-animal', {
     props: ['animal'],
     template: `
-<div class="card m-3" style="color:#545871;">
+<div>
     <img v-if="animal.avatar" :src=animal.avatar class="mt-3"
         style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
     <img v-else
@@ -273,6 +273,23 @@ var vm = new Vue({
                     this.concelho = this.perfil.concelho
                     this.jardim = this.perfil.jardim
                 }
+                if (window.location.href == "http://localhost/editarAnimal.html") {
+                    var animal = getAnimal(localStorage.idAnimal)
+                    this.nome = animal.nome
+                    this.avatar = animal.avatar
+                    this.idade = animal.idade
+                    this.porte = animal.porte
+                    this.sexo = animal.sexo
+                    this.alergias = animal.alergias
+                    this.doencas = animal.doencas
+                    this.comportamento = animal.comportamento
+                    this.vacinas = animal.vacinas
+                    this.desparasitacao = animal.desparasitacao
+                    this.esterilizacao = animal.esterilizacao
+                    this.raca = animal.raca
+                    this.tipo = animal.tipo
+                    localStorage.idAnimal = ""
+                }
             } else {
                 window.location.replace("http://localhost/index.html")
             }
@@ -460,6 +477,33 @@ var vm = new Vue({
                 concelho: this.concelho,
                 distrito: this.distrito
             }
+        },
+        pagEditarAnimal: function (id) {
+            localStorage.idAnimal = id
+            window.location.replace("http://localhost/editarAnimal.html")
+        },
+        removerAnimal: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    id: id
+                })
+            })
+            const content = await response.json()
+
+            if (content.success) {
+                console.log(content)
+                window.location.replace("http://localhost/editarAnimais.html")
+            }
+        },
+        getAnimal: function (id) {
+            var found = this.animais.find(function (element) {
+                return element.id == id
+            })
+            return found
         }
     }
 })
