@@ -1,4 +1,10 @@
 Vue.component('sidebarpetsitter', {
+    methods: {
+        logout: function () {
+            localStorage.token = ""
+            window.location.replace("http://localhost/")
+        }
+    },
     template: `
 <nav id="sidebar">
     <div class="sidebar-header">
@@ -33,7 +39,7 @@ Vue.component('sidebarpetsitter', {
             <a href="#">Chat</a>
         </li>
         <li class="sec3">
-            <a href="#">Logout</a>
+            <a v-on:click="logout()">Logout</a>
         </li>
     </ul>
 </nav>

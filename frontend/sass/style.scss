@@ -123,6 +123,7 @@ body {
         text-decoration: none;
         color: $light-pink;
         transition: all 0.3s;
+        cursor: pointer;
     }
 
     a {
@@ -527,4 +528,73 @@ body {
 
 input.invalid, textarea.invalid{
 	border-left: 4px solid  rgb(216, 159, 159);
+}
+
+.rate {
+    float: right;
+    height: 40px;
+    padding: 0 5px;
+}
+
+.rate:not(:checked)>input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 28px;
+    color: #ccc;
+}
+
+.rate:not(:checked)>label:before {
+    content: '★ ';
+}
+
+.rate>input:checked~label {
+    color: #ebd0ce;
+}
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
+    color: #ebd0ce;
+}
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
+    color: #ebd0ce;
+}
+
+.blockHead:after {
+    color: #ebd0ce;
+    border-left: 20px solid;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    display: inline-block;
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 0;
+}
+
+.blockHead {
+    background-color: #ebd0ce;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    position: relative;
+}
+
+.blocktext {
+    color: white;
+    font-weight: bold;
+    padding-left: 10px;
+    font-size: 10;
 }

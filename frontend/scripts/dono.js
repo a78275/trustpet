@@ -2,6 +2,7 @@ Vue.component('sidebardono', {
     methods: {
         logout: function () {
             localStorage.token = ""
+            window.location.replace("http://localhost/")
         }
     },
     template: `
