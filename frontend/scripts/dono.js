@@ -1,4 +1,9 @@
 Vue.component('sidebardono', {
+    methods: {
+        logout: function () {
+            localStorage.token = ""
+        }
+    },
     template: `
 <nav id="sidebar">
     <div class="sidebar-header">
@@ -39,11 +44,109 @@ Vue.component('sidebardono', {
             <a href="#">Chat</a>
         </li>
         <li class="sec3">
-            <a v-on:click="">Logout</a>
+            <a v-on:click="logout()">Logout</a>
         </li>
     </ul>
 </nav>
 `
+})
+
+Vue.component('avaliar-petsitter', {
+    props: ['petsitter'],
+    data: () => ({
+        comentario: "",
+        pontuacao: 0
+    }),
+    methods: {
+        avaliar: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    emailAlvo: id,
+                    comentario: this.comentario,
+                    avaliacao: this.pontuacao + ""
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                console.log("review feita com sucesso!")
+            }
+        }
+    },
+    template: `
+<div class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color: #545871;"
+                    id="exampleModalLongTitle">
+                    Avaliar Petsitter - {{ petsitter.nome }}
+                </h5>
+                <button type="button" id="submitRegistoDono" class="close"
+                    data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"
+                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                    <div class="form-group shadow-textarea">
+                        <textarea class="form-control z-depth-1" rows="3"
+                            v-model="comentario"
+                            placeholder="Faça um comentário ao petsitter"></textarea>
+                    </div>
+                </div>
+                <div class="row"
+                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                    <div class="col-6 blockHead" v-if="pontuacao == ''"><span
+                            class="blocktext">Clicar para classificar</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == 1"><span
+                            class="blocktext">Muito Mau</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '2'"><span
+                            class="blocktext">Mau</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '3'"><span
+                            class="blocktext">Médio</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '4'"><span
+                            class="blocktext">Bom</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '5'"><span
+                            class="blocktext">Muito Bom</span>
+                    </div>
+                    <div class="col-5 rate">
+                        <input type="radio" id="star5" v-model="pontuacao" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" v-model="pontuacao" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" v-model="pontuacao" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" v-model="pontuacao" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" v-model="pontuacao" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" id="pinkbtn"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    data-dismiss="modal">Voltar</button>
+                <button type="button" v-on:click="avaliar(petsitter.email)"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    id="darkbluebtn">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+    `
 })
 
 Vue.component('card-animal', {
@@ -121,6 +224,62 @@ Vue.component('card-animal', {
     `
 })
 
+Vue.component('rm-animal', {
+    props: ['animal'],
+    methods: {
+        removerAnimal: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    id: id + '',
+                    ativo: "false"
+                })
+            })
+            const content = await response.json()
+
+            if (content.success) {
+                window.location.replace("http://localhost/editarAnimais.html")
+            }
+        }
+    },
+    template: `
+<div class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color: #545871;"
+                    id="exampleModalLongTitle">
+                    Remover Animal
+                </h5>
+                <button type="button" id="submitRegistoDono" class="close"
+                    data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem a certeza que pretende remover o seguinte animal?
+                <img :src=animal.avatar class="mt-3"
+                    style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                <h3 class="text-uppercase text-center mt-2">
+                    {{ animal.nome }}</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" id="pinkbtn"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    data-dismiss="modal">Voltar</button>
+                <button type="button" v-on:click="removerAnimal(animal.id)"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    id="bluepinkbtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+`})
+
 var vm = new Vue({
     el: "#dono",
     data: {
@@ -177,8 +336,6 @@ var vm = new Vue({
         listaServicos: [],
         servicosAnimaisSelecionados: [],
         petsitter: {},
-        comentario: "",
-        pontuacao: 0,
         reviews: [],
         utilizador: {}
     },
@@ -342,27 +499,6 @@ var vm = new Vue({
                 window.location.replace("http://localhost/selPetsitter.html")
             }
         },
-        logout: function () {
-            localStorage.token = ""
-        },
-        avaliar: async function (id) {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Token': localStorage.token
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    emailAlvo: id,
-                    comentario: this.comentario,
-                    avaliacao: this.pontuacao
-                })
-            })
-            const content = await response.json()
-            if (content.success) {
-                console.log("review feita com sucesso!")
-            }
-        },
         registoAnimal: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
                 headers: {
@@ -483,23 +619,6 @@ var vm = new Vue({
         pagEditarAnimal: function (id) {
             localStorage.idAnimal = id
             window.location.replace("http://localhost/editarAnimal.html")
-        },
-        removerAnimal: async function (id) {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    id: id + '',
-                    ativo: "false"
-                })
-            })
-            const content = await response.json()
-
-            if (content.success) {
-                window.location.replace("http://localhost/editarAnimais.html")
-            }
         },
         editarAnimal: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {

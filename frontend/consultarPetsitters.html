@@ -15,6 +15,17 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
         crossorigin="anonymous"></script>
@@ -169,78 +180,11 @@
                                     </tbody>
                                 </table>
                                 <button id="bluepinkbtn" class="btn mb-3" type="button" data-toggle="modal"
-                                    data-target="#avaliar"
+                                    :data-target="`#avaliar${petsitter.email}`"
                                     style="width: 40%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
                                     Avaliar</button>
-
-                                <div class="modal fade" id="avaliar" tabindex="-1" role="dialog"
-                                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" style="color: #545871;"
-                                                    id="exampleModalLongTitle">
-                                                    Avaliar Petsitter - {{ petsitter.nome }}
-                                                </h5>
-                                                <button type="button" id="submitRegistoDono" class="close"
-                                                    data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="form-group"
-                                                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
-                                                    <div class="form-group shadow-textarea">
-                                                        <textarea class="form-control z-depth-1" rows="3"
-                                                            v-model="comentario"
-                                                            placeholder="Faça um comentário ao petsitter"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="row"
-                                                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
-                                                    <div class="col-6 blockHead" v-if="pontuacao == ''"><span
-                                                            class="blocktext">Clicar para classificar</span>
-                                                    </div>
-                                                    <div class="col-6 blockHead" v-if="pontuacao == 1"><span
-                                                            class="blocktext">Muito Mau</span>
-                                                    </div>
-                                                    <div class="col-6 blockHead" v-if="pontuacao == '2'"><span
-                                                            class="blocktext">Mau</span>
-                                                    </div>
-                                                    <div class="col-6 blockHead" v-if="pontuacao == '3'"><span
-                                                            class="blocktext">Médio</span>
-                                                    </div>
-                                                    <div class="col-6 blockHead" v-if="pontuacao == '4'"><span
-                                                            class="blocktext">Bom</span>
-                                                    </div>
-                                                    <div class="col-6 blockHead" v-if="pontuacao == '5'"><span
-                                                            class="blocktext">Muito Bom</span>
-                                                    </div>
-                                                    <div class="col-5 rate">
-                                                        <input type="radio" id="star5" v-model="pontuacao" value="5" />
-                                                        <label for="star5" title="text">5 stars</label>
-                                                        <input type="radio" id="star4" v-model="pontuacao" value="4" />
-                                                        <label for="star4" title="text">4 stars</label>
-                                                        <input type="radio" id="star3" v-model="pontuacao" value="3" />
-                                                        <label for="star3" title="text">3 stars</label>
-                                                        <input type="radio" id="star2" v-model="pontuacao" value="2" />
-                                                        <label for="star2" title="text">2 stars</label>
-                                                        <input type="radio" id="star1" v-model="pontuacao" value="1" />
-                                                        <label for="star1" title="text">1 star</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn" id="pinkbtn"
-                                                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
-                                                    data-dismiss="modal">Voltar</button>
-                                                <button type="button" v-on:click="avaliar(petsitter.email)"
-                                                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
-                                                    id="darkbluebtn">Enviar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <avaliar-petsitter :id="`avaliar${petsitter.email}`" v-bind:petsitter="petsitter">
+                                </avaliar-petsitter>
                             </div>
                         </div>
                     </div>
