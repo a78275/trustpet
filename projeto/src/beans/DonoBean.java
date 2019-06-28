@@ -17,7 +17,6 @@ public class DonoBean implements DonoBeanLocal {
 
     @Override
     public boolean registarAnimal(String emailDono, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, int tipo) {
-        
         Animal animal = FacadeDAOs.createAnimal();
         animal.setNome(nome);
         animal.setIdade(idade);
@@ -68,7 +67,6 @@ public class DonoBean implements DonoBeanLocal {
 
     @Override
     public List<Animal> consultarAnimais(String emailDono) {
-        
         Dono dono = null;
         try {
             dono = FacadeDAOs.getDono(emailDono);
@@ -89,8 +87,7 @@ public class DonoBean implements DonoBeanLocal {
     }
 
     @Override
-    public boolean editarAnimal(int id, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar, boolean ativo) {
-        
+    public boolean editarAnimal(int id, String nome, String idade, String porte, String sexo, String alergias, String doencas, String comportamento, boolean vacinas, boolean desparasitacao, boolean esterilizacao, String raca, String avatar) {
         Animal animal = null;
         try {
             animal= FacadeDAOs.getAnimal(id);
@@ -101,6 +98,8 @@ public class DonoBean implements DonoBeanLocal {
         if (animal==null) {
             return false;
         }
+
+
         animal.setNome(nome);
         animal.setIdade(idade);
         animal.setSexo(sexo);
@@ -112,6 +111,30 @@ public class DonoBean implements DonoBeanLocal {
         animal.setEsterilizacao(esterilizacao);
         animal.setRaca(raca);
         animal.setAvatar(avatar);
+        animal.setAtivo(true);
+        try {
+            FacadeDAOs.saveAnimal(animal);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            // Erro ao guardar animal
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public boolean removerAnimal(int idAnimal, boolean ativo) {
+        Animal animal = null;
+        try {
+            animal= FacadeDAOs.getAnimal(idAnimal);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        // Animal não existe
+        if (animal==null) {
+            return false;
+        }
+
         animal.setAtivo(ativo);
         try {
             FacadeDAOs.saveAnimal(animal);
