@@ -22,7 +22,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
             e.printStackTrace();
             return false;
         }
-        int lenghtTipos = tipos.size();
 
         // Apagar tipos antigos
         if(!petsitter.animais.isEmpty()) {
@@ -59,7 +58,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
             try {
                 save = FacadeDAOs.savePetsitter(petsitter);
             } catch (PersistentException e) {
-                //TODO Corrigir erro da Collection não ter os tipos de animais mas existirem na BD
                 e.printStackTrace();
                 return false;
             }

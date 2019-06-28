@@ -6,6 +6,7 @@ import org.orm.PersistentSession;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -81,7 +82,7 @@ public class PedidoBean implements PedidoBeanLocal {
             // Adicionar serviços novos
             for(Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()){
                 for(int s : e.getValue()) {
-                        registarAnimalServico(e.getKey(),s,pedido);
+                    registarAnimalServico(e.getKey(),s,pedido);
                 }
             }
 
@@ -343,14 +344,12 @@ public class PedidoBean implements PedidoBeanLocal {
                 if (checkPetsitterHorario(petsitter, dataInicio, dataFim)) {
                     emailsPetsittersAux.add(petsitter.getEmail());
                 }
-
-                emailsPetsitters.retainAll(emailsPetsittersAux);
             } catch (PersistentException e) {
                 e.printStackTrace();
                 return null;
             }
         }
-
+        emailsPetsitters.retainAll(emailsPetsittersAux);
         return emailsPetsitters;
     }
 
@@ -483,7 +482,8 @@ public class PedidoBean implements PedidoBeanLocal {
                             emailsPetsittersAux.add(pps.getPetsitter().getEmail());
                         }
                         // Interseção dos dois sets
-                        if (!emailsPetsitters.retainAll(emailsPetsittersAux)) {
+                        emailsPetsitters.retainAll(emailsPetsittersAux);
+                        if (emailsPetsitters.size()==0) {
                             return null;
                         }
                     } catch (PersistentException e1) {
@@ -491,9 +491,9 @@ public class PedidoBean implements PedidoBeanLocal {
                         return null;
                     }
                 }
+
             }
         }
-
         return emailsPetsitters;
     }
 

@@ -7,6 +7,7 @@ class PedidoBehavior(TaskSequence):
     token = ""
     animais = []
     servicos = []
+    petsitter = ""
     id = 0
 
     def on_start(self):
@@ -41,36 +42,43 @@ class PedidoBehavior(TaskSequence):
                 self.id = dict_response["idPedido"]
             else:
                 print("Pedido Inválido")
+                self.interrupt()
         else:
             self.interrupt()
 
     @seq_task(2)
     def selServicos(self):
-        print("SelServicos")
-        if len(self.servicos) > 0 or self.id == 0:
+        if len(self.servicos) > 0 and self.id != 0:
             servicos = []
             for servico_animal in self.servicos:
                 index_servico = random.randint(0,len(servico_animal["servicos"])-1)
                 servico_string = str(servico_animal["id"])  + ":" + str(servico_animal["servicos"][index_servico]["id"])
-                print(servico_string + "   " + str(index_servico))
                 servicos.append(servico_string)
 
-            print(servicos)
             servicos_json = json.dumps(servicos)
             packet_data = "{'idPedido': '" + str(self.id) + "', 'animalServicos': " + servicos_json + "}"
             response = self.client.request("POST", "/SelServicos", data=packet_data, headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
             dict_response = json.loads(response.text)
 
             if dict_response["success"]:
-                print("SelServicos Response " + str(response) + " with Petsitters " + str(dict_response["petsitters"]))
+                print("SelServicos Response " + str(response) + " with Petsitters count" + str(len(dict_response["petsitters"])) + " including " + str(dict_response["petsitters"][0:1]))
+                index_petsitter = random.randint(0, len(dict_response["petsitters"]) - 1)
+                self.petsitter = dict_response["petsitters"][index_petsitter]["email"]
             else:
                 print("Selecao Inválida")
         else:
             print("Não há serviços")
             self.interrupt()
 
-    # @seq_task(3)
-    # def selPetsitter():
+    @seq_task(3)
+    def selPetsitter(self):
+        if self.petsitter != "":
+            packet_data = "{'idPedido': '" + str(self.id) + "', 'animalServicos': " + servicos_json + "}"
+            response = self.client.request("POST", "/SelServicos", data=packet_data,
+                                           headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                    "Token": self.token})
+            dict_response = json.loads(response.text)
+
 
 class DonoBehavior(TaskSet):
     tasks = {PedidoBehavior:200}
@@ -103,16 +111,17 @@ class DonoBehavior(TaskSet):
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
         if "pedidos" in dict_response:
-            pedidos = dict_response["pedidos"]
-            self.pedidos = pedidos
-            print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(pedidos))
+            self.pedidos = dict_response["pedidos"]
+            print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(len(self.pedidos)))
 
     @task(20)
     def consultarPerfil(self):
         response = self.client.request("GET", "/ConsultarPerfil",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(response.text))
+        dict_response = json.loads(response.text)
+        if dict_response["success"]:
+            print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]))
 
     @task(20)
     def consultarPetsitters(self):
@@ -209,7 +218,9 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("GET", "/ConsultarPerfil",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(response.text))
+        dict_response = json.loads(response.text)
+        if dict_response["success"]:
+            print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]) + " with Servicos " + str(len(dict_response["servicos"])))
 
     @task(20)
     def consultarPedidos(self):
