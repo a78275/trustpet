@@ -34,7 +34,7 @@ public class InativarUtilizadorServlet extends HttpServlet {
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
-        boolean autenticacao = FacadeBeans.autenticarAdministrador((String) parameters.get("email"), (String) parameters.get("password"));
+        boolean autenticacao = FacadeBeans.autenticarAdministrador((String) parameters.get("email"), Util.hash((String) parameters.get("password")));
 
         if(autenticacao) {
             boolean result = FacadeBeans.editarDados(null, (String) parameters.get("emailDono"), null, null, false, null, null, null, (String) parameters.get("tipoUtilizador"), null, null, false);

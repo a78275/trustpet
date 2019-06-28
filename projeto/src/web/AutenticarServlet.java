@@ -25,7 +25,7 @@ public class AutenticarServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
 
         String email = (String) parameters.get("email");
-        String password = (String) parameters.get("password");
+        String password = Util.hash((String) parameters.get("password"));
 
         boolean result = FacadeBeans.autenticar(email, password);
         if (result) {

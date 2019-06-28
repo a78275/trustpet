@@ -161,6 +161,7 @@ class IndexBehavior(TaskSet):
         response = self.client.request("POST", "/RegistarPetsitter", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded"})
         print("ID" + self.email + "RegistarPetsitter Response: " + str(response) + " with Success " + str(response.text))
+        self.wait()
 
 
 class WebsiteUser(HttpLocust):
