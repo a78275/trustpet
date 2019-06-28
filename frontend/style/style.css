@@ -531,6 +531,7 @@ body {
   font-size: small;
 }
 
+<<<<<<< HEAD
 input.invalid, textarea.invalid {
   border-left: 4px solid #d89f9f;
 }
@@ -603,5 +604,9 @@ input.invalid, textarea.invalid {
   padding-left: 10px;
   font-size: 10;
 }
+=======
+input.invalid, textarea.invalid, select.invalid {
+  border-left: 4px solid #d89f9f; }
+>>>>>>> e90c945a6ec326be44b71a379116202965af8001
 
 /*# sourceMappingURL=style.css.map */

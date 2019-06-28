@@ -299,7 +299,7 @@ var vm = new Vue({
         idades: ['Bebé', 'Jovem', 'Adulto', 'Sénior'],
         idade: "",
         raca: "",
-        sexo: "",
+        sexo: "M",
         porte: "",
         alergias: "",
         doencas: "",
@@ -458,47 +458,116 @@ var vm = new Vue({
     },
     methods: {
         registarPedido: async function () {
-            let dateInicio = new Date(this.dataInicio)
-            let newDataInicio = dateInicio.getDate() + "/" + (dateInicio.getMonth() + 1) + "/" + dateInicio.getFullYear()
-            let dateFim = new Date(this.dataFim)
-            let newDataFim = dateFim.getDate() + "/" + (dateFim.getMonth() + 1) + "/" + dateFim.getFullYear()
-            localStorage.dataInicio = newDataInicio + ' ' + this.horaInicio
-            localStorage.dataFim = newDataFim + ' ' + this.horaFim
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarPedido", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Token': localStorage.token
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    dataInicio: newDataInicio + ' ' + this.horaInicio,
-                    dataFim: newDataFim + ' ' + this.horaFim,
-                    animais: this.animaisSelecionados
+            if (this.animaisSelecionados.length == 0) {
+                this.snackbar("O pedido deve estar associado a pelo menos um animal.");
+            }
+            else {
+                let dateInicio = new Date(this.dataInicio)
+                let newDataInicio = dateInicio.getDate() + "/" + (dateInicio.getMonth() + 1) + "/" + dateInicio.getFullYear()
+                let dateFim = new Date(this.dataFim)
+                let newDataFim = dateFim.getDate() + "/" + (dateFim.getMonth() + 1) + "/" + dateFim.getFullYear()
+                localStorage.dataInicio = newDataInicio + ' ' + this.horaInicio
+                localStorage.dataFim = newDataFim + ' ' + this.horaFim
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarPedido", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        dataInicio: newDataInicio + ' ' + this.horaInicio,
+                        dataFim: newDataFim + ' ' + this.horaFim,
+                        animais: this.animaisSelecionados
+                    })
                 })
-            })
-            const content = await response.json()
-            if (content.success) {
-                localStorage.idPedido = content.idPedido
-                localStorage.servicos = JSON.stringify(content.servicos)
-                window.location.replace("http://localhost/selServicos.html")
+                const content = await response.json()
+                if (content.success) {
+                    localStorage.idPedido = content.idPedido
+                    localStorage.servicos = JSON.stringify(content.servicos)
+                    window.location.replace("http://localhost/selServicos.html")
+                }
             }
         },
         selServicos: async function () {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/SelServicos", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Token': localStorage.token
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    animalServicos: this.servicosAnimaisSelecionados,
-                    idPedido: localStorage.idPedido
+            var ok = true;
+            var animais = [];
+            // Ver animais que têm serviços
+            for (var animal in this.servicosAnimaisSelecionados) {
+                var idAnimal = this.servicosAnimaisSelecionados[animal].idAnimal;
+                if (!animais.includes(idAnimal))
+                    this.animais.push()
+            }
+            // Ver se os animais que têm serviços são os que foram selecionados
+            for (var animal in this.animaisSelecionados) {
+                var idAnimal = this.animaisSelecionados[animal];
+                if (!animais.includes(idAnimal))
+                    ok = false;
+            }
+            if (!ok) {
+                this.snackbar("Selecione pelo menos um serviço para cada animal.")
+            }
+            else {
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/SelServicos", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        animalServicos: this.servicosAnimaisSelecionados,
+                        idPedido: localStorage.idPedido
+                    })
                 })
-            })
-            const content = await response.json()
-            if (content.success) {
-                localStorage.petsitters = JSON.stringify(content.petsitters)
-                window.location.replace("http://localhost/selPetsitter.html")
+                const content = await response.json()
+                if (content.success) {
+                    localStorage.petsitters = JSON.stringify(content.petsitters)
+                    window.location.replace("http://localhost/selPetsitter.html")
+                }
+            }
+        },
+        validarAnimaisData: function () {
+            var form_data = $("#animaisdata_form").serializeArray();
+            var error_free = true;
+            for (var input in form_data) {
+                var element = $("#" + form_data[input]['name']);
+                var error_element = $("span", element.parent());
+
+                // A fotografia é válida se não estiver preenchida
+                if (form_data[input]['name'] == "pic") {
+                    if (!element.val()) {
+                        element.removeClass("invalid").addClass("valid");
+                        error_element.removeClass("error_show").addClass("error");
+                    }
+                }
+
+                var valid = element.hasClass("valid");
+
+                if (!valid) {
+                    error_element.removeClass("error").addClass("error_show");
+                    error_free = false;
+                    element.removeClass("valid").addClass("invalid");
+                }
+                else {
+                    element.removeClass("invalid").addClass("valid");
+                    error_element.removeClass("error_show").addClass("error");
+                }
+            }
+
+            if (!error_free) {
+                // Get the snackbar DIV
+                var x = document.getElementById("snackbar");
+
+                // Change content
+                x.textContent = "Preencha o formulário corretamente."
+
+                // Add the "show" class to DIV
+                x.className = "show";
+
+                // After 3 seconds, remove the show class from DIV
+                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+            }
+            else {
+                this.registarPedido();
             }
         },
         registoAnimal: async function () {
