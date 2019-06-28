@@ -25,7 +25,7 @@ Vue.component('sidebardono', {
                     <a href="editarDadosDono.html">Editar Dados Pessoais</a>
                 </li>
                 <li>
-                    <a href="#">Editar Dados dos Animais</a>
+                    <a href="editarAnimais.html">Editar Dados dos Animais</a>
                 </li>
                 <li>
                     <a href="adicionarAnimal.html">Adicionar Animal</a>
@@ -49,7 +49,7 @@ Vue.component('sidebardono', {
 Vue.component('card-animal', {
     props: ['animal'],
     template: `
-<div class="card m-3" style="color:#545871;">
+<div>
     <img v-if="animal.avatar" :src=animal.avatar class="mt-3"
         style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
     <img v-else
@@ -116,8 +116,8 @@ Vue.component('card-animal', {
     <div style="width: 90%; margin-left: auto; margin-right: auto;">
         <p v-if="animal.alergias">Alergias: <span
                 style="color:#ebd0ce;">{{ animal.alergias }}</span></p>
-        <p v-if="animal.doenças">Doenças: <span
-                style="color:#ebd0ce;">{{ animal.doenças }}</span></p>
+        <p v-if="animal.doencas">Doenças: <span
+                style="color:#ebd0ce;">{{ animal.doencas }}</span></p>
         <p v-if="animal.comportamento">Comportamento: <span
                 style="color:#ebd0ce;">{{ animal.comportamento }}</span></p>
     </div>
@@ -128,6 +128,7 @@ Vue.component('card-animal', {
 var vm = new Vue({
     el: "#dono",
     data: {
+        id: "",
         email: "",
         password: "",
         dataNasc: "",
@@ -208,6 +209,7 @@ var vm = new Vue({
                 })
                 const contentAnimal = await responseAnimal.json()
                 if (contentAnimal.success) {
+                    console.log(JSON.stringify(contentAnimal.animais))
                     this.animais = JSON.parse(contentAnimal.animais)
                 }
 
@@ -272,6 +274,26 @@ var vm = new Vue({
                     this.distrito = this.perfil.distrito
                     this.concelho = this.perfil.concelho
                     this.jardim = this.perfil.jardim
+                }
+                if (window.location.href == "http://localhost/editarAnimal.html") {
+                    var animal = this.animais.find(function (element) {
+                        return element.id == localStorage.idAnimal
+                    })
+                    this.nome = animal.nome
+                    this.avatar = animal.avatar
+                    this.idade = animal.idade
+                    this.porte = animal.porte
+                    this.sexo = animal.sexo
+                    this.alergias = animal.alergias
+                    this.doencas = animal.doencas
+                    this.comportamento = animal.comportamento
+                    this.vacinas = animal.vacinas
+                    this.desparasitacao = animal.desparasitacao
+                    this.esterilizacao = animal.esterilizacao
+                    this.raca = animal.raca
+                    this.tipo = animal.tipo
+                    this.id = localStorage.idAnimal
+                    localStorage.idAnimal = ""
                 }
             } else {
                 window.location.replace("http://localhost/index.html")
@@ -385,6 +407,8 @@ var vm = new Vue({
                 raca: this.raca,
                 tipo: this.tipo
             }
+            if (this.id != "")
+                this.animal.id = this.id
         },
         camposObrigatorios: async function () {
             // Get the snackbar DIV
@@ -459,6 +483,41 @@ var vm = new Vue({
                 morada: this.morada,
                 concelho: this.concelho,
                 distrito: this.distrito
+            }
+        },
+        pagEditarAnimal: function (id) {
+            localStorage.idAnimal = id
+            window.location.replace("http://localhost/editarAnimal.html")
+        },
+        removerAnimal: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    id: id
+                })
+            })
+            const content = await response.json()
+
+            if (content.success) {
+                console.log(content)
+                window.location.replace("http://localhost/editarAnimais.html")
+            }
+        },
+        editarAnimal: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify(this.animal)
+            })
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/editarAnimais.html")
             }
         }
     }
