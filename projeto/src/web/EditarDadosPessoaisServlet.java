@@ -36,7 +36,7 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
         Date date = Util.parseDate((String) parameters.get("data"),"dd/MM/yyyy");
 
         if(date != null) {
-            boolean result = FacadeBeans.editarDados((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), (String) parameters.get("password"), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
+            boolean result = FacadeBeans.editarDados((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), Util.hash((String) parameters.get("password")), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
             mensagem.put("success", result);
         }
         else {
