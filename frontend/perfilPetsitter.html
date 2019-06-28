@@ -23,6 +23,17 @@
         crossorigin="anonymous"></script>
 </head>
 
+<style>
+    td,
+    th {
+        border: #ebd0ce solid 1px !important;
+    }
+
+    #horario th {
+        border: #f7eceb solid 1px !important;
+    }
+</style>
+
 <body>
     <div class="wrapper" id="petsitter">
         <!-- Navbar -->
@@ -45,16 +56,33 @@
                             <h2 class="text-uppercase" style="font-size:1.7em; font-weight: 500;">
                                 {{ perfil.nome }}</h2>
                         </span>
-                        <hr
-                            style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
-
                         <table class="table table-bordered"
-                            style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed; border:1px solid #ebd0ce;">
+                            style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
                             <tbody style="color: #545871;">
                                 <tr>
                                     <td style="text-align: center;">
-                                        <i class='fa fa-birthday-cake' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.dataNasc }}
+                                        <i class='fas fa-at' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ perfil.email }}
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <i class='fas fa-home' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ perfil.morada }}
+                                    </td>
+
+                                    <td v-if="perfil.jardim==true" style="text-align: center;">
+                                        <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>Jardim
+                                    </td>
+                                    <td v-else style="text-align: center;">
+                                        <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>Jardim
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <i class='fa fa-phone' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ perfil.contacto }}
                                     </td>
 
                                     <td style="text-align: center;">
@@ -69,13 +97,9 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td v-if="perfil.jardim==true" style="text-align: center;">
-                                        <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>Jardim
-                                    </td>
-                                    <td v-else style="text-align: center;">
-                                        <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>Jardim
+                                    <td style="text-align: center;">
+                                        <i class='fa fa-birthday-cake' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ perfil.dataNasc }}
                                     </td>
 
                                     <td style="text-align: center;">
@@ -87,22 +111,6 @@
                                     <td style="text-align: center;">
                                         <i class='fas fa-edit' style="font-size:25px;color:#ebd0ce;"></i>
                                         <br>{{ perfil.nrAvaliacoes }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td style="text-align: center;">
-                                        <i class='fas fa-at' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.email }}
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <i class='fa fa-phone' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.contacto }}
-                                    </td>
-
-                                    <td style="text-align: center;">
-                                        <i class='fas fa-home' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.morada }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -134,19 +142,22 @@
                 <div class="justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">SERVIÇOS FORNECIDOS</h1>
                 </div>
-                <div class="row pb-4">
-                    <div class="my-3" style="width: 80%; margin-left: auto; margin-right: auto;">
-                        <table class="table" style="table-layout: fixed;">
+                <div class="col-12 pb-4">
+                    <div class="m-3" style=" margin-left: auto; margin-right: auto;">
+                        <table class="table text-center"
+                            style="background-color: white; color: #545871; table-layout: fixed;">
                             <thead>
-                                <tr>
-                                    <th scope="col">Serviço</th>
-                                    <th scope="col">Preço</th>
+                                <tr style="background-color: #545871;">
+                                    <th scope="col"><i class='fas fa-tasks' style="font-size:25px;color:white;"></i>
+                                    </th>
+                                    <th scope="col"><i class='fas fa-euro-sign' style="font-size:25px;color:white;"></i>
+                                    </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr v-for="s in servicos">
                                     <td>{{ s.servico}}</td>
-                                    <td>{{ s.preco}}</td>
+                                    <td>{{ s.preco}} €/hora</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -158,9 +169,9 @@
                 <div class="justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">HORÁRIO</h1>
                 </div>
-                <div class="row pb-4">
-                    <div class="my-3" style="width: 80%; margin-left: auto; margin-right: auto;">
-                        <table class="table" style="table-layout: fixed;">
+                <div class="col-12 pb-4">
+                    <div class="m-3" style="margin-left: auto; margin-right: auto;">
+                        <table id="horario" class="table" style="table-layout: fixed; color:#545871;">
                             <thead>
                                 <tr>
                                     <th scope="col"></th>
@@ -177,26 +188,40 @@
                                 <tr v-for="i in 24">
                                     <th scope="row">{{ i }}h</th>
 
-                                    <td v-if="temHora(1,i)" class="table-success"></td>
-                                    <td v-else class="table-danger"></td>
+                                    <td v-if="temHora(1,i)" class="table-success text-center"><i class='fa fa-check'
+                                            style="font-size:20px;color: green;"></i></td>
+                                    <td v-else class="table-danger text-center"><i class='fa fa-times'
+                                            style="font-size:20px;color:red;"></i></td>
 
-                                    <td v-if="temHora(2,i)" class="table-success"></td>
-                                    <td v-else class="table-danger"></td>
+                                    <td v-if="temHora(2,i)" class="table-success text-center"><i class='fa fa-check'
+                                            style="font-size:20px;color: green;"></i></td>
+                                    <td v-else class="table-danger text-center"><i class='fa fa-times'
+                                            style="font-size:20px;color:red;"></i></td>
 
-                                    <td v-if="temHora(3,i)" class="table-success"></td>
-                                    <td v-else class="table-danger"></td>
+                                    <td v-if="temHora(3,i)" class="table-success text-center"><i class='fa fa-check'
+                                            style="font-size:20px;color: green;"></i></td>
+                                    <td v-else class="table-danger text-center"><i class='fa fa-times'
+                                            style="font-size:20px;color:red;"></i></td>
 
-                                    <td v-if="temHora(4,i)" class="table-success"></td>
-                                    <td v-else class="table-danger"></td>
+                                    <td v-if="temHora(4,i)" class="table-success text-center"><i class='fa fa-check'
+                                            style="font-size:20px;color: green;"></i></td>
+                                    <td v-else class="table-danger text-center"><i class='fa fa-times'
+                                            style="font-size:20px;color:red;"></i></td>
 
-                                    <td v-if="temHora(5,i)" class="table-success"></td>
-                                    <td v-else class="table-danger"></td>
+                                    <td v-if="temHora(5,i)" class="table-success text-center"><i class='fa fa-check'
+                                            style="font-size:20px;color: green;"></i></td>
+                                    <td v-else class="table-danger text-center"><i class='fa fa-times'
+                                            style="font-size:20px;color:red;"></i></td>
 
-                                    <td v-if="temHora(6,i)" class="table-success"></td>
-                                    <td v-else class="table-danger"></td>
+                                    <td v-if="temHora(6,i)" class="table-success text-center"><i class='fa fa-check'
+                                            style="font-size:20px;color: green;"></i></td>
+                                    <td v-else class="table-danger text-center"><i class='fa fa-times'
+                                            style="font-size:20px;color:red;"></i></td>
 
-                                    <td v-if="temHora(7,i)" class="table-success"></td>
-                                    <td v-else class="table-danger"></td>
+                                    <td v-if="temHora(7,i)" class="table-success text-center"><i class='fa fa-check'
+                                            style="font-size:20px;color: green;"></i></td>
+                                    <td v-else class="table-danger text-center"><i class='fa fa-times'
+                                            style="font-size:20px;color:red;"></i></td>
                                 </tr>
                             </tbody>
                         </table>

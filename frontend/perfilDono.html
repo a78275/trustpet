@@ -117,91 +117,20 @@
             <section>
                 <div class="justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">OS SEUS ANIMAIS</h1>
-                    <div v-if="animais.length==0" class="alert alert-danger" role="alert">
+                    <div v-if="animais.length==0" class="alert alert-danger" role="alert"
+                        style="width:50%; margin-left:auto; margin-right:auto;">
                         <h4 class="alert-heading">Ainda não tem animais registados!</h4>
-                        <p>Aww yeah, you successfully read this important alert message. This example text is going to
-                            run a bit longer so
-                            that you can see how spacing within an alert works with this kind of content.</p>
+                        <p>Adicione os seus animais para que os nossos petsitters possam cuidar deles.</p>
                         <hr>
-                        <p class="mb-0">Whenever you need to, be sure to use margin utilities to keep things nice and
-                            tidy.</p>
+                        <div class="text-center">
+                            <a href="adicionarAnimal.html"><button type="button" id="whitebtn">Adicionar
+                                    Animal</button></a>
+                        </div>
                     </div>
                     <div class="row mx-1">
                         <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" v-for="animal in animais"
                             v-bind:key="animal.id">
-                            <div class="card m-3" style="color:#545871;">
-                                <img v-if="animal.avatar" :src=animal.avatar class="mt-3"
-                                    style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
-                                <img v-else
-                                    src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Gatto_europeo4.jpg/250px-Gatto_europeo4.jpg"
-                                    class="mt-3"
-                                    style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
-                                <h3 class="text-uppercase text-center mt-2">{{ animal.nome }}</h3>
-                                <p class="text-center">{{ animal.raca }}</p>
-                                <table class="table table-bordered"
-                                    style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
-                                    <tbody style="color: #545871;">
-                                        <tr>
-                                            <td v-if="animal.sexo=='F'" style="text-align: center;">
-                                                <i class='fas fa-venus' style="font-size:25px;color:#ebd0ce;"></i>
-                                                <br>Fêmea
-                                            </td>
-                                            <td v-else style="text-align: center;">
-                                                <i class='fas fa-mars' style="font-size:25px;color:#ebd0ce;"></i>
-                                                <br>Macho
-                                            </td>
-
-                                            <td style="text-align: center;">
-                                                <span
-                                                    style="font-weight:600;font-size:20px;color:#ebd0ce;">{{ animal.idade }}</span>
-                                                <br>Anos
-                                            </td>
-
-                                            <td style="text-align: center;">
-                                                <span
-                                                    style="font-weight:500;font-size:17px;color:#ebd0ce;">{{ animal.porte }}</span>
-                                                <br>Porte
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td v-if="animal.desparasitacao==true" style="text-align: center;">
-                                                <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
-                                                <br>Desparasitação
-                                            </td>
-                                            <td v-else style="text-align: center;">
-                                                <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
-                                                <br>Desparasitação
-                                            </td>
-
-                                            <td v-if="animal.esterilizacao==true" style="text-align: center;">
-                                                <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
-                                                <br>Esterilização
-                                            </td>
-                                            <td v-else style="text-align: center;">
-                                                <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
-                                                <br>Esterilização
-                                            </td>
-
-                                            <td v-if="animal.vacinas==true" style="text-align: center;">
-                                                <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
-                                                <br>Vacinação
-                                            </td>
-                                            <td v-else style="text-align: center;">
-                                                <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
-                                                <br>Vacinação
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div style="width: 90%; margin-left: auto; margin-right: auto;">
-                                    <p v-if="animal.alergias">Alergias: <span
-                                            style="color:#ebd0ce;">{{ animal.alergias }}</span></p>
-                                    <p v-if="animal.doenças">Doenças: <span
-                                            style="color:#ebd0ce;">{{ animal.doenças }}</span></p>
-                                    <p v-if="animal.comportamento">Comportamento: <span
-                                            style="color:#ebd0ce;">{{ animal.comportamento }}</span></p>
-                                </div>
-                            </div>
+                            <card-animal v-bind:animal="animal"></card-animal>
                         </div>
                     </div>
                 </div>
