@@ -50,11 +50,7 @@ Vue.component('card-animal', {
     props: ['animal'],
     template: `
 <div>
-    <img v-if="animal.avatar" :src=animal.avatar class="mt-3"
-        style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
-    <img v-else
-        src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Gatto_europeo4.jpg/250px-Gatto_europeo4.jpg"
-        class="mt-3"
+    <img :src=animal.avatar class="mt-3"
         style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
     <h3 class="text-uppercase text-center mt-2">{{ animal.nome }}</h3>
     <p class="text-center">{{ animal.raca }}</p>
@@ -74,7 +70,7 @@ Vue.component('card-animal', {
                 <td style="text-align: center;">
                     <span
                         style="font-weight:600;font-size:20px;color:#ebd0ce;">{{ animal.idade }}</span>
-                    <br>Anos
+                    <br>Idade
                 </td>
 
                 <td style="text-align: center;">
@@ -209,7 +205,6 @@ var vm = new Vue({
                 })
                 const contentAnimal = await responseAnimal.json()
                 if (contentAnimal.success) {
-                    console.log(JSON.stringify(contentAnimal.animais))
                     this.animais = JSON.parse(contentAnimal.animais)
                 }
 
@@ -266,7 +261,7 @@ var vm = new Vue({
                     let newDate = + date[2] + "-" + date[1] + "-" + date[0]
                     this.nome = this.perfil.nome
                     this.email = this.perfil.email
-                    this.password = this.perfil.password
+                    this.password = ""
                     this.dataNasc = newDate
                     this.contacto = this.perfil.contacto
                     this.avatar = this.perfil.avatar
@@ -496,13 +491,13 @@ var vm = new Vue({
                 },
                 method: "POST",
                 body: JSON.stringify({
-                    id: id
+                    id: id + '',
+                    ativo: "false"
                 })
             })
             const content = await response.json()
 
             if (content.success) {
-                console.log(content)
                 window.location.replace("http://localhost/editarAnimais.html")
             }
         },

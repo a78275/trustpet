@@ -69,9 +69,11 @@
                                     placeholder="Introduza o seu endereço de e-mail" disabled="true">
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="password">Password <span style="color:firebrick"><b>*</b></span></label>
+                                <label for="password">Password</label>
                                 <input type="password" name="password" class="form-control" id="password"
                                     v-model="password" placeholder="Introduza uma palavra-passe" required>
+                                <small id="emailHelp" class="form-text text-muted">Alterar a password não é obrigatório.
+                                    Deixe em branco caso queira manter a sua password.</small>
                             </div>
                         </div>
                         <div class="form-row">
