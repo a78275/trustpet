@@ -22,43 +22,54 @@ public class PetsitterBean implements PetsitterBeanLocal {
             e.printStackTrace();
             return false;
         }
+        System.out.println("Email: "+ emailPetsitter +"| TiposNovos: " + tipos.toString());
+        System.out.println("TiposAntigos: " + petsitter.animais.toArray().length);
+
 
         // Apagar tipos antigos
         if(!petsitter.animais.isEmpty()) {
             TipoAnimal[] tiposAntigos = petsitter.animais.toArray();
+
             for(TipoAnimal tipo : tiposAntigos) {
                 if(!tipos.contains(tipo.getId())) {
                     petsitter.animais.remove(tipo);
+                    System.out.println("TipoRemovido: " + tipo.getTipo());
                 }
                 else {
                     tipos.remove((Integer) tipo.getId());
+                    System.out.println("TipoAntigo: " + tipo.getTipo());
                 }
             }
         }
 
-        // Set dos animais
-        for(int idTipo : tipos) {
-            TipoAnimal animal = null;
+        if(tipos.size()==0) {
+            return true;
+        }
+        else {
+            // Set dos animais
+            for(int idTipo : tipos) {
+                TipoAnimal animal = null;
+                try {
+                    animal = FacadeDAOs.getTipoAnimal(idTipo);
+                } catch (PersistentException e) {
+                    e.printStackTrace();
+                    return false;
+                }
+                petsitter.animais.add(animal);
+                System.out.println("TipoAdicionado: " + animal.getTipo());
+            }
+
+            // Save do petsitter
+            boolean save = false;
             try {
-                animal = FacadeDAOs.getTipoAnimal(idTipo);
+                save = FacadeDAOs.savePetsitter(petsitter);
             } catch (PersistentException e) {
-                e.printStackTrace();
+                //TODO Corrigir erro da Collection não ter os tipos de animais mas existirem na BD
+                //e.printStackTrace();
                 return false;
             }
-            petsitter.animais.add(animal);
+            return save;
         }
-
-        // Save do petsitter
-        boolean save = false;
-        try {
-            save = FacadeDAOs.savePetsitter(petsitter);
-        } catch (PersistentException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        return save;
-
     }
 
     @Override

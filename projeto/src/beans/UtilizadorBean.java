@@ -262,7 +262,6 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             }
             dono.setNome(nome);
             dono.setEmail(email);
-            dono.setPassword(password);
             dono.setContacto(contacto);
             dono.setJardim(jardim);
             dono.setMorada(morada);
@@ -274,6 +273,11 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             dono.setNrAvaliacoes(0);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             dono.setDataNasc(format.format(dataNasc));
+
+            // Edição completa
+            if(password != null) {
+                dono.setPassword(password);
+            }
             try {
                 FacadeDAOs.saveDono(dono);
             } catch (PersistentException e) {
@@ -293,7 +297,6 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             }
             petsitter.setNome(nome);
             petsitter.setEmail(email);
-            petsitter.setPassword(password);
             petsitter.setContacto(contacto);
             petsitter.setJardim(jardim);
             petsitter.setMorada(morada);
@@ -305,6 +308,11 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             petsitter.setNrAvaliacoes(0);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
             petsitter.setDataNasc(format.format(dataNasc));
+
+            // Edição completa
+            if(password != null) {
+                petsitter.setPassword(password);
+            }
             try {
                 FacadeDAOs.savePetsitter(petsitter);
             } catch (PersistentException e) {
