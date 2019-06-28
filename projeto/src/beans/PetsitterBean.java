@@ -22,8 +22,8 @@ public class PetsitterBean implements PetsitterBeanLocal {
             e.printStackTrace();
             return false;
         }
-        System.out.println("Email: "+ emailPetsitter +"| TiposNovos: " + tipos.toString());
-        System.out.println("TiposAntigos: " + petsitter.animais.toArray().length);
+        //System.out.println("Email: "+ emailPetsitter +"| TiposNovos: " + tipos.toString());
+        //System.out.println("TiposAntigos: " + petsitter.animais.toArray().length);
 
 
         // Apagar tipos antigos
@@ -33,11 +33,11 @@ public class PetsitterBean implements PetsitterBeanLocal {
             for(TipoAnimal tipo : tiposAntigos) {
                 if(!tipos.contains(tipo.getId())) {
                     petsitter.animais.remove(tipo);
-                    System.out.println("TipoRemovido: " + tipo.getTipo());
+                    //System.out.println("TipoRemovido: " + tipo.getTipo());
                 }
                 else {
                     tipos.remove((Integer) tipo.getId());
-                    System.out.println("TipoAntigo: " + tipo.getTipo());
+                    //System.out.println("TipoAntigo: " + tipo.getTipo());
                 }
             }
         }
@@ -56,7 +56,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
                     return false;
                 }
                 petsitter.animais.add(animal);
-                System.out.println("TipoAdicionado: " + animal.getTipo());
+                //System.out.println("TipoAdicionado: " + animal.getTipo());
             }
 
             // Save do petsitter
@@ -65,7 +65,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
                 save = FacadeDAOs.savePetsitter(petsitter);
             } catch (PersistentException e) {
                 //TODO Corrigir erro da Collection não ter os tipos de animais mas existirem na BD
-                //e.printStackTrace();
+                e.printStackTrace();
                 return false;
             }
             return save;

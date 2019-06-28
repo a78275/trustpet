@@ -173,13 +173,12 @@ public class FacadeBeans {
      * @param morada
      * @param password
      * @param avatar
-     * @param tipoUtilizador
      * @param concelho
      * @param distrito
      * @param ativo
      */
-    public static boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo) {
-        return utilizadorBean.editarDados(nome, email, dataNasc, contacto, jardim, morada, password, avatar, tipoUtilizador, concelho, distrito, ativo);
+    public static boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String concelho, String distrito, boolean ativo) {
+        return utilizadorBean.editarDados(nome, email, dataNasc, contacto, jardim, morada, password, avatar, concelho, distrito, ativo);
     }
 
     /**
