@@ -35,15 +35,15 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
 
         Date date = Util.parseDate((String) parameters.get("data"),"dd/MM/yyyy");
 
-        if(date != null) {
+        if(date != null && email!=null) {
             boolean result=false;
             // Edição de Dados sem edição de Password
             if(parameters.get("password").equals("")) {
-                result = FacadeBeans.editarDados((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), null, (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
+                result = FacadeBeans.editarDados((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), null, (String) parameters.get("avatar"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
             }
             // Edição de Dados completa
             else {
-                result = FacadeBeans.editarDados((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), Util.hash((String) parameters.get("password")), (String) parameters.get("avatar"), (String) parameters.get("tipoUtilizador"), (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
+                result = FacadeBeans.editarDados((String) parameters.get("nome"), email, date, (String) parameters.get("contacto"), Boolean.parseBoolean((String) parameters.get("jardim")), (String) parameters.get("morada"), Util.hash((String) parameters.get("password")), (String) parameters.get("avatar"),  (String) parameters.get("concelho"), (String) parameters.get("distrito"), true);
             }
             mensagem.put("success", result);
         }

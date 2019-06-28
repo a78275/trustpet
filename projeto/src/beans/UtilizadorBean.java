@@ -20,16 +20,6 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
-        Utilizador utilizador = null;
-        try {
-            utilizador=FacadeDAOs.getUtilizador(email);
-        } catch (PersistentException e) {
-            e.printStackTrace();
-        }
-        if(utilizador!=null) {
-            return false;
-        }
-
         if (tipoUtilizador.equals("dono")) {
             Dono dono = FacadeDAOs.createDono();
             dono.setNome(nome);
@@ -166,7 +156,7 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public Utilizador consultarPerfil(String email, String tipoUtilizador) {
-        
+
         if (tipoUtilizador.equals("dono")) {
             Dono dono = null;
             try {
@@ -194,153 +184,89 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
     }
 
     @Override
-    public boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo) {
+    public boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String concelho, String distrito, boolean ativo) {
         // Inativação de utilizador por parte do admin
         if (nome == null && !ativo) {
-            return inativarUtilizador(email, tipoUtilizador);
+            return inativarUtilizador(email);
         }
         // Editar dados por parte dos utilizadores
         else {
-            return editarDadosUtilizador(nome, email, dataNasc, contacto, jardim, morada, password, avatar, tipoUtilizador, concelho, distrito, ativo);
+            return editarDadosUtilizador(nome, email, dataNasc, contacto, jardim, morada, password, avatar, concelho, distrito, ativo);
         }
     }
 
-    private boolean inativarUtilizador(String email, String tipoUtilizador) {
-        if (tipoUtilizador.equals("dono")) {
-            Dono dono = null;
+    private boolean inativarUtilizador(String email) {
+        Utilizador utilizador = null;
+        try {
+            utilizador = FacadeDAOs.getUtilizador(email);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            return false;
+        }
+        if (utilizador != null) {
+            utilizador.setAtivo(false);
             try {
-                dono = FacadeDAOs.getDono(email);
+                FacadeDAOs.saveUtilizador(utilizador);
             } catch (PersistentException e) {
-                // Dono não existe
-                e.printStackTrace();
-                return false;
-            }
-            dono.setAtivo(false);
-
-            try {
-                FacadeDAOs.saveDono(dono);
-            } catch (PersistentException e) {
-                // Erro ao guardar dono
-                e.printStackTrace();
-                return false;
-            }
-            return true;
-        } else if (tipoUtilizador.equals("petsitter")) {
-            Petsitter petsitter = null;
-            try {
-                petsitter = FacadeDAOs.getPetsitter(email);
-            } catch (PersistentException e) {
-                // Petsitter não existe
-                e.printStackTrace();
-                return false;
-            }
-            petsitter.setAtivo(true);
-
-            try {
-                FacadeDAOs.savePetsitter(petsitter);
-            } catch (PersistentException e) {
-                // Erro ao guardar petsitter
                 e.printStackTrace();
                 return false;
             }
             return true;
         } else {
-            // Tipo de utilizador inválido
             return false;
         }
     }
 
-    private boolean editarDadosUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito, boolean ativo) {
-        if (tipoUtilizador.equals("dono")) {
-            Dono dono = null;
-            try {
-                dono = FacadeDAOs.getDono(email);
-            } catch (PersistentException e) {
-                // Dono não existe
-                e.printStackTrace();
-                return false;
-            }
-            dono.setNome(nome);
-            dono.setEmail(email);
-            dono.setContacto(contacto);
-            dono.setJardim(jardim);
-            dono.setMorada(morada);
-            dono.setAvatar(avatar);
-            dono.setConcelho(concelho);
-            dono.setDistrito(distrito);
-            dono.setAtivo(ativo);
-            dono.setAvaliacaoMedia(0);
-            dono.setNrAvaliacoes(0);
-            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            dono.setDataNasc(format.format(dataNasc));
-
-            // Edição completa
-            if(password != null) {
-                dono.setPassword(password);
-            }
-            try {
-                FacadeDAOs.saveDono(dono);
-            } catch (PersistentException e) {
-                // Erro ao guardar dono
-                e.printStackTrace();
-                return false;
-            }
-            return true;
-        } else if (tipoUtilizador.equals("petsitter")) {
-            Petsitter petsitter = null;
-            try {
-                petsitter = FacadeDAOs.getPetsitter(email);
-            } catch (PersistentException e) {
-                // Petsitter não existe
-                e.printStackTrace();
-                return false;
-            }
-            petsitter.setNome(nome);
-            petsitter.setEmail(email);
-            petsitter.setContacto(contacto);
-            petsitter.setJardim(jardim);
-            petsitter.setMorada(morada);
-            petsitter.setAvatar(avatar);
-            petsitter.setConcelho(concelho);
-            petsitter.setDistrito(distrito);
-            petsitter.setAtivo(true);
-            petsitter.setAvaliacaoMedia(0);
-            petsitter.setNrAvaliacoes(0);
-            DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-            petsitter.setDataNasc(format.format(dataNasc));
-
-            // Edição completa
-            if(password != null) {
-                petsitter.setPassword(password);
-            }
-            try {
-                FacadeDAOs.savePetsitter(petsitter);
-            } catch (PersistentException e) {
-                // Erro ao guardar petsitter
-                e.printStackTrace();
-                return false;
-            }
-            return true;
-        } else {
-            // Tipo de utilizador inválido
+    private boolean editarDadosUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String concelho, String distrito, boolean ativo) {
+        Utilizador utilizador = null;
+        try {
+            utilizador = FacadeDAOs.getUtilizador(email);
+        } catch (PersistentException e) {
+            // Utilizador não existe
+            e.printStackTrace();
             return false;
         }
+        utilizador.setNome(nome);
+        utilizador.setEmail(email);
+        utilizador.setContacto(contacto);
+        utilizador.setJardim(jardim);
+        utilizador.setMorada(morada);
+        utilizador.setAvatar(avatar);
+        utilizador.setConcelho(concelho);
+        utilizador.setDistrito(distrito);
+        utilizador.setAtivo(ativo);
+        utilizador.setAvaliacaoMedia(0);
+        utilizador.setNrAvaliacoes(0);
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        utilizador.setDataNasc(format.format(dataNasc));
+
+        // Edição completa
+        if (password != null) {
+            utilizador.setPassword(password);
+        }
+        try {
+            FacadeDAOs.saveUtilizador(utilizador);
+        } catch (PersistentException e) {
+            // Erro ao guardar utilizador
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
     public List<Review> consultarReviews(String email, String tipo) {
         List<Review> reviews = null;
-        if(tipo.equals("dono")) {
+        if (tipo.equals("dono")) {
             try {
-                reviews = FacadeDAOs.listReviews("donoutilizadoremail = '" + email + "' AND alvo = 'dono'",null);
+                reviews = FacadeDAOs.listReviews("donoutilizadoremail = '" + email + "' AND alvo = 'dono'", null);
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
 
-        }
-        else if (tipo.equals("petsitter")) {
+        } else if (tipo.equals("petsitter")) {
             try {
-                reviews = FacadeDAOs.listReviews("petsitterutilizadoremail = '" + email + "' AND alvo = 'petsitter'",null);
+                reviews = FacadeDAOs.listReviews("petsitterutilizadoremail = '" + email + "' AND alvo = 'petsitter'", null);
             } catch (PersistentException e) {
                 e.printStackTrace();
             }
@@ -356,13 +282,11 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         } catch (PersistentException e) {
             e.printStackTrace();
         }
-        if(user instanceof Dono) {
+        if (user instanceof Dono) {
             return "dono";
-        }
-        else if (user instanceof Petsitter) {
+        } else if (user instanceof Petsitter) {
             return "petsitter";
-        }
-        else {
+        } else {
             return "";
         }
 
