@@ -432,6 +432,7 @@ var vm = new Vue({
                     var animal = this.animais.find(function (element) {
                         return element.id == localStorage.idAnimal
                     })
+                    console.log(JSON.stringify(animal))
                     this.nome = animal.nome
                     this.avatar = animal.avatar
                     this.idade = animal.idade
@@ -444,7 +445,7 @@ var vm = new Vue({
                     this.desparasitacao = animal.desparasitacao
                     this.esterilizacao = animal.esterilizacao
                     this.raca = animal.raca
-                    this.tipo = animal.tipo
+                    this.tipo = animal.tipo.id
                     this.id = localStorage.idAnimal
                     localStorage.idAnimal = ""
                 }
