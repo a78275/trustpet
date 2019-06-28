@@ -116,8 +116,8 @@ Vue.component('card-animal', {
     <div style="width: 90%; margin-left: auto; margin-right: auto;">
         <p v-if="animal.alergias">Alergias: <span
                 style="color:#ebd0ce;">{{ animal.alergias }}</span></p>
-        <p v-if="animal.doenças">Doenças: <span
-                style="color:#ebd0ce;">{{ animal.doenças }}</span></p>
+        <p v-if="animal.doencas">Doenças: <span
+                style="color:#ebd0ce;">{{ animal.doencas }}</span></p>
         <p v-if="animal.comportamento">Comportamento: <span
                 style="color:#ebd0ce;">{{ animal.comportamento }}</span></p>
     </div>
@@ -128,6 +128,7 @@ Vue.component('card-animal', {
 var vm = new Vue({
     el: "#dono",
     data: {
+        id: "",
         email: "",
         password: "",
         dataNasc: "",
@@ -208,6 +209,7 @@ var vm = new Vue({
                 })
                 const contentAnimal = await responseAnimal.json()
                 if (contentAnimal.success) {
+                    console.log(JSON.stringify(contentAnimal.animais))
                     this.animais = JSON.parse(contentAnimal.animais)
                 }
 
@@ -274,7 +276,9 @@ var vm = new Vue({
                     this.jardim = this.perfil.jardim
                 }
                 if (window.location.href == "http://localhost/editarAnimal.html") {
-                    var animal = getAnimal(localStorage.idAnimal)
+                    var animal = this.animais.find(function (element) {
+                        return element.id == localStorage.idAnimal
+                    })
                     this.nome = animal.nome
                     this.avatar = animal.avatar
                     this.idade = animal.idade
@@ -288,6 +292,7 @@ var vm = new Vue({
                     this.esterilizacao = animal.esterilizacao
                     this.raca = animal.raca
                     this.tipo = animal.tipo
+                    this.id = localStorage.idAnimal
                     localStorage.idAnimal = ""
                 }
             } else {
@@ -402,6 +407,8 @@ var vm = new Vue({
                 raca: this.raca,
                 tipo: this.tipo
             }
+            if (this.id != "")
+                this.animal.id = this.id
         },
         camposObrigatorios: async function () {
             // Get the snackbar DIV
@@ -499,11 +506,19 @@ var vm = new Vue({
                 window.location.replace("http://localhost/editarAnimais.html")
             }
         },
-        getAnimal: function (id) {
-            var found = this.animais.find(function (element) {
-                return element.id == id
+        editarAnimal: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify(this.animal)
             })
-            return found
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/editarAnimais.html")
+            }
         }
     }
 })
