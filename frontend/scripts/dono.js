@@ -346,9 +346,8 @@ var vm = new Vue({
         servicosAnimaisSelecionados: [],
         petsitter: {},
         reviews: [],
-        utilizador: {},
-        snackbar: ""
-    },/*
+        utilizador: {}
+    },
     mounted: function () {
         if (localStorage.sucesso == "login") {
             this.snackbar("Login efetuado com sucesso.")
@@ -358,7 +357,7 @@ var vm = new Vue({
             this.snackbar("Registo efetuado com sucesso.")
             localStorage.sucesso = ""
         }
-    },*/
+    },
     created: async function () {
         if (localStorage.token) {
             //Validar
@@ -409,7 +408,6 @@ var vm = new Vue({
                 const contentPedidos = await responsePedidos.json()
                 if (contentPedidos.success) {
                     this.pedidosPendentes = contentPedidos.pedidos
-                    console.log(this.pedidosPendentes)
                 }
 
                 if (window.location.href == "http://localhost/consultarPetsitters.html") {
@@ -747,6 +745,29 @@ var vm = new Vue({
             if (content.success) {
                 window.location.replace("http://localhost/editarAnimais.html")
             }
+        },
+        checkData: function (data) {
+            var today = new Date();
+            let date = data.split("/")
+            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0]
+            let final = new Date(dataFim)
+            if (final >= today)
+                return true
+            else
+                return false
+        },
+        snackbar: function (content) {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Change content
+            x.textContent = content
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
     }
 })
