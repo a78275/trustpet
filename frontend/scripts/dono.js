@@ -340,12 +340,12 @@ var vm = new Vue({
         reviews: [],
         utilizador: {}
     },
-    mounted: function(){
-        if(localStorage.sucesso == "login"){
+    mounted: function () {
+        if (localStorage.sucesso == "login") {
             this.snackbar("Login efetuado com sucesso.")
             localStorage.sucesso = ""
         }
-        else if(localStorage.sucesso == "registo"){
+        else if (localStorage.sucesso == "registo") {
             this.snackbar("Registo efetuado com sucesso.")
             localStorage.sucesso = ""
         }
@@ -660,7 +660,8 @@ var vm = new Vue({
         editarDadosDono: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarDadosPessoais", {
                 headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
                 },
                 method: "POST",
                 body: JSON.stringify(this.utilizador)

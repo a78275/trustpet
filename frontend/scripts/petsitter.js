@@ -106,21 +106,22 @@ var vm = new Vue({
                     this.reviews = contentPetsitter.reviews
                     this.horario = this.perfil.horario
                 }
-                /*
-                //Fetch dos animais
-                const responseAnimal = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarAnimais", {
-                    headers: {
-                        'Content-Type': 'application/json; charset=utf-8',
-                        'Token': localStorage.token
-                    },
-                    method: 'GET'
-                })
-                const contentAnimal = await responseAnimal.json()
-                if (contentAnimal.success) {
-                    this.animais = JSON.parse(contentAnimal.animais)
+                if (window.location.href == "http://localhost/editarDadosPetsitter.html") {
+                    let date = this.perfil.dataNasc.split("/")
+                    let newDate = + date[2] + "-" + date[1] + "-" + date[0]
+                    this.nome = this.perfil.nome
+                    this.email = this.perfil.email
+                    this.password = ""
+                    this.dataNasc = newDate
+                    this.contacto = this.perfil.contacto
+                    this.avatar = this.perfil.avatar
+                    this.morada = this.perfil.morada
+                    this.distrito = this.perfil.distrito
+                    this.concelho = this.perfil.concelho
+                    this.jardim = this.perfil.jardim
                 }
-
-
+                /*
+                //Fetch dos pedidos
 
                 const responsePedidos = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPedidos", {
                     headers: {
@@ -157,9 +158,11 @@ var vm = new Vue({
                 return false
         },
         editarDadosPetsitter: async function () {
+            console.log('olá')
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarDadosPessoais", {
                 headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
                 },
                 method: "POST",
                 body: JSON.stringify(this.utilizador)
@@ -195,6 +198,19 @@ var vm = new Vue({
 
             // Change content
             x.textContent = content
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        },
+        camposObrigatorios: async function () {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Change content
+            x.textContent = "É necessário preencher todos os campos obrigatórios."
 
             // Add the "show" class to DIV
             x.className = "show";
