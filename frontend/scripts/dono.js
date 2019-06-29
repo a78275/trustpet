@@ -325,8 +325,16 @@ var vm = new Vue({
                 '7': 'Brincar'
             }
         }],
-        tiposAnimal: [{ 'id': '1', 'tipo': 'Gato', 'img': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5fBKv_d93io82eZokxqn_4jsHFSolEpiqeNPxjxy12DIiM0T' }, { 'id': '2', 'tipo': 'Cão', 'img': 'https://essencecuidados.com.br/wp-content/uploads/2016/10/dog.jpg' }, { 'id': '3', 'tipo': 'Pássaro', 'img': 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/19/pinyon-jay-bird.jpg' }, { 'id': '4', 'tipo': 'Tartaruga', 'img': 'https://oliveridleyproject.org/wp-content/uploads/2018/05/Olive-ridley-turtle-baby-patient-Luna-recovering-rescue-centre-ORP.jpg' }],
-        petsitters: [],
+        tiposAnimal: [
+            { 'id': '1', 'tipo': 'Gato', 'img': 'img/gato.png' },
+            { 'id': '2', 'tipo': 'Cão', 'img': 'img/cao.png' },
+            { 'id': '3', 'tipo': 'Pássaro', 'img': 'img/passaro.png' },
+            { 'id': '4', 'tipo': 'Tartaruga', 'img': 'img/tartaruga.png' },
+            { 'id': '5', 'tipo': 'Peixe', 'img': 'img/peixe.png' },
+            { 'id': '6', 'tipo': 'Porco', 'img': 'img/porco.png' },
+            { 'id': '7', 'tipo': 'Coelho', 'img': 'img/coelho.png' },
+            { 'id': '8', 'tipo': 'Roedor', 'img': 'img/roedor.png' },
+            { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }], petsitters: [],
         pedidosPendentes: [],
         dataInicio: "",
         dataFim: "",
@@ -417,7 +425,7 @@ var vm = new Vue({
                     }
                 }
                 if (window.location.href == "http://localhost/selServicos.html") {
-                    this.listaServicos = JSON.parse(localStorage.servicos)
+                    this.listaServicos = localStorage.servicos
                     this.dataInicio = localStorage.dataInicio
                     this.dataFim = localStorage.dataFim
                 }
@@ -493,7 +501,7 @@ var vm = new Vue({
                 const content = await response.json()
                 if (content.success) {
                     localStorage.idPedido = content.idPedido
-                    localStorage.servicos = JSON.stringify(content.servicos)
+                    localStorage.servicos = content.servicos
                     window.location.replace("http://localhost/selServicos.html")
                 }
             }
@@ -737,6 +745,16 @@ var vm = new Vue({
             if (content.success) {
                 window.location.replace("http://localhost/editarAnimais.html")
             }
+        },
+        checkData: function (data) {
+            var today = new Date();
+            let date = data.split("/")
+            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0]
+            let final = new Date(dataFim)
+            if (final >= today)
+                return true
+            else
+                return false
         },
         snackbar: function (content) {
             // Get the snackbar DIV

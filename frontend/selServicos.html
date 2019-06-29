@@ -55,13 +55,13 @@
                 <p>
                     <span style="font-size:1.5em; font-weight: 500; color: #545871;">Início:
                     </span>
-                    <span style="font-size:1.2em; font-weight: 400; color: #9597a6;">{{ this.dataInicio }}
+                    <span style="font-size:1.2em; font-weight: 400; color: #9597a6;">{{ dataInicio }}
                     </span>
                 </p>
                 <p>
                     <span style="font-size:1.5em; font-weight: 500; color: #545871;">Fim:
                     </span>
-                    <span style="font-size:1.2em; font-weight: 400; color: #9597a6;">{{ this.dataFim }}
+                    <span style="font-size:1.2em; font-weight: 400; color: #9597a6;">{{ dataFim }}
                     </span>
                 </p>
             </div>
@@ -72,6 +72,7 @@
                 <form>
                     <div class="row pb-4 mx-4">
                         <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 mb-4" v-for="s in listaServicos">
+                            {{ s }}
                             <div class="card text-center">
                                 <div class="card-body">
                                     <img class="rounded-circle" :src=s.avatar
@@ -109,6 +110,9 @@
             </footer>
         </div>
     </div>
+    <!-- Snackbar -->
+    <div id="snackbar"></div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
