@@ -366,7 +366,11 @@ var vm = new Vue({
         servicosAnimaisSelecionados: [],
         petsitter: {},
         reviews: [],
-        utilizador: {}
+        utilizador: {},
+        selDistrito: "Distrito",
+        selConcelho: "Concelho",
+        search: "",
+        ordenacao: "Ordenar por classificação"
     },
     mounted: function () {
         if (localStorage.sucesso == "login") {
@@ -548,17 +552,19 @@ var vm = new Vue({
         selServicos: async function () {
             var ok = true;
             var animais = [];
+
             // Ver animais que têm serviços
-            for (var animal in this.servicosAnimaisSelecionados) {
-                var idAnimal = this.servicosAnimaisSelecionados[animal].idAnimal;
+            for (var animal of this.servicosAnimaisSelecionados) {
+                var parts = animal.split(':');
+                var idAnimal = parts[0];
                 if (!animais.includes(idAnimal))
-                    this.animais.push()
+                    animais.push(Number(idAnimal))
             }
             // Ver se os animais que têm serviços são os que foram selecionados
-            for (var animal in this.animaisSelecionados) {
-                var idAnimal = this.animaisSelecionados[animal];
-                if (!animais.includes(idAnimal))
+            for (var animal of JSON.parse(localStorage.servicos)) {
+                if (!animais.includes(animal.id)){
                     ok = false;
+                }
             }
             if (!ok) {
                 this.snackbar("Selecione pelo menos um serviço para cada animal.")
@@ -802,6 +808,51 @@ var vm = new Vue({
 
             // After 3 seconds, remove the show class from DIV
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        }
+    },
+    computed: {
+        concelhos: function() {
+            return [...new Set(this.petsitters.map(p => p.concelho))]
+        },
+        distritos: function() {
+            return [...new Set(this.petsitters.map(p => p.distrito))]
+        },
+        petsittersFiltrados: function() {
+            var filtrados = this.petsitters
+
+            // Sem por concelho
+            if(this.selConcelho != "Concelho"){
+                filtrados = this.petsitters.filter(p => p.concelho == this.selConcelho)
+            }
+
+            // Filtrar por distrito
+            else if(this.selDistrito != "Distrito"){
+                filtrados = this.petsitters.filter(p => p.distrito == this.selDistrito)
+            }
+
+            // Filtrar por search
+            if(this.search != ""){
+                if(this.search.includes("@")){
+                    filtrados = this.petsitters.filter(p => p.email.toLowerCase().includes(this.search.toLowerCase()))
+                }
+                else {
+                    filtrados = this.petsitters.filter(p => p.nome.toLowerCase().includes(this.search.toLowerCase()))
+                }
+            }
+
+            // Ordenação
+            if(this.ordenacao != "Ordenar por classificação"){
+                if(this.ordenacao == "Ascendente"){
+                    var sorting = -1
+                    filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
+                }
+                else{
+                    var sorting = 1
+                    filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
+                }
+            }
+
+            return filtrados
         }
     }
 })
