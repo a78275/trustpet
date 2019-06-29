@@ -16,22 +16,22 @@
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
-        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
-        crossorigin="anonymous"></script>
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
+        </script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
-        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
-        crossorigin="anonymous"></script>
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+        </script>
 </head>
 
 <body>
-    <div class="wrapper" id="petsitter">
+    <div class="wrapper">
         <!-- Navbar -->
-        <div>
+        <div id="petsitter">
             <sidebarpetsitter></sidebarpetsitter>
         </div>
         <!-- Page Content -->
         <div id="content">
-            <button type="button" id="sidebarCollapse">
+            <button type="button" id="sidebarCollapse" style="z-index: 10;">
                 <i class="fas fa-align-left"></i>
             </button>
             <!-- Description -->
@@ -48,22 +48,77 @@
                     </div>
                 </div>
             </section>
+
+            <div>
+                <!-- Services -->
+                <section id="services">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12 text-center">
+                                <h3 class="section-subheading"><b>Opções destinadas às suas necessidades.</b></h3>
+                            </div>
+                        </div>
+                        <div class="row text-center">
+                            <div class="col-4" id="service">
+                                <span class="fa-stack fa-4x">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-tree fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <h4 class="service-heading">Passeio</h4>
+                                <p class="text-muted">Passeamos o seu animal, limpamos dejetos e asseguramos a
+                                    hidratação do
+                                    mesmo.</p>
+                            </div>
+                            <div class="col-4" id="service">
+                                <span class="fa-stack fa-4x">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-home fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <h4 class="service-heading"><i>Petsitting</i> em sua casa</h4>
+                                <p class="text-muted">Tomamos conta do seu animal em sua casa, assegurando conforto,
+                                    alimentação, hidratação, carinho e brincadeiras.</p>
+                            </div>
+                            <div class="col-4" id="service">
+                                <span class="fa-stack fa-4x">
+                                    <i class="fas fa-circle fa-stack-2x"></i>
+                                    <i class="fas fa-bed fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <h4 class="service-heading"><i>Petsitting</i> em casa do <i>Petsitter</i></h4>
+                                <p class="text-muted">Tomamos conta do seu animal, assegurando conforto, alimentação,
+                                    hidratação, carinho e brincadeiras.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Contact -->
+                <section id="contacts">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-12">
+                                <p id="contacttext" class="section-subheading">Contacte-nos!</p>
+                                <p id="email">trustpet@email.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
     <!-- Snackbar -->
     <div id="snackbar"></div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
     <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+        </script>
     <script src="scripts/sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/petsitter.js"></script>

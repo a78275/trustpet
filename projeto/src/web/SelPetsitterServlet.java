@@ -2,7 +2,6 @@ package web;
 
 import beans.FacadeBeans;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Map;
 
 @WebServlet(name = "SelPetsitterServlet", urlPatterns = {"/SelPetsitter"})
 public class SelPetsitterServlet extends HttpServlet {

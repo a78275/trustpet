@@ -1,4 +1,10 @@
 Vue.component('sidebardono', {
+    methods: {
+        logout: function () {
+            localStorage.token = ""
+            window.location.replace("http://localhost/")
+        }
+    },
     template: `
 <nav id="sidebar">
     <div class="sidebar-header">
@@ -39,11 +45,109 @@ Vue.component('sidebardono', {
             <a href="#">Chat</a>
         </li>
         <li class="sec3">
-            <a v-on:click="">Logout</a>
+            <a v-on:click="logout()">Logout</a>
         </li>
     </ul>
 </nav>
 `
+})
+
+Vue.component('avaliar-petsitter', {
+    props: ['petsitter'],
+    data: () => ({
+        comentario: "",
+        pontuacao: 0
+    }),
+    methods: {
+        avaliar: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    emailAlvo: id,
+                    comentario: this.comentario,
+                    avaliacao: this.pontuacao + ""
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                console.log("review feita com sucesso!")
+            }
+        }
+    },
+    template: `
+<div class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color: #545871;"
+                    id="exampleModalLongTitle">
+                    Avaliar Petsitter - {{ petsitter.nome }}
+                </h5>
+                <button type="button" id="submitRegistoDono" class="close"
+                    data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"
+                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                    <div class="form-group shadow-textarea">
+                        <textarea class="form-control z-depth-1" rows="3"
+                            v-model="comentario"
+                            placeholder="Faça um comentário ao petsitter"></textarea>
+                    </div>
+                </div>
+                <div class="row"
+                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                    <div class="col-6 blockHead" v-if="pontuacao == ''"><span
+                            class="blocktext">Clicar para classificar</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == 1"><span
+                            class="blocktext">Muito Mau</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '2'"><span
+                            class="blocktext">Mau</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '3'"><span
+                            class="blocktext">Médio</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '4'"><span
+                            class="blocktext">Bom</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '5'"><span
+                            class="blocktext">Muito Bom</span>
+                    </div>
+                    <div class="col-5 rate">
+                        <input type="radio" id="star5" v-model="pontuacao" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" v-model="pontuacao" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" v-model="pontuacao" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" v-model="pontuacao" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" v-model="pontuacao" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" id="pinkbtn"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    data-dismiss="modal">Voltar</button>
+                <button type="button" v-on:click="avaliar(petsitter.email)"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    id="darkbluebtn">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+    `
 })
 
 Vue.component('card-animal', {
@@ -121,6 +225,62 @@ Vue.component('card-animal', {
     `
 })
 
+Vue.component('rm-animal', {
+    props: ['animal'],
+    methods: {
+        removerAnimal: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    id: id + '',
+                    ativo: "false"
+                })
+            })
+            const content = await response.json()
+
+            if (content.success) {
+                window.location.replace("http://localhost/editarAnimais.html")
+            }
+        }
+    },
+    template: `
+<div class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color: #545871;"
+                    id="exampleModalLongTitle">
+                    Remover Animal
+                </h5>
+                <button type="button" id="submitRegistoDono" class="close"
+                    data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Tem a certeza que pretende remover o seguinte animal?
+                <img :src=animal.avatar class="mt-3"
+                    style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                <h3 class="text-uppercase text-center mt-2">
+                    {{ animal.nome }}</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" id="pinkbtn"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    data-dismiss="modal">Voltar</button>
+                <button type="button" v-on:click="removerAnimal(animal.id)"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    id="bluepinkbtn">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+`})
+
 var vm = new Vue({
     el: "#dono",
     data: {
@@ -177,10 +337,18 @@ var vm = new Vue({
         listaServicos: [],
         servicosAnimaisSelecionados: [],
         petsitter: {},
-        comentario: "",
-        pontuacao: 0,
         reviews: [],
         utilizador: {}
+    },
+    mounted: function () {
+        if (localStorage.sucesso == "login") {
+            this.snackbar("Login efetuado com sucesso.")
+            localStorage.sucesso = ""
+        }
+        else if (localStorage.sucesso == "registo") {
+            this.snackbar("Registo efetuado com sucesso.")
+            localStorage.sucesso = ""
+        }
     },
     created: async function () {
         if (localStorage.token) {
@@ -274,6 +442,7 @@ var vm = new Vue({
                     var animal = this.animais.find(function (element) {
                         return element.id == localStorage.idAnimal
                     })
+                    console.log(JSON.stringify(animal))
                     this.nome = animal.nome
                     this.avatar = animal.avatar
                     this.idade = animal.idade
@@ -286,7 +455,7 @@ var vm = new Vue({
                     this.desparasitacao = animal.desparasitacao
                     this.esterilizacao = animal.esterilizacao
                     this.raca = animal.raca
-                    this.tipo = animal.tipo
+                    this.tipo = animal.tipo.id
                     this.id = localStorage.idAnimal
                     localStorage.idAnimal = ""
                 }
@@ -299,7 +468,7 @@ var vm = new Vue({
     },
     methods: {
         registarPedido: async function () {
-            if(this.animaisSelecionados.length == 0){
+            if (this.animaisSelecionados.length == 0) {
                 this.snackbar("O pedido deve estar associado a pelo menos um animal.");
             }
             else {
@@ -333,18 +502,18 @@ var vm = new Vue({
             var ok = true;
             var animais = [];
             // Ver animais que têm serviços
-            for(var animal in this.servicosAnimaisSelecionados){
+            for (var animal in this.servicosAnimaisSelecionados) {
                 var idAnimal = this.servicosAnimaisSelecionados[animal].idAnimal;
-                if(!animais.includes(idAnimal))
+                if (!animais.includes(idAnimal))
                     this.animais.push()
             }
             // Ver se os animais que têm serviços são os que foram selecionados
-            for(var animal in this.animaisSelecionados){
+            for (var animal in this.animaisSelecionados) {
                 var idAnimal = this.animaisSelecionados[animal];
-                if(!animais.includes(idAnimal))
+                if (!animais.includes(idAnimal))
                     ok = false;
             }
-            if(!ok){
+            if (!ok) {
                 this.snackbar("Selecione pelo menos um serviço para cada animal.")
             }
             else {
@@ -366,35 +535,57 @@ var vm = new Vue({
                 }
             }
         },
+        selPetsitter: async function (email) {
+            console.log(email)
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/SelPetsitter", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    email: email,
+                    idPedido: localStorage.idPedido
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/pedidosPendentes.html")
+                localStorage.dataInicio = ""
+                localStorage.dataFim = ""
+                localStorage.idPedido = ""
+                localStorage.petsitters = ""
+            }
+        },
         validarAnimaisData: function () {
-            var form_data=$("#animaisdata_form").serializeArray();
-            var error_free=true;
-            for (var input in form_data){
-                var element=$("#" + form_data[input]['name']);
-                var error_element=$("span", element.parent());
+            var form_data = $("#animaisdata_form").serializeArray();
+            var error_free = true;
+            for (var input in form_data) {
+                var element = $("#" + form_data[input]['name']);
+                var error_element = $("span", element.parent());
 
                 // A fotografia é válida se não estiver preenchida
-                if(form_data[input]['name'] == "pic"){
-                    if(!element.val()){
+                if (form_data[input]['name'] == "pic") {
+                    if (!element.val()) {
                         element.removeClass("invalid").addClass("valid");
                         error_element.removeClass("error_show").addClass("error");
                     }
                 }
 
-                var valid=element.hasClass("valid");
+                var valid = element.hasClass("valid");
 
-                if (!valid){
-                    error_element.removeClass("error").addClass("error_show"); 
-                    error_free=false;
+                if (!valid) {
+                    error_element.removeClass("error").addClass("error_show");
+                    error_free = false;
                     element.removeClass("valid").addClass("invalid");
                 }
-                else{
+                else {
                     element.removeClass("invalid").addClass("valid");
                     error_element.removeClass("error_show").addClass("error");
                 }
             }
-            
-            if (!error_free){
+
+            if (!error_free) {
                 // Get the snackbar DIV
                 var x = document.getElementById("snackbar");
 
@@ -407,48 +598,9 @@ var vm = new Vue({
                 // After 3 seconds, remove the show class from DIV
                 setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
             }
-            else{
+            else {
                 this.registarPedido();
             }
-        },
-        logout: function () {
-            localStorage.token = ""
-        },
-        avaliar: async function (id) {
-            if (this.pontuacao == 0){
-                this.snackbar("Atribua uma classificação ao petsitter.");
-            }
-            else {
-                const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
-                    headers: {
-                        'Content-Type': 'application/json; charset=utf-8',
-                        'Token': localStorage.token
-                    },
-                    method: "POST",
-                    body: JSON.stringify({
-                        emailAlvo: id,
-                        comentario: this.comentario,
-                        avaliacao: this.pontuacao
-                    })
-                })
-                const content = await response.json()
-                if (content.success) {
-                    console.log("review feita com sucesso!")
-                }
-            }
-        },
-        snackbar: function (content) {
-            // Get the snackbar DIV
-            var x = document.getElementById("snackbar");
-
-            // Change content
-            x.textContent = content
-
-            // Add the "show" class to DIV
-            x.className = "show";
-
-            // After 3 seconds, remove the show class from DIV
-            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         },
         registoAnimal: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
@@ -508,7 +660,8 @@ var vm = new Vue({
         editarDadosDono: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarDadosPessoais", {
                 headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
                 },
                 method: "POST",
                 body: JSON.stringify(this.utilizador)
@@ -570,23 +723,6 @@ var vm = new Vue({
         pagEditarAnimal: function (id) {
             localStorage.idAnimal = id
             window.location.replace("http://localhost/editarAnimal.html")
-        },
-        removerAnimal: async function (id) {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    id: id + '',
-                    ativo: "false"
-                })
-            })
-            const content = await response.json()
-
-            if (content.success) {
-                window.location.replace("http://localhost/editarAnimais.html")
-            }
         },
         editarAnimal: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarAnimal", {

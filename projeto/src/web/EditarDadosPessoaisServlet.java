@@ -1,7 +1,6 @@
 package web;
 import beans.FacadeBeans;
 import org.json.JSONObject;
-import org.orm.PersistentSession;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,11 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.Date;
-import java.util.Map;
 
 @WebServlet(name = "EditarDadosPessoaisServlet", urlPatterns = {"/EditarDadosPessoais"})
 public class EditarDadosPessoaisServlet extends HttpServlet {
@@ -33,7 +28,7 @@ public class EditarDadosPessoaisServlet extends HttpServlet {
         String token = request.getHeader("Token");
         String email = FacadeBeans.validarToken(token);
 
-        Date date = Util.parseDate((String) parameters.get("data"),"dd/MM/yyyy");
+        Date date = Util.parseDate((String) parameters.get("dataNasc"),"dd/MM/yyyy");
 
         if(date != null && email!=null) {
             boolean result=false;

@@ -123,6 +123,7 @@ body {
         text-decoration: none;
         color: $light-pink;
         transition: all 0.3s;
+        cursor: pointer;
     }
 
     a {
@@ -466,8 +467,8 @@ body {
     visibility: hidden; /* Hidden by default. Visible on click */
     min-width: 250px; /* Set a default minimum width */
     margin-left: -125px; /* Divide value of min-width by 2 */
-    background-color: rgb(243, 215, 215); /* Background color */
-    color: rgb(116, 30, 30); /* Text color */
+    background-color: white; /* Background color */
+    color: $dark-blue; /* Text color */
     text-align: center; /* Centered text */
     border-radius: 5px; /* Rounded borders */
     padding: 16px; /* Padding */
@@ -476,7 +477,7 @@ body {
     left: 50%; /* Center the snackbar */
     bottom: 30px; /* 30px from the bottom */
     margin-left: 25px;
-    border: 1px solid  rgb(216, 159, 159);
+    border-left: 6px solid $pink;
   }
   
   /* Show the snackbar when clicking on a button (class added with JavaScript) */
@@ -527,4 +528,73 @@ body {
 
 input.invalid, textarea.invalid, select.invalid{
 	border-left: 4px solid  rgb(216, 159, 159);
+}
+
+.rate {
+    float: right;
+    height: 40px;
+    padding: 0 5px;
+}
+
+.rate:not(:checked)>input {
+    position: absolute;
+    top: -9999px;
+}
+
+.rate:not(:checked)>label {
+    float: right;
+    width: 1em;
+    overflow: hidden;
+    white-space: nowrap;
+    cursor: pointer;
+    font-size: 28px;
+    color: #ccc;
+}
+
+.rate:not(:checked)>label:before {
+    content: '★ ';
+}
+
+.rate>input:checked~label {
+    color: #ebd0ce;
+}
+
+.rate:not(:checked)>label:hover,
+.rate:not(:checked)>label:hover~label {
+    color: #ebd0ce;
+}
+
+.rate>input:checked+label:hover,
+.rate>input:checked+label:hover~label,
+.rate>input:checked~label:hover,
+.rate>input:checked~label:hover~label,
+.rate>label:hover~input:checked~label {
+    color: #ebd0ce;
+}
+
+.blockHead:after {
+    color: #ebd0ce;
+    border-left: 20px solid;
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    display: inline-block;
+    content: '';
+    position: absolute;
+    right: -20px;
+    top: 0;
+}
+
+.blockHead {
+    background-color: #ebd0ce;
+    height: 40px;
+    line-height: 40px;
+    display: inline-block;
+    position: relative;
+}
+
+.blocktext {
+    color: white;
+    font-weight: bold;
+    padding-left: 10px;
+    font-size: 10;
 }
