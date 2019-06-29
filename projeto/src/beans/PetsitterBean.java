@@ -149,6 +149,10 @@ public class PetsitterBean implements PetsitterBeanLocal {
             return false;
         }
 
+        if(!petsitter.getAtivo()) {
+            petsitter.setAtivo(true);
+        }
+
         // Save horario
         boolean save = false;
         try {
@@ -205,7 +209,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
         
         try {
             // Get dos Petsitters
-            return FacadeDAOs.listPetsitters(filtro, ordem);
+            return FacadeDAOs.listPetsitters(filtro + " AND ativo='" + true + "'", ordem);
         } catch (PersistentException e) {
             e.printStackTrace();
             return null;

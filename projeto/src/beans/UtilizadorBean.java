@@ -67,7 +67,6 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
             petsitter.setAvatar(avatar);
             petsitter.setConcelho(concelho);
             petsitter.setDistrito(distrito);
-            petsitter.setAtivo(true);
             petsitter.setAvaliacaoMedia(0);
             petsitter.setNrAvaliacoes(0);
             DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
