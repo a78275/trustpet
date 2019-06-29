@@ -525,6 +525,24 @@ var vm = new Vue({
                 }
             }
         },
+        selPetsitter: async function (email) {
+            console.log(email)
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/SelPetsitter", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    email: email,
+                    idPedido: localStorage.idPedido
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                window.location.replace("http://localhost/pedidosPendentes.html")
+            }
+        },
         validarAnimaisData: function () {
             var form_data = $("#animaisdata_form").serializeArray();
             var error_free = true;
