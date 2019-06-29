@@ -12,7 +12,7 @@ Vue.component('sidebardono', {
     </div>
     <ul class="list-unstyled components">
         <li>
-            <a href="pedidosPendentes.html">Pedidos Pendentes</a>
+            <a href="pedidosPendentesDono.html">Pedidos Pendentes</a>
         </li>
         <li>
             <a href="consultarPetsitters.html">Consultar Petsitters</a>
@@ -425,7 +425,7 @@ var vm = new Vue({
                     }
                 }
                 if (window.location.href == "http://localhost/selServicos.html") {
-                    this.listaServicos = localStorage.servicos
+                    this.listaServicos = JSON.parse(localStorage.servicos)
                     this.dataInicio = localStorage.dataInicio
                     this.dataFim = localStorage.dataFim
                 }
@@ -465,7 +465,6 @@ var vm = new Vue({
                     this.raca = animal.raca
                     this.tipo = animal.tipo.id
                     this.id = localStorage.idAnimal
-                    localStorage.idAnimal = ""
                 }
             } else {
                 window.location.replace("http://localhost/index.html")
@@ -501,7 +500,7 @@ var vm = new Vue({
                 const content = await response.json()
                 if (content.success) {
                     localStorage.idPedido = content.idPedido
-                    localStorage.servicos = content.servicos
+                    localStorage.servicos = JSON.stringify(content.servicos)
                     window.location.replace("http://localhost/selServicos.html")
                 }
             }
@@ -558,7 +557,7 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
-                window.location.replace("http://localhost/pedidosPendentes.html")
+                window.location.replace("http://localhost/pedidosPendentesDono.html")
                 localStorage.dataInicio = ""
                 localStorage.dataFim = ""
                 localStorage.idPedido = ""
