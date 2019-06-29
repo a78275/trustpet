@@ -35,6 +35,27 @@
         crossorigin="anonymous"></script>
 </head>
 
+<style>
+    [type=checkbox] {
+        display: none;
+    }
+
+    /* IMAGE STYLES */
+    [type=checkbox]+img {
+        cursor: pointer;
+        border: 6px solid transparent;
+        border-radius: 50%;
+        outline: 0;
+        opacity: 0.5;
+    }
+
+    /* CHECKED STYLES */
+    [type=checkbox]:checked+img {
+        opacity: 1;
+        border-color: #ebd0ce;
+    }
+</style>
+
 <body>
     <div class="wrapper" id="dono">
         <!-- Navbar -->
@@ -69,19 +90,17 @@
                 <div class="row">
                     <div class="col-xs-6 col-sm-6 col-md-4 col-xl-3 text-center" v-for="animal in animais"
                         v-bind:key="animal.id">
-                        <img v-if="animal.avatar" class="img-responsive rounded-circle" :src=animal.avatar
-                            style="overflow:hidden; width:130px; height:130px;" />
-                        <img v-else class="img-responsive rounded-circle"
-                            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Gatto_europeo4.jpg/250px-Gatto_europeo4.jpg"
-                            style="overflow:hidden; width:130px; height:130px;" />
-                        <div class="form-check py-4">
+
+                        <label>
                             <input class="form-check-input" type="checkbox" :value=animal.id
                                 v-model="animaisSelecionados">
-                            <label class="form-check-label" style="color: #545871; font-size: 1.3em; font-weight: 500;">
-                                {{ animal.nome }}
-                            </label>
-                        </div>
+                            <img class="img-responsive rounded-circle" :src=animal.avatar
+                                style="overflow:hidden; width:130px; height:130px;" />
+                        </label>
                         <br>
+                        <p class="pb-4" style="color: #545871; font-size: 1.5em; font-weight: 500;">
+                            {{ animal.nome }}
+                        </p>
                     </div>
                 </div>
 

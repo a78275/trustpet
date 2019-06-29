@@ -41,7 +41,12 @@
         font-size: 1.3em;
     }
 
-    .image-checkbox {
+    [type=checkbox] {
+        display: none;
+    }
+
+    /* IMAGE STYLES */
+    [type=checkbox]+img {
         cursor: pointer;
         border: 6px solid transparent;
         border-radius: 50%;
@@ -49,11 +54,8 @@
         opacity: 0.5;
     }
 
-    .image-checkbox input[type="checkbox"] {
-        display: none;
-    }
-
-    .image-checkbox-checked {
+    /* CHECKED STYLES */
+    [type=checkbox]:checked+img {
         opacity: 1;
         border-color: #ebd0ce;
     }
@@ -85,15 +87,16 @@
                                 Confirmação </div>
                         </div>
                     </div>
-                    <h1 class="p-2 my-2 text-center" style="color: #545871; font-size: 1.5em;">Selecione as espécies de animais que pretende cuidar
+                    <h1 class="p-2 my-2 text-center" style="color: #545871; font-size: 1.5em;">Selecione as espécies de
+                        animais que pretende cuidar
                     </h1>
                     <div class="row my-4" style="width: 80%; margin-left: auto; margin-right: auto;">
-                        <div class=" col-xs-12 col-6 text-center" v-for="t in tiposAnimal" v:bind-key="t.id">
+                        <div class="col-xs-12 col-md-6 col-xl-4 text-center" v-for="t in tiposAnimal" v:bind-key="t.id">
                             <label id="image-checkbox">
-                                <img class="img-responsive rounded-circle" :src=t.img
-                                    style="overflow:hidden; width:130px; height:130px;" />
                                 <input class="form-check-input" type="checkbox" :value=t.id
                                     v-model="tiposAnimaisSelecionados" />
+                                <img class="img-responsive rounded-circle" :src=t.img
+                                    style="overflow:hidden; width:130px; height:130px;" />
                             </label>
                             <br>
                             <p class="pb-4" style="color: #545871; font-size: 1.5em; font-weight: 500;">
