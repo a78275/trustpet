@@ -541,6 +541,10 @@ var vm = new Vue({
             const content = await response.json()
             if (content.success) {
                 window.location.replace("http://localhost/pedidosPendentes.html")
+                localStorage.dataInicio = ""
+                localStorage.dataFim = ""
+                localStorage.idPedido = ""
+                localStorage.petsitters = ""
             }
         },
         validarAnimaisData: function () {

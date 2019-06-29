@@ -22,7 +22,7 @@ Vue.component('sidebarpetsitter', {
                     <a href="perfilPetsitter.html">Consultar Perfil</a>
                 </li>
                 <li>
-                    <a href="#">Editar Dados Pessoais</a>
+                    <a href="editarDadosPetsitter.html">Editar Dados Pessoais</a>
                 </li>
                 <li>
                     <a href="#">Editar Serviços Fornecidos</a>
@@ -49,6 +49,17 @@ Vue.component('sidebarpetsitter', {
 var vm = new Vue({
     el: "#petsitter",
     data: {
+        email: "",
+        password: "",
+        dataNasc: "",
+        contacto: "",
+        morada: "",
+        jardim: "",
+        distrito: "",
+        concelho: "",
+        nome: "",
+        avatar: "",
+        utilizador: {},
         perfil: {},
         tiposAnimais: [],
         servicos: [],
@@ -134,6 +145,39 @@ var vm = new Vue({
                 return true
             else
                 return false
+        },
+        editarDadosPetsitter: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarDadosPessoais", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8'
+                },
+                method: "POST",
+                body: JSON.stringify(this.utilizador)
+            })
+            const content = await response.json()
+
+            if (content.success) {
+                window.location.replace("http://localhost/editarDadosPetsitter.html")
+            }
+        },
+        criarUtilizador: function () {
+            let jard = "false"
+            if (this.jardim)
+                jard = "true"
+            let date = new Date(this.dataNasc)
+            let newDate = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear()
+            this.utilizador = {
+                email: this.email,
+                password: this.password,
+                nome: this.nome,
+                avatar: this.avatar,
+                dataNasc: newDate,
+                contacto: this.contacto,
+                jardim: jard,
+                morada: this.morada,
+                concelho: this.concelho,
+                distrito: this.distrito
+            }
         }
     }
 })
