@@ -233,7 +233,10 @@ public class Util {
         JSONArray arr = new JSONArray();
 
         while (iter.hasNext()){
-            arr.put(parseAnimal((Animal) iter.next()));
+            Animal animal = (Animal) iter.next();
+            if(animal.getAtivo()) {
+                arr.put(parseAnimal(animal));
+            }
         }
 
         return arr;
