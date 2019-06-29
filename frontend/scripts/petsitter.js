@@ -160,7 +160,7 @@ Vue.component('avaliar-dono', {
             <div class="modal-header">
                 <h5 class="modal-title" style="color: #545871;"
                     id="exampleModalLongTitle">
-                    Avaliar Dono - {{ dono.email }}
+                    Avaliar Dono - {{ dono }}
                 </h5>
                 <button type="button" id="submitRegistoDono" class="close"
                     data-dismiss="modal" aria-label="Close">
@@ -214,7 +214,7 @@ Vue.component('avaliar-dono', {
                 <button type="button" class="btn" id="pinkbtn"
                     style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
                     data-dismiss="modal">Voltar</button>
-                <button type="button" v-on:click="avaliar(dono.email)"
+                <button type="button" v-on:click="avaliar(dono)"
                     style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
                     id="darkbluebtn">Enviar</button>
             </div>
@@ -387,7 +387,7 @@ var vm = new Vue({
             return found
         },
         temHora: function (dia, hora) {
-            var found = this.horario.dias.find(function (element) {
+            var found = Array.from(this.horario.dias).find(function (element) {
                 if (element != undefined)
                     return element.dia == dia
                 else
