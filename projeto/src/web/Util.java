@@ -439,10 +439,21 @@ public class Util {
         JSONArray arr = new JSONArray();
 
         while (iter.hasNext()){
-            arr.put(parseServico((Servico) iter.next()));
+            arr.put(parsePrecoPetsitterServico((PrecoPetsitterServico) iter.next()));
         }
 
         return arr;
+    }
+
+    private static JSONObject parsePrecoPetsitterServico (PrecoPetsitterServico servico) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("id", servico.getId());
+        obj.put("servico", servico.getServico());
+        obj.put("petsitter", servico.getPetsitter());
+        obj.put("preco", servico.getPreco());
+
+        return obj;
     }
 
     private static JSONArray parseAnimalServicosCollection(AnimalServicoSetCollection animalServicos) {

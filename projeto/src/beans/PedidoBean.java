@@ -169,7 +169,6 @@ public class PedidoBean implements PedidoBeanLocal {
 
     @Override
     public boolean concluirPedido(String emailPetsitter, int idPedido) {
-        
         // Get do pedido
         Pedido pedido = null;
         try {
@@ -192,6 +191,33 @@ public class PedidoBean implements PedidoBeanLocal {
         double preco = calcularPreco(pedido,petsitter);
         pedido.setPreco(preco);
         pedido.setAtivo(true);
+
+        List<AnimalServico> animalServicos=null;
+        try {
+            animalServicos = FacadeDAOs.listAnimalServico("pedidoid='" + idPedido + "'",null);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        if(animalServicos!=null) {
+            for(AnimalServico animalServico : animalServicos) {
+                int idServico = animalServico.getServico().getId();
+                PrecoPetsitterServico precoPetsitterServico=null;
+                try {
+                    precoPetsitterServico = FacadeDAOs.listPrecoPetsitterServico("petsitterutilizadoremail='" + emailPetsitter + "' and servicoid='" + idServico + "'",null).get(0);
+                } catch (PersistentException e) {
+                    e.printStackTrace();
+                }
+                if(precoPetsitterServico!=null) {
+                    pedido.servicos.add(precoPetsitterServico);
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+        else {
+            return false;
+        }
 
         // Save do pedido na BD
         boolean save = false;

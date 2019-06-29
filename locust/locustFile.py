@@ -73,11 +73,14 @@ class PedidoBehavior(TaskSequence):
     @seq_task(3)
     def selPetsitter(self):
         if self.petsitter != "":
-            packet_data = "{'idPedido': '" + str(self.id) + "', 'animalServicos': " + servicos_json + "}"
-            response = self.client.request("POST", "/SelServicos", data=packet_data,
+            packet_data = "{'idPedido': '" + str(self.id) + "', 'email': " + self.petsitter + "}"
+            response = self.client.request("POST", "/SelPetsitter", data=packet_data,
                                            headers={"Content-Type": "application/x-www-form-urlencoded",
                                                     "Token": self.token})
             dict_response = json.loads(response.text)
+            if dict_response["success"]:
+                print("ConcluirPedido Response " + str(response) + " with success " + str(dict_response["success"]))
+
 
 
 class DonoBehavior(TaskSet):
