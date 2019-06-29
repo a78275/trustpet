@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="favicon.ico">
+    <title>Trust Pet</title>
+    <link rel="stylesheet" type="text/css" href="style/reset.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous">
+        </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous">
+        </script>
+</head>
+
+<body>
+    <div class="wrapper" id="petsitter">
+        <!-- Navbar -->
+        <div>
+            <sidebarpetsitter></sidebarpetsitter>
+        </div>
+        <!-- Page Content -->
+        <div id="content" style="background-color: #f7eceb;">
+            <button type="button" id="sidebarCollapse" style="z-index: 10;">
+                <i class="fas fa-align-left"></i>
+            </button>
+            <!-- Description -->
+            <div class="row">
+                <div class="col-12">
+                    <div id="header" style="background-color: #f7eceb;" class="p-2">
+                        <h1 class="p-2 text-center" style="color: #545871; font-size: 2.5em;">EDITAR HORÁRIO
+                        </h1>
+                    </div>
+                    <h1 class="p-2 my-2 text-center" style="color: #545871; font-size: 1.5em;">Indique o horário no qual
+                        pode prestar serviços
+                    </h1>
+
+                    <div class="row pb-4">
+                        <div style="width: 80%; margin-left: auto; margin-right: auto;">
+                            <form class="my-3">
+                                <table class="table table-striped" style="table-layout: fixed;">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col"></th>
+                                            <th scope="col">Dom</th>
+                                            <th scope="col">Seg</th>
+                                            <th scope="col">Ter</th>
+                                            <th scope="col">Qua</th>
+                                            <th scope="col">Qui</th>
+                                            <th scope="col">Sex</th>
+                                            <th scope="col">Sáb</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr v-for="i in 24">
+                                            <th scope="row">{{ i }}h</th>
+                                            <td style="text-align: center;">
+                                                <input :id="`hora${i}`" v-if="temHora(1,i)" type="checkbox"
+                                                    :value="`1:${i}`" v-model="novoHorario" checked>
+                                                <input :id="`hora${i}`" v-else type="checkbox" :value="`1:${i}`"
+                                                    v-model="novoHorario" checked="false">
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <input :id="`hora${i}`" v-if="temHora(2,i)" type="checkbox"
+                                                    :value="`2:${i}`" v-model="novoHorario" checked>
+                                                <input :id="`hora${i}`" v-else type="checkbox" :value="`2:${i}`"
+                                                    v-model="novoHorario" checked="false">
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <input :id="`hora${i}`" v-if="temHora(3,i)" type="checkbox"
+                                                    :value="`3:${i}`" v-model="novoHorario" checked>
+                                                <input :id="`hora${i}`" v-else type="checkbox" :value="`3:${i}`"
+                                                    v-model="novoHorario" checked="false">
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <input :id="`hora${i}`" v-if="temHora(4,i)" type="checkbox"
+                                                    :value="`4:${i}`" v-model="novoHorario" checked>
+                                                <input :id="`hora${i}`" v-else type="checkbox" :value="`4:${i}`"
+                                                    v-model="novoHorario" checked="false">
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <input :id="`hora${i}`" v-if="temHora(5,i)" type="checkbox"
+                                                    :value="`5:${i}`" v-model="novoHorario" checked>
+                                                <input :id="`hora${i}`" v-else type="checkbox" :value="`5:${i}`"
+                                                    v-model="novoHorario" checked="false">
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <input :id="`hora${i}`" v-if="temHora(6,i)" type="checkbox"
+                                                    :value="`6:${i}`" v-model="novoHorario" checked>
+                                                <input :id="`hora${i}`" v-else type="checkbox" :value="`6:${i}`"
+                                                    v-model="novoHorario" checked="false">
+                                            </td>
+                                            <td style="text-align: center;">
+                                                <input :id="`hora${i}`" v-if="temHora(7,i)" type="checkbox"
+                                                    :value="`7:${i}`" v-model="novoHorario" checked>
+                                                <input :id="`hora${i}`" v-else type="checkbox" :value="`7:${i}`"
+                                                    v-model="novoHorario" checked="false">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <footer class="footer mt-auto py-3">
+                <div class="container">
+                    <div class="row">
+                        <div class="text-right col-12">
+                            <button type="button" v-on:click="editarHorario()" id="darkbluebtn">Guardar</button>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- Snackbar -->
+    <div id="snackbar"></div>
+
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+        </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+        </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+        </script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+        </script>
+    <script src="scripts/sidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="scripts/petsitter.js"></script>
+</body>
+
+</html>
