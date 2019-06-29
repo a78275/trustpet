@@ -12,7 +12,7 @@ Vue.component('sidebarpetsitter', {
     </div>
     <ul class="list-unstyled components">
         <li>
-            <a href="">Pedidos Pendentes</a>
+            <a href="pedidosPendentesPetsitter.html">Pedidos Pendentes</a>
         </li>
         <li>
             <a href="#dadosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dados
@@ -47,6 +47,181 @@ Vue.component('sidebarpetsitter', {
     </ul>
 </nav>
 `
+})
+
+Vue.component('card-animal', {
+    props: ['animal'],
+    template: `
+<div>
+    <img :src=animal.avatar class="mt-3"
+        style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+    <h3 class="text-uppercase text-center mt-2">{{ animal.nome }}</h3>
+    <p class="text-center">{{ animal.raca }}</p>
+    <table class="table table-bordered"
+        style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
+        <tbody style="color: #545871;">
+            <tr>
+                <td v-if="animal.sexo=='F'" style="text-align: center;">
+                    <i class='fas fa-venus' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Fêmea
+                </td>
+                <td v-else style="text-align: center;">
+                    <i class='fas fa-mars' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Macho
+                </td>
+
+                <td style="text-align: center;">
+                    <span
+                        style="font-weight:600;font-size:20px;color:#ebd0ce;">{{ animal.idade }}</span>
+                    <br>Idade
+                </td>
+
+                <td style="text-align: center;">
+                    <span
+                        style="font-weight:500;font-size:17px;color:#ebd0ce;">{{ animal.porte }}</span>
+                    <br>Porte
+                </td>
+            </tr>
+            <tr>
+                <td v-if="animal.desparasitacao==true" style="text-align: center;">
+                    <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Desparasitação
+                </td>
+                <td v-else style="text-align: center;">
+                    <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Desparasitação
+                </td>
+
+                <td v-if="animal.esterilizacao==true" style="text-align: center;">
+                    <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Esterilização
+                </td>
+                <td v-else style="text-align: center;">
+                    <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Esterilização
+                </td>
+
+                <td v-if="animal.vacinas==true" style="text-align: center;">
+                    <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Vacinação
+                </td>
+                <td v-else style="text-align: center;">
+                    <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
+                    <br>Vacinação
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="width: 90%; margin-left: auto; margin-right: auto;">
+        <p v-if="animal.alergias">Alergias: <span
+                style="color:#ebd0ce;">{{ animal.alergias }}</span></p>
+        <p v-if="animal.doencas">Doenças: <span
+                style="color:#ebd0ce;">{{ animal.doencas }}</span></p>
+        <p v-if="animal.comportamento">Comportamento: <span
+                style="color:#ebd0ce;">{{ animal.comportamento }}</span></p>
+    </div>
+</div>
+`
+})
+
+
+Vue.component('avaliar-dono', {
+    props: ['dono'],
+    data: () => ({
+        comentario: "",
+        pontuacao: 0
+    }),
+    methods: {
+        avaliar: async function (id) {
+            console.log('EMAIL: ' + id)
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    emailAlvo: id,
+                    comentario: this.comentario,
+                    avaliacao: this.pontuacao + ""
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                console.log("review feita com sucesso!")
+            }
+        }
+    },
+    template: `
+<div class="modal fade" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" style="color: #545871;"
+                    id="exampleModalLongTitle">
+                    Avaliar Dono - {{ dono }}
+                </h5>
+                <button type="button" id="submitRegistoDono" class="close"
+                    data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group"
+                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                    <div class="form-group shadow-textarea">
+                        <textarea class="form-control z-depth-1" rows="3"
+                            v-model="comentario"
+                            placeholder="Faça um comentário ao dono"></textarea>
+                    </div>
+                </div>
+                <div class="row"
+                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                    <div class="col-6 blockHead" v-if="pontuacao == ''"><span
+                            class="blocktext">Clicar para classificar</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == 1"><span
+                            class="blocktext">Muito Mau</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '2'"><span
+                            class="blocktext">Mau</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '3'"><span
+                            class="blocktext">Médio</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '4'"><span
+                            class="blocktext">Bom</span>
+                    </div>
+                    <div class="col-6 blockHead" v-if="pontuacao == '5'"><span
+                            class="blocktext">Muito Bom</span>
+                    </div>
+                    <div class="col-5 rate">
+                        <input type="radio" id="star5" v-model="pontuacao" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" v-model="pontuacao" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" v-model="pontuacao" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" v-model="pontuacao" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" v-model="pontuacao" value="1" />
+                        <label for="star1" title="text">1 star</label>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn" id="pinkbtn"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    data-dismiss="modal">Voltar</button>
+                <button type="button" v-on:click="avaliar(dono)"
+                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                    id="darkbluebtn">Enviar</button>
+            </div>
+        </div>
+    </div>
+</div>
+    `
 })
 
 var vm = new Vue({
@@ -86,16 +261,38 @@ var vm = new Vue({
         preco3: "",
         preco4: "",
         horario: [],
-        novoHorario: []
+        novoHorario: [],
+        pedidosPendentes: [],
+        dono: {}
     },
     mounted: function () {
         if (localStorage.sucesso == "login") {
             this.snackbar("Login efetuado com sucesso.")
-            localStorage.sucesso = ""
+            localStorage.sucesso = "";
         }
         else if (localStorage.sucesso == "registo") {
             this.snackbar("Registo efetuado com sucesso.")
-            localStorage.sucesso = ""
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "editar") {
+            this.snackbar("Dados editados com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "pedido") {
+            this.snackbar("Pedido efetuado com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "erro") {
+            this.snackbar("Ocorreu um erro. Tente novamente.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "remover") {
+            this.snackbar("Animal removido com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "review") {
+            this.snackbar("Avaliação efetuada com sucesso.")
+            localStorage.sucesso = "";
         }
     },
     created: async function () {
@@ -170,9 +367,24 @@ var vm = new Vue({
                         }
                     }
                 }
-                /*
-                //Fetch dos pedidos
-
+                if (window.location.href == "http://localhost/consultarDono.html") {
+                    const responseDono = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPerfil", {
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8',
+                            'Token': localStorage.token
+                        },
+                        method: 'POST',
+                        body: JSON.stringify({
+                            emailConsulta: localStorage.dono
+                        })
+                    })
+                    const contentDono = await responseDono.json()
+                    if (contentDono.success) {
+                        this.dono = contentDono.utilizador
+                        this.dono.reviews = contentDono.reviews
+                        console.log(JSON.stringify(this.dono))
+                    }
+                }
                 const responsePedidos = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPedidos", {
                     headers: {
                         'Content-Type': 'application/json; charset=utf-8',
@@ -183,7 +395,7 @@ var vm = new Vue({
                 const contentPedidos = await responsePedidos.json()
                 if (contentPedidos.success) {
                     this.pedidosPendentes = contentPedidos.pedidos
-                }*/
+                }
             }
         }
     },
@@ -195,12 +407,21 @@ var vm = new Vue({
             return found
         },
         temHora: function (dia, hora) {
-            var found = this.horario.dias.find(function (element) {
-                return element.dia == dia
+            var found = Array.from(this.horario.dias).find(function (element) {
+                if (element != undefined)
+                    return element.dia == dia
+                else
+                    return false
             })
-            var founded = found.horas.find(function (element) {
-                return element.hora == hora
-            })
+            var founded
+
+            if (found != undefined) {
+                founded = found.horas.find(function (element) {
+                    return element.hora == hora
+                })
+            }
+            else
+                founded = undefined
 
             if (founded != undefined)
                 return true
@@ -220,7 +441,12 @@ var vm = new Vue({
             const content = await response.json()
 
             if (content.success) {
-                window.location.replace("http://localhost/editarDadosPetsitter.html")
+                localStorage.sucesso = "editar";
+                window.location.replace("http://localhost/perfilPetsitter.html");
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/editarDadosPetsitter.html");
             }
         },
         criarUtilizador: function () {
@@ -285,11 +511,11 @@ var vm = new Vue({
                 })
                 const content = await response.json()
                 if (content.success) {
+                    localStorage.sucesso == "editar";
                     window.location.replace("http://localhost/perfilPetsitter.html")
                 }
                 else {
-                    // TODO: PÔR A DAR
-                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    localStorage.sucesso == "erro";
                     window.location.replace("http://localhost/editarTiposAnimais.html")
                 }
             }
@@ -330,10 +556,12 @@ var vm = new Vue({
                 const content = await response.json()
                 console.log(JSON.stringify(content))
                 if (content.success) {
+                    localStorage.sucesso == "editar";
                     window.location.replace("http://localhost/perfilPetsitter.html")
                 }
                 else {
-                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    localStorage.sucesso == "erro";
+                    window.location.replace("http://localhost/editarServicos.html")
                 }
             }
         },
@@ -355,14 +583,28 @@ var vm = new Vue({
                 const content = await response.json()
                 console.log(JSON.stringify(content))
                 if (content.success) {
+                    localStorage.sucesso == "editar";
                     window.location.replace("http://localhost/perfilPetsitter.html")
                 }
                 else {
-                    // TODO: PÔR A DAR
-                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    localStorage.sucesso == "erro";
                     window.location.replace("http://localhost/editarHorario.html")
                 }
             }
+        },
+        checkData: function (data) {
+            var today = new Date();
+            let date = data.split("/")
+            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0]
+            let final = new Date(dataFim)
+            if (final >= today)
+                return true
+            else
+                return false
+        },
+        pagDono: function (email) {
+            localStorage.dono = email
+            window.location.replace("http://localhost/consultarDono.html")
         }
     }
 })

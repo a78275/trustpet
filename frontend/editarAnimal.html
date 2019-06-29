@@ -22,6 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
@@ -52,12 +53,13 @@
             </button>
             <div id="header" style="background-color: #f7eceb;" class="p-2 pb-4">
                 <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2.5em;">EDITAR ANIMAL</h1>
-                <form class="mx-5 my-3">
+                <form class="mx-5 my-3" id="animalForm">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="nome">Nome</label>
-                            <input type="text" class="form-control" id="nome" v-model="nome"
+                            <input type="text" name="nome" class="form-control" id="nome" v-model="nome"
                                 placeholder="Introduza o nome do seu animal" required>
+                            <span class="error">Preencha este campo.</span>
                         </div>
                         <div class="form-group col-md-6">
                             <label for="tipo">Espécie</label>
@@ -76,12 +78,13 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="tipo">Idade</label>
-                            <select class="form-control" id="idade" v-model="idade" required>
-                                <option>Bebé</option>
-                                <option>Jovem</option>
-                                <option>Adulto</option>
-                                <option>Sénior</option>
+                            <select class="form-control" name="idade" id="idade" v-model="idade" required>
+                                <option value="Bebé">Bebé</option>
+                                <option value="Jovem">Jovem</option>
+                                <option value="Adulto">Adulto</option>
+                                <option value="Sénior">Sénior</option>
                             </select>
+                            <span class="error">Selecione a idade do seu animal.</span>
                         </div>
                     </div>
                     <div class="form-row">
@@ -89,13 +92,13 @@
                             <label for="sexo">Sexo</label><br>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="sexo" id="f" value="F"
-                                    v-model="sexo">
+                                    v-model="sexo" disabled>
                                 <label style="font-size:1.2em; font-weight:450;" class="form-check-label"
                                     for="f">Feminino</label>
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input" type="radio" name="sexo" id="m" value="M"
-                                    v-model="sexo">
+                                    v-model="sexo" disabled>
                                 <label style="font-size:1.2em; font-weight:450;" class="form-check-label"
                                     for="m">Masculino</label>
                             </div>
@@ -132,6 +135,7 @@
                             <label for="pic">Fotografia</label>
                             <input type="text" class="form-control" id="pic" v-model="avatar"
                                 placeholder="Introduza o URL da fotografia do seu animal" required>
+                            <span class="error">Introduza um URL válido.</span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -165,8 +169,9 @@
                     <div class="container">
                         <div class="row">
                             <div class="text-right col-12">
-                                <button type="button" v-on:click="criarAnimal()" id="darkbluebtn" data-toggle="modal"
-                                    data-target="#confirmarAnimal">Guardar</button>
+                                <div id="animal_edit">
+                                    <button type="button" v-on:click="criarAnimal()" id="darkbluebtn">Guardar</button>
+                                </div>
                                 <div class="modal fade" id="confirmarAnimal" tabindex="-1" role="dialog"
                                     aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
@@ -308,6 +313,9 @@
             </div>
         </div>
     </div>
+    <!-- Snackbar -->
+    <div id="snackbar"></div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -322,6 +330,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/sidebar.js"></script>
     <script src="scripts/dono.js"></script>
+    <script src="scripts/validarRegisto.js"></script>
 </body>
 
 </html>

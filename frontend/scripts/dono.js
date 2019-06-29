@@ -12,7 +12,7 @@ Vue.component('sidebardono', {
     </div>
     <ul class="list-unstyled components">
         <li>
-            <a href="pedidosPendentes.html">Pedidos Pendentes</a>
+            <a href="pedidosPendentesDono.html">Pedidos Pendentes</a>
         </li>
         <li>
             <a href="consultarPetsitters.html">Consultar Petsitters</a>
@@ -56,8 +56,20 @@ Vue.component('avaliar-petsitter', {
     props: ['petsitter'],
     data: () => ({
         comentario: "",
-        pontuacao: 0
+        pontuacao: 0,
+        id1: "",
+        id2: "",
+        id3: "",
+        id4: "",
+        id5: ""
     }),
+    mounted: function () {
+        this.id1 = this.$props.petsitter.email + '1'
+        this.id2 = this.$props.petsitter.email + '2'
+        this.id3 = this.$props.petsitter.email + '3'
+        this.id4 = this.$props.petsitter.email + '4'
+        this.id5 = this.$props.petsitter.email + '5'
+    },
     methods: {
         avaliar: async function (id) {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
@@ -74,7 +86,11 @@ Vue.component('avaliar-petsitter', {
             })
             const content = await response.json()
             if (content.success) {
-                console.log("review feita com sucesso!")
+                localStorage.sucesso = "review";
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/avaliarPetsitter.html")
             }
         }
     },
@@ -123,16 +139,16 @@ Vue.component('avaliar-petsitter', {
                             class="blocktext">Muito Bom</span>
                     </div>
                     <div class="col-5 rate">
-                        <input type="radio" id="star5" v-model="pontuacao" value="5" />
-                        <label for="star5" title="text">5 stars</label>
-                        <input type="radio" id="star4" v-model="pontuacao" value="4" />
-                        <label for="star4" title="text">4 stars</label>
-                        <input type="radio" id="star3" v-model="pontuacao" value="3" />
-                        <label for="star3" title="text">3 stars</label>
-                        <input type="radio" id="star2" v-model="pontuacao" value="2" />
-                        <label for="star2" title="text">2 stars</label>
-                        <input type="radio" id="star1" v-model="pontuacao" value="1" />
-                        <label for="star1" title="text">1 star</label>
+                        <input type="radio" :id="id5" v-model="pontuacao" value="5" />
+                        <label :for="id5" title="text">5 stars</label>
+                        <input type="radio" :id="id4" v-model="pontuacao" value="4" />
+                        <label :for="id4" title="text">4 stars</label>
+                        <input type="radio" :id="id3" v-model="pontuacao" value="3" />
+                        <label :for="id3" title="text">3 stars</label>
+                        <input type="radio" :id="id2" v-model="pontuacao" value="2" />
+                        <label :for="id2" title="text">2 stars</label>
+                        <input type="radio" :id="id1" v-model="pontuacao" value="1" />
+                        <label :for="id1" title="text">1 star</label>
                     </div>
                 </div>
             </div>
@@ -242,8 +258,12 @@ Vue.component('rm-animal', {
             const content = await response.json()
 
             if (content.success) {
-                window.location.replace("http://localhost/editarAnimais.html")
+                localStorage.sucesso = "remover";
             }
+            else {
+                localStorage.sucesso = "erro";
+            }
+            window.location.replace("http://localhost/editarAnimais.html")
         }
     },
     template: `
@@ -351,11 +371,31 @@ var vm = new Vue({
     mounted: function () {
         if (localStorage.sucesso == "login") {
             this.snackbar("Login efetuado com sucesso.")
-            localStorage.sucesso = ""
+            localStorage.sucesso = "";
         }
         else if (localStorage.sucesso == "registo") {
             this.snackbar("Registo efetuado com sucesso.")
-            localStorage.sucesso = ""
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "editar") {
+            this.snackbar("Dados editados com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "pedido") {
+            this.snackbar("Pedido efetuado com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "erro") {
+            this.snackbar("Ocorreu um erro. Tente novamente.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "remover") {
+            this.snackbar("Animal removido com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "review") {
+            this.snackbar("Avaliação efetuada com sucesso.")
+            localStorage.sucesso = "";
         }
     },
     created: async function () {
@@ -425,7 +465,7 @@ var vm = new Vue({
                     }
                 }
                 if (window.location.href == "http://localhost/selServicos.html") {
-                    this.listaServicos = localStorage.servicos
+                    this.listaServicos = JSON.parse(localStorage.servicos)
                     this.dataInicio = localStorage.dataInicio
                     this.dataFim = localStorage.dataFim
                 }
@@ -465,7 +505,6 @@ var vm = new Vue({
                     this.raca = animal.raca
                     this.tipo = animal.tipo.id
                     this.id = localStorage.idAnimal
-                    localStorage.idAnimal = ""
                 }
             } else {
                 window.location.replace("http://localhost/index.html")
@@ -501,7 +540,7 @@ var vm = new Vue({
                 const content = await response.json()
                 if (content.success) {
                     localStorage.idPedido = content.idPedido
-                    localStorage.servicos = content.servicos
+                    localStorage.servicos = JSON.stringify(content.servicos)
                     window.location.replace("http://localhost/selServicos.html")
                 }
             }
@@ -541,6 +580,10 @@ var vm = new Vue({
                     localStorage.petsitters = JSON.stringify(content.petsitters)
                     window.location.replace("http://localhost/selPetsitter.html")
                 }
+                else {
+                    localStorage.sucesso = "erro";
+                    window.location.replace("http://localhost/selServicos.html");
+                }
             }
         },
         selPetsitter: async function (email) {
@@ -558,11 +601,16 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
-                window.location.replace("http://localhost/pedidosPendentes.html")
                 localStorage.dataInicio = ""
                 localStorage.dataFim = ""
                 localStorage.idPedido = ""
                 localStorage.petsitters = ""
+                localStorage.sucesso = "pedido";
+                window.location.replace("http://localhost/pedidosPendentesDono.html")
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/selPetsitter.html");
             }
         },
         validarAnimaisData: function () {
@@ -621,7 +669,12 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
+                localStorage.sucesso = "registo";
                 window.location.replace("http://localhost/adicionarAnimal.html")
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/adicionarAnimal.html");
             }
         },
         criarAnimal: async function () {
@@ -677,36 +730,12 @@ var vm = new Vue({
             const content = await response.json()
 
             if (content.success) {
-                window.location.replace("http://localhost/editarDadosDono.html")
-            }
-        },
-        registoDono: async function () {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarDono", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                },
-                method: "POST",
-                body: JSON.stringify(this.utilizador)
-            })
-            const content = await response.json()
-
-            if (content.success) {
-                localStorage.token = content.token
-                this.token = content.token
-                window.location.replace("http://localhost/adicionarAnimal.html")
+                localStorage.sucesso = "editar";
+                window.location.replace("http://localhost/perfilDono.html");
             }
             else {
-                // Get the snackbar DIV
-                var x = document.getElementById("snackbar");
-
-                // Change content
-                x.textContent = "Ocorreu um erro ao efetuar o registo."
-
-                // Add the "show" class to DIV
-                x.className = "show";
-
-                // After 3 seconds, remove the show class from DIV
-                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/editarDadosDono.html");
             }
         },
         criarUtilizador: function () {
@@ -743,7 +772,12 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
-                window.location.replace("http://localhost/editarAnimais.html")
+                localStorage.sucesso = "editar";
+                window.location.replace("http://localhost/editarAnimais.html");
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/editarAnimal.html");
             }
         },
         checkData: function (data) {

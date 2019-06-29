@@ -15,7 +15,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
-    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
         integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
         crossorigin="anonymous"></script>
@@ -31,10 +30,10 @@
 </style>
 
 <body>
-    <div class="wrapper" id="dono">
+    <div class="wrapper" id="petsitter">
         <!-- Navbar -->
         <div>
-            <sidebardono></sidebardono>
+            <sidebarpetsitter></sidebarpetsitter>
         </div>
         <!-- Page Content -->
         <div id="content" style="background-color: #f7eceb;">
@@ -46,11 +45,11 @@
                 <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">DADOS PESSOAIS</h1>
                 <div class="col-12">
                     <div class="card m-3" style="color:#545871;">
-                        <img :src=perfil.avatar class="mt-3"
+                        <img :src=dono.avatar class="mt-3"
                             style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
                         <span class="text-center mt-2">
                             <h2 class="text-uppercase" style="font-size:1.7em; font-weight: 500;">
-                                {{ perfil.nome }}</h2>
+                                {{ dono.nome }}</h2>
                         </span>
                         <table class="table table-bordered"
                             style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
@@ -58,15 +57,15 @@
                                 <tr>
                                     <td style="text-align: center;">
                                         <i class='fas fa-at' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.email }}
+                                        <br>{{ dono.email }}
                                     </td>
 
                                     <td style="text-align: center;">
                                         <i class='fas fa-home' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.morada }}
+                                        <br>{{ dono.morada }}
                                     </td>
 
-                                    <td v-if="perfil.jardim==true" style="text-align: center;">
+                                    <td v-if="dono.jardim==true" style="text-align: center;">
                                         <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;font-weight:10;"></i>
                                         <br>Jardim
                                     </td>
@@ -78,33 +77,33 @@
                                 <tr>
                                     <td style="text-align: center;">
                                         <i class='fa fa-phone' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.contacto }}
+                                        <br>{{ dono.contacto }}
                                     </td>
 
                                     <td style="text-align: center;">
                                         <span style="font-weight:600;font-size:20px;color:#ebd0ce;">Concelho</span>
-                                        <br>{{ perfil.concelho }}
+                                        <br>{{ dono.concelho }}
                                     </td>
 
                                     <td style="text-align: center;">
                                         <i class='fas fa-star' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.avaliacaoMedia }}
+                                        <br>{{ dono.avaliacaoMedia }}
                                     </td>
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;">
                                         <i class='fa fa-birthday-cake' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.dataNasc }}
+                                        <br>{{ dono.dataNasc }}
                                     </td>
 
                                     <td style="text-align: center;">
                                         <span style="font-weight:500;font-size:20px;color:#ebd0ce;">Distrito</span>
-                                        <br>{{ perfil.distrito }}
+                                        <br>{{ dono.distrito }}
                                     </td>
 
                                     <td style="text-align: center;">
                                         <i class='fas fa-edit' style="font-size:25px;color:#ebd0ce;"></i>
-                                        <br>{{ perfil.nrAvaliacoes }}
+                                        <br>{{ dono.nrAvaliacoes }}
                                     </td>
                                 </tr>
                             </tbody>
@@ -115,8 +114,8 @@
 
             <section>
                 <div class="justify-content-center">
-                    <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">OS SEUS ANIMAIS</h1>
-                    <div v-if="animais.length==0" class="alert alert-danger" role="alert"
+                    <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">ANIMAIS</h1>
+                    <div v-if="dono.animais.length==0" class="alert alert-danger" role="alert"
                         style="width:50%; margin-left:auto; margin-right:auto;">
                         <h4 class="alert-heading">Ainda não tem animais registados!</h4>
                         <p>Adicione os seus animais para que os nossos petsitters possam cuidar deles.</p>
@@ -127,7 +126,7 @@
                         </div>
                     </div>
                     <div class="row mx-1">
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" v-for="animal in animais"
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" v-for="animal in dono.animais"
                             v-bind:key="animal.id">
                             <div class="card m-3" style="color:#545871;">
                                 <card-animal v-bind:animal="animal"></card-animal>
@@ -138,12 +137,12 @@
             </section>
 
             <section class="p-2">
-                <div class="justify-content-center text-center" v-if="reviews.length>0">
+                <div class="justify-content-center text-center" v-if="dono.reviews.length>0">
                     <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">REVIEWS</h1>
-                    <div class="card m-3" style="color:#545871;" v-for="review in reviews">
+                    <div class="card m-3" style="color:#545871;" v-for="review in dono.reviews">
                         <div class="row p-3">
                             <div class="col-md-2">
-                                <img :src=review.petsitter.avatar class="m-3 my-auto"
+                                <img :src=dono.review.petsitter.avatar class="m-3 my-auto"
                                     style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
                             </div>
                             <div class="col-md-8 text-left pl-4">
@@ -163,9 +162,6 @@
             </section>
         </div>
     </div>
-    <!-- Snackbar -->
-    <div id="snackbar"></div>
-
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -179,5 +175,5 @@
         src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="scripts/sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="scripts/dono.js"></script>
+    <script src="scripts/petsitter.js"></script>
 </body>

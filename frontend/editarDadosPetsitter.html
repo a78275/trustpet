@@ -56,83 +56,79 @@
             <section id="dadospessoais">
                 <h1 class="px-5 py-4 text-center " style="color:#545871; font-size:2em;">EDITAR DADOS PESSOAIS</h1>
                 <div class="col-12">
-                    <form class="mx-5 my-3">
+                    <form class="mx-5 my-3" id="registoForm">
                         <div class="form-group">
-                            <label for="nome">Nome <span style="color:firebrick"><b>*</b></span></label>
+                            <label for="nome">Nome</label>
                             <input type="text" name="nome" class="form-control" id="nome" v-model="nome"
                                 placeholder="Introduza o seu nome" required>
+                            <span class="error">Preencha este campo.</span>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="email">E-mail <span style="color:firebrick"><b>*</b></span></label>
+                                <label for="email">E-mail</label>
                                 <input type="email" name="email" class="form-control" id="email" v-model="email"
-                                    placeholder="Introduza o seu endereço de e-mail" disabled="true">
+                                    placeholder="Introduza o seu endereço de e-mail" required>
+                                <span class="error">Introduza um e-mail válido.</span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="passwordedit">Password</label>
-                                <input type="password" name="password" class="form-control" id="passwordedit"
-                                    v-model="password" placeholder="Introduza uma palavra-passe" required>
+                                <label for="password">Password</label>
+                                <input type="password" name="passwordEdit" class="form-control" id="passwordEdit"
+                                    v-model="password" placeholder="Introduza uma palavra-passe nova" required>
+                                <span class="error">Introduza uma password com no mínimo 5 caracteres.</span>
                                 <small id="emailHelp" class="form-text text-muted">Alterar a password não é obrigatório.
                                     Deixe em branco caso queira manter a sua password.</small>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="datanascimento">Data de nascimento <span
-                                        style="color:firebrick"><b>*</b></span></label>
-                                <input type="date" name="dataNasc" class="form-control" id="datanascimento"
+                                <label for="datanascimento">Data de nascimento</label>
+                                <input type="date" name="datanascimento" class="form-control" id="datanascimento"
                                     v-model="dataNasc" placeholder="Introduza a sua data de nascimento" required>
+                                <span class="error">Deve ter no mínimo 18 anos para se poder registar.</span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="contacto">Contacto <span style="color:firebrick"><b>*</b></span></label>
-                                <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text" id="inputGroupPrepend">+351</span>
-                                    </div>
-                                    <input name="contacto" type="text" class="form-control" id="contacto"
-                                        v-model="contacto" placeholder="Introduza o seu número de telemóvel"
-                                        aria-describedby="inputGroupPrepend" required>
-                                </div>
+                                <label for="contacto">Contacto</label>
+                                <input name="contacto" type="text" class="form-control" id="contacto"
+                                    v-model="contacto" placeholder="Introduza o seu contacto telefónico" required>
+                                <span class="error">Introduza um contacto válido.</span>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="pic">Fotografia</label>
-                                <input type="text" name="avatar" class="form-control" id="pic" v-model="avatar"
+                                <input type="text" name="pic" class="form-control" id="pic" v-model="avatar"
                                     placeholder="Introduza o URL da fotografia">
+                                <span class="error">Introduza um URL válido.</span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="morada">Morada <span style="color:firebrick"><b>*</b></span></label>
+                                <label for="morada">Morada</label>
                                 <input type="text" name="morada" class="form-control" id="morada" v-model="morada"
                                     placeholder="Introduza a sua morada" required>
+                                <span class="error">Preencha este campo.</span>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
-                                <label for="distrito">Distrito <span style="color:firebrick"><b>*</b></span></label>
-                                <input type="text" name="distrito" class="form-control" id="distrito" v-model="distrito"
-                                    placeholder="Introduza o seu distrito" required>
+                                <label for="distrito">Distrito</label>
+                                <input type="text" name="distrito" class="form-control" id="distrito"
+                                    v-model="distrito" placeholder="Introduza o seu distrito" required>
+                                <span class="error">Preencha este campo.</span>
                             </div>
                             <div class="form-group col-md-6">
-                                <label for="concelho">Concelho <span style="color:firebrick"><b>*</b></span></label>
-                                <input type="text" name="concelho" class="form-control" id="concelho" v-model="concelho"
-                                    placeholder="Introduza o seu concelho" required>
+                                <label for="concelho">Concelho</label>
+                                <input type="text" name="concelho" class="form-control" id="concelho"
+                                    v-model="concelho" placeholder="Introduza o seu concelho" required>
+                                <span class="error">Preencha este campo.</span>
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <div class="form-check">
-                                    <input name="jardim" class="form-check-input" type="checkbox" value="" id="jardim"
-                                        v-model="jardim">
+                                    <input name="jardim" class="form-check-input" type="checkbox" value=""
+                                        id="jardim" v-model="jardim">
                                     <label class="form-check-label" for="jardim">
-                                        Tem Jardim? <span style="color:firebrick"><b>*</b></span>
+                                        Tem Jardim?
                                     </label>
-                                </div>
-                            </div>
-                            <div class="form-group col-md-6">
-                                <div class="float-right">
-                                    <span style="color:firebrick"><b>*</b></span> <span style="color:#545871">-
-                                        Campos obrigatórios.</span>
                                 </div>
                             </div>
                         </div>
@@ -141,13 +137,9 @@
                         <div class="container">
                             <div class="row">
                                 <div class="text-right col-12">
-                                    <button
-                                        v-if="email === '' || nome === '' || password === '' || distrito ==='' || concelho === '' || contacto === '' || dataNasc === '' || morada === ''"
-                                        type="button" v-on:click="camposObrigatorios()"
-                                        id="darkbluebtn">Guardar</button>
-                                    <button v-else type="button" v-on:click="criarUtilizador()" id="darkbluebtn"
-                                        data-toggle="modal" data-target="#confirmarPerfil">Seguinte</button>
-
+                                    <div id="registo_edit">				
+                                        <button type="button" v-on:click="criarUtilizador()" id="darkbluebtn">Guardar</button>
+                                    </div>
                                     <div class="modal fade" id="confirmarPerfil" tabindex="-1" role="dialog"
                                         aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                         <div class="modal-dialog" role="document">
@@ -249,6 +241,9 @@
             </section>
         </div>
     </div>
+    <!-- Snackbar -->
+    <div id="snackbar"></div>
+
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -260,8 +255,6 @@
         crossorigin="anonymous"></script>
     <script
         src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- Snackbar -->
-    <div id="snackbar"></div>
     <script src="scripts/sidebar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/petsitter.js"></script>

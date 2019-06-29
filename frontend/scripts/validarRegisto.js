@@ -40,26 +40,25 @@ $('#password').on('input', function () {
         error_element.removeClass("error_show").addClass("error");
     }
     else {
-        input.removeClass("valid").addClass("invalid");
+        input.removeClass("vaFarruscolid").addClass("invalid");
         error_element.removeClass("error").addClass("error_show");
     }
 });
 
-$('#passwordedit').on('input', function () {
+// PasswordEdit
+$('#passwordEdit').on('input', function () {
     var input = $(this);
     var error_element = $("span", input.parent());
+    var re = /^.{5,}$/;
 
-    if (input.val()) {
-        var input = $(this);
-        var re = /^.{5,}$/;
+    if(input.val()){
         var valid = re.test(input.val());
-        var error_element = $("span", input.parent());
         if (valid) {
             input.removeClass("invalid").addClass("valid");
             error_element.removeClass("error_show").addClass("error");
         }
         else {
-            input.removeClass("valid").addClass("invalid");
+            input.removeClass("vaFarruscolid").addClass("invalid");
             error_element.removeClass("error").addClass("error_show");
         }
     }
@@ -251,6 +250,60 @@ $("#registo_submit button").click(function (event) {
 });
 
 // After Form Submitted Validation
+$("#registo_edit button").click(function (event) {
+    var error_free = true;
+    var inputs = ['nome', 'email', 'passwordEdit', 'datanascimento', 'contacto', 'pic', 'morada', 'distrito', 'concelho'];
+
+    for (var input in inputs) {
+        var element = $("#" + inputs[input]);
+        var error_element = $("span", element.parent());
+
+        // A fotografia e a passowrd são válidas se não estiverem preenchida
+        if (inputs[input] == "pic" || inputs[input] == "passwordEdit") {
+            if (!element.val()) {
+                element.removeClass("invalid").addClass("valid");
+                error_element.removeClass("error_show").addClass("error");
+            }
+        }
+        else {
+            if (element.val()) {
+                element.removeClass("invalid").addClass("valid");
+                error_element.removeClass("error_show").addClass("error");
+            }
+        }
+
+        var valid = element.hasClass("valid");
+
+        if (!valid) {
+            error_element.removeClass("error").addClass("error_show");
+            error_free = false;
+            element.removeClass("valid").addClass("invalid");
+        }
+        else {
+            error_element.removeClass("error_show").addClass("error");
+            element.removeClass("invalid").addClass("valid");
+        }
+    }
+
+    if (!error_free) {
+        // Get the snackbar DIV
+        var x = document.getElementById("snackbar");
+
+        // Change content
+        x.textContent = "Preencha o formulário corretamente."
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
+    else {
+        $("#confirmarPerfil").modal('toggle');
+    }
+});
+
+// After Form Submitted Validation
 $("#animal_submit button").click(function (event) {
     var error_free = true;
     var inputs = ['nome', 'pic']
@@ -290,6 +343,61 @@ $("#animal_submit button").click(function (event) {
             error_element.removeClass("error").addClass("error_show");
             error_free = false;
             element.removeClass("valid").addClass("invalid");
+        }
+    }
+
+    if (!error_free) {
+        // Get the snackbar DIV
+        var x = document.getElementById("snackbar");
+
+        // Change content
+        x.textContent = "Preencha o formulário corretamente."
+
+        // Add the "show" class to DIV
+        x.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+    }
+    else {
+        $("#confirmarAnimal").modal('toggle');
+    }
+});
+
+// After Form Submitted Validation
+$("#animal_edit button").click(function (event) {
+    var error_free = true;
+    var inputs = ['nome', 'pic', 'idade']
+
+    for (var input in inputs) {
+        var element = $("#" + inputs[input]);
+        var error_element = $("span", element.parent());
+
+        // A fotografia é válida se não estiver preenchida
+        if (inputs[input] == "pic") {
+            if (!element.val()) {
+                element.removeClass("invalid").addClass("valid");
+                error_element.removeClass("error_show").addClass("error");
+            }
+        }
+
+        if (inputs[input] == "nome" || inputs[input] == "idade") {
+            if (element.val()) {
+                element.removeClass("invalid").addClass("valid");
+                error_element.removeClass("error_show").addClass("error");
+            }
+        }
+
+        var valid = element.hasClass("valid");
+
+        if (!valid) {
+            error_element.removeClass("error").addClass("error_show");
+            error_free = false;
+            element.removeClass("valid").addClass("invalid");
+        }
+        else {
+            error_element.removeClass("error_show").addClass("error");
+            element.removeClass("invalid").addClass("valid");
         }
     }
 
