@@ -144,7 +144,7 @@ class DonoBehavior(TaskSet):
         response = self.client.request("POST", "/ConsultarPerfil", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+        print("ConsultarPerfilPost Response " + str(response) + " with Success " + str(response.text))
 
     @task(10)
     def adicionarAnimal(self):
@@ -168,7 +168,7 @@ class DonoBehavior(TaskSet):
 
     @task(10)
     def editarDadosPessoais(self):
-        packet_data = "{'nome':'João','data':'20/10/1969','contacto':'3182937','jardim':'true','morada':'Rua A','password':'ola','avatar':'','concelho':'Porto','distrito':'Porto'}"
+        packet_data = "{'nome':'João','dataNasc':'20/10/1969','contacto':'3182937','jardim':'true','morada':'Rua A','password':'ola','avatar':'','concelho':'Porto','distrito':'Porto'}"
         response = self.client.request("POST", "/EditarDadosPessoais", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
@@ -245,11 +245,11 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("POST", "/ConsultarPerfil", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+        print("ConsultarPefilPost Response " + str(response) + " with Success " + str(response.text))
 
     @task(10)
     def editarDadosPessoais(self):
-        packet_data = "{'nome':'João','data':'20/10/1969','contacto':'3182937','jardim':'true','morada':'Rua A','password':'ola','avatar':'','concelho':'Porto','distrito':'Porto'}"
+        packet_data = "{'nome':'João','dataNasc':'20/10/1969','contacto':'3182937','jardim':'true','morada':'Rua A','password':'ola','avatar':'','concelho':'Porto','distrito':'Porto'}"
         response = self.client.request("POST", "/EditarDadosPessoais", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
@@ -306,14 +306,14 @@ class IndexBehavior(TaskSet):
     tipo = ""
 
     def on_start(self):
-        rand = random.randint(0,2000)
-        if 0 <= rand < 1000 :
+        rand = random.randint(0, 2000)
+        if 0 <= rand < 1000:
             if len(DONO_CREDENTIALS) > 0:
                 self.email = DONO_CREDENTIALS.pop()
-        elif 1000<= rand < 2000:
+        elif 1000 <= rand < 2000:
             if len(PETSITTER_CREDENTIALS) > 0:
                 self.email = PETSITTER_CREDENTIALS.pop()
-        elif rand==2000:
+        elif rand == 2000:
             self.email = 'admin1@email.com'
             self.inativarUtilizador(self.email)
 
@@ -322,7 +322,12 @@ class IndexBehavior(TaskSet):
         response = self.client.request("GET", "/Index",
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("Index Response " + str(response) + " with Tipo " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response:
+            response.success()
+            print("Index Response " + str(response) + " with Sucess " + str(dict_response["success"]))
+        else:
+            response.failure()
 
     @task(40)
     def login(self):
@@ -344,6 +349,7 @@ class IndexBehavior(TaskSet):
         response = self.client.request("POST", "/RegistarDono", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded"})
         print("ID" + self.email + "RegistarDono Response: " + str(response) + " with Success " + str(response.text))
+        self.wait()
 
     #@task(20)
     def registarPetsitter(self):
@@ -352,7 +358,6 @@ class IndexBehavior(TaskSet):
                                        headers={"Content-Type": "application/x-www-form-urlencoded"})
         print(
             "ID" + self.email + "RegistarPetsitter Response: " + str(response) + " with Success " + str(response.text))
-        self.wait()
 
     def inativarUtilizador(self,email):
         packet_data = "{'email':'" + email + "', 'password':'ola', 'emailDono':'dono69@email.com'}"
