@@ -382,11 +382,46 @@ public class Util {
     private static JSONArray parseAnimalServicosCollectionPedido(AnimalServicoSetCollection animalServicos) {
         Iterator iter = animalServicos.getIterator();
         JSONArray arr = new JSONArray();
-
+        Map<Animal, List<String>> animalServicoMap = new HashMap<>();
         while (iter.hasNext()){
-            arr.put(parseAnimalServicoPedido((AnimalServico) iter.next()));
+            AnimalServico animalServico = (AnimalServico) iter.next();
+            Animal animal = animalServico.getAnimal();
+            String servico = animalServico.getServico().getDesignacao();
+            List<String> servicos;
+
+            if (animalServicoMap.containsKey(animal)) {
+                servicos = animalServicoMap.get(animal);
+                servicos.add(servico);
+            }
+            else {
+                servicos = new ArrayList<>();
+                servicos.add(servico);
+                animalServicoMap.put(animal, servicos);
+            }
         }
 
+        for (Map.Entry<Animal,List<String>> e : animalServicoMap.entrySet()) {
+            arr.put(parseAnimalServicosPedido(e.getKey(), e.getValue()));
+        }
+        return arr;
+    }
+
+    private static JSONObject parseAnimalServicosPedido(Animal animal, List<String> servicos) {
+        JSONObject obj = new JSONObject();
+
+        obj.put("idAnimal", animal);
+        obj.put("servicos", parseServicosPedido(servicos));
+
+        return obj;
+    }
+
+    private static JSONArray parseServicosPedido (List<String> servicos) {
+        JSONArray arr = new JSONArray();
+
+        for (String servico : servicos) {
+            arr.put(servico);
+        }
+        
         return arr;
     }
 
@@ -431,29 +466,6 @@ public class Util {
         else {
             return null;
         }
-    }
-
-
-
-    private static JSONArray parseAnimalServicosCollection(AnimalServicoSetCollection animalServicos) {
-        Iterator iter = animalServicos.getIterator();
-        JSONArray arr = new JSONArray();
-
-        while (iter.hasNext()){
-            arr.put(parseAnimalServico((AnimalServico) iter.next()));
-        }
-
-        return arr;
-    }
-
-    private static JSONObject parseAnimalServico(AnimalServico animalServico) {
-        JSONObject obj = new JSONObject();
-
-        obj.put("id", animalServico.getId());
-        obj.put("servico", parseServico(animalServico.getServico()));
-        obj.put("animal", parseAnimal(animalServico.getAnimal()));
-
-        return obj;
     }
 
     private static JSONObject parseServico(Servico servico) {
