@@ -375,8 +375,7 @@ public class Util {
         obj.put("dataInicio", pedido.getDataInicio());
         obj.put("dataFim", pedido.getDataFim());
         obj.put("animalServicos", parseAnimalServicosCollectionPedido(pedido.animalServicos));
-        obj.put("servicos", parseServicosCollection(pedido.servicos));
-
+        
         return obj;
     }
 
@@ -434,16 +433,7 @@ public class Util {
         }
     }
 
-    private static JSONArray parseServicosCollection(PrecoPetsitterServicoSetCollection servicos) {
-        Iterator iter = servicos.getIterator();
-        JSONArray arr = new JSONArray();
 
-        while (iter.hasNext()){
-            arr.put(parseServico((Servico) iter.next()));
-        }
-
-        return arr;
-    }
 
     private static JSONArray parseAnimalServicosCollection(AnimalServicoSetCollection animalServicos) {
         Iterator iter = animalServicos.getIterator();
