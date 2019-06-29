@@ -40,6 +40,36 @@ var vm = new Vue({
         preco4: "",
         horario: []
     },
+    mounted: function () {
+        if (localStorage.sucesso == "login") {
+            this.snackbar("Login efetuado com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "registo") {
+            this.snackbar("Registo efetuado com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "editar") {
+            this.snackbar("Dados editados com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "pedido") {
+            this.snackbar("Pedido efetuado com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "erro") {
+            this.snackbar("Ocorreu um erro. Tente novamente.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "remover") {
+            this.snackbar("Animal removido com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "review") {
+            this.snackbar("Avaliação efetuada com sucesso.")
+            localStorage.sucesso = "";
+        }
+    },
     methods: {
         registoPetsitter: async function () {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarPetsitter", {
@@ -54,12 +84,10 @@ var vm = new Vue({
             if (content.success) {
                 localStorage.token = content.token
                 this.token = content.token
-                localStorage.sucesso = "registo"
                 window.location.replace("http://localhost/registoTiposAnimais.html")
             }
             else {
-                // TODO: PÔR A DAR
-                this.snackbar("Ocorreu um erro. Tente novamente.")
+                localStorage.sucesso = "erro";
                 window.location.replace("http://localhost/registoPerfilPetsitter.html")
             }
         },
@@ -83,8 +111,7 @@ var vm = new Vue({
                     window.location.replace("http://localhost/registoServicos.html")
                 }
                 else {
-                    // TODO: PÔR A DAR
-                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    localStorage.sucesso = "erro";
                     window.location.replace("http://localhost/registoTiposAnimais.html")
                 }
             }
@@ -128,8 +155,7 @@ var vm = new Vue({
                     window.location.replace("http://localhost/registoHorario.html")
                 }
                 else {
-                    // TODO: PÔR A DAR
-                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    localStorage.sucesso = "erro";
                     window.location.replace("http://localhost/registoServicos.html")
                 }
             }
@@ -152,11 +178,11 @@ var vm = new Vue({
                 const content = await response.json()
                 console.log(JSON.stringify(content))
                 if (content.success) {
+                    localStorage.sucesso = "registo";
                     window.location.replace("http://localhost/indexPetsitter.html")
                 }
                 else {
-                    // TODO: PÔR A DAR
-                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    localStorage.sucesso = "erro";
                     window.location.replace("http://localhost/registoHorario.html")
                 }
             }
@@ -189,7 +215,8 @@ var vm = new Vue({
                     }
                 }
                 else {
-                    this.snackbar("Credenciais erradas.")
+                    localStorage.sucesso = "erro"
+                    window.location.replace("http://localhost/login.html")
                 }
             }
         },
@@ -223,7 +250,8 @@ var vm = new Vue({
                 window.location.replace("http://localhost/adicionarAnimal.html")
             }
             else {
-                this.snackbar("Ocorreu um erro ao efetuar o registo.")
+                localStorage.sucesso = "erro"
+                window.location.replace("http://localhost/registoPerfilDono.html")
             }
         },
         criarUtilizador: function () {

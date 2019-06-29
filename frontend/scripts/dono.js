@@ -74,7 +74,11 @@ Vue.component('avaliar-petsitter', {
             })
             const content = await response.json()
             if (content.success) {
-                console.log("review feita com sucesso!")
+                localStorage.sucesso = "review";
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/avaliarPetsitter.html")
             }
         }
     },
@@ -242,8 +246,12 @@ Vue.component('rm-animal', {
             const content = await response.json()
 
             if (content.success) {
-                window.location.replace("http://localhost/editarAnimais.html")
+                localStorage.sucesso = "remover";
             }
+            else {
+                localStorage.sucesso = "erro";
+            }
+            window.location.replace("http://localhost/editarAnimais.html")
         }
     },
     template: `
@@ -351,11 +359,31 @@ var vm = new Vue({
     mounted: function () {
         if (localStorage.sucesso == "login") {
             this.snackbar("Login efetuado com sucesso.")
-            localStorage.sucesso = ""
+            localStorage.sucesso = "";
         }
         else if (localStorage.sucesso == "registo") {
             this.snackbar("Registo efetuado com sucesso.")
-            localStorage.sucesso = ""
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "editar") {
+            this.snackbar("Dados editados com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "pedido") {
+            this.snackbar("Pedido efetuado com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "erro") {
+            this.snackbar("Ocorreu um erro. Tente novamente.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "remover") {
+            this.snackbar("Animal removido com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "review") {
+            this.snackbar("Avaliação efetuada com sucesso.")
+            localStorage.sucesso = "";
         }
     },
     created: async function () {
@@ -541,6 +569,10 @@ var vm = new Vue({
                     localStorage.petsitters = JSON.stringify(content.petsitters)
                     window.location.replace("http://localhost/selPetsitter.html")
                 }
+                else {
+                    localStorage.sucesso = "erro";
+                    window.location.replace("http://localhost/selServicos.html");
+                }
             }
         },
         selPetsitter: async function (email) {
@@ -558,11 +590,16 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
-                window.location.replace("http://localhost/pedidosPendentes.html")
                 localStorage.dataInicio = ""
                 localStorage.dataFim = ""
                 localStorage.idPedido = ""
                 localStorage.petsitters = ""
+                localStorage.sucesso = "pedido";
+                window.location.replace("http://localhost/pedidosPendentes.html")
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/selPetsitter.html");
             }
         },
         validarAnimaisData: function () {
@@ -621,7 +658,12 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
+                localStorage.sucesso = "registo";
                 window.location.replace("http://localhost/adicionarAnimal.html")
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/adicionarAnimal.html");
             }
         },
         criarAnimal: async function () {
@@ -677,36 +719,12 @@ var vm = new Vue({
             const content = await response.json()
 
             if (content.success) {
-                window.location.replace("http://localhost/editarDadosDono.html")
-            }
-        },
-        registoDono: async function () {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/RegistarDono", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8'
-                },
-                method: "POST",
-                body: JSON.stringify(this.utilizador)
-            })
-            const content = await response.json()
-
-            if (content.success) {
-                localStorage.token = content.token
-                this.token = content.token
-                window.location.replace("http://localhost/adicionarAnimal.html")
+                localStorage.sucesso = "editar";
+                window.location.replace("http://localhost/perfilDono.html");
             }
             else {
-                // Get the snackbar DIV
-                var x = document.getElementById("snackbar");
-
-                // Change content
-                x.textContent = "Ocorreu um erro ao efetuar o registo."
-
-                // Add the "show" class to DIV
-                x.className = "show";
-
-                // After 3 seconds, remove the show class from DIV
-                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/editarDadosDono.html");
             }
         },
         criarUtilizador: function () {
@@ -743,7 +761,12 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
-                window.location.replace("http://localhost/editarAnimais.html")
+                localStorage.sucesso = "editar";
+                window.location.replace("http://localhost/editarAnimais.html");
+            }
+            else {
+                localStorage.sucesso = "erro";
+                window.location.replace("http://localhost/editarAnimal.html");
             }
         },
         checkData: function (data) {
