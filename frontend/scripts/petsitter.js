@@ -25,10 +25,13 @@ Vue.component('sidebarpetsitter', {
                     <a href="editarDadosPetsitter.html">Editar Dados Pessoais</a>
                 </li>
                 <li>
-                    <a href="#">Editar Serviços Fornecidos</a>
+                    <a href="editarTiposAnimais.html">Editar Tipos Animais</a>
                 </li>
                 <li>
-                    <a href="#">Editar Tipos Animais</a>
+                    <a href="editarServicos.html">Editar Serviços Fornecidos</a>
+                </li>
+                <li>
+                    <a href="editarHorario.html">Editar Horário</a>
                 </li>
             </ul>
         </li>
@@ -65,7 +68,8 @@ var vm = new Vue({
         servicos: [],
         horario: {},
         reviews: [],
-        tiposAnimal: [{ 'id': '1', 'tipo': 'Gato', 'img': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5fBKv_d93io82eZokxqn_4jsHFSolEpiqeNPxjxy12DIiM0T' }, { 'id': '2', 'tipo': 'Cão', 'img': 'https://essencecuidados.com.br/wp-content/uploads/2016/10/dog.jpg' }, { 'id': '3', 'tipo': 'Pássaro', 'img': 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/19/pinyon-jay-bird.jpg' }, { 'id': '4', 'tipo': 'Tartaruga', 'img': 'https://oliveridleyproject.org/wp-content/uploads/2018/05/Olive-ridley-turtle-baby-patient-Luna-recovering-rescue-centre-ORP.jpg' }]
+        tiposAnimal: [{ 'id': '1', 'tipo': 'Gato', 'img': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5fBKv_d93io82eZokxqn_4jsHFSolEpiqeNPxjxy12DIiM0T' }, { 'id': '2', 'tipo': 'Cão', 'img': 'https://essencecuidados.com.br/wp-content/uploads/2016/10/dog.jpg' }, { 'id': '3', 'tipo': 'Pássaro', 'img': 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/19/pinyon-jay-bird.jpg' }, { 'id': '4', 'tipo': 'Tartaruga', 'img': 'https://oliveridleyproject.org/wp-content/uploads/2018/05/Olive-ridley-turtle-baby-patient-Luna-recovering-rescue-centre-ORP.jpg' }],
+        tiposAnimaisSelecionados: []
     },
     mounted: function () {
         if (localStorage.sucesso == "login") {
@@ -217,6 +221,32 @@ var vm = new Vue({
 
             // After 3 seconds, remove the show class from DIV
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-        }
+        },
+        editarTiposAnimais: async function () {
+            if (this.tiposAnimaisSelecionados.length == 0) {
+                this.snackbar("É necessário selecionar pelo menos um tipo de animal.")
+            }
+            else {
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarTiposAnimais", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        tipos: this.tiposAnimaisSelecionados
+                    })
+                })
+                const content = await response.json()
+                if (content.success) {
+                    window.location.replace("http://localhost/perfilPetsitter.html")
+                }
+                else {
+                    // TODO: PÔR A DAR
+                    this.snackbar("Ocorreu um erro. Tente novamente.")
+                    window.location.replace("http://localhost/editarTiposAnimais.html")
+                }
+            }
+        },
     }
 })

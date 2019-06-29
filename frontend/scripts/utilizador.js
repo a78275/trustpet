@@ -55,9 +55,9 @@ var vm = new Vue({
             }
         },
         registoTiposAnimais: async function () {
-            if(this.tiposAnimaisSelecionados.length == 0){
+            if (this.tiposAnimaisSelecionados.length == 0) {
                 this.snackbar("É necessário selecionar pelo menos um tipo de animal.")
-            } 
+            }
             else {
                 const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarTiposAnimais", {
                     headers: {
@@ -99,9 +99,9 @@ var vm = new Vue({
                 servicosSelecionados.push(s)
             }
 
-            if(servicosSelecionados.length == 0){
+            if (servicosSelecionados.length == 0) {
                 this.snackbar("Preencha pelo menos um serviço.")
-            } 
+            }
             else {
                 const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarServicos", {
                     headers: {
@@ -126,9 +126,9 @@ var vm = new Vue({
             }
         },
         registoHorario: async function () {
-            if(this.horario.length == 0){
+            if (this.horario.length == 0) {
                 this.snackbar("Selecione pelo menos uma hora.")
-            } 
+            }
             else {
                 const response = await fetch("http://localhost:8080/trustpet_war_exploded/EditarHorario", {
                     headers: {
