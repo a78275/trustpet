@@ -25,9 +25,13 @@ public class SelPetsitterServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
+        String email = (String) parameters.get("email");
+        int idPedido = Integer.parseInt((String) parameters.get("idPedido"));
 
-        boolean result = FacadeBeans.concluirPedido((String) parameters.get("email"), Integer.parseInt((String) parameters.get("idPedido")));
-        mensagem.put("success", result);
+        if(email!=null && idPedido != 0) {
+            boolean result = FacadeBeans.concluirPedido(email, idPedido);
+            mensagem.put("success", result);
+        }
 
         out.print(mensagem);
         out.flush();

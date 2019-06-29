@@ -34,12 +34,17 @@ public class SelServicosServlet extends HttpServlet {
 
         if(animalServicos!=null) {
             boolean result = FacadeBeans.registarServicosPedido(idPedido, animalServicos);
-            Map<Petsitter,Double> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
+            if (result) {
+                Map<Petsitter,Double> petsitters = FacadeBeans.getPetsittersPedido(idPedido, animalServicos);
 
-            if(petsitters != null && result){
-                mensagem.put("success",true);
-                mensagem.put("petsitters", Util.parsePetsittersListPreco(petsitters));
+                if(petsitters != null){
+                    mensagem.put("success",true);
+                    mensagem.put("petsitters", Util.parsePetsittersListPreco(petsitters));
 
+                }
+                else {
+                    mensagem.put("success",false);
+                }
             }
             else {
                 mensagem.put("success",false);

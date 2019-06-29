@@ -14,6 +14,7 @@ import java.util.Map;
 public class PetsitterBean implements PetsitterBeanLocal {
     @Override
     public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
+        //TODO Erro de não ter tipos de animais na collection mas ter a cahve na BD
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -26,7 +27,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
         // Apagar tipos antigos
         if(!petsitter.animais.isEmpty()) {
             TipoAnimal[] tiposAntigos = petsitter.animais.toArray();
-
             for(TipoAnimal tipo : tiposAntigos) {
                 if(!tipos.contains(tipo.getId())) {
                     petsitter.animais.remove(tipo);
@@ -41,6 +41,7 @@ public class PetsitterBean implements PetsitterBeanLocal {
             return true;
         }
         else {
+            System.out.println("Email " + petsitter.getEmail() + " Novos Tipos " + tipos);
             // Set dos animais
             for(int idTipo : tipos) {
                 TipoAnimal animal = null;
@@ -67,11 +68,26 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
-        
         // Get do petsitter
         Petsitter petsitter = null;
         try {
             petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+            return false;
+        }
+
+        // Delete dos antigos
+        try {
+            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("petsitterutilizadoremail='" + emailPetsitter + "'", null);
+            for(PrecoPetsitterServico p : precoPetsitterServicos){
+                boolean delete = FacadeDAOs.deletePrecoPetsitterServico(p);
+
+                if(!delete){
+                    return false;
+                }
+
+            }
         } catch (PersistentException e) {
             e.printStackTrace();
             return false;
@@ -114,7 +130,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
 
     @Override
     public boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario) {
-        
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -195,38 +210,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
             e.printStackTrace();
             return null;
         }
-    }
-
-    @Override
-    public boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
-        
-        // Get do petsitter
-        Petsitter petsitter = null;
-        try {
-            petsitter = FacadeDAOs.getPetsitter(emailPetsitter);
-        } catch (PersistentException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        // Delete dos antigos
-        try {
-            List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("petsitterutilizadoremail='" + emailPetsitter + "'", null);
-            for(PrecoPetsitterServico p : precoPetsitterServicos){
-                boolean delete = FacadeDAOs.deletePrecoPetsitterServico(p);
-
-                if(!delete){
-                    return false;
-                }
-
-            }
-        } catch (PersistentException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-        // Create e save dos precoPetsitterServicos
-        return createPrecoPetsitterServicos(servicos, petsitter);
     }
 
     @Override

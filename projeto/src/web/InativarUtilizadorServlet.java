@@ -32,10 +32,10 @@ public class InativarUtilizadorServlet extends HttpServlet {
         boolean autenticacao = FacadeBeans.autenticarAdministrador((String) parameters.get("email"), Util.hash((String) parameters.get("password")));
         if(autenticacao) {
             boolean result = FacadeBeans.editarDados(null, (String) parameters.get("emailDono"), null, null, false, null, null, null, null, null, false);
-            mensagem.put("result", result);
+            mensagem.put("success", result);
         }
         else {
-            mensagem.put("result", false);
+            mensagem.put("success", false);
         }
         out.print(mensagem);
         out.flush();

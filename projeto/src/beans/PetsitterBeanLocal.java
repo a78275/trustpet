@@ -40,13 +40,6 @@ public interface PetsitterBeanLocal {
 
 	/**
 	 *
-	 * @param emailPetsitter
-	 * @param servicos
-	 */
-	boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos);
-
-	/**
-	 *
 	 * @param email
 	 */
 	Map<String, Double> getServicosPetsitter(String email);
