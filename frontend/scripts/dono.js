@@ -102,7 +102,7 @@ Vue.component('avaliar-petsitter', {
             <div class="modal-header">
                 <h5 class="modal-title" style="color: #545871;"
                     id="exampleModalLongTitle">
-                    Avaliar Petsitter - {{ petsitter.nome }}
+                    Avaliar Petsitter - {{ petsitter.email }}
                 </h5>
                 <button type="button" id="submitRegistoDono" class="close"
                     data-dismiss="modal" aria-label="Close">

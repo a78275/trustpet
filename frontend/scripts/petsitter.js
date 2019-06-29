@@ -137,11 +137,11 @@ Vue.component('avaliar-dono', {
         id5: ""
     }),
     mounted: function () {
-        this.id1 = this.$props.petsitter.email + '1'
-        this.id2 = this.$props.petsitter.email + '2'
-        this.id3 = this.$props.petsitter.email + '3'
-        this.id4 = this.$props.petsitter.email + '4'
-        this.id5 = this.$props.petsitter.email + '5'
+        this.id1 = this.$props.dono + '1'
+        this.id2 = this.$props.dono + '2'
+        this.id3 = this.$props.dono + '3'
+        this.id4 = this.$props.dono + '4'
+        this.id5 = this.$props.dono + '5'
     },
     methods: {
         avaliar: async function (id) {
