@@ -75,6 +75,15 @@ public class FacadeBeans {
     /**
      *
      * @param emailPetsitter
+     * @param servicos
+     */
+    public static boolean registarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
+        return petsitterBean.registarServicos(emailPetsitter,servicos);
+    }
+
+    /**
+     *
+     * @param emailPetsitter
      * @param horario
      */
     public static boolean editarHorario(String emailPetsitter, Map<Integer, List<Integer>> horario) {
@@ -179,15 +188,6 @@ public class FacadeBeans {
      */
     public static boolean editarDados(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String concelho, String distrito, boolean ativo) {
         return utilizadorBean.editarDados(nome, email, dataNasc, contacto, jardim, morada, password, avatar, concelho, distrito, ativo);
-    }
-
-    /**
-     *
-     * @param emailPetsitter
-     * @param servicos
-     */
-    public static boolean editarServicos(String emailPetsitter, Map<Integer, Double> servicos) {
-        return petsitterBean.editarServicos(emailPetsitter, servicos);
     }
 
     /**
