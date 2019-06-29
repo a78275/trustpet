@@ -45,6 +45,7 @@ var vm = new Vue({
             if (content.success) {
                 localStorage.token = content.token
                 this.token = content.token
+                localStorage.sucesso = "registo"
                 window.location.replace("http://localhost/registoTiposAnimais.html")
             }
             else {
@@ -171,12 +172,12 @@ var vm = new Vue({
                 if (content.success) {
                     localStorage.token = content.token
                     this.token = content.token
+                    localStorage.sucesso = "login"
                     if (content.tipo == "dono") {
                         window.location.replace("http://localhost/indexDono.html")
                     } else if (content.tipo == "petsitter") {
                         window.location.replace("http://localhost/indexPetsitter.html")
                     }
-                    this.snackbar("Login efetuado com sucesso.")
                 }
                 else {
                     this.snackbar("Credenciais erradas.")
@@ -209,8 +210,8 @@ var vm = new Vue({
             if (content.success) {
                 localStorage.token = content.token
                 this.token = content.token
+                localStorage.sucesso = "registo"
                 window.location.replace("http://localhost/adicionarAnimal.html")
-                
             }
             else {
                 this.snackbar("Ocorreu um erro ao efetuar o registo.")
