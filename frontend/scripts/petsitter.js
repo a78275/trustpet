@@ -394,7 +394,6 @@ var vm = new Vue({
                     if (contentDono.success) {
                         this.dono = contentDono.utilizador
                         this.dono.reviews = contentDono.reviews
-                        console.log(JSON.stringify(this.dono))
                     }
                 }
                 const responsePedidos = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPedidos", {

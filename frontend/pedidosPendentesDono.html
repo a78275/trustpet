@@ -63,10 +63,11 @@
                             <div class="col-12">
                                 <img :src=pedido.petsitter.avatar
                                     style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
-                                <span v-if="pedido.petsitter">{{ pedido.petsitter.email }}&nbsp;</span>
+                                <span v-if="pedido.petsitter">{{ pedido.petsitter.email }}</span>
                             </div>
 
-                            <button id="pinkbtn" class="btn mb-3" type="button" v-on:click="pagDono(pedido.dono.email)"
+                            <button id="pinkbtn" class="btn mb-3" type="button"
+                                v-on:click="pagPetsitter(pedido.petsitter.email)"
                                 style="width: 30%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
                                 Consultar Perfil</button>
 

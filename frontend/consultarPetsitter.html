@@ -23,6 +23,13 @@
         crossorigin="anonymous"></script>
 </head>
 
+<style>
+    td,
+    th {
+        border: #ebd0ce solid 1px !important;
+    }
+</style>
+
 <body>
     <div class="wrapper" id="dono">
         <!-- Navbar -->
@@ -35,93 +42,143 @@
                 <i class="fas fa-align-left"></i>
             </button>
 
-            <section class="p-2">
-                <div class="justify-content-center text-center">
-                    <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">DADOS PESSOAIS</h1>
-                    <div class="col-12">
-                        <div class="card m-3" style="color:#545871;">
-                            <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="mt-3"
-                                style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
-                            <span class="text-uppercase text-center"
-                                style="font-size:1.7em; font-weight: 500;">Maria</span>
-                            <hr
-                                style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
+            <section class="text-center" id="dadospessoais">
+                <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">DADOS PESSOAIS</h1>
+                <div class="col-12">
+                    <div class="card m-3" style="color:#545871;">
+                        <img :src=petsitter.avatar class="mt-3"
+                            style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                        <span class="text-center mt-2">
+                            <h2 class="text-uppercase" style="font-size:1.7em; font-weight: 500;">
+                                {{ petsitter.nome }}</h2>
+                        </span>
+                        <table class="table table-bordered"
+                            style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
+                            <tbody style="color: #545871;">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <i class='fas fa-at' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ petsitter.email }}
+                                    </td>
 
-                            <table class="table table-bordered"
-                                style="width: 90%; margin-left: auto; margin-right: auto; table-layout: fixed;">
-                                <tbody style="color: #545871;">
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <i class='fa fa-birthday-cake' style="font-size:25px;color:#ebd0ce;"></i>
-                                            <br>10/05/1980
-                                        </td>
+                                    <td style="text-align: center;">
+                                        <i class='fas fa-home' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ petsitter.morada }}
+                                    </td>
 
-                                        <td style="text-align: center;">
-                                            <span style="font-weight:600;font-size:20px;color:#ebd0ce;">concelho</span>
-                                            <br>Concelho
-                                        </td>
+                                    <td v-if="petsitter.jardim==true" style="text-align: center;">
+                                        <i class='fa fa-check' style="font-size:25px;color:#ebd0ce;font-weight:10;"></i>
+                                        <br>Jardim
+                                    </td>
+                                    <td v-else style="text-align: center;">
+                                        <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;font-weight:10;"></i>
+                                        <br>Jardim
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <i class='fa fa-phone' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ petsitter.contacto }}
+                                    </td>
 
-                                        <td style="text-align: center;">
-                                            <i class='fas fa-star' style="font-size:25px;color:#ebd0ce;"></i>
-                                            <br>4.5
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <i class='fa fa-times' style="font-size:25px;color:#ebd0ce;"></i>
-                                            <br>Jardim
-                                        </td>
+                                    <td style="text-align: center;">
+                                        <span style="font-weight:600;font-size:20px;color:#ebd0ce;">Concelho</span>
+                                        <br>{{ petsitter.concelho }}
+                                    </td>
 
-                                        <td style="text-align: center;">
-                                            <span style="font-weight:500;font-size:20px;color:#ebd0ce;">distrito</span>
-                                            <br>Distrito
-                                        </td>
+                                    <td style="text-align: center;">
+                                        <i class='fas fa-star' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ petsitter.avaliacaoMedia }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;">
+                                        <i class='fa fa-birthday-cake' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ petsitter.dataNasc }}
+                                    </td>
 
-                                        <td style="text-align: center;">
-                                            <i class='fas fa-edit' style="font-size:25px;color:#ebd0ce;"></i>
-                                            <br>10
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <btn id="bluepinkbtn" class="mb-3"
-                                style="width: 40%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
-                                Avaliar</btn>
+                                    <td style="text-align: center;">
+                                        <span style="font-weight:500;font-size:20px;color:#ebd0ce;">Distrito</span>
+                                        <br>{{ petsitter.distrito }}
+                                    </td>
+
+                                    <td style="text-align: center;">
+                                        <i class='fas fa-edit' style="font-size:25px;color:#ebd0ce;"></i>
+                                        <br>{{ petsitter.nrAvaliacoes }}
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <div class="justify-content-center">
+                    <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">TIPOS DE ANIMAIS QUE CUIDA
+                    </h1>
+                    <div class="row my-4" style="width: 80%; margin-left: auto; margin-right: auto;">
+                        <div class=" col-xs-12 col-sm-6 col-md-4 col-xl-3 text-center"
+                            v-for="t in petsitter.tiposAnimais" v:bind-key="t.id">
+                            <img class="img-responsive rounded-circle" :src="`${getTipo(t.id).img}`"
+                                style="overflow:hidden; width:130px; height:130px;" />
+
+                            <br>
+                            <p class="pb-4" style="color: #545871; font-size: 1.5em; font-weight: 500;">
+                                {{ getTipo(t.id).tipo }}
+                            </p>
                         </div>
                     </div>
+                </div>
+            </section>
 
-                    <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">SERVIÇOS FORNECIDOS
-                    </h1>
-                    <div class="col-12">
-
+            <section>
+                <div class="justify-content-center">
+                    <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">SERVIÇOS FORNECIDOS</h1>
+                </div>
+                <div class="col-12 pb-4">
+                    <div class="m-3" style=" margin-left: auto; margin-right: auto;">
+                        <table class="table text-center"
+                            style="background-color: white; color: #545871; table-layout: fixed;">
+                            <thead>
+                                <tr style="background-color: #545871;">
+                                    <th scope="col"><i class='fas fa-tasks' style="font-size:25px;color:white;"></i>
+                                    </th>
+                                    <th scope="col"><i class='fas fa-euro-sign' style="font-size:25px;color:white;"></i>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="s in servicosPetsitter">
+                                    <td>{{ s.servico}}</td>
+                                    <td>{{ s.preco}} €/hora</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
+                </div>
+            </section>
 
+            <section class="p-2">
+                <div class="justify-content-center text-center" v-if="petsitter.reviews.length>0">
                     <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">REVIEWS</h1>
-                    <div class="col-12">
-                        <div class="card m-3" style="color:#545871;">
-                            <table class="" style="width:97%; margin-left: auto; margin-right: auto;">
-                                <tbody style="color: #545871;">
-                                    <tr>
-                                        <td style="text-align: center;">
-                                            <img src="https://www.unilad.co.uk/wp-content/uploads/2015/12/person-of-the-year-2.jpg"
-                                                class="m-3"
-                                                style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
-                                        </td>
-
-                                        <td style="text-align: left;">
-                                            <h2 class="text-uppercase" style="font-size:1.7em; font-weight: 500;">
-                                                Maria</h2>
-                                            <p class="muted-text">20/06/2019</p>
-                                            <p>Bom moço, cuidou dos cães. Make petsitters great again!</p>
-                                        </td>
-
-                                        <td style="text-align: center;" class="my-auto">
-                                            <i class="fas fa-star" style="font-size:40px; color:#ebd0ce"></i>
-                                            <h1 class="pt-3" style="color:#545871; font-size:1.5em;">4</h1>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <div class="card m-3" style="color:#545871;" v-for="review in petsitter.reviews">
+                        <div class="row p-3">
+                            <div class="col-md-2">
+                                <img :src=review.dono.avatar class="m-3 my-auto"
+                                    style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                            </div>
+                            <div class="col-md-8 text-left pl-4">
+                                <h2 class="text-uppercase my-auto" style="font-size:1.7em; font-weight: 500;">
+                                    {{ review.dono.nome }}</h2>
+                                <p class="muted-text">{{ review.data }}</p>
+                                <p>{{ review.comentario }}</p>
+                            </div>
+                            <div class="col-md-2 my-auto">
+                                <i class="fas fa-star" style="font-size:40px; color:#ebd0ce"></i>
+                                <h1 class="pt-3" style="color:#545871; font-size:1.5em;">{{ review.pontuacao }}
+                                </h1>
+                            </div>
                         </div>
                     </div>
                 </div>
