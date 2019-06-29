@@ -129,8 +129,20 @@ Vue.component('avaliar-dono', {
     props: ['dono'],
     data: () => ({
         comentario: "",
-        pontuacao: 0
+        pontuacao: 0,
+        id1: "",
+        id2: "",
+        id3: "",
+        id4: "",
+        id5: ""
     }),
+    mounted: function () {
+        this.id1 = this.$props.dono + '1'
+        this.id2 = this.$props.dono + '2'
+        this.id3 = this.$props.dono + '3'
+        this.id4 = this.$props.dono + '4'
+        this.id5 = this.$props.dono + '5'
+    },
     methods: {
         avaliar: async function (id) {
             console.log('EMAIL: ' + id)
@@ -197,16 +209,16 @@ Vue.component('avaliar-dono', {
                             class="blocktext">Muito Bom</span>
                     </div>
                     <div class="col-5 rate">
-                        <input type="radio" id="star5" v-model="pontuacao" value="5" />
-                        <label for="star5" title="text">5 stars</label>
-                        <input type="radio" id="star4" v-model="pontuacao" value="4" />
-                        <label for="star4" title="text">4 stars</label>
-                        <input type="radio" id="star3" v-model="pontuacao" value="3" />
-                        <label for="star3" title="text">3 stars</label>
-                        <input type="radio" id="star2" v-model="pontuacao" value="2" />
-                        <label for="star2" title="text">2 stars</label>
-                        <input type="radio" id="star1" v-model="pontuacao" value="1" />
-                        <label for="star1" title="text">1 star</label>
+                        <input type="radio" :id="id5" v-model="pontuacao" value="5" />
+                        <label :for="id5" title="text">5 stars</label>
+                        <input type="radio" :id="id4" v-model="pontuacao" value="4" />
+                        <label :for="id4" title="text">4 stars</label>
+                        <input type="radio" :id="id3" v-model="pontuacao" value="3" />
+                        <label :for="id3" title="text">3 stars</label>
+                        <input type="radio" :id="id2" v-model="pontuacao" value="2" />
+                        <label :for="id2" title="text">2 stars</label>
+                        <input type="radio" :id="id1" v-model="pontuacao" value="1" />
+                        <label :for="id1" title="text">1 star</label>
                     </div>
                 </div>
             </div>
@@ -382,7 +394,6 @@ var vm = new Vue({
                     if (contentDono.success) {
                         this.dono = contentDono.utilizador
                         this.dono.reviews = contentDono.reviews
-                        console.log(JSON.stringify(this.dono))
                     }
                 }
                 const responsePedidos = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPedidos", {

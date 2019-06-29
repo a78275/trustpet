@@ -404,7 +404,9 @@ public class Util {
         }
 
         for (Map.Entry<Animal,List<String>> e : animalServicoMap.entrySet()) {
-            arr.put(parseAnimalServicosPedido(e.getKey(), e.getValue()));
+            if (e.getKey().getAtivo()) {
+                arr.put(parseAnimalServicosPedido(e.getKey(), e.getValue()));
+            }
         }
         return arr;
     }

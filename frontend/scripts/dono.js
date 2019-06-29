@@ -102,7 +102,7 @@ Vue.component('avaliar-petsitter', {
             <div class="modal-header">
                 <h5 class="modal-title" style="color: #545871;"
                     id="exampleModalLongTitle">
-                    Avaliar Petsitter - {{ petsitter.nome }}
+                    Avaliar Petsitter - {{ petsitter.email }}
                 </h5>
                 <button type="button" id="submitRegistoDono" class="close"
                     data-dismiss="modal" aria-label="Close">
@@ -370,7 +370,8 @@ var vm = new Vue({
         selDistrito: "Distrito",
         selConcelho: "Concelho",
         search: "",
-        ordenacao: "Ordenar por classificação"
+        ordenacao: "Ordenar por classificação",
+        servicosPetsitter: []
     },
     mounted: function () {
         if (localStorage.sucesso == "login") {
@@ -509,6 +510,26 @@ var vm = new Vue({
                     this.raca = animal.raca
                     this.tipo = animal.tipo.id
                     this.id = localStorage.idAnimal
+                }
+                if (window.location.href == "http://localhost/consultarPetsitter.html") {
+                    const responsePetsitter = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPerfil", {
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8',
+                            'Token': localStorage.token
+                        },
+                        method: 'POST',
+                        body: JSON.stringify({
+                            emailConsulta: localStorage.petsitter
+                        })
+                    })
+                    const contentPetsitter = await responsePetsitter.json()
+                    if (contentPetsitter.success) {
+                        this.petsitter = contentPetsitter.utilizador
+                        this.servicosPetsitter = contentPetsitter.servicos
+                        this.petsitter.tiposAnimais = contentPetsitter.utilizador.animais
+                        this.petsitter.reviews = contentPetsitter.reviews
+
+                    }
                 }
             } else {
                 window.location.replace("http://localhost/index.html")
@@ -808,6 +829,16 @@ var vm = new Vue({
 
             // After 3 seconds, remove the show class from DIV
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        },
+        pagPetsitter: function (email) {
+            localStorage.petsitter = email
+            window.location.replace("http://localhost/consultarPetsitter.html")
+        },
+        getTipo: function (id) {
+            var found = this.tiposAnimal.find(function (element) {
+                return element.id == id
+            })
+            return found
         }
     },
     computed: {
