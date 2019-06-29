@@ -441,9 +441,9 @@ body {
   /* Set a default minimum width */
   margin-left: -125px;
   /* Divide value of min-width by 2 */
-  background-color: #f3d7d7;
+  background-color: white;
   /* Background color */
-  color: #741e1e;
+  color: #545871;
   /* Text color */
   text-align: center;
   /* Centered text */
@@ -460,7 +460,7 @@ body {
   bottom: 30px;
   /* 30px from the bottom */
   margin-left: 25px;
-  border: 1px solid #d89f9f;
+  border-left: 6px solid #ebd0ce;
 }
 
 /* Show the snackbar when clicking on a button (class added with JavaScript) */

@@ -67,6 +67,16 @@ var vm = new Vue({
         reviews: [],
         tiposAnimal: [{ 'id': '1', 'tipo': 'Gato', 'img': 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSf5fBKv_d93io82eZokxqn_4jsHFSolEpiqeNPxjxy12DIiM0T' }, { 'id': '2', 'tipo': 'Cão', 'img': 'https://essencecuidados.com.br/wp-content/uploads/2016/10/dog.jpg' }, { 'id': '3', 'tipo': 'Pássaro', 'img': 'https://static.independent.co.uk/s3fs-public/thumbnails/image/2018/04/10/19/pinyon-jay-bird.jpg' }, { 'id': '4', 'tipo': 'Tartaruga', 'img': 'https://oliveridleyproject.org/wp-content/uploads/2018/05/Olive-ridley-turtle-baby-patient-Luna-recovering-rescue-centre-ORP.jpg' }]
     },
+    mounted: function () {
+        if (localStorage.sucesso == "login") {
+            this.snackbar("Login efetuado com sucesso.")
+            localStorage.sucesso = ""
+        }
+        else if (localStorage.sucesso == "registo") {
+            this.snackbar("Registo efetuado com sucesso.")
+            localStorage.sucesso = ""
+        }
+    },
     created: async function () {
         if (localStorage.token) {
             //Validar
@@ -178,6 +188,19 @@ var vm = new Vue({
                 concelho: this.concelho,
                 distrito: this.distrito
             }
+        },
+        snackbar: function (content) {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Change content
+            x.textContent = content
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
     }
 })

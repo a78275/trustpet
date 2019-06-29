@@ -340,6 +340,16 @@ var vm = new Vue({
         reviews: [],
         utilizador: {}
     },
+    mounted: function(){
+        if(localStorage.sucesso == "login"){
+            this.snackbar("Login efetuado com sucesso.")
+            localStorage.sucesso = ""
+        }
+        else if(localStorage.sucesso == "registo"){
+            this.snackbar("Registo efetuado com sucesso.")
+            localStorage.sucesso = ""
+        }
+    },
     created: async function () {
         if (localStorage.token) {
             //Validar

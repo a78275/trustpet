@@ -192,33 +192,6 @@ public class PedidoBean implements PedidoBeanLocal {
         pedido.setPreco(preco);
         pedido.setAtivo(true);
 
-        List<AnimalServico> animalServicos=null;
-        try {
-            animalServicos = FacadeDAOs.listAnimalServico("pedidoid='" + idPedido + "'",null);
-        } catch (PersistentException e) {
-            e.printStackTrace();
-        }
-        if(animalServicos!=null) {
-            for(AnimalServico animalServico : animalServicos) {
-                int idServico = animalServico.getServico().getId();
-                PrecoPetsitterServico precoPetsitterServico=null;
-                try {
-                    precoPetsitterServico = FacadeDAOs.listPrecoPetsitterServico("petsitterutilizadoremail='" + emailPetsitter + "' and servicoid='" + idServico + "'",null).get(0);
-                } catch (PersistentException e) {
-                    e.printStackTrace();
-                }
-                if(precoPetsitterServico!=null) {
-                    pedido.servicos.add(precoPetsitterServico);
-                }
-                else {
-                    return false;
-                }
-            }
-        }
-        else {
-            return false;
-        }
-
         // Save do pedido na BD
         boolean save = false;
         try {
@@ -247,6 +220,7 @@ public class PedidoBean implements PedidoBeanLocal {
             // Set do preço
             double preco = 0;
             for (AnimalServico animalServico : pedido.animalServicos.toArray()) {
+                //TODO Null pointer exception com o Locust?
                 preco += servicoPreco.get(animalServico.getServico().getId());
             }
             return preco;
