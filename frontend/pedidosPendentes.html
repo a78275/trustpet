@@ -57,43 +57,42 @@
                         <hr
                             style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
 
-                        <div id="animaisServicos" class="row px-5 pt-3 text-center" v-for="s in pedido.animalServicos">
+                        <div id="animaisServicos" class="row px-5 pt-3 text-center" v-for="a in pedido.animalServicos">
                             <div class="col-4">
-                                <img :src=s.animal.avatar class="mt-3"
+                                <img :src=a.avatar class="mt-3"
                                     style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
-                                <label>{{ s.animal.nome }}</label>
+                                <label>{{ a.nome }}</label>
                             </div>
                             <div class="col-8">
                                 <ul>
-                                    <li v-for="servico in s">{{ servico }}</li>
+                                    <li v-for="servico in a.servicos">{{ servico }}</li>
                                 </ul>
                             </div>
                         </div>
-
-                        <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:1em;">{{ pedido }}</h1>
-                        <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="mt-3"
-                            style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
                     </div>
+                    <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:1em;">{{ pedido }}</h1>
+                    <img src="https://mdbootstrap.com/img/Photos/Avatars/img%20(30).jpg" class="mt-3"
+                        style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                </div>
             </section>
 
             <a href="consultarPetsitter.html"><i class='fas fa-external-link-alt'
                     style="font-size:25px;color:#545871;"></i></a>
 
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
-        </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
-        </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-        </script>
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
-        </script>
-    <script src="scripts/sidebar.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script src="scripts/dono.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+            </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+            </script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+            </script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js">
+            </script>
+        <script src="scripts/sidebar.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="scripts/dono.js"></script>
 </body>

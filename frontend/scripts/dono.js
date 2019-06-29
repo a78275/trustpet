@@ -346,8 +346,9 @@ var vm = new Vue({
         servicosAnimaisSelecionados: [],
         petsitter: {},
         reviews: [],
-        utilizador: {}
-    },
+        utilizador: {},
+        snackbar: ""
+    },/*
     mounted: function () {
         if (localStorage.sucesso == "login") {
             this.snackbar("Login efetuado com sucesso.")
@@ -357,7 +358,7 @@ var vm = new Vue({
             this.snackbar("Registo efetuado com sucesso.")
             localStorage.sucesso = ""
         }
-    },
+    },*/
     created: async function () {
         if (localStorage.token) {
             //Validar
@@ -407,7 +408,8 @@ var vm = new Vue({
                 })
                 const contentPedidos = await responsePedidos.json()
                 if (contentPedidos.success) {
-                    this.pedidosPendentes = JSON.parse(contentPedidos.pedidos)
+                    this.pedidosPendentes = contentPedidos.pedidos
+                    console.log(this.pedidosPendentes)
                 }
 
                 if (window.location.href == "http://localhost/consultarPetsitters.html") {
@@ -425,9 +427,7 @@ var vm = new Vue({
                     }
                 }
                 if (window.location.href == "http://localhost/selServicos.html") {
-                    console.log('olá')
                     this.listaServicos = localStorage.servicos
-                    console.log(this.listaServicos)
                     this.dataInicio = localStorage.dataInicio
                     this.dataFim = localStorage.dataFim
                 }
