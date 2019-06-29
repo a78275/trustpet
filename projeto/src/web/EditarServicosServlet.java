@@ -29,7 +29,7 @@ public class EditarServicosServlet extends HttpServlet {
 
         if(email != null) {
             Map<Integer,Double> servicos = Util.parseServicosArray(parameters);
-            boolean result = FacadeBeans.editarServicos(email, servicos);
+            boolean result = FacadeBeans.registarServicos(email, servicos);
             mensagem.put("success", result);
         }
         else {

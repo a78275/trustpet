@@ -31,17 +31,19 @@ class PedidoBehavior(TaskSequence):
                     animais.append(a["id"])
             animais_json = json.dumps(animais)
             packet_data = "{'animais': " + animais_json + ", 'dataInicio': '30/06/2019 12:00','dataFim': '30/06/2019 13:00'}"
-            response = self.client.request("POST", "/RegistarPedido", data=packet_data,
+            response = self.client.request("POST", "/RegistarPedido", data=packet_data, catch_response=True,
                                            headers={"Content-Type": "application/x-www-form-urlencoded",
                                                     "Token": self.token})
             dict_response = json.loads(response.text)
-            if dict_response["success"]:
+            if dict_response["success"] and dict_response["success"] == True:
                 print("RegistarPedido Response " + str(response) + " with idPedido " + str(dict_response[
                     "idPedido"]) + " with Servicos " + str(dict_response["servicos"]))
                 self.servicos = dict_response["servicos"]
                 self.id = dict_response["idPedido"]
+                response.success()
             else:
                 print("Pedido Inválido")
+                response.failure("Erro")
                 self.interrupt()
         else:
             self.interrupt()
@@ -57,15 +59,27 @@ class PedidoBehavior(TaskSequence):
 
             servicos_json = json.dumps(servicos)
             packet_data = "{'idPedido': '" + str(self.id) + "', 'animalServicos': " + servicos_json + "}"
-            response = self.client.request("POST", "/SelServicos", data=packet_data, headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
-            dict_response = json.loads(response.text)
+            response = self.client.request("POST", "/SelServicos", data=packet_data, catch_response=True, headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
+            if response is not None:
+                dict_response = json.loads(response.text)
 
-            if dict_response["success"]:
-                print("SelServicos Response " + str(response) + " with Petsitters count" + str(len(dict_response["petsitters"])) + " including " + str(dict_response["petsitters"][0:1]))
-                index_petsitter = random.randint(0, len(dict_response["petsitters"]) - 1)
-                self.petsitter = dict_response["petsitters"][index_petsitter]["email"]
+                if dict_response["success"] and dict_response["success"] == True:
+                    print("SelServicos Response " + str(response) + " with Petsitters count" + str(len(dict_response["petsitters"])) + " including " + str(dict_response["petsitters"][0:1]))
+                    if len(dict_response["petsitters"]) > 0:
+                        index_petsitter = random.randint(0, len(dict_response["petsitters"]) - 1)
+                        self.petsitter = dict_response["petsitters"][index_petsitter]["email"]
+                        response.success()
+                    else:
+                        print("Não há petsitters")
+                        response.failure("Erro")
+                        self.interrupt()
+                else:
+                    print("Selecao Inválida")
+                    response.failure("Erro")
+                    self.interrupt()
             else:
-                print("Selecao Inválida")
+                print("Erro")
+                response.failure("Erro")
                 self.interrupt()
         else:
             print("Não há serviços")
@@ -75,14 +89,21 @@ class PedidoBehavior(TaskSequence):
     def selPetsitter(self):
         if self.petsitter != "":
             packet_data = "{'idPedido': '" + str(self.id) + "', 'email': " + self.petsitter + "}"
-            response = self.client.request("POST", "/SelPetsitter", data=packet_data,
+            response = self.client.request("POST", "/SelPetsitter", data=packet_data, catch_response=True,
                                            headers={"Content-Type": "application/x-www-form-urlencoded",
                                                     "Token": self.token})
-            dict_response = json.loads(response.text)
-            if dict_response["success"]:
-                print("ConcluirPedido Response " + str(response) + " with success " + str(dict_response["success"]))
+            if response is not None:
+                dict_response = json.loads(response.text)
+                if dict_response["success"] and dict_response["success"] == True:
+                    print("ConcluirPedido Response " + str(response) + " with success " + str(dict_response["success"]))
+                    response.success()
+                else:
+                    print("Pedido Falhado")
+                    response.failure("Erro")
+                    self.interrupt()
             else:
                 print("Pedido Falhado")
+                response.failure("Erro")
                 self.interrupt()
 
 
@@ -101,97 +122,141 @@ class DonoBehavior(TaskSet):
 
     @task(40)
     def consultarAnimais(self):
-        response = self.client.request("GET", "/ConsultarAnimais",
+        response = self.client.request("GET", "/ConsultarAnimais", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
-        if "animais" in dict_response:
+        if "animais" in dict_response and dict_response["success"] == True:
             print("ConsultarAnimais Response " + str(response) + " with Animals Count " + str(len(dict_response["animais"])))
             self.animais = json.loads(dict_response["animais"])
-
+            response.success()
+        else:
+            response.failure("Erro")
 
     @task(40)
     def consultarPerfil(self):
-        response = self.client.request("GET", "/ConsultarPerfil",
+        response = self.client.request("GET", "/ConsultarPerfil", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
-        if dict_response["success"]:
+        if dict_response["success"] and dict_response["success"] == True:
             print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]))
+            response.success()
+        else:
+            response.failure("Erro")
 
     @task(20)
     def consultarPetsitters(self):
-        response = self.client.request("GET", "/ConsultarPetsitters",
+        response = self.client.request("GET", "/ConsultarPetsitters", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
-        print("ConsultarPetsitters Response " + str(response) + " with Petsitters Count " + str(
-            len(dict_response["petsitters"])))
+        if dict_response["success"] and dict_response["success"] == True:
+            print("ConsultarPetsitters Response " + str(response) + " with Petsitters Count " + str(len(dict_response["petsitters"])))
+            response.success()
+        else:
+            response.failure("Erro")
 
     @task(20)
     def consultarPedidos(self):
-        response = self.client.request("GET", "/ConsultarPedidos",
+        response = self.client.request("GET", "/ConsultarPedidos", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
-        if "pedidos" in dict_response:
+        if "pedidos" in dict_response and dict_response["success"] == True:
             self.pedidos = dict_response["pedidos"]
+            response.success()
             print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(len(self.pedidos)))
+        else:
+            response.failure("Erro")
 
     @task(20)
     def consultarPerfilPost(self):
         packet_data = "{'emailConsulta':'petsitter1@email.com'}"
-        response = self.client.request("POST", "/ConsultarPerfil", data=packet_data,
+        response = self.client.request("POST", "/ConsultarPerfil", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("ConsultarPerfilPost Response " + str(response) + " with Success " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            response.success()
+            print("ConsultarPerfilPost Response " + str(response) + " with Success " + str(response.text))
+        else:
+            response.failure("Erro")
 
     @task(10)
     def adicionarAnimal(self):
         packet_data = "{'nome':'Maniche','idade':'Jovem','porte':'Pequeno','sexo':'F','alergias':'a','doencas':'b','comportamento':'c','vacinas':'true','desparasitacao':'true','esterilizacao':'true','raca':'Engodo2','avatar':'','tipo':'1'}"
-        response = self.client.request("POST", "/EditarAnimal", data=packet_data,
+        response = self.client.request("POST", "/EditarAnimal", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("AdicionarAnimal Response " + str(response) + " with Success " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            response.success()
+            print("AdicionarAnimal Response " + str(response) + " with Success " + str(response.text))
+            self.interrupt()
+        else:
+            response.failure("Erro")
 
     @task(10)
     def editarAnimal(self):
         if len(self.animais) > 0:
             idanimal = self.animais[0]["id"]
             packet_data = "{'id':'" + str(idanimal) + "','nome':'Manichu','idade':'Velho','porte':'Grande','sexo':'M','alergias':'a','doencas':'b','comportamento':'c','vacinas':'true','desparasitacao':'true','esterilizacao':'true','raca':'Engodo2','avatar':'','tipo':'1'}"
-            response = self.client.request("POST", "/EditarAnimal", data=packet_data,
+            response = self.client.request("POST", "/EditarAnimal", catch_response=True, data=packet_data,
                                            headers={"Content-Type": "application/x-www-form-urlencoded",
                                                     "Token": self.token})
-            print("EditarAnimal Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                response.success()
+                print("EditarAnimal Response " + str(response) + " with Success " + str(response.text))
+                self.interrupt()
+            else:
+                response.failure("Erro")
         else:
             print("Edição não é possível sem animais")
 
     @task(10)
     def editarDadosPessoais(self):
         packet_data = "{'nome':'João','dataNasc':'20/10/1969','contacto':'3182937','jardim':'true','morada':'Rua A','password':'ola','avatar':'','concelho':'Porto','distrito':'Porto'}"
-        response = self.client.request("POST", "/EditarDadosPessoais", data=packet_data,
+        response = self.client.request("POST", "/EditarDadosPessoais", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            response.success()
+            print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+        else:
+            response.failure("Erro")
 
     @task(5)
     def logout(self):
-        response = self.client.request("POST", "/Logout",
+        response = self.client.request("GET", "/Logout", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("Logout Response " + str(response) + " with Success " + str(response.text))
-        self.token = ""
-        self.interrupt()
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            self.token = ""
+            response.success()
+            print("Logout Response " + str(response) + " with Success " + str(response.text))
+            self.interrupt()
+        else:
+            response.failure("Erro")
 
     @task(1)
     def removerAnimal(self):
         if len(self.animais) > 0:
             idanimal = self.animais.pop()["id"]
             packet_data = "{'id':'" + str(idanimal) + "','ativo':'false'}"
-            response = self.client.request("POST", "/EditarAnimal", data=packet_data,
+            response = self.client.request("POST", "/EditarAnimal", catch_response=True, data=packet_data,
                                            headers={"Content-Type": "application/x-www-form-urlencoded",
                                                     "Token": self.token})
-            print("RemoverAnimal Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                response.success()
+                print("RemoverAnimal Response " + str(response) + " with Success " + str(response.text))
+                self.interrupt()
+            else:
+                response.failure("Erro")
         else:
             print("Remoção não é possível sem animais")
 
@@ -200,10 +265,13 @@ class DonoBehavior(TaskSet):
         if len(self.pedidos) > 0:
             idpedido = self.pedidos.pop()["id"]
             packet_data = "{'idPedido':'" + str(idpedido) + "'}"
-            response = self.client.request("POST", "/CancelarPedido", data=packet_data,
-                                           headers={"Content-Type": "application/x-www-form-urlencoded",
-                                                    "Token": self.token})
-            print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
+            response = self.client.request("POST", "/CancelarPedido", catch_response=True, data=packet_data,headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                response.success()
+                print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
+            else:
+                response.failure("Erro")
         else:
             print("Sem pedidos para cancelar")
 
@@ -221,80 +289,120 @@ class PetsitterBehavior(TaskSet):
 
     @task(40)
     def consultarPerfil(self):
-        response = self.client.request("GET", "/ConsultarPerfil",
+        response = self.client.request("GET", "/ConsultarPerfil", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
-        if dict_response["success"]:
-            print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]) + " with Servicos " + str(len(dict_response["servicos"])))
+        if dict_response["success"] and dict_response["success"] == True:
+            print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]))
+            response.success()
+        else:
+            response.failure("Erro")
 
     @task(20)
     def consultarPedidos(self):
-        response = self.client.request("GET", "/ConsultarPedidos",
+        response = self.client.request("GET", "/ConsultarPedidos", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
-        if "pedidos" in dict_response:
-            pedidos = dict_response["pedidos"]
-            self.pedidos = pedidos
-            print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(pedidos))
+        if "pedidos" in dict_response and dict_response["success"] == True:
+            self.pedidos = dict_response["pedidos"]
+            response.success()
+            print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(len(self.pedidos)))
+        else:
+            response.failure("Erro")
 
     @task(20)
     def consultarPerfilPost(self):
         packet_data = "{'emailConsulta':'dono1@email.com'}"
-        response = self.client.request("POST", "/ConsultarPerfil", data=packet_data,
+        response = self.client.request("POST", "/ConsultarPerfil", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("ConsultarPefilPost Response " + str(response) + " with Success " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            response.success()
+            print("ConsultarPerfilPost Response " + str(response) + " with Success " + str(response.text))
+        else:
+            response.failure("Erro")
 
     @task(10)
     def editarDadosPessoais(self):
         packet_data = "{'nome':'João','dataNasc':'20/10/1969','contacto':'3182937','jardim':'true','morada':'Rua A','password':'ola','avatar':'','concelho':'Porto','distrito':'Porto'}"
-        response = self.client.request("POST", "/EditarDadosPessoais", data=packet_data,
+        response = self.client.request("POST", "/EditarDadosPessoais", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("EditarDados Response " + str(response) + " with Success " + str(response.text))
-
-    @task(10)
-    def editarTipos(self):
-        packet_data = "{'tipos':['1','2','3','4']}"
-        response = self.client.request("POST", "/EditarTiposAnimais", data=packet_data,
-                                       headers={"Content-Type": "application/x-www-form-urlencoded",
-                                                "Token": self.token})
-        print("EditarTipos Response " + str(response) + " with Success " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            response.success()
+            print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+        else:
+            response.failure("Erro")
 
     @task(10)
     def editarServicos(self):
         packet_data = "{'servicos':['1:3.5','2:4.7','3:2','4:5']}"
-        response = self.client.request("POST", "/EditarServicos", data=packet_data,
+        response = self.client.request("POST", "/EditarServicos", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("EditarServicos Response " + str(response) + " with Success " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            response.success()
+            print("EditarServicos Response " + str(response) + " with Success " + str(response.text))
+        else:
+            response.failure("Erro")
 
     @task(10)
     def editarHorario(self):
         packet_data = "{'horario':['1:12','1:13','1:14','1:16','1:17','2:12','2:13','2:14','2:16','2:17','3:12','3:13','3:14','3:16','3:17','4:12','4:13','5:12','5:13','6:12','6:13','7:12','7:13']}"
-        response = self.client.request("POST", "/EditarHorario", data=packet_data,
+        response = self.client.request("POST", "/EditarHorario", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("EditarHorario Response " + str(response) + " with Success " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            response.success()
+            print("EditarHorario Response " + str(response) + " with Success " + str(response.text))
+        else:
+            response.failure("Erro")
+
+    @task(0)
+    def editarTipos(self):
+        packet_data = "{'tipos':['1','2','3','4']}"
+        response = self.client.request("POST", "/EditarTiposAnimais", catch_response=True, data=packet_data,
+                                       headers={"Content-Type": "application/x-www-form-urlencoded",
+                                                "Token": self.token})
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            response.success()
+            print("EditarTipos Response " + str(response) + " with Success " + str(response.text))
+        else:
+            response.failure("Erro")
 
     @task(5)
     def logout(self):
-        response = self.client.request("POST", "/Logout",
+        response = self.client.request("GET", "/Logout", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("Logout Response " + str(response) + " with Success " + str(response.text))
-        self.token = ""
-        self.interrupt()
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            self.token = ""
+            response.success()
+            print("Logout Response " + str(response) + " with Success " + str(response.text))
+            self.interrupt()
+        else:
+            response.failure("Erro")
 
     @task(1)
     def cancelarPedido(self):
         if len(self.pedidos) > 0:
             idpedido = self.pedidos.pop()["id"]
             packet_data = "{'idPedido':'" + str(idpedido) + "'}"
-            response = self.client.request("POST", "/CancelarPedido", data=packet_data,headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
-            print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
+            response = self.client.request("POST", "/CancelarPedido", data=packet_data, catch_response=True, headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                response.success()
+                print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
+            else:
+                response.failure("Erro")
         else:
             print("Sem pedidos para cancelar")
 
@@ -319,7 +427,7 @@ class IndexBehavior(TaskSet):
 
     @task(5)
     def index(self):
-        response = self.client.request("GET", "/Index",
+        response = self.client.request("GET", "/Index", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
         dict_response = json.loads(response.text)
@@ -327,12 +435,12 @@ class IndexBehavior(TaskSet):
             response.success()
             print("Index Response " + str(response) + " with Sucess " + str(dict_response["success"]))
         else:
-            response.failure()
+            response.failure("Erro")
 
     @task(40)
     def login(self):
         packet_data = "{'email':'" + self.email + "', 'password':'ola'}"
-        response = self.client.request("POST", "/Autenticar", data=packet_data,
+        response = self.client.request("POST", "/Autenticar", data=packet_data, catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded"})
         dict_response = json.loads(response.text)
         if "success" in dict_response and dict_response["success"] == True:
@@ -340,8 +448,10 @@ class IndexBehavior(TaskSet):
             self.tipo = dict_response["tipo"]
             print("Login with Email " + self.email + " with Token " + str(self.token) + " with Tipo " + dict_response[
                 "tipo"])
+            response.success()
         else:
             print("Failed Login")
+            response.failure("Erro")
 
     #@task(20)
     def registarDono(self):
@@ -356,20 +466,26 @@ class IndexBehavior(TaskSet):
         packet_data = "{'email':'" + self.email + "','nome':'Jose','contacto':'112','jardim':'true','morada':'Rua X','password':'ola','avatar':'','concelho':'Porto','distrito':'Porto','dataNasc':'20/03/1999'}"
         response = self.client.request("POST", "/RegistarPetsitter", data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded"})
-        print(
-            "ID" + self.email + "RegistarPetsitter Response: " + str(response) + " with Success " + str(response.text))
+        print("ID" + self.email + "RegistarPetsitter Response: " + str(response) + " with Success " + str(response.text))
+        self.wait()
 
     def inativarUtilizador(self,email):
         packet_data = "{'email':'" + email + "', 'password':'ola', 'emailDono':'dono69@email.com'}"
-        response = self.client.request("POST", "/InativarUtilizador", data=packet_data,
+        response = self.client.request("POST", "/InativarUtilizador", data=packet_data, catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        print("InativarUtilizador Response " + str(response) + " with Success " + str(response.text))
+        dict_response = json.loads(response.text)
+        if "success" in dict_response and dict_response["success"] == True:
+            print("InativarUtilizador Response " + str(response) + " with Success " + str(response.text))
+            response.success()
+        else:
+            response.failure("Erro")
+
 
 
 class WebsiteUser(HttpLocust):
     task_set = IndexBehavior
-    min_wait = 1000
+    min_wait = 3000
     max_wait = 5000
     host = "http://localhost:8080/trustpet_war_exploded"
 
