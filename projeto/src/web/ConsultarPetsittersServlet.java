@@ -24,9 +24,7 @@ public class ConsultarPetsittersServlet extends HttpServlet {
 
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
-
         List<Petsitter> petsitters = FacadeBeans.consultarPetsitters(request.getParameter("cond"), request.getParameter("sort"));
-
         if(petsitters != null){
             mensagem.put("success", true);
             mensagem.put("petsitters", Util.parsePetsittersList(petsitters));
