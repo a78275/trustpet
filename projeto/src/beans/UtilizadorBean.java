@@ -5,6 +5,7 @@ import org.hibernate.NonUniqueObjectException;
 import org.hibernate.Query;
 import org.orm.PersistentException;
 import org.orm.PersistentSession;
+import web.Util;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -20,6 +21,17 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public boolean registarUtilizador(String nome, String email, Date dataNasc, String contacto, boolean jardim, String morada, String password, String avatar, String tipoUtilizador, String concelho, String distrito) {
+        // Verificação se o email já existe
+        Utilizador utilizador = null;
+        try {
+            utilizador = FacadeDAOs.getUtilizador(email);
+        } catch (PersistentException e) {
+            e.printStackTrace();
+        }
+        if(utilizador!=null) {
+            return false;
+        }
+
         if (tipoUtilizador.equals("dono")) {
             Dono dono = FacadeDAOs.createDono();
             dono.setNome(nome);

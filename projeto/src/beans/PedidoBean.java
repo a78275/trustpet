@@ -220,7 +220,6 @@ public class PedidoBean implements PedidoBeanLocal {
             // Set do preço
             double preco = 0;
             for (AnimalServico animalServico : pedido.animalServicos.toArray()) {
-                //TODO Null pointer exception com o Locust?
                 preco += servicoPreco.get(animalServico.getServico().getId());
             }
             return preco;
@@ -453,9 +452,9 @@ public class PedidoBean implements PedidoBeanLocal {
         Set<String> emailsPetsitters = new HashSet<>();
         boolean firstIter = true;
         for (Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()) {
-            // Primeira iteração do ciclo
-            if (firstIter) {
-                for (int servico : e.getValue()) {
+            for(int servico : e.getValue()) {
+                // Primeira iteração do ciclo
+                if(firstIter) {
                     try {
                         // Get precoPetsitterServicos do serviço
                         List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("servicoid='" + servico + "'",null);
@@ -469,10 +468,8 @@ public class PedidoBean implements PedidoBeanLocal {
                     }
                     firstIter = false;
                 }
-            }
-            // Próximas iterações
-            else {
-                for (int servico : e.getValue()) {
+                // Próximas iterações
+                else {
                     try {
                         // Get precoPetsitterServicos do serviço
                         List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("servicoid='" + servico + "'",null);
@@ -491,7 +488,6 @@ public class PedidoBean implements PedidoBeanLocal {
                         return null;
                     }
                 }
-
             }
         }
         return emailsPetsitters;

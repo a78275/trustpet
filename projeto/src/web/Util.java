@@ -409,7 +409,8 @@ public class Util {
     private static JSONObject parseAnimalServicosPedido(Animal animal, List<String> servicos) {
         JSONObject obj = new JSONObject();
 
-        obj.put("idAnimal", animal);
+        obj.put("nome", animal.getNome());
+        obj.put("avatar", animal.getAvatar());
         obj.put("servicos", parseServicosPedido(servicos));
 
         return obj;
@@ -421,30 +422,8 @@ public class Util {
         for (String servico : servicos) {
             arr.put(servico);
         }
-        
+
         return arr;
-    }
-
-    private static JSONObject parseAnimalServicoPedido(AnimalServico animalServico) {
-        JSONObject obj = new JSONObject();
-
-        obj.put("id", animalServico.getId());
-        obj.put("servico", parseServico(animalServico.getServico()));
-        obj.put("animal", parseAnimalPedido(animalServico.getAnimal()));
-
-        return obj;
-    }
-
-    private static JSONObject parseAnimalPedido(Animal animal) {
-        if (animal!=null) {
-            JSONObject obj = new JSONObject();
-            obj.put("nome", animal.getNome());
-            obj.put("avatar", animal.getAvatar());
-            return obj;
-        }
-        else {
-            return null;
-        }
     }
 
     private static JSONObject parseDonoPedido(Dono dono) {

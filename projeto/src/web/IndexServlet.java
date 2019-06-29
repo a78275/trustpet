@@ -34,13 +34,15 @@ public class IndexServlet extends HttpServlet {
             if(email!=null) {
                 mensagem.put("email", email);
                 mensagem.put("tipo", FacadeBeans.tipoUtilizador(email));
+                mensagem.put("success", "true");
             }
             else {
                 mensagem.put("email", "null");
+                mensagem.put("success", "true");
             }
         }
         else {
-            mensagem.put("result", "");
+            mensagem.put("success", "true");
         }
 
         out.print(mensagem);
