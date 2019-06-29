@@ -209,7 +209,13 @@ public class PetsitterBean implements PetsitterBeanLocal {
         
         try {
             // Get dos Petsitters
-            return FacadeDAOs.listPetsitters(filtro + " AND ativo='" + true + "'", ordem);
+            if(filtro!=null) {
+                return FacadeDAOs.listPetsitters(filtro + " AND ativo=" + true, ordem);
+            }
+            else {
+                return FacadeDAOs.listPetsitters("ativo=" + true, ordem);
+            }
+
         } catch (PersistentException e) {
             e.printStackTrace();
             return null;
