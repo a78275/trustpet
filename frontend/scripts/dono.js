@@ -82,26 +82,44 @@ Vue.component('avaliar-petsitter', {
     },
     methods: {
         avaliar: async function (id) {
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Token': localStorage.token
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    emailAlvo: id,
-                    comentario: this.comentario,
-                    avaliacao: this.pontuacao + ""
-                })
-            })
-            const content = await response.json()
-            if (content.success) {
-                localStorage.sucesso = "review";
+            if(this.pontuacao == 0){
+                this.snackbar("Selecione uma classificação.")
             }
             else {
-                localStorage.sucesso = "erro";
-                window.location.replace("http://localhost/avaliarPetsitter.html")
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        emailAlvo: id,
+                        comentario: this.comentario,
+                        avaliacao: this.pontuacao + ""
+                    })
+                })
+                const content = await response.json()
+                if (content.success) {
+                    localStorage.sucesso = "review";
+                }
+                else {
+                    localStorage.sucesso = "erro";
+                }
+                window.location.replace("http://localhost/pedidosPendentesDono.html")
             }
+        },
+        snackbar: function (content) {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Change content
+            x.textContent = content
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
     },
     template: `
@@ -292,7 +310,7 @@ Vue.component('rm-animal', {
                 </button>
             </div>
             <div class="modal-body">
-                Tem a certeza que pretende remover o seguinte animal?
+                Tem a certeza que pretende remover este animal?
                 <img :src=animal.avatar class="mt-3"
                     style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
                 <h3 class="text-uppercase text-center mt-2">
@@ -1003,16 +1021,24 @@ var vm = new Vue({
             }
 
             // Ordenação
-            if(this.ordenacao == "Ascendente"){
+            if(this.ordenacao == "Ascendente" || this.ordenacao == "Classificação Asc."){
                 var sorting = -1
                 filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
             }
-            else{
+            else if (this.ordenacao == "Descendente" || this.ordenacao == "Classificação Desc."){
                 var sorting = 1
                 filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
             }
+            else if (this.ordenacao == "Preço Asc."){
+                var sorting = -1
+                filtrados.sort((a, b) => a.preco < b.preco ? sorting : -sorting)
+            }
+            else if (this.ordenacao == "Preço Desc."){
+                var sorting = 1
+                filtrados.sort((a, b) => a.preco < b.preco ? sorting : -sorting)
+            }
 
             return filtrados
-        }
+        },
     }
 })
