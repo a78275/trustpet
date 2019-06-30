@@ -56,6 +56,11 @@
             <section class="row p-2">
                 <div class="col-12 justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">PEDIDOS PENDENTES</h1>
+                    <div v-if="pedidosPendentes.length==0" class="alert alert-danger" role="alert"
+                        style="width:50%; margin-left:auto; margin-right:auto;">
+                        <h4 class="alert-heading">Não possui pedidos pendentes!</h4>
+                    </div>
+
                     <div class="card m-5" style="color:#545871;" v-for="pedido in pedidosPendentes"
                         v-if="checkData(pedido.dataFim)">
                         <div class="row text-center py-3" v-if="pedido.dono">

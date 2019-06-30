@@ -29,7 +29,15 @@ var vm = new Vue({
             { 'id': '7', 'tipo': 'Coelho', 'img': 'img/coelho.png' },
             { 'id': '8', 'tipo': 'Roedor', 'img': 'img/roedor.png' },
             { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }],
-        servicos: [{ 'id': '1', 'designacao': 'Tomar conta' }, { 'id': '2', 'designacao': 'Levar à rua' }, { 'id': '3', 'designacao': 'Alimentar' }, { 'id': '4', 'designacao': 'Dar banho' }],
+        listaServicos: [
+            { 'id': '1', 'designacao': 'Petsitting em casa do petsitter' },
+            { 'id': '2', 'designacao': 'Petsitting em casa do dono' },
+            { 'id': '3', 'designacao': 'Passear' },
+            { 'id': '4', 'designacao': 'Alimentar' },
+            { 'id': '5', 'designacao': 'Dar banho' },
+            { 'id': '6', 'designacao': 'Limpeza do ambiente animal' },
+            { 'id': '7', 'designacao': 'Tosquiar' },
+            { 'id': '8', 'designacao': 'Entreter' }],
         tipo: "",
         utilizador: {},
         animais: [],
@@ -38,6 +46,10 @@ var vm = new Vue({
         preco2: "",
         preco3: "",
         preco4: "",
+        preco5: "",
+        preco6: "",
+        preco7: "",
+        preco8: "",
         horario: []
     },
     mounted: function () {

@@ -329,22 +329,105 @@ var vm = new Vue({
         esterilizacao: "",
         animal: {},
         animais: [],
-        servicos: [{
-            'id': '1',
-            'servicos': {
-                '1': 'Passear',
-                '2': 'Dar banho'
-            }
-        }, {
-            'id': '2',
-            'servicos': {
-                '1': 'Passear',
-                '4': 'Alimentar',
-                '5': 'Coçar as costas',
-                '6': 'Escovar o pêlo',
-                '7': 'Brincar'
-            }
-        }],
+        servicos: [
+            {
+                'id': '1',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '7': 'Tosquiar',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '2',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '7': 'Tosquiar',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '3',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '4',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal'
+                }
+            },
+            {
+                'id': '5',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal'
+                }
+            },
+            {
+                'id': '6',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '7',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '8',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '9',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            }],
         tiposAnimal: [
             { 'id': '1', 'tipo': 'Gato', 'img': 'img/gato.png' },
             { 'id': '2', 'tipo': 'Cão', 'img': 'img/cao.png' },
@@ -354,7 +437,8 @@ var vm = new Vue({
             { 'id': '6', 'tipo': 'Porco', 'img': 'img/porco.png' },
             { 'id': '7', 'tipo': 'Coelho', 'img': 'img/coelho.png' },
             { 'id': '8', 'tipo': 'Roedor', 'img': 'img/roedor.png' },
-            { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }], petsitters: [],
+            { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }],
+        petsitters: [],
         pedidosPendentes: [],
         dataInicio: "",
         dataFim: "",
@@ -816,9 +900,10 @@ var vm = new Vue({
         checkData: function (data) {
             var today = new Date();
             let date = data.split("/")
-            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0]
+            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0] + ' ' + date[2].split(' ')[1] + ':00'
             let final = new Date(dataFim)
-            if (final >= today)
+            const diff = final.getTime() - today.getTime()
+            if (diff >= 0)
                 return true
             else
                 return false
@@ -845,6 +930,26 @@ var vm = new Vue({
                 return element.id == id
             })
             return found
+        },
+        cancelarPedido: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/CancelarPedido", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    idPedido: id
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                //localStorage.sucesso = "cancelar";
+                window.location.replace("http://localhost/pedidosPendentesDono.html");
+            }
+            else {
+                localStorage.sucesso = "erro";
+            }
         }
     },
     computed: {
