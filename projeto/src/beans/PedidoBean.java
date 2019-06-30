@@ -10,6 +10,7 @@ import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Period;
 import java.util.*;
 
 @Local(PedidoBeanLocal.class)
@@ -205,6 +206,27 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     private double calcularPreco (Pedido pedido, Petsitter petsitter) {
+        // Cálculo do tempo do pedido
+        DateFormat format = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date dataInicio = null;
+        Date dataFim = null;
+        try {
+            dataInicio = format.parse(pedido.getDataInicio());
+            dataFim = format.parse(pedido.getDataFim());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        int horas=0;
+        if(dataFim!=null && dataInicio!=null) {
+            long milliseconds = dataFim.getTime() - dataInicio.getTime();
+            horas = (int) milliseconds / (60 * 60 * 1000) % 24;
+        }
+        // Erro no parsing das datas
+        else {
+            horas=1;
+        }
+
         // Get dos precoPetsitterServicos
         Map<Integer, Double> servicoPreco = null;
         try {
@@ -220,7 +242,7 @@ public class PedidoBean implements PedidoBeanLocal {
             // Set do preço
             double preco = 0;
             for (AnimalServico animalServico : pedido.animalServicos.toArray()) {
-                preco += servicoPreco.get(animalServico.getServico().getId());
+                preco += servicoPreco.get(animalServico.getServico().getId()) * horas;
             }
             return preco;
         }
@@ -460,7 +482,9 @@ public class PedidoBean implements PedidoBeanLocal {
                         List<PrecoPetsitterServico> precoPetsitterServicos = FacadeDAOs.listPrecoPetsitterServico("servicoid='" + servico + "'",null);
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
-                            emailsPetsitters.add(pps.getPetsitter().getEmail());
+                            if(pps.getPetsitter().getAtivo()) {
+                                emailsPetsitters.add(pps.getPetsitter().getEmail());
+                            }
                         }
                     } catch (PersistentException e1) {
                         e1.printStackTrace();
@@ -476,7 +500,9 @@ public class PedidoBean implements PedidoBeanLocal {
                         Set<String> emailsPetsittersAux = new HashSet<>();
                         // Get dos petsitters que fazem esse serviço
                         for (PrecoPetsitterServico pps : precoPetsitterServicos) {
-                            emailsPetsittersAux.add(pps.getPetsitter().getEmail());
+                            if(pps.getPetsitter().getAtivo()) {
+                                emailsPetsittersAux.add(pps.getPetsitter().getEmail());
+                            }
                         }
                         // Interseção dos dois sets
                         emailsPetsitters.retainAll(emailsPetsittersAux);
