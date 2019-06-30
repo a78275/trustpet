@@ -497,6 +497,10 @@ var vm = new Vue({
             this.snackbar("Avaliação efetuada com sucesso.")
             localStorage.sucesso = "";
         }
+        else if (localStorage.sucesso == "cancelar") {
+            this.snackbar("Pedido cancelado com sucesso.")
+            localStorage.sucesso = "";
+        }
     },
     created: async function () {
         if (localStorage.token) {
@@ -954,7 +958,7 @@ var vm = new Vue({
             })
             const content = await response.json()
             if (content.success) {
-                //localStorage.sucesso = "cancelar";
+                localStorage.sucesso = "cancelar";
                 window.location.replace("http://localhost/pedidosPendentesDono.html");
             }
             else {
