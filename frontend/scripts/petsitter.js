@@ -669,6 +669,26 @@ var vm = new Vue({
         pagDono: function (email) {
             localStorage.dono = email
             window.location.replace("http://localhost/consultarDono.html")
+        },
+        cancelarPedido: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/CancelarPedido", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    idPedido: id
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                //localStorage.sucesso = "cancelar";
+                window.location.replace("http://localhost/pedidosPendentesPetsitter.html");
+            }
+            else {
+                localStorage.sucesso = "erro";
+            }
         }
     }
 })

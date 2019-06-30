@@ -599,7 +599,6 @@ var vm = new Vue({
                     var animal = this.animais.find(function (element) {
                         return element.id == localStorage.idAnimal
                     })
-                    console.log(JSON.stringify(animal))
                     this.nome = animal.nome
                     this.avatar = animal.avatar
                     this.idade = animal.idade
@@ -944,6 +943,13 @@ var vm = new Vue({
                 return element.id == id
             })
             return found
+        },
+        getTipoNome: function (id) {
+            var found = this.tiposAnimal.find(function (element) {
+                return element.id == id
+            })
+            if (found != undefined)
+                return found.tipo
         },
         cancelarPedido: async function (id) {
             const response = await fetch("http://localhost:8080/trustpet_war_exploded/CancelarPedido", {
