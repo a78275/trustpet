@@ -290,7 +290,7 @@ public class PedidoBean implements PedidoBeanLocal {
         try {
             List<Pedido> pedidos = FacadeDAOs.listPedido(null, null);
             for (Pedido pedido : pedidos) {
-                if (checkPedidoNoHorario(pedido, dataInicio, dataFim)) {
+                if (pedido.getAtivo() && checkPedidoNoHorario(pedido, dataInicio, dataFim)) {
                     Petsitter petsitter = pedido.getPetsitter();
                     if(petsitter != null) {
                         String emailPetsitter = petsitter.getEmail();
@@ -524,7 +524,7 @@ public class PedidoBean implements PedidoBeanLocal {
         
         try {
             // Get dos pedidos do utilizador
-            return FacadeDAOs.listPedido("donoutilizadoremail='" + email + "' OR petsitterutilizadoremail='" + email + "' AND ativo='" + true + "'", "dataInicio");
+            return FacadeDAOs.listPedido("donoutilizadoremail='" + email + "' AND ativo='" + true +"' OR petsitterutilizadoremail='" + email + "' AND ativo='" + true + "'", "dataInicio");
         } catch (PersistentException e) {
             e.printStackTrace();
             return null;

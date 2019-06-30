@@ -25,9 +25,16 @@ public class CancelarPedidoServlet extends HttpServlet {
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
 
-        boolean result = FacadeBeans.cancelarPedido(Integer.parseInt((String) parameters.get("idPedido")));
+        String token = request.getHeader("Token");
+        String email = FacadeBeans.validarToken(token);
 
-        mensagem.put("success", result);
+        if(email!=null) {
+            boolean result = FacadeBeans.cancelarPedido(Integer.parseInt((String) parameters.get("idPedido")));
+            mensagem.put("success", result);
+        }
+        else {
+            mensagem.put("success", false);
+        }
 
         out.print(mensagem);
         out.flush();
