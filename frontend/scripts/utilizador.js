@@ -81,6 +81,10 @@ var vm = new Vue({
             this.snackbar("Avaliação efetuada com sucesso.")
             localStorage.sucesso = "";
         }
+        else if (localStorage.sucesso == "cancelar") {
+            this.snackbar("Pedido cancelado com sucesso.")
+            localStorage.sucesso = "";
+        }
     },
     methods: {
         registoPetsitter: async function () {
