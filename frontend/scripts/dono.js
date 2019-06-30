@@ -329,22 +329,105 @@ var vm = new Vue({
         esterilizacao: "",
         animal: {},
         animais: [],
-        servicos: [{
-            'id': '1',
-            'servicos': {
-                '1': 'Passear',
-                '2': 'Dar banho'
-            }
-        }, {
-            'id': '2',
-            'servicos': {
-                '1': 'Passear',
-                '4': 'Alimentar',
-                '5': 'Coçar as costas',
-                '6': 'Escovar o pêlo',
-                '7': 'Brincar'
-            }
-        }],
+        servicos: [
+            {
+                'id': '1',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '7': 'Tosquiar',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '2',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '7': 'Tosquiar',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '3',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '4',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal'
+                }
+            },
+            {
+                'id': '5',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal'
+                }
+            },
+            {
+                'id': '6',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '7',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '8',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '9',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            }],
         tiposAnimal: [
             { 'id': '1', 'tipo': 'Gato', 'img': 'img/gato.png' },
             { 'id': '2', 'tipo': 'Cão', 'img': 'img/cao.png' },
