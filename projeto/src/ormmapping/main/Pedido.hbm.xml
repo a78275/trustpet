@@ -22,10 +22,5 @@ License Type: Academic
 			<key column="PedidoId" not-null="true"/>
 			<one-to-many class="main.AnimalServico"/>
 		</set>
-		<set name="ORM_Servicos" table="Pedido_PrecoPetsitterServico" lazy="true" cascade="save-update,lock">
-			<key column="PedidoId" not-null="true"/>
-			<many-to-many column="PrecoPetsitterServicoId" class="main.PrecoPetsitterServico">
-			</many-to-many>
-		</set>
 	</class>
 </hibernate-mapping>

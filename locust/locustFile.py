@@ -60,7 +60,7 @@ class PedidoBehavior(TaskSequence):
             servicos_json = json.dumps(servicos)
             packet_data = "{'idPedido': '" + str(self.id) + "', 'animalServicos': " + servicos_json + "}"
             response = self.client.request("POST", "/SelServicos", data=packet_data, catch_response=True, headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
-            if response is not None:
+            if response.status_code == 200:
                 dict_response = json.loads(response.text)
 
                 if dict_response["success"] and dict_response["success"] == True:
@@ -71,11 +71,9 @@ class PedidoBehavior(TaskSequence):
                         response.success()
                     else:
                         print("Não há petsitters")
-                        response.failure("Erro")
                         self.interrupt()
                 else:
                     print("Selecao Inválida")
-                    response.failure("Erro")
                     self.interrupt()
             else:
                 print("Erro")
@@ -125,11 +123,12 @@ class DonoBehavior(TaskSet):
         response = self.client.request("GET", "/ConsultarAnimais", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "animais" in dict_response and dict_response["success"] == True:
-            print("ConsultarAnimais Response " + str(response) + " with Animals Count " + str(len(dict_response["animais"])))
-            self.animais = json.loads(dict_response["animais"])
+        if response.status_code == 200:
             response.success()
+            dict_response = json.loads(response.text)
+            if "animais" in dict_response and dict_response["success"] == True:
+                print("ConsultarAnimais Response " + str(response) + " with Animals Count " + str(len(dict_response["animais"])))
+                self.animais = json.loads(dict_response["animais"])
         else:
             response.failure("Erro")
 
@@ -138,10 +137,11 @@ class DonoBehavior(TaskSet):
         response = self.client.request("GET", "/ConsultarPerfil", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if dict_response["success"] and dict_response["success"] == True:
-            print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]))
+        if response.status_code == 200:
             response.success()
+            dict_response = json.loads(response.text)
+            if dict_response["success"] and dict_response["success"] == True:
+                print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]))
         else:
             response.failure("Erro")
 
@@ -150,10 +150,11 @@ class DonoBehavior(TaskSet):
         response = self.client.request("GET", "/ConsultarPetsitters", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if dict_response["success"] and dict_response["success"] == True:
-            print("ConsultarPetsitters Response " + str(response) + " with Petsitters Count " + str(len(dict_response["petsitters"])))
+        if response.status_code == 200:
             response.success()
+            dict_response = json.loads(response.text)
+            if dict_response["success"] and dict_response["success"] == True:
+                print("ConsultarPetsitters Response " + str(response) + " with Petsitters Count " + str(len(dict_response["petsitters"])))
         else:
             response.failure("Erro")
 
@@ -162,24 +163,26 @@ class DonoBehavior(TaskSet):
         response = self.client.request("GET", "/ConsultarPedidos", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "pedidos" in dict_response and dict_response["success"] == True:
-            self.pedidos = dict_response["pedidos"]
+        if response.status_code == 200:
             response.success()
-            print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(len(self.pedidos)))
+            dict_response = json.loads(response.text)
+            if "pedidos" in dict_response and dict_response["success"] == True:
+                self.pedidos = dict_response["pedidos"]
+                print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(len(self.pedidos)))
         else:
             response.failure("Erro")
 
     @task(20)
     def consultarPerfilPost(self):
-        packet_data = "{'emailConsulta':'petsitter1@email.com'}"
+        packet_data = "{'emailConsulta':'petsitter999@email.com'}"
         response = self.client.request("POST", "/ConsultarPerfil", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
+        if response.status_code == 200:
             response.success()
-            print("ConsultarPerfilPost Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                print("ConsultarPerfilPost Response " + str(response) + " with Success " + str(response.text))
         else:
             response.failure("Erro")
 
@@ -189,11 +192,11 @@ class DonoBehavior(TaskSet):
         response = self.client.request("POST", "/EditarAnimal", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
+        if response.status_code == 200:
             response.success()
-            print("AdicionarAnimal Response " + str(response) + " with Success " + str(response.text))
-            self.interrupt()
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                print("AdicionarAnimal Response " + str(response) + " with Success " + str(response.text))
         else:
             response.failure("Erro")
 
@@ -205,11 +208,11 @@ class DonoBehavior(TaskSet):
             response = self.client.request("POST", "/EditarAnimal", catch_response=True, data=packet_data,
                                            headers={"Content-Type": "application/x-www-form-urlencoded",
                                                     "Token": self.token})
-            dict_response = json.loads(response.text)
-            if "success" in dict_response and dict_response["success"] == True:
+            if response.status_code == 200:
                 response.success()
-                print("EditarAnimal Response " + str(response) + " with Success " + str(response.text))
-                self.interrupt()
+                dict_response = json.loads(response.text)
+                if "success" in dict_response and dict_response["success"] == True:
+                    print("EditarAnimal Response " + str(response) + " with Success " + str(response.text))
             else:
                 response.failure("Erro")
         else:
@@ -221,10 +224,11 @@ class DonoBehavior(TaskSet):
         response = self.client.request("POST", "/EditarDadosPessoais", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
+        if response.status_code == 200:
             response.success()
-            print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                print("EditarDados Response " + str(response) + " with Success " + str(response.text))
         else:
             response.failure("Erro")
 
@@ -233,12 +237,13 @@ class DonoBehavior(TaskSet):
         response = self.client.request("GET", "/Logout", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
-            self.token = ""
+        if response.status_code == 200:
             response.success()
-            print("Logout Response " + str(response) + " with Success " + str(response.text))
-            self.interrupt()
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                self.token = ""
+                print("Logout Response " + str(response) + " with Success " + str(response.text))
+                self.interrupt()
         else:
             response.failure("Erro")
 
@@ -250,11 +255,11 @@ class DonoBehavior(TaskSet):
             response = self.client.request("POST", "/EditarAnimal", catch_response=True, data=packet_data,
                                            headers={"Content-Type": "application/x-www-form-urlencoded",
                                                     "Token": self.token})
-            dict_response = json.loads(response.text)
-            if "success" in dict_response and dict_response["success"] == True:
+            if response.status_code == 200:
                 response.success()
-                print("RemoverAnimal Response " + str(response) + " with Success " + str(response.text))
-                self.interrupt()
+                dict_response = json.loads(response.text)
+                if "success" in dict_response and dict_response["success"] == True:
+                    print("RemoverAnimal Response " + str(response) + " with Success " + str(response.text))
             else:
                 response.failure("Erro")
         else:
@@ -266,10 +271,11 @@ class DonoBehavior(TaskSet):
             idpedido = self.pedidos.pop()["id"]
             packet_data = "{'idPedido':'" + str(idpedido) + "'}"
             response = self.client.request("POST", "/CancelarPedido", catch_response=True, data=packet_data,headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
-            dict_response = json.loads(response.text)
-            if "success" in dict_response and dict_response["success"] == True:
+            if response.status_code == 200:
                 response.success()
-                print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
+                dict_response = json.loads(response.text)
+                if "success" in dict_response and dict_response["success"] == True:
+                    print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
             else:
                 response.failure("Erro")
         else:
@@ -292,10 +298,11 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("GET", "/ConsultarPerfil", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if dict_response["success"] and dict_response["success"] == True:
-            print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]))
+        if response.status_code == 200:
             response.success()
+            dict_response = json.loads(response.text)
+            if dict_response["success"] and dict_response["success"] == True:
+                print("ConsultarPerfil Response " + str(response) + " with Perfil " + str(dict_response["utilizador"]))
         else:
             response.failure("Erro")
 
@@ -304,24 +311,26 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("GET", "/ConsultarPedidos", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "pedidos" in dict_response and dict_response["success"] == True:
-            self.pedidos = dict_response["pedidos"]
+        if response.status_code == 200:
             response.success()
-            print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(len(self.pedidos)))
+            dict_response = json.loads(response.text)
+            if "pedidos" in dict_response and dict_response["success"] == True:
+                self.pedidos = dict_response["pedidos"]
+                print("ConsultarPedidos Response " + str(response) + " with Pedidos " + str(len(self.pedidos)))
         else:
             response.failure("Erro")
 
     @task(20)
     def consultarPerfilPost(self):
-        packet_data = "{'emailConsulta':'dono1@email.com'}"
+        packet_data = "{'emailConsulta':'dono999@email.com'}"
         response = self.client.request("POST", "/ConsultarPerfil", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
+        if response.status_code == 200:
             response.success()
-            print("ConsultarPerfilPost Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                print("ConsultarPerfilPost Response " + str(response) + " with Success " + str(response.text))
         else:
             response.failure("Erro")
 
@@ -331,10 +340,11 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("POST", "/EditarDadosPessoais", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
+        if response.status_code == 200:
             response.success()
-            print("EditarDados Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                print("EditarDados Response " + str(response) + " with Success " + str(response.text))
         else:
             response.failure("Erro")
 
@@ -344,10 +354,11 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("POST", "/EditarServicos", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
+        if response.status_code == 200:
             response.success()
-            print("EditarServicos Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                print("EditarServicos Response " + str(response) + " with Success " + str(response.text))
         else:
             response.failure("Erro")
 
@@ -357,10 +368,11 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("POST", "/EditarHorario", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
+        if response.status_code == 200:
             response.success()
-            print("EditarHorario Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                print("EditarHorario Response " + str(response) + " with Success " + str(response.text))
         else:
             response.failure("Erro")
 
@@ -370,10 +382,12 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("POST", "/EditarTiposAnimais", catch_response=True, data=packet_data,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
+        if response.status_code == 200:
             response.success()
-            print("EditarTipos Response " + str(response) + " with Success " + str(response.text))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                response.success()
+                print("EditarTipos Response " + str(response) + " with Success " + str(response.text))
         else:
             response.failure("Erro")
 
@@ -382,12 +396,13 @@ class PetsitterBehavior(TaskSet):
         response = self.client.request("GET", "/Logout", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
-            self.token = ""
+        if response.status_code == 200:
             response.success()
-            print("Logout Response " + str(response) + " with Success " + str(response.text))
-            self.interrupt()
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                self.token = ""
+                print("Logout Response " + str(response) + " with Success " + str(response.text))
+                self.interrupt()
         else:
             response.failure("Erro")
 
@@ -397,10 +412,11 @@ class PetsitterBehavior(TaskSet):
             idpedido = self.pedidos.pop()["id"]
             packet_data = "{'idPedido':'" + str(idpedido) + "'}"
             response = self.client.request("POST", "/CancelarPedido", data=packet_data, catch_response=True, headers={"Content-Type": "application/x-www-form-urlencoded","Token": self.token})
-            dict_response = json.loads(response.text)
-            if "success" in dict_response and dict_response["success"] == True:
+            if response.status_code == 200:
                 response.success()
-                print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
+                dict_response = json.loads(response.text)
+                if "success" in dict_response and dict_response["success"] == True:
+                    print("CancelarPedido Response " + str(response) + " with Success " + str(response.text))
             else:
                 response.failure("Erro")
         else:
@@ -430,10 +446,11 @@ class IndexBehavior(TaskSet):
         response = self.client.request("GET", "/Index", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response:
+        if response.status_code == 200:
             response.success()
-            print("Index Response " + str(response) + " with Sucess " + str(dict_response["success"]))
+            dict_response = json.loads(response.text)
+            if "success" in dict_response:
+                print("Index Response " + str(response) + " with Sucess " + str(dict_response["success"]))
         else:
             response.failure("Erro")
 
@@ -442,13 +459,14 @@ class IndexBehavior(TaskSet):
         packet_data = "{'email':'" + self.email + "', 'password':'ola'}"
         response = self.client.request("POST", "/Autenticar", data=packet_data, catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded"})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
-            self.token = dict_response["token"]
-            self.tipo = dict_response["tipo"]
-            print("Login with Email " + self.email + " with Token " + str(self.token) + " with Tipo " + dict_response[
-                "tipo"])
+        if response.status_code == 200:
             response.success()
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                self.token = dict_response["token"]
+                self.tipo = dict_response["tipo"]
+                print("Login with Email " + self.email + " with Token " + str(self.token) + " with Tipo " + dict_response[
+                    "tipo"])
         else:
             print("Failed Login")
             response.failure("Erro")
@@ -470,16 +488,18 @@ class IndexBehavior(TaskSet):
         self.wait()
 
     def inativarUtilizador(self,email):
-        packet_data = "{'email':'" + email + "', 'password':'ola', 'emailDono':'dono69@email.com'}"
+        packet_data = "{'email':'" + email + "', 'password':'ola', 'emailDono':'dono999@email.com'}"
         response = self.client.request("POST", "/InativarUtilizador", data=packet_data, catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
                                                 "Token": self.token})
-        dict_response = json.loads(response.text)
-        if "success" in dict_response and dict_response["success"] == True:
-            print("InativarUtilizador Response " + str(response) + " with Success " + str(response.text))
+        if response.status_code == 200:
             response.success()
-        else:
-            response.failure("Erro")
+            dict_response = json.loads(response.text)
+            if "success" in dict_response and dict_response["success"] == True:
+                print("InativarUtilizador Response " + str(response) + " with Success " + str(response.text))
+                response.success()
+            else:
+                response.failure("Erro")
 
 
 
@@ -487,7 +507,7 @@ class WebsiteUser(HttpLocust):
     task_set = IndexBehavior
     min_wait = 3000
     max_wait = 5000
-    host = "http://localhost:8080/trustpet_war_exploded"
+    host = "http://localhost:8085/trustpet_war_exploded.war"
 
     def __init__(self):
         super(WebsiteUser, self).__init__()

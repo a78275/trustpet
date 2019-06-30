@@ -66,7 +66,8 @@
                         <div class="col-sm-4 col-md-4 col-lg-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Concelho</span>
+                                    <span class="input-group-text" style="color:#545871"><i class='fas fa-filter'
+                                            style='font-size:15px'></i> &nbsp; Concelho</span>
                                 </div>
                                 <select class="form-control" v-model.number="selConcelho">
                                     <option>Todos</option>
@@ -77,7 +78,8 @@
                         <div class="col-sm-4 col-md-4 col-lg-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Distrito</span>
+                                    <span class="input-group-text" style="color:#545871"><i class='fas fa-filter'
+                                            style='font-size:15px'></i> &nbsp; Distrito</span>
                                 </div>
                                 <select class="form-control" v-model.number="selDistrito">
                                     <option>Todos</option>
@@ -88,17 +90,26 @@
                         <div class="col-sm-4 col-md-4 col-lg-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Classificação</span>
+                                    <span class="input-group-text" style="color:#545871"><i style="font-size:20px"
+                                            class="fa">&#xf15e;</i> &nbsp; Ordenar</span>
                                 </div>
-                                <select class="form-control" v-model="ordenacao">
-                                    <option>Descendente</option>
-                                    <option>Ascendente</option>
+                                <select class="form-control" v-model="ordenacao" data-show-icon="true">
+                                    <option>Classificação Desc.</option>
+                                    <option>Classificação Asc.</option>
+                                    <option>Preço Desc.</option>
+                                    <option>Preço Asc.</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-sm-12 col-md-12 col-lg-3">
-                            <input class="form-control" v-model="search" type="text"
-                                placeholder="Pesquisar por e-mail ou nome...">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="color:#545871"><i style="font-size:18px"
+                                            class="fa">&#xf002;</i></span>
+                                </div>
+                                <input class="form-control" v-model="search" type="text"
+                                    placeholder="Pesquisar por e-mail ou nome...">
+                            </div>
                         </div>
                     </div>
                     <div class="row mx-2">

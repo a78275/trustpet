@@ -155,23 +155,44 @@ Vue.component('avaliar-dono', {
     },
     methods: {
         avaliar: async function (id) {
-            console.log('EMAIL: ' + id)
-            const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
-                headers: {
-                    'Content-Type': 'application/json; charset=utf-8',
-                    'Token': localStorage.token
-                },
-                method: "POST",
-                body: JSON.stringify({
-                    emailAlvo: id,
-                    comentario: this.comentario,
-                    avaliacao: this.pontuacao + ""
-                })
-            })
-            const content = await response.json()
-            if (content.success) {
-                console.log("review feita com sucesso!")
+            if(this.pontuacao == 0){
+                this.snackbar("Selecione uma classificação.")
             }
+            else {
+                const response = await fetch("http://localhost:8080/trustpet_war_exploded/AvaliarUtilizador", {
+                    headers: {
+                        'Content-Type': 'application/json; charset=utf-8',
+                        'Token': localStorage.token
+                    },
+                    method: "POST",
+                    body: JSON.stringify({
+                        emailAlvo: id,
+                        comentario: this.comentario,
+                        avaliacao: this.pontuacao + ""
+                    })
+                })
+                const content = await response.json()
+                if (content.success) {
+                    localStorage.sucesso = "review"
+                }
+                else {
+                    localStorage.sucesso = "erro"
+                }
+                window.location.replace("http://localhost/pedidosPendentesPetsitter.html")
+            }
+        },
+        snackbar: function (content) {
+            // Get the snackbar DIV
+            var x = document.getElementById("snackbar");
+
+            // Change content
+            x.textContent = content
+
+            // Add the "show" class to DIV
+            x.className = "show";
+
+            // After 3 seconds, remove the show class from DIV
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
         }
     },
     template: `
@@ -326,6 +347,10 @@ var vm = new Vue({
         }
         else if (localStorage.sucesso == "review") {
             this.snackbar("Avaliação efetuada com sucesso.")
+            localStorage.sucesso = "";
+        }
+        else if (localStorage.sucesso == "cancelar") {
+            this.snackbar("Pedido cancelado com sucesso.")
             localStorage.sucesso = "";
         }
     },
