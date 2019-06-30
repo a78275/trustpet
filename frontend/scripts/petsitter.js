@@ -1,8 +1,18 @@
 Vue.component('sidebarpetsitter', {
     methods: {
-        logout: function () {
-            localStorage.token = ""
-            window.location.replace("http://localhost/")
+        logout: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/Logout", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "GET"
+            })
+            const content = await response.json()
+            if (content.success) {
+                localStorage.token = ""
+                window.location.replace("http://localhost/")
+            }
         }
     },
     template: `
@@ -137,11 +147,11 @@ Vue.component('avaliar-dono', {
         id5: ""
     }),
     mounted: function () {
-        this.id1 = this.$props.petsitter.email + '1'
-        this.id2 = this.$props.petsitter.email + '2'
-        this.id3 = this.$props.petsitter.email + '3'
-        this.id4 = this.$props.petsitter.email + '4'
-        this.id5 = this.$props.petsitter.email + '5'
+        this.id1 = this.$props.dono + '1'
+        this.id2 = this.$props.dono + '2'
+        this.id3 = this.$props.dono + '3'
+        this.id4 = this.$props.dono + '4'
+        this.id5 = this.$props.dono + '5'
     },
     methods: {
         avaliar: async function (id) {
@@ -255,7 +265,15 @@ var vm = new Vue({
         servicos: [],
         horario: {},
         reviews: [],
-        listaServicos: [{ 'id': '1', 'designacao': 'tomar conta' }, { 'id': '2', 'designacao': 'levar a rua' }, { 'id': '3', 'designacao': 'alimentar' }, { 'id': '4', 'designacao': 'dar banho' }],
+        listaServicos: [
+            { 'id': '1', 'designacao': 'Petsitting em casa do petsitter' },
+            { 'id': '2', 'designacao': 'Petsitting em casa do dono' },
+            { 'id': '3', 'designacao': 'Passear' },
+            { 'id': '4', 'designacao': 'Alimentar' },
+            { 'id': '5', 'designacao': 'Dar banho' },
+            { 'id': '6', 'designacao': 'Limpeza do ambiente animal' },
+            { 'id': '7', 'designacao': 'Tosquiar' },
+            { 'id': '8', 'designacao': 'Entreter' }],
         tiposAnimal: [
             { 'id': '1', 'tipo': 'Gato', 'img': 'img/gato.png' },
             { 'id': '2', 'tipo': 'Cão', 'img': 'img/cao.png' },
@@ -272,6 +290,10 @@ var vm = new Vue({
         preco2: "",
         preco3: "",
         preco4: "",
+        preco5: "",
+        preco6: "",
+        preco7: "",
+        preco8: "",
         horario: [],
         novoHorario: [],
         pedidosPendentes: [],
@@ -368,6 +390,14 @@ var vm = new Vue({
                             this.preco3 = s.preco
                         if (found.id == '4')
                             this.preco4 = s.preco
+                        if (found.id == '5')
+                            this.preco5 = s.preco
+                        if (found.id == '6')
+                            this.preco6 = s.preco
+                        if (found.id == '7')
+                            this.preco7 = s.preco
+                        if (found.id == '8')
+                            this.preco8 = s.preco
                     }
                 }
                 if (window.location.href == "http://localhost/editarHorario.html") {
@@ -394,7 +424,6 @@ var vm = new Vue({
                     if (contentDono.success) {
                         this.dono = contentDono.utilizador
                         this.dono.reviews = contentDono.reviews
-                        console.log(JSON.stringify(this.dono))
                     }
                 }
                 const responsePedidos = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPedidos", {
@@ -550,6 +579,24 @@ var vm = new Vue({
                 s = '4:' + this.preco4
                 servicosSelecionados.push(s)
             }
+            if (this.preco5 != '') {
+                var s = '5:' + this.preco5
+                servicosSelecionados.push(s)
+            }
+            if (this.preco6 != '') {
+                s = '6:' + this.preco6
+                servicosSelecionados.push(s)
+            }
+            if (this.preco7 != '') {
+                s = '7:' + this.preco7
+                servicosSelecionados.push(s)
+            }
+            if (this.preco8 != '') {
+                s = '8:' + this.preco8
+                servicosSelecionados.push(s)
+            }
+
+            console.log(servicosSelecionados)
 
             if (servicosSelecionados.length == 0) {
                 this.snackbar("Preencha pelo menos um serviço.")
@@ -607,9 +654,10 @@ var vm = new Vue({
         checkData: function (data) {
             var today = new Date();
             let date = data.split("/")
-            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0]
+            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0] + ' ' + date[2].split(' ')[1] + ':00'
             let final = new Date(dataFim)
-            if (final >= today)
+            const diff = final.getTime() - today.getTime()
+            if (diff >= 0)
                 return true
             else
                 return false
@@ -617,6 +665,26 @@ var vm = new Vue({
         pagDono: function (email) {
             localStorage.dono = email
             window.location.replace("http://localhost/consultarDono.html")
+        },
+        cancelarPedido: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/CancelarPedido", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    idPedido: id
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                //localStorage.sucesso = "cancelar";
+                window.location.replace("http://localhost/pedidosPendentesPetsitter.html");
+            }
+            else {
+                localStorage.sucesso = "erro";
+            }
         }
     }
 })

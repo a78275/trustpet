@@ -53,20 +53,27 @@
                             FORNECIDOS
                         </h1>
                         <div class="progress" style="width: 80%; margin-left: auto; margin-right: auto; height: 25px;">
-                            <div class="progress-bar" role="progressbar"
-                                style="font-size: 15px; font-weight:500; width: 34%; background-color: #545871;"
-                                aria-valuenow="34" aria-valuemin="0" aria-valuemax="100">Dados Pessoais</div>
                             <div class="progress-bar"
-                                style="font-size: 15px; font-weight:500; width: 33%; background-color: #ebd0ce;"
-                                role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"
-                                style="width:33%">
-                                Animais
+                                style="font-size: 15px; font-weight:500; width: 25%; background-color: #ebd0ce;"
+                                role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                style="width:25%">Dados Pessoais</div>
+                            <div class="progress-bar"
+                                style="font-size: 15px; font-weight:500; width: 25%; background-color: #ebd0ce;"
+                                role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                style="width:25%">
+                                Tipos de Animais
                             </div>
                             <div class="progress-bar"
-                                style="font-size: 15px; font-weight:500; width: 33%; background-color: #ebd0ce;"
-                                role="progressbar" aria-valuenow="33" aria-valuemin="0" aria-valuemax="100"
-                                style="width:34%">
-                                Confirmação </div>
+                                style="font-size: 15px; font-weight:500; width: 25%; background-color: #ebd0ce;"
+                                role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"
+                                style="width:25%">
+                                Serviços Fornecidos
+                            </div>
+                            <div class="progress-bar" role="progressbar"
+                                style="font-size: 15px; font-weight:500; width: 25%; background-color: #545871;"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
+                                Horário
+                            </div>
                         </div>
                     </div>
                     <h1 class="p-2 my-2 text-center" style="color: #545871; font-size: 1.5em;">Indique o horário no qual
@@ -76,9 +83,6 @@
                     <div class="row pb-4">
                         <div style="width: 80%; margin-left: auto; margin-right: auto;">
                             <form class="my-3">
-                                <th><input type="checkbox" id="selectall1" /></th>
-                                <th>Cell phone</th>
-                                <th>Rating</th>
                                 <table class="table table-striped" style="table-layout: fixed;">
                                     <thead>
                                         <tr>
@@ -136,7 +140,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            <button class="btn" id="whitebtn" onclick="goBack()">Voltar</button>
+                            <a href="registoServicos.html"><button class="btn" id="whitebtn">Voltar</button></a>
                         </div>
                         <div class="text-right col-6">
                             <button type="button" v-on:click="registoHorario()" id="darkbluebtn">Seguinte</button>
@@ -149,11 +153,6 @@
     <!-- Snackbar -->
     <div id="snackbar"></div>
 
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/utilizador.js"></script>
     <script src="scripts/checkHorario.js"></script>

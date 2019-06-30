@@ -29,7 +29,15 @@ var vm = new Vue({
             { 'id': '7', 'tipo': 'Coelho', 'img': 'img/coelho.png' },
             { 'id': '8', 'tipo': 'Roedor', 'img': 'img/roedor.png' },
             { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }],
-        servicos: [{ 'id': '1', 'designacao': 'Tomar conta' }, { 'id': '2', 'designacao': 'Levar à rua' }, { 'id': '3', 'designacao': 'Alimentar' }, { 'id': '4', 'designacao': 'Dar banho' }],
+        listaServicos: [
+            { 'id': '1', 'designacao': 'Petsitting em casa do petsitter' },
+            { 'id': '2', 'designacao': 'Petsitting em casa do dono' },
+            { 'id': '3', 'designacao': 'Passear' },
+            { 'id': '4', 'designacao': 'Alimentar' },
+            { 'id': '5', 'designacao': 'Dar banho' },
+            { 'id': '6', 'designacao': 'Limpeza do ambiente animal' },
+            { 'id': '7', 'designacao': 'Tosquiar' },
+            { 'id': '8', 'designacao': 'Entreter' }],
         tipo: "",
         utilizador: {},
         animais: [],
@@ -38,6 +46,10 @@ var vm = new Vue({
         preco2: "",
         preco3: "",
         preco4: "",
+        preco5: "",
+        preco6: "",
+        preco7: "",
+        preco8: "",
         horario: []
     },
     mounted: function () {
@@ -88,7 +100,6 @@ var vm = new Vue({
             }
             else {
                 localStorage.sucesso = "erro";
-                window.location.replace("http://localhost/registoPerfilPetsitter.html")
             }
         },
         registoTiposAnimais: async function () {
@@ -112,14 +123,14 @@ var vm = new Vue({
                 }
                 else {
                     localStorage.sucesso = "erro";
-                    window.location.replace("http://localhost/registoTiposAnimais.html")
                 }
             }
         },
         registoServicos: async function () {
             var servicosSelecionados = []
+            var s = ""
             if (this.preco1 != '') {
-                var s = '1:' + this.preco1
+                s = '1:' + this.preco1
                 servicosSelecionados.push(s)
             }
             if (this.preco2 != '') {
@@ -134,7 +145,22 @@ var vm = new Vue({
                 s = '4:' + this.preco4
                 servicosSelecionados.push(s)
             }
-
+            if (this.preco5 != '') {
+                var s = '5:' + this.preco5
+                servicosSelecionados.push(s)
+            }
+            if (this.preco6 != '') {
+                s = '6:' + this.preco6
+                servicosSelecionados.push(s)
+            }
+            if (this.preco7 != '') {
+                s = '7:' + this.preco7
+                servicosSelecionados.push(s)
+            }
+            if (this.preco8 != '') {
+                s = '8:' + this.preco8
+                servicosSelecionados.push(s)
+            }
             if (servicosSelecionados.length == 0) {
                 this.snackbar("Preencha pelo menos um serviço.")
             }
@@ -150,13 +176,11 @@ var vm = new Vue({
                     })
                 })
                 const content = await response.json()
-                console.log(JSON.stringify(content))
                 if (content.success) {
                     window.location.replace("http://localhost/registoHorario.html")
                 }
                 else {
                     localStorage.sucesso = "erro";
-                    window.location.replace("http://localhost/registoServicos.html")
                 }
             }
         },
@@ -183,7 +207,6 @@ var vm = new Vue({
                 }
                 else {
                     localStorage.sucesso = "erro";
-                    window.location.replace("http://localhost/registoHorario.html")
                 }
             }
         },
@@ -251,7 +274,6 @@ var vm = new Vue({
             }
             else {
                 localStorage.sucesso = "erro"
-                window.location.replace("http://localhost/registoPerfilDono.html")
             }
         },
         criarUtilizador: function () {

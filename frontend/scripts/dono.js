@@ -1,8 +1,18 @@
 Vue.component('sidebardono', {
     methods: {
-        logout: function () {
-            localStorage.token = ""
-            window.location.replace("http://localhost/")
+        logout: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/Logout", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "GET"
+            })
+            const content = await response.json()
+            if (content.success) {
+                localStorage.token = ""
+                window.location.replace("http://localhost/")
+            }
         }
     },
     template: `
@@ -102,7 +112,7 @@ Vue.component('avaliar-petsitter', {
             <div class="modal-header">
                 <h5 class="modal-title" style="color: #545871;"
                     id="exampleModalLongTitle">
-                    Avaliar Petsitter - {{ petsitter.nome }}
+                    Avaliar Petsitter - {{ petsitter.email }}
                 </h5>
                 <button type="button" id="submitRegistoDono" class="close"
                     data-dismiss="modal" aria-label="Close">
@@ -329,22 +339,105 @@ var vm = new Vue({
         esterilizacao: "",
         animal: {},
         animais: [],
-        servicos: [{
-            'id': '1',
-            'servicos': {
-                '1': 'Passear',
-                '2': 'Dar banho'
-            }
-        }, {
-            'id': '2',
-            'servicos': {
-                '1': 'Passear',
-                '4': 'Alimentar',
-                '5': 'Coçar as costas',
-                '6': 'Escovar o pêlo',
-                '7': 'Brincar'
-            }
-        }],
+        servicos: [
+            {
+                'id': '1',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '7': 'Tosquiar',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '2',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '7': 'Tosquiar',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '3',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '4',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal'
+                }
+            },
+            {
+                'id': '5',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal'
+                }
+            },
+            {
+                'id': '6',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '3': 'Passear',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '7',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '8',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '5': 'Dar banho',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            },
+            {
+                'id': '9',
+                'servicos': {
+                    '1': 'Petsitting em casa do petsitter',
+                    '2': 'Petsitting em casa do dono',
+                    '4': 'Alimentar',
+                    '6': 'Limpeza do ambiente animal',
+                    '8': 'Entreter'
+                }
+            }],
         tiposAnimal: [
             { 'id': '1', 'tipo': 'Gato', 'img': 'img/gato.png' },
             { 'id': '2', 'tipo': 'Cão', 'img': 'img/cao.png' },
@@ -354,7 +447,8 @@ var vm = new Vue({
             { 'id': '6', 'tipo': 'Porco', 'img': 'img/porco.png' },
             { 'id': '7', 'tipo': 'Coelho', 'img': 'img/coelho.png' },
             { 'id': '8', 'tipo': 'Roedor', 'img': 'img/roedor.png' },
-            { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }], petsitters: [],
+            { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }],
+        petsitters: [],
         pedidosPendentes: [],
         dataInicio: "",
         dataFim: "",
@@ -366,7 +460,13 @@ var vm = new Vue({
         servicosAnimaisSelecionados: [],
         petsitter: {},
         reviews: [],
-        utilizador: {}
+        utilizador: {},
+        selDistrito: "Todos",
+        selConcelho: "Todos",
+        search: "",
+        ordenacao: "Descendente",
+        servicosPetsitter: [],
+        avaliacaoMediaNr: 0
     },
     mounted: function () {
         if (localStorage.sucesso == "login") {
@@ -462,6 +562,11 @@ var vm = new Vue({
                     const contentPetsitters = await responsePetsitters.json()
                     if (contentPetsitters.success) {
                         this.petsitters = contentPetsitters.petsitters
+
+                        for (var p of this.petsitters) {
+                            var value = parseFloat(String(p.avaliacaoMedia).substring(0, 3));
+                            p.avaliacaoMedia = value
+                        }
                     }
                 }
                 if (window.location.href == "http://localhost/selServicos.html") {
@@ -490,7 +595,6 @@ var vm = new Vue({
                     var animal = this.animais.find(function (element) {
                         return element.id == localStorage.idAnimal
                     })
-                    console.log(JSON.stringify(animal))
                     this.nome = animal.nome
                     this.avatar = animal.avatar
                     this.idade = animal.idade
@@ -505,6 +609,26 @@ var vm = new Vue({
                     this.raca = animal.raca
                     this.tipo = animal.tipo.id
                     this.id = localStorage.idAnimal
+                }
+                if (window.location.href == "http://localhost/consultarPetsitter.html") {
+                    const responsePetsitter = await fetch("http://localhost:8080/trustpet_war_exploded/ConsultarPerfil", {
+                        headers: {
+                            'Content-Type': 'application/json; charset=utf-8',
+                            'Token': localStorage.token
+                        },
+                        method: 'POST',
+                        body: JSON.stringify({
+                            emailConsulta: localStorage.petsitter
+                        })
+                    })
+                    const contentPetsitter = await responsePetsitter.json()
+                    if (contentPetsitter.success) {
+                        this.petsitter = contentPetsitter.utilizador
+                        this.servicosPetsitter = contentPetsitter.servicos
+                        this.petsitter.tiposAnimais = contentPetsitter.utilizador.animais
+                        this.petsitter.reviews = contentPetsitter.reviews
+
+                    }
                 }
             } else {
                 window.location.replace("http://localhost/index.html")
@@ -548,17 +672,19 @@ var vm = new Vue({
         selServicos: async function () {
             var ok = true;
             var animais = [];
+
             // Ver animais que têm serviços
-            for (var animal in this.servicosAnimaisSelecionados) {
-                var idAnimal = this.servicosAnimaisSelecionados[animal].idAnimal;
+            for (var animal of this.servicosAnimaisSelecionados) {
+                var parts = animal.split(':');
+                var idAnimal = parts[0];
                 if (!animais.includes(idAnimal))
-                    this.animais.push()
+                    animais.push(Number(idAnimal))
             }
             // Ver se os animais que têm serviços são os que foram selecionados
-            for (var animal in this.animaisSelecionados) {
-                var idAnimal = this.animaisSelecionados[animal];
-                if (!animais.includes(idAnimal))
+            for (var animal of JSON.parse(localStorage.servicos)) {
+                if (!animais.includes(animal.id)) {
                     ok = false;
+                }
             }
             if (!ok) {
                 this.snackbar("Selecione pelo menos um serviço para cada animal.")
@@ -783,9 +909,10 @@ var vm = new Vue({
         checkData: function (data) {
             var today = new Date();
             let date = data.split("/")
-            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0]
+            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0] + ' ' + date[2].split(' ')[1] + ':00'
             let final = new Date(dataFim)
-            if (final >= today)
+            const diff = final.getTime() - today.getTime()
+            if (diff >= 0)
                 return true
             else
                 return false
@@ -802,6 +929,86 @@ var vm = new Vue({
 
             // After 3 seconds, remove the show class from DIV
             setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+        },
+        pagPetsitter: function (email) {
+            localStorage.petsitter = email
+            window.location.replace("http://localhost/consultarPetsitter.html")
+        },
+        getTipo: function (id) {
+            var found = this.tiposAnimal.find(function (element) {
+                return element.id == id
+            })
+            return found
+        },
+        getTipoNome: function (id) {
+            var found = this.tiposAnimal.find(function (element) {
+                return element.id == id
+            })
+            if (found != undefined)
+                return found.tipo
+        },
+        cancelarPedido: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/CancelarPedido", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    idPedido: id
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                //localStorage.sucesso = "cancelar";
+                window.location.replace("http://localhost/pedidosPendentesDono.html");
+            }
+            else {
+                localStorage.sucesso = "erro";
+            }
+        }
+    },
+    computed: {
+        concelhos: function () {
+            return [...new Set(this.petsitters.map(p => p.concelho))]
+        },
+        distritos: function () {
+            return [...new Set(this.petsitters.map(p => p.distrito))]
+        },
+        petsittersFiltrados: function () {
+            var filtrados = this.petsitters
+
+            // Filtrar por concelho
+            if(this.selConcelho != "Todos"){
+                filtrados = filtrados.filter(p => p.concelho == this.selConcelho)
+            }
+
+            // Filtrar por distrito
+            if(this.selDistrito != "Todos"){
+                filtrados = filtrados.filter(p => p.distrito == this.selDistrito)
+            }
+
+            // Filtrar por search
+            if (this.search != "") {
+                if (this.search.includes("@")) {
+                    filtrados = filtrados.filter(p => p.email.toLowerCase().includes(this.search.toLowerCase()))
+                }
+                else {
+                    filtrados = filtrados.filter(p => p.nome.toLowerCase().includes(this.search.toLowerCase()))
+                }
+            }
+
+            // Ordenação
+            if(this.ordenacao == "Ascendente"){
+                var sorting = -1
+                filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
+            }
+            else{
+                var sorting = 1
+                filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
+            }
+
+            return filtrados
         }
     }
 })

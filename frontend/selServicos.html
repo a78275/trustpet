@@ -79,7 +79,7 @@
                                     <h5 class="card-title p-1"
                                         style="color: #545871; font-size: 1.3em; font-weight: 500;">
                                         {{ s.nome }}</h5>
-                                    <div id="dono" class="form-check" v-for="servico in s.servicos"
+                                    <div id="dono" class="text-left form-check" v-for="servico in s.servicos"
                                         v-bind:key="servico.id">
                                         <input class="form-check-input" type="checkbox" :value="`${s.id}:${servico.id}`"
                                             v-model="servicosAnimaisSelecionados">

@@ -62,10 +62,47 @@
             <section class="p-2">
                 <div class="justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">PETSITTERS</h1>
-                    Filtrar por: jardim, concelho, distrito
-                    Ordenar por: rating
+                    <div class="row mx-4">
+                        <div class="col-sm-4 col-md-4 col-lg-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Concelho</span>
+                                </div>
+                                <select class="form-control" v-model.number="selConcelho">
+                                    <option>Todos</option>
+                                    <option v-for="c in concelhos">{{c}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Distrito</span>
+                                </div>
+                                <select class="form-control" v-model.number="selDistrito">
+                                    <option>Todos</option>
+                                    <option v-for="d in distritos">{{d}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-lg-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Classificação</span>
+                                </div>
+                                <select class="form-control" v-model="ordenacao">
+                                    <option>Descendente</option>
+                                    <option>Ascendente</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12 col-lg-3">
+                            <input class="form-control" v-model="search" type="text"
+                                placeholder="Pesquisar por e-mail ou nome...">
+                        </div>
+                    </div>
                     <div class="row mx-2">
-                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" v-for="petsitter in petsitters"
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" v-for="petsitter in petsittersFiltrados"
                             v-bind:key="petsitter.id">
                             <div class="card m-3" style="color:#545871;">
                                 <img :src=petsitter.avatar class="mt-3"
