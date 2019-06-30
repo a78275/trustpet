@@ -1,8 +1,18 @@
 Vue.component('sidebarpetsitter', {
     methods: {
-        logout: function () {
-            localStorage.token = ""
-            window.location.replace("http://localhost/")
+        logout: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/Logout", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "GET"
+            })
+            const content = await response.json()
+            if (content.success) {
+                localStorage.token = ""
+                window.location.replace("http://localhost/")
+            }
         }
     },
     template: `
@@ -380,6 +390,14 @@ var vm = new Vue({
                             this.preco3 = s.preco
                         if (found.id == '4')
                             this.preco4 = s.preco
+                        if (found.id == '5')
+                            this.preco5 = s.preco
+                        if (found.id == '6')
+                            this.preco6 = s.preco
+                        if (found.id == '7')
+                            this.preco7 = s.preco
+                        if (found.id == '8')
+                            this.preco8 = s.preco
                     }
                 }
                 if (window.location.href == "http://localhost/editarHorario.html") {
@@ -561,6 +579,24 @@ var vm = new Vue({
                 s = '4:' + this.preco4
                 servicosSelecionados.push(s)
             }
+            if (this.preco5 != '') {
+                var s = '5:' + this.preco5
+                servicosSelecionados.push(s)
+            }
+            if (this.preco6 != '') {
+                s = '6:' + this.preco6
+                servicosSelecionados.push(s)
+            }
+            if (this.preco7 != '') {
+                s = '7:' + this.preco7
+                servicosSelecionados.push(s)
+            }
+            if (this.preco8 != '') {
+                s = '8:' + this.preco8
+                servicosSelecionados.push(s)
+            }
+
+            console.log(servicosSelecionados)
 
             if (servicosSelecionados.length == 0) {
                 this.snackbar("Preencha pelo menos um serviço.")

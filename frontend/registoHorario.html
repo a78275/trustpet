@@ -83,9 +83,6 @@
                     <div class="row pb-4">
                         <div style="width: 80%; margin-left: auto; margin-right: auto;">
                             <form class="my-3">
-                                <th><input type="checkbox" id="selectall1" /></th>
-                                <th>Cell phone</th>
-                                <th>Rating</th>
                                 <table class="table table-striped" style="table-layout: fixed;">
                                     <thead>
                                         <tr>
@@ -143,7 +140,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            <button class="btn" id="whitebtn" onclick="goBack()">Voltar</button>
+                            <a href="registoServicos.html"><button class="btn" id="whitebtn">Voltar</button></a>
                         </div>
                         <div class="text-right col-6">
                             <button type="button" v-on:click="registoHorario()" id="darkbluebtn">Seguinte</button>
@@ -156,11 +153,6 @@
     <!-- Snackbar -->
     <div id="snackbar"></div>
 
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/utilizador.js"></script>
     <script src="scripts/checkHorario.js"></script>
