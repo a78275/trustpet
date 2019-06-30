@@ -437,7 +437,8 @@ var vm = new Vue({
             { 'id': '6', 'tipo': 'Porco', 'img': 'img/porco.png' },
             { 'id': '7', 'tipo': 'Coelho', 'img': 'img/coelho.png' },
             { 'id': '8', 'tipo': 'Roedor', 'img': 'img/roedor.png' },
-            { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }], petsitters: [],
+            { 'id': '9', 'tipo': 'Réptil', 'img': 'img/reptil.png' }],
+        petsitters: [],
         pedidosPendentes: [],
         dataInicio: "",
         dataFim: "",
@@ -887,9 +888,10 @@ var vm = new Vue({
         checkData: function (data) {
             var today = new Date();
             let date = data.split("/")
-            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0]
+            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0] + ' ' + date[2].split(' ')[1] + ':00'
             let final = new Date(dataFim)
-            if (final >= today)
+            const diff = final.getTime() - today.getTime()
+            if (diff >= 0)
                 return true
             else
                 return false
@@ -916,6 +918,26 @@ var vm = new Vue({
                 return element.id == id
             })
             return found
+        },
+        cancelarPedido: async function (id) {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/CancelarPedido", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "POST",
+                body: JSON.stringify({
+                    idPedido: id
+                })
+            })
+            const content = await response.json()
+            if (content.success) {
+                //localStorage.sucesso = "cancelar";
+                window.location.replace("http://localhost/pedidosPendentesDono.html");
+            }
+            else {
+                localStorage.sucesso = "erro";
+            }
         }
     }
 })

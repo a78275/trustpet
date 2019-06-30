@@ -57,9 +57,21 @@
             <section class="row p-2">
                 <div class="col-12 justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">PEDIDOS PENDENTES</h1>
+
+                    <div v-if="pedidosPendentes.length==0" class="alert alert-danger" role="alert"
+                        style="width:50%; margin-left:auto; margin-right:auto;">
+                        <h4 class="alert-heading">Não possui pedidos pendentes!</h4>
+                        <p>Faça um pedido e deixe que os nossos petsitters cuidem dos seus animais.</p>
+                        <hr>
+                        <div class="text-center">
+                            <a href="selAnimaisData.html"><button type="button" id="whitebtn">Efetuar
+                                    Pedido</button></a>
+                        </div>
+                    </div>
+
                     <div class="card m-5" style="color:#545871;" v-for="pedido in pedidosPendentes"
                         v-if="checkData(pedido.dataFim)">
-                        <div id="petsitter" class="row text-center py-3" v-if="pedido.petsitter">
+                        <div class="row text-center py-3" v-if="pedido.petsitter">
                             <div class="col-12">
                                 <img :src=pedido.petsitter.avatar
                                     style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
@@ -78,7 +90,6 @@
                             <avaliar-petsitter :id="`avaliar${pedido.petsitter.email}`"
                                 v-bind:petsitter="pedido.petsitter">
                             </avaliar-petsitter>
-
                         </div>
                         <div id="marcacao" class="px-5 pt-3 text-center">
                             <table class="table table-bordered"
@@ -116,6 +127,63 @@
                                 <ul>
                                     <li v-for="servico in a.servicos">{{ servico }}</li>
                                 </ul>
+                            </div>
+                        </div>
+                        <button id="pinkbtn" class="btn mb-3" type="button" data-toggle="modal"
+                            :data-target="`#cancelar${pedido.id}`"
+                            style="width: 30%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
+                            Cancelar Pedido</button>
+                        <div :id="`cancelar${pedido.id}`" class="modal fade" tabindex="-1" role="dialog"
+                            aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" style="color: #545871;" id="exampleModalLongTitle">
+                                            Cancelar Pedido
+                                        </h5>
+                                        <button type="button" id="submitRegistoDono" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body" v-if="pedido.petsitter">
+                                        Tem a certeza que pretende cancelar o pedido com o seguinte petsitter?
+                                        <img :src=pedido.petsitter.avatar class="my-2"
+                                            style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                                        <table class="table table-bordered"
+                                            style="margin-left: auto; margin-right: auto; table-layout: fixed;">
+                                            <tbody style="color: #545871;">
+                                                <tr>
+                                                    <td style="text-align: center;">
+                                                        <i class='fas fa-hourglass-start'
+                                                            style="font-size:25px;color:#ebd0ce;"></i>
+                                                        <br>{{ pedido.dataInicio }}
+                                                    </td>
+
+                                                    <td style="text-align: center;">
+                                                        <i class='fas fa-hourglass-end'
+                                                            style="font-size:25px;color:#ebd0ce;"></i>
+                                                        <br>{{ pedido.dataFim }}
+                                                    </td>
+
+                                                    <td style="text-align: center;">
+                                                        <i class='fas fa-euro-sign'
+                                                            style="font-size:25px;color:#ebd0ce;"></i>
+                                                        <br>{{ pedido.preco }}
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn" id="pinkbtn"
+                                            style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                                            data-dismiss="modal">Voltar</button>
+                                        <button type="button" v-on:click="cancelarPedido(pedido.id)"
+                                            style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                                            id="bluepinkbtn">Cancelar</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

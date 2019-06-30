@@ -618,9 +618,10 @@ var vm = new Vue({
         checkData: function (data) {
             var today = new Date();
             let date = data.split("/")
-            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0]
+            let dataFim = date[2].split(' ')[0] + "-" + date[1] + "-" + date[0] + ' ' + date[2].split(' ')[1] + ':00'
             let final = new Date(dataFim)
-            if (final >= today)
+            const diff = final.getTime() - today.getTime()
+            if (diff >= 0)
                 return true
             else
                 return false
