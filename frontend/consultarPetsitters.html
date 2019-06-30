@@ -15,6 +15,7 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet"
         href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
@@ -58,42 +59,46 @@
                 <div class="justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">PETSITTERS</h1>
                     <div class="row mx-4">
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Concelho</span>
+                                    <span class="input-group-text" style="color:#545871"><i class='fas fa-filter' style='font-size:15px'></i> &nbsp; Concelho</span>
                                 </div>
                                 <select class="form-control" v-model.number="selConcelho">
-                                    <option></option>
+                                    <option>Todos</option>
                                     <option v-for="c in concelhos">{{c}}</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Distrito</span>
+                                    <span class="input-group-text" style="color:#545871"><i class='fas fa-filter' style='font-size:15px'></i> &nbsp; Distrito</span>
                                 </div>
                                 <select class="form-control" v-model.number="selDistrito">
-                                    <option></option>
+                                    <option>Todos</option>
                                     <option v-for="d in distritos">{{d}}</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-2">
+                        <div class="col-md-3">
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text">Classificação</span>
+                                    <span class="input-group-text" style="color:#545871"><i style="font-size:20px" class="fa">&#xf15e;</i> &nbsp; Classificação</span>
                                 </div>
                                 <select class="form-control" v-model="ordenacao">
-                                    <option></option>
-                                    <option>Ascendente</option>
                                     <option>Descendente</option>
+                                    <option>Ascendente</option>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <input class="form-control" v-model="search" type="text" placeholder="Pesquisar por e-mail ou nome...">
+                        <div class="col-md-3">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" style="color:#545871"><i style="font-size:18px" class="fa">&#xf002;</i></span>
+                                </div>
+                                <input class="form-control" v-model="search" type="text" placeholder="Pesquisar por e-mail ou nome...">
+                            </div>
                         </div>
                     </div>
                     <div class="row mx-2">
