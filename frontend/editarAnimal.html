@@ -91,14 +91,14 @@
                         <div class="form-group col-md-6">
                             <label for="sexo">Sexo</label><br>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="sexo" id="f" value="F"
-                                    v-model="sexo" disabled>
+                                <input class="form-check-input" type="radio" name="sexo" id="f" value="F" v-model="sexo"
+                                    disabled>
                                 <label style="font-size:1.2em; font-weight:450;" class="form-check-label"
                                     for="f">Feminino</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="sexo" id="m" value="M"
-                                    v-model="sexo" disabled>
+                                <input class="form-check-input" type="radio" name="sexo" id="m" value="M" v-model="sexo"
+                                    disabled>
                                 <label style="font-size:1.2em; font-weight:450;" class="form-check-label"
                                     for="m">Masculino</label>
                             </div>
@@ -205,7 +205,7 @@
                                                             style="font-size:1em; font-weight: 500; color: #545871;">Espécie:
                                                         </span>
                                                         <span
-                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">{{ animal.tipo }}
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">{{ getTipoNome(animal.tipo) }}
                                                         </span>
                                                     </p>
                                                     <p>
@@ -229,7 +229,7 @@
                                                             style="font-size:1em; font-weight: 500; color: #545871;">Sexo:
                                                         </span>
                                                         <span v-if="animal.sexo == 'F'"
-                                                            style="font-size:1em; font-weight: 500; color: #9597a6;">Feminino
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">Feminino
                                                         </span>
                                                         <span v-else
                                                             style="font-size:1em; font-weight: 400; color: #9597a6;">Masculino
