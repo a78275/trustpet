@@ -451,10 +451,10 @@ var vm = new Vue({
         petsitter: {},
         reviews: [],
         utilizador: {},
-        selDistrito: "",
-        selConcelho: "",
+        selDistrito: "Todos",
+        selConcelho: "Todos",
         search: "",
-        ordenacao: "",
+        ordenacao: "Descendente",
         servicosPetsitter: [],
         avaliacaoMediaNr: 0
     },
@@ -963,12 +963,12 @@ var vm = new Vue({
             var filtrados = this.petsitters
 
             // Filtrar por concelho
-            if(this.selConcelho != ""){
+            if(this.selConcelho != "Todos"){
                 filtrados = filtrados.filter(p => p.concelho == this.selConcelho)
             }
 
             // Filtrar por distrito
-            if(this.selDistrito != ""){
+            if(this.selDistrito != "Todos"){
                 filtrados = filtrados.filter(p => p.distrito == this.selDistrito)
             }
 
@@ -983,15 +983,13 @@ var vm = new Vue({
             }
 
             // Ordenação
-            if(this.ordenacao != ""){
-                if(this.ordenacao == "Ascendente"){
-                    var sorting = -1
-                    filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
-                }
-                else{
-                    var sorting = 1
-                    filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
-                }
+            if(this.ordenacao == "Ascendente"){
+                var sorting = -1
+                filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
+            }
+            else{
+                var sorting = 1
+                filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
             }
 
             return filtrados
