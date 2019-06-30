@@ -367,11 +367,12 @@ var vm = new Vue({
         petsitter: {},
         reviews: [],
         utilizador: {},
-        selDistrito: "Distrito",
-        selConcelho: "Concelho",
+        selDistrito: "",
+        selConcelho: "",
         search: "",
-        ordenacao: "Ordenar por classificação",
-        servicosPetsitter: []
+        ordenacao: "",
+        servicosPetsitter: [],
+        avaliacaoMediaNr: 0
     },
     mounted: function () {
         if (localStorage.sucesso == "login") {
@@ -467,6 +468,11 @@ var vm = new Vue({
                     const contentPetsitters = await responsePetsitters.json()
                     if (contentPetsitters.success) {
                         this.petsitters = contentPetsitters.petsitters
+
+                        for (var p of this.petsitters) {
+                            var value = parseFloat(String(p.avaliacaoMedia).substring(0,3));
+                            p.avaliacaoMedia = value
+                        }
                     }
                 }
                 if (window.location.href == "http://localhost/selServicos.html") {
@@ -851,28 +857,28 @@ var vm = new Vue({
         petsittersFiltrados: function() {
             var filtrados = this.petsitters
 
-            // Sem por concelho
-            if(this.selConcelho != "Concelho"){
-                filtrados = this.petsitters.filter(p => p.concelho == this.selConcelho)
+            // Filtrar por concelho
+            if(this.selConcelho != ""){
+                filtrados = filtrados.filter(p => p.concelho == this.selConcelho)
             }
 
             // Filtrar por distrito
-            else if(this.selDistrito != "Distrito"){
-                filtrados = this.petsitters.filter(p => p.distrito == this.selDistrito)
+            if(this.selDistrito != ""){
+                filtrados = filtrados.filter(p => p.distrito == this.selDistrito)
             }
 
             // Filtrar por search
             if(this.search != ""){
                 if(this.search.includes("@")){
-                    filtrados = this.petsitters.filter(p => p.email.toLowerCase().includes(this.search.toLowerCase()))
+                    filtrados = filtrados.filter(p => p.email.toLowerCase().includes(this.search.toLowerCase()))
                 }
                 else {
-                    filtrados = this.petsitters.filter(p => p.nome.toLowerCase().includes(this.search.toLowerCase()))
+                    filtrados = filtrados.filter(p => p.nome.toLowerCase().includes(this.search.toLowerCase()))
                 }
             }
 
             // Ordenação
-            if(this.ordenacao != "Ordenar por classificação"){
+            if(this.ordenacao != ""){
                 if(this.ordenacao == "Ascendente"){
                     var sorting = -1
                     filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)

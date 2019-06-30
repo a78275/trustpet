@@ -57,33 +57,42 @@
             <section class="p-2">
                 <div class="justify-content-center">
                     <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">PETSITTERS</h1>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <fieldset>
+                    <div class="row mx-4">
+                        <div class="col-md-2">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Concelho</span>
+                                </div>
                                 <select class="form-control" v-model.number="selConcelho">
-                                    <option>Concelho</option>
+                                    <option></option>
                                     <option v-for="c in concelhos">{{c}}</option>
                                 </select>
-                            </fieldset>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <fieldset>
+                        <div class="col-md-2">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Distrito</span>
+                                </div>
                                 <select class="form-control" v-model.number="selDistrito">
-                                    <option>Distrito</option>
+                                    <option></option>
                                     <option v-for="d in distritos">{{d}}</option>
                                 </select>
-                            </fieldset>
+                            </div>
                         </div>
-                        <div class="col-md-4">
-                            <fieldset>
+                        <div class="col-md-2">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">Classificação</span>
+                                </div>
                                 <select class="form-control" v-model="ordenacao">
-                                    <option>Ordenar por classificação</option>
+                                    <option></option>
                                     <option>Ascendente</option>
                                     <option>Descendente</option>
                                 </select>
-                            </fieldset>
+                            </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-6">
                             <input class="form-control" v-model="search" type="text" placeholder="Pesquisar por e-mail ou nome...">
                         </div>
                     </div>

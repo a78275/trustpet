@@ -202,6 +202,42 @@ $('#idade').on('input', function () {
     }
 });
 
+// Jardim
+$('#jardim').on('input', function () {
+    var input = $(this);
+    input.removeClass("invalid").addClass("valid");
+});
+
+// Desparasitacao
+$('#desparasitacao').on('input', function () {
+    var input = $(this);
+    input.removeClass("invalid").addClass("valid");
+});
+
+// Vacinas
+$('#vacinas').on('input', function () {
+    var input = $(this);
+    input.removeClass("invalid").addClass("valid");
+});
+
+// Esterilizacao
+$('#esterilizacao').on('input', function () {
+    var input = $(this);
+    input.removeClass("invalid").addClass("valid");
+});
+
+// Feminino
+$('#f').on('input', function () {
+    var input = $(this);
+    input.removeClass("invalid").addClass("valid");
+});
+
+// Masculino
+$('#m').on('input', function () {
+    var input = $(this);
+    input.removeClass("invalid").addClass("valid");
+});
+
 // After Form Submitted Validation
 $("#registo_submit button").click(function (event) {
     var form_data = $("#registoForm").serializeArray();

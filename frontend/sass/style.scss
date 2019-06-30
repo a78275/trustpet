@@ -598,3 +598,10 @@ input.invalid, textarea.invalid, select.invalid{
     padding-left: 10px;
     font-size: 10;
 }
+
+.filter {
+    background-color: $dark-blue; /* Background color */
+    color: white; /* Text color */
+    text-align: center; /* Centered text */
+    border-radius: 5px; /* Rounded borders */
+}
