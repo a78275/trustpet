@@ -1,8 +1,18 @@
 Vue.component('sidebardono', {
     methods: {
-        logout: function () {
-            localStorage.token = ""
-            window.location.replace("http://localhost/")
+        logout: async function () {
+            const response = await fetch("http://localhost:8080/trustpet_war_exploded/Logout", {
+                headers: {
+                    'Content-Type': 'application/json; charset=utf-8',
+                    'Token': localStorage.token
+                },
+                method: "GET"
+            })
+            const content = await response.json()
+            if (content.success) {
+                localStorage.token = ""
+                window.location.replace("http://localhost/")
+            }
         }
     },
     template: `
@@ -554,7 +564,7 @@ var vm = new Vue({
                         this.petsitters = contentPetsitters.petsitters
 
                         for (var p of this.petsitters) {
-                            var value = parseFloat(String(p.avaliacaoMedia).substring(0,3));
+                            var value = parseFloat(String(p.avaliacaoMedia).substring(0, 3));
                             p.avaliacaoMedia = value
                         }
                     }
@@ -673,7 +683,7 @@ var vm = new Vue({
             }
             // Ver se os animais que têm serviços são os que foram selecionados
             for (var animal of JSON.parse(localStorage.servicos)) {
-                if (!animais.includes(animal.id)){
+                if (!animais.includes(animal.id)) {
                     ok = false;
                 }
             }
@@ -953,28 +963,28 @@ var vm = new Vue({
         }
     },
     computed: {
-        concelhos: function() {
+        concelhos: function () {
             return [...new Set(this.petsitters.map(p => p.concelho))]
         },
-        distritos: function() {
+        distritos: function () {
             return [...new Set(this.petsitters.map(p => p.distrito))]
         },
-        petsittersFiltrados: function() {
+        petsittersFiltrados: function () {
             var filtrados = this.petsitters
 
             // Filtrar por concelho
-            if(this.selConcelho != ""){
+            if (this.selConcelho != "") {
                 filtrados = filtrados.filter(p => p.concelho == this.selConcelho)
             }
 
             // Filtrar por distrito
-            if(this.selDistrito != ""){
+            if (this.selDistrito != "") {
                 filtrados = filtrados.filter(p => p.distrito == this.selDistrito)
             }
 
             // Filtrar por search
-            if(this.search != ""){
-                if(this.search.includes("@")){
+            if (this.search != "") {
+                if (this.search.includes("@")) {
                     filtrados = filtrados.filter(p => p.email.toLowerCase().includes(this.search.toLowerCase()))
                 }
                 else {
@@ -983,12 +993,12 @@ var vm = new Vue({
             }
 
             // Ordenação
-            if(this.ordenacao != ""){
-                if(this.ordenacao == "Ascendente"){
+            if (this.ordenacao != "") {
+                if (this.ordenacao == "Ascendente") {
                     var sorting = -1
                     filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
                 }
-                else{
+                else {
                     var sorting = 1
                     filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
                 }

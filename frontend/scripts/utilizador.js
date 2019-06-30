@@ -100,7 +100,6 @@ var vm = new Vue({
             }
             else {
                 localStorage.sucesso = "erro";
-                window.location.replace("http://localhost/registoPerfilPetsitter.html")
             }
         },
         registoTiposAnimais: async function () {
@@ -124,14 +123,14 @@ var vm = new Vue({
                 }
                 else {
                     localStorage.sucesso = "erro";
-                    window.location.replace("http://localhost/registoTiposAnimais.html")
                 }
             }
         },
         registoServicos: async function () {
             var servicosSelecionados = []
+            var s = ""
             if (this.preco1 != '') {
-                var s = '1:' + this.preco1
+                s = '1:' + this.preco1
                 servicosSelecionados.push(s)
             }
             if (this.preco2 != '') {
@@ -146,7 +145,22 @@ var vm = new Vue({
                 s = '4:' + this.preco4
                 servicosSelecionados.push(s)
             }
-
+            if (this.preco5 != '') {
+                var s = '5:' + this.preco5
+                servicosSelecionados.push(s)
+            }
+            if (this.preco6 != '') {
+                s = '6:' + this.preco6
+                servicosSelecionados.push(s)
+            }
+            if (this.preco7 != '') {
+                s = '7:' + this.preco7
+                servicosSelecionados.push(s)
+            }
+            if (this.preco8 != '') {
+                s = '8:' + this.preco8
+                servicosSelecionados.push(s)
+            }
             if (servicosSelecionados.length == 0) {
                 this.snackbar("Preencha pelo menos um serviço.")
             }
@@ -162,13 +176,11 @@ var vm = new Vue({
                     })
                 })
                 const content = await response.json()
-                console.log(JSON.stringify(content))
                 if (content.success) {
                     window.location.replace("http://localhost/registoHorario.html")
                 }
                 else {
                     localStorage.sucesso = "erro";
-                    window.location.replace("http://localhost/registoServicos.html")
                 }
             }
         },
@@ -195,7 +207,6 @@ var vm = new Vue({
                 }
                 else {
                     localStorage.sucesso = "erro";
-                    window.location.replace("http://localhost/registoHorario.html")
                 }
             }
         },
@@ -263,7 +274,6 @@ var vm = new Vue({
             }
             else {
                 localStorage.sucesso = "erro"
-                window.location.replace("http://localhost/registoPerfilDono.html")
             }
         },
         criarUtilizador: function () {

@@ -166,7 +166,7 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-6">
-                            <button class="btn" id="whitebtn" onclick="goBack()">Voltar</button>
+                            <a href="registoTiposAnimais.html"><button class="btn" id="whitebtn">Voltar</button></a>
                         </div>
                         <div class="text-right col-6">
                             <button type="button" v-on:click="registoServicos()" id="darkbluebtn">Seguinte</button>
@@ -179,11 +179,6 @@
     <!-- Snackbar -->
     <div id="snackbar"></div>
 
-    <script>
-        function goBack() {
-            window.history.back();
-        }
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="scripts/utilizador.js"></script>
 </body>
