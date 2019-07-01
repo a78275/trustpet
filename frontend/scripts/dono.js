@@ -22,39 +22,35 @@ Vue.component('sidebardono', {
     </div>
     <ul class="list-unstyled components">
         <li>
-            <a href="pedidosPendentesDono.html">Pedidos Pendentes</a>
-        </li>
-        <li>
-            <a href="consultarPetsitters.html">Consultar Petsitters</a>
+            <a href="perfilDono.html">Consultar Perfil</a>
         </li>
         <li>
             <a href="selAnimaisData.html">Efetuar Pedido</a>
         </li>
         <li>
-            <a href="#dadosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dados
-                Pessoais</a>
-            <ul class="collapse list-unstyled" id="dadosSubmenu">
-                <li>
-                    <a href="perfilDono.html">Consultar Perfil</a>
-                </li>
-                <li>
-                    <a href="editarDadosDono.html">Editar Dados Pessoais</a>
-                </li>
-                <li>
-                    <a href="editarAnimais.html">Editar Dados dos Animais</a>
-                </li>
-                <li>
-                    <a href="adicionarAnimal.html">Adicionar Animal</a>
-                </li>
-            </ul>
+            <a href="pedidosPendentesDono.html">Pedidos Pendentes</a>
+        </li>
+        <li>
+            <a href="consultarPetsitters.html">Consultar Petsitters</a>
+        </li>
+        
+
+        <li class="sec2">
+            <a href="editarDadosDono.html">Editar Dados Pessoais</a>
         </li>
         <li class="sec2">
-            <a href="#">Notificações</a>
+            <a href="editarAnimais.html">Editar Dados dos Animais</a>
         </li>
         <li class="sec2">
-            <a href="#">Chat</a>
+            <a href="adicionarAnimal.html">Adicionar Animal</a>
         </li>
         <li class="sec3">
+            <a href="#">Notificações</a>
+        </li>
+        <li class="sec3">
+            <a href="#">Chat</a>
+        </li>
+        <li class="sec4">
             <a v-on:click="logout()">Logout</a>
         </li>
     </ul>

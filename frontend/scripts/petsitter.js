@@ -22,36 +22,32 @@ Vue.component('sidebarpetsitter', {
     </div>
     <ul class="list-unstyled components">
         <li>
-            <a href="pedidosPendentesPetsitter.html">Pedidos Pendentes</a>
+            <a href="perfilPetsitter.html">Consultar Perfil</a>
         </li>
         <li>
-            <a href="#dadosSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Dados
-                Pessoais</a>
-            <ul class="collapse list-unstyled" id="dadosSubmenu">
-                <li>
-                    <a href="perfilPetsitter.html">Consultar Perfil</a>
-                </li>
-                <li>
-                    <a href="editarDadosPetsitter.html">Editar Dados Pessoais</a>
-                </li>
-                <li>
-                    <a href="editarTiposAnimais.html">Editar Tipos Animais</a>
-                </li>
-                <li>
-                    <a href="editarServicos.html">Editar Serviços Fornecidos</a>
-                </li>
-                <li>
-                    <a href="editarHorario.html">Editar Horário</a>
-                </li>
-            </ul>
+            <a href="pedidosPendentesPetsitter.html">Pedidos Pendentes</a>
+        </li>
+        
+        <li class="sec2">
+            <a href="editarDadosPetsitter.html">Editar Dados Pessoais</a>
         </li>
         <li class="sec2">
+            <a href="editarTiposAnimais.html">Editar Tipos Animais</a>
+        </li>
+        <li class="sec2">
+            <a href="editarServicos.html">Editar Serviços Fornecidos</a>
+        </li>
+        <li class="sec2">
+            <a href="editarHorario.html">Editar Horário</a>
+        </li>
+
+        <li class="sec3">
             <a href="#">Notificações</a>
         </li>
-        <li class="sec2">
+        <li class="sec3">
             <a href="#">Chat</a>
         </li>
-        <li class="sec3">
+        <li class="sec4">
             <a v-on:click="logout()">Logout</a>
         </li>
     </ul>

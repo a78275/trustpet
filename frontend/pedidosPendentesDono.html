@@ -71,27 +71,33 @@
 
                     <div class="card m-5" style="color:#545871;" v-for="pedido in pedidosPendentes"
                         v-if="checkData(pedido.dataFim)">
-                        <div class="row text-center py-3" v-if="pedido.petsitter">
-                            <div class="col-12">
+
+                        <h1 class="px-5 py-3 text-center" style="color:#545871; font-size:1.5em;">PETSITTER</h1>
+                        <div class="row text-center">
+                            <div class="col-xs-12 col-sm-12 col-md-6" v-if="pedido.petsitter">
                                 <img :src=pedido.petsitter.avatar
-                                    style="overflow:hidden; width:130px; height:130px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
-                                <span v-if="pedido.petsitter">{{ pedido.petsitter.email }}</span>
+                                    style="overflow:hidden; width:100px; height:100px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                                <span>{{ pedido.petsitter.email }}</span>
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 my-auto" v-if="pedido.petsitter">
+                                <button id="pinkbtn" class="btn my-3" type="button"
+                                    v-on:click="pagpetsitter(pedido.petsitter.email)"
+                                    style="width: 55%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
+                                    Consultar Perfil</button>
 
-                            <button id="pinkbtn" class="btn mb-3" type="button"
-                                v-on:click="pagPetsitter(pedido.petsitter.email)"
-                                style="width: 30%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
-                                Consultar Perfil</button>
+                                <button id="bluepinkbtn" class="btn my-3" type="button" data-toggle="modal"
+                                    :data-target="`#avaliar${pedido.petsitter.email}`"
+                                    style="width: 55%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
+                                    Avaliar</button>
+                                <avaliar-petsitter :id="`avaliar${pedido.petsitter.email}`"
+                                    v-bind:petsitter="pedido.petsitter">
+                                </avaliar-petsitter>
 
-                            <button id="bluepinkbtn" class="btn mb-3" type="button" data-toggle="modal"
-                                :data-target="`#avaliar${pedido.petsitter.email}`"
-                                style="width: 30%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">
-                                Avaliar</button>
-                            <avaliar-petsitter :id="`avaliar${pedido.petsitter.email}`"
-                                v-bind:petsitter="pedido.petsitter">
-                            </avaliar-petsitter>
+                            </div>
                         </div>
-                        <div id="marcacao" class="px-5 pt-3 text-center">
+
+                        <h1 class="px-5 py-3 text-center" style="color:#545871; font-size:1.5em;">DADOS DO PEDIDO</h1>
+                        <div id="marcacao" class="px-5 text-center">
                             <table class="table table-bordered"
                                 style="margin-left: auto; margin-right: auto; table-layout: fixed;">
                                 <tbody style="color: #545871;">
@@ -115,12 +121,13 @@
                             </table>
                         </div>
 
+                        <h1 class="px-5 py-3 text-center" style="color:#545871; font-size:1.5em;">SERVIÇOS</h1>
                         <div id="animaisServicos" class="row text-center py-3" v-for="a in pedido.animalServicos">
-                            <div class="col-4">
+                            <div class="col-6">
                                 <img v-if="a" :src=a.avatar
                                     style="overflow:hidden; width:100px; height:100px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
                             </div>
-                            <div class="col-8 text-left">
+                            <div class="col-6 text-left">
                                 <p style="color: #545871; font-size: 1.5em; font-weight: 500;">
                                     {{ a.nome }}
                                 </p>
@@ -129,6 +136,7 @@
                                 </ul>
                             </div>
                         </div>
+
                         <button id="pinkbtn" class="btn mb-3" type="button" data-toggle="modal"
                             :data-target="`#cancelar${pedido.id}`"
                             style="width: 30%; font-size: 1em; display: block; margin-left: auto; margin-right: auto;">

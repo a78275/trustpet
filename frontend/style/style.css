@@ -107,10 +107,14 @@ body {
   padding: 20px 0;
 }
 #sidebar .sec2 {
-  transform: translate(0%, 60%);
+  transform: translate(0%, 35%);
 }
 #sidebar .sec3 {
-  transform: translate(0%, 100%);
+  transform: translate(0%, 70%);
+}
+#sidebar .sec4 {
+  transform: translate(0%, 105%);
+  z-index: 10;
 }
 #sidebar a:hover, #sidebar a:focus {
   color: inherit;
