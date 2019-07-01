@@ -99,7 +99,6 @@ public class DonoBean implements DonoBeanLocal {
             return false;
         }
 
-
         animal.setNome(nome);
         animal.setIdade(idade);
         animal.setSexo(sexo);

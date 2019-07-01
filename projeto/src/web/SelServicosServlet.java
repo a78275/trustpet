@@ -17,10 +17,6 @@ import java.util.Map;
 @WebServlet(name = "SelServicosServlet", urlPatterns = {"/SelServicos"})
 public class SelServicosServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
@@ -29,7 +25,7 @@ public class SelServicosServlet extends HttpServlet {
         JSONObject parameters = Util.parseBody(request.getReader());
         JSONObject mensagem = new JSONObject();
 
-        int idPedido = Integer.parseInt((String) parameters.getString("idPedido"));
+        int idPedido = Integer.parseInt(parameters.getString("idPedido"));
         Map<Integer, List<Integer>> animalServicos = Util.parseAnimalServicosArray(parameters);
 
         if(animalServicos!=null) {

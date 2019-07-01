@@ -28,7 +28,7 @@ public class CancelarPedidoServlet extends HttpServlet {
         String token = request.getHeader("Token");
         String email = FacadeBeans.validarToken(token);
         if(email!=null) {
-            boolean result = FacadeBeans.cancelarPedido((int) parameters.get("idPedido"));
+            boolean result = FacadeBeans.cancelarPedido(Integer.parseInt((String) parameters.get("idPedido")));
             mensagem.put("success", result);
         }
         else {

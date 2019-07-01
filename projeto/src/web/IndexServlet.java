@@ -34,23 +34,18 @@ public class IndexServlet extends HttpServlet {
             if(email!=null) {
                 mensagem.put("email", email);
                 mensagem.put("tipo", FacadeBeans.tipoUtilizador(email));
-                mensagem.put("success", "true");
+                mensagem.put("success", true);
             }
             else {
                 mensagem.put("email", "null");
-                mensagem.put("success", "true");
+                mensagem.put("success", false);
             }
         }
         else {
-            mensagem.put("success", "true");
+            mensagem.put("success", true);
         }
 
         out.print(mensagem);
         out.flush();
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
     }
 }

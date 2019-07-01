@@ -14,7 +14,6 @@ import java.util.Map;
 public class PetsitterBean implements PetsitterBeanLocal {
     @Override
     public boolean registarTiposAnimais(String emailPetsitter, List<Integer> tipos) {
-        //TODO Erro de não ter tipos de animais na collection mas ter a cahve na BD
         // Get do petsitter
         Petsitter petsitter = null;
         try {
@@ -41,7 +40,6 @@ public class PetsitterBean implements PetsitterBeanLocal {
             return true;
         }
         else {
-            System.out.println("Email " + petsitter.getEmail() + " Novos Tipos " + tipos);
             // Set dos animais
             for(int idTipo : tipos) {
                 TipoAnimal animal = null;

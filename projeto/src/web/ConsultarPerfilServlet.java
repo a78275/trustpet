@@ -75,7 +75,6 @@ public class ConsultarPerfilServlet extends HttpServlet {
                     Dono dono = (Dono) utilizador;
                     mensagem.put("utilizador", Util.parseDono(dono));
                 }
-
                 mensagem.put("success", true);
             } else {
                 mensagem.put("success", false);

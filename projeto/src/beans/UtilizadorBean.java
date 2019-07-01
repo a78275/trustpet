@@ -167,7 +167,6 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
 
     @Override
     public Utilizador consultarPerfil(String email, String tipoUtilizador) {
-
         if (tipoUtilizador.equals("dono")) {
             Dono dono = null;
             try {
@@ -246,8 +245,6 @@ public class UtilizadorBean implements UtilizadorBeanLocal {
         utilizador.setConcelho(concelho);
         utilizador.setDistrito(distrito);
         utilizador.setAtivo(ativo);
-        utilizador.setAvaliacaoMedia(0);
-        utilizador.setNrAvaliacoes(0);
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         utilizador.setDataNasc(format.format(dataNasc));
 
