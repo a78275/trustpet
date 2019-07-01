@@ -23,10 +23,10 @@ public class ConsultarPedidosServlet extends HttpServlet {
         JSONObject mensagem = new JSONObject();
         String token = request.getHeader("Token");
 
-        String emailDono = FacadeBeans.validarToken(token);
+        String email = FacadeBeans.validarToken(token);
 
-        if(emailDono != null) {
-            List<Pedido> pedidos = FacadeBeans.consultarPedidos(emailDono);
+        if(email != null) {
+            List<Pedido> pedidos = FacadeBeans.consultarPedidos(email);
 
             // Erro nos beans
             if (pedidos == null) {

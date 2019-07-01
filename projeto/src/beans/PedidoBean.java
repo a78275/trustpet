@@ -551,56 +551,8 @@ public class PedidoBean implements PedidoBeanLocal {
         }
     }
 
-    // TODO Apagar?
-    private boolean setAnimalServicos(Pedido pedido, Map<Integer, List<Integer>> animalServicos) {
-        for (Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()) {
-            // Get do animal
-            Animal animal = null;
-            try {
-                animal = FacadeDAOs.getAnimal(e.getKey());
-            } catch (PersistentException e1) {
-                e1.printStackTrace();
-                return false;
-            }
-
-            // Get do servico
-            Servico servico = null;
-            for (int idServico : e.getValue()) {
-                try {
-                    servico = FacadeDAOs.getServico(idServico);
-                } catch (PersistentException e1) {
-                    e1.printStackTrace();
-                    return false;
-                }
-            }
-
-            // Create do animalServico
-            AnimalServico animalServico = FacadeDAOs.createAnimalServico();
-            animalServico.setAnimal(animal);
-            animalServico.setServico(servico);
-
-            // Save do animalServico
-            try {
-                boolean save = FacadeDAOs.saveAnimalServico(animalServico);
-
-                if (!save) {
-                    return false;
-                }
-            } catch (PersistentException e1) {
-                e1.printStackTrace();
-                return false;
-            }
-
-            // Add do animalServico aos animalServicos do Pedido
-            pedido.animalServicos.add(animalServico);
-        }
-
-        return true;
-    }
-
     @Override
     public int editarPedido(int idPedido, Date dataInicio, Date dataFim) {
-        
         // Get do pedido
         Pedido pedido = null;
         try {
@@ -619,9 +571,6 @@ public class PedidoBean implements PedidoBeanLocal {
         pedido.setDataInicio(parsedDataInicio);
         String parsedDataFim = format.format(dataFim);
         pedido.setDataFim(parsedDataFim);
-
-        // Set do estado
-        pedido.setAtivo(true);
 
         // Save do pedido na BD
         try {

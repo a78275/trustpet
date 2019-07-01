@@ -23,11 +23,6 @@ import java.util.Map;
 @WebServlet(name = "RegistarPedidoServlet", urlPatterns = {"/RegistarPedido"})
 public class RegistarPedidoServlet extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
-
-    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/json");
@@ -44,12 +39,11 @@ public class RegistarPedidoServlet extends HttpServlet {
         String token = request.getHeader("Token");
         String email = FacadeBeans.validarToken(token);
 
-
         if (email!= null && dataInicio != null && dataFim != null && animais != null) {
             int idPedido;
             if(parameters.keySet().contains("idPedido") && !(parameters.get("idPedido").equals(""))) {
                 // Edição de pedido
-                idPedido = FacadeBeans.editarPedido((int) parameters.get("idPedido"),dataInicio,dataFim);
+                idPedido = FacadeBeans.editarPedido(Integer.parseInt((String) parameters.get("idPedido")),dataInicio,dataFim);
             }
             else {
                 // Novo pedido
