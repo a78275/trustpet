@@ -155,7 +155,7 @@ Vue.component('avaliar-dono', {
     },
     methods: {
         avaliar: async function (id) {
-            if(this.pontuacao == 0){
+            if (this.pontuacao == 0) {
                 this.snackbar("Selecione uma classificação.")
             }
             else {
@@ -259,7 +259,7 @@ Vue.component('avaliar-dono', {
                     data-dismiss="modal">Voltar</button>
                 <button type="button" v-on:click="avaliar(dono)"
                     style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
-                    id="darkbluebtn">Enviar</button>
+                    id="bluepinkbtn">Enviar</button>
             </div>
         </div>
     </div>

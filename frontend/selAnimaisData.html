@@ -60,7 +60,7 @@
     <div class="wrapper" id="dono">
         <!-- Navbar -->
         <sidebardono></sidebardono>
-        <div id="content">
+        <div id="content" style="background-color: #f7eceb;">
             <button type="button" id="sidebarCollapse" style="z-index: 10;">
                 <i class="fas fa-align-left"></i>
             </button>
@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <div v-if="animais.length==0" class="alert alert-danger ml-auto mr-auto my-4" role="alert"
+            <div v-if="animais.length==0" class="alert alert-danger" role="alert"
                 style="width:50%; margin-left:auto; margin-right:auto;">
                 <h4 class="alert-heading">Ainda não tem animais registados!</h4>
                 <p>Adicione os seus animais para que os nossos petsitters possam cuidar deles.</p>
@@ -94,82 +94,79 @@
                 </div>
             </div>
 
-            <div v-else>
-                <h1 class="px-5 py-4" style="color:#545871; font-size:2em;">Selecione os animais que receberão os
-                    cuidados:
-                </h1>
-                <form id="animaisdata_form">
-                    <div class="row">
-                        <div class="col-xs-6 col-sm-6 col-md-4 col-xl-3 text-center" v-for="animal in animais"
-                            v-bind:key="animal.id">
+            <h1 class="px-5 py-4 text-center" style="color:#545871; font-size:2em;">Selecione os animais que receberão
+                os cuidados:
+            </h1>
+            <form id="animaisdata_form">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-4 col-xl-3 text-center" v-for="animal in animais"
+                        v-bind:key="animal.id">
 
-                            <label>
-                                <input class="form-check-input" type="checkbox" :value=animal.id
-                                    v-model="animaisSelecionados">
-                                <img class="img-responsive rounded-circle" :src=animal.avatar
-                                    style="overflow:hidden; width:130px; height:130px;" />
-                            </label>
-                            <br>
-                            <p class="pb-4" style="color: #545871; font-size: 1.5em; font-weight: 500;">
-                                {{ animal.nome }}
-                            </p>
-                        </div>
+                        <label>
+                            <input class="form-check-input" type="checkbox" :value=animal.id
+                                v-model="animaisSelecionados">
+                            <img class="img-responsive rounded-circle" :src=animal.avatar
+                                style="overflow:hidden; width:130px; height:130px;" />
+                        </label>
+                        <br>
+                        <p class="pb-4" style="color: #545871; font-size: 1.5em; font-weight: 500;">
+                            {{ animal.nome }}
+                        </p>
                     </div>
+                </div>
 
-                    <div style="background-color: #f7eceb;" class="p-2">
-                        <div class="justify-content-center">
-                            <h1 class="px-5 py-2" style="color:#545871; font-size:2em;">Selecione as datas e horas entre
-                                as quais serão prestados os serviços:</h1>
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-12 col-md-6 px-4 py-2">
-                                    <h5 style="color:#545871;">Data e hora de início:</h5>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="date" class="form-control" name="dataInicio" id="dataInicio"
-                                                v-model="dataInicio" required>
-                                            <span class="error">Introduza uma data e uma hora posteriores às
-                                                atuais.</span>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="time" class="form-control" name="horaInicio" id="horaInicio"
-                                                v-model="horaInicio" required>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-12 col-md-6 px-4 py-2">
-                                    <h5 style="color:#545871;">Data e hora de fim:</h5>
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <input type="date" class="form-control" name="dataFim" id="dataFim"
-                                                v-model="dataFim" required>
-                                            <span class="error">Introduza uma data e uma hora posteriores à data e hora
-                                                de
-                                                início.</span>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <input type="time" class="form-control" name="horaFim" id="horaFim"
-                                                v-model="horaFim" required>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-
-                <footer class="footer py-2">
-                    <div class="container my-3">
+                <div style="background-color: #f7eceb;" class="p-2">
+                    <div class="justify-content-center">
+                        <h1 class="px-5 py-2  text-center" style="color:#545871; font-size:2em;">Selecione as datas e
+                            horas entre
+                            as quais serão prestados os serviços:</h1>
                         <div class="row">
-                            <div class="col-6">
-                                <a href="indexDono.html"><button class="btn" id="lightpinkbtn">Voltar</button></a>
+                            <div class="col-xs-12 col-sm-12 col-md-6 px-4 py-2">
+                                <h5 style="color:#545871;">Data e hora de início:</h5>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input type="date" class="form-control" name="dataInicio" id="dataInicio"
+                                            v-model="dataInicio" required>
+                                        <span class="error">Introduza uma data e uma hora posteriores às atuais.</span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="time" class="form-control" name="horaInicio" id="horaInicio"
+                                            v-model="horaInicio" required>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="text-right col-6" id="selData">
-                                <button class="btn" id="bluepinkbtn" v-on:click="validarAnimaisData()">Seguinte</button>
+                            <div class="col-xs-12 col-sm-12 col-md-6 px-4 py-2">
+                                <h5 style="color:#545871;">Data e hora de fim:</h5>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <input type="date" class="form-control" name="dataFim" id="dataFim"
+                                            v-model="dataFim" required>
+                                        <span class="error">Introduza uma data e uma hora posteriores à data e hora de
+                                            início.</span>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <input type="time" class="form-control" name="horaFim" id="horaFim"
+                                            v-model="horaFim" required>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </footer>
-            </div>
+                </div>
+            </form>
+
+            <footer class="footer py-2">
+                <div class="container my-3">
+                    <div class="row">
+                        <div class="col-6">
+                            <a href="indexDono.html"><button class="btn" id="whitebtn">Voltar</button></a>
+                        </div>
+                        <div class="text-right col-6" id="selData">
+                            <button class="btn" id="darkbluebtn" v-on:click="validarAnimaisData()">Seguinte</button>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
     </div>
     <!-- Snackbar -->
