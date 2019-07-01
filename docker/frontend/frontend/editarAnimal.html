@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="favicon.ico">
+    <title>Trust Pet</title>
+    <link rel="stylesheet" type="text/css" href="style/reset.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+</head>
+
+<style>
+    label {
+        color: #545871;
+        font-weight: 500;
+        font-size: 1.3em;
+    }
+</style>
+
+<body>
+    <div class="wrapper" id="dono">
+        <!-- Navbar -->
+        <sidebardono></sidebardono>
+        <div id="content">
+            <button type="button" id="sidebarCollapse">
+                <i class="fas fa-align-left"></i>
+            </button>
+            <div id="header" style="background-color: #f7eceb;" class="p-2 pb-4">
+                <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2.5em;">EDITAR ANIMAL</h1>
+                <form class="mx-5 my-3" id="animalForm">
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="nome">Nome</label>
+                            <input type="text" name="nome" class="form-control" id="nome" v-model="nome"
+                                placeholder="Introduza o nome do seu animal" required>
+                            <span class="error">Preencha este campo.</span>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="tipo">Espécie</label>
+                            <select class="form-control" v-model="tipo" disabled="true">
+                                <option :value=tipo.id selected>
+                                    {{ tipo }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="raca">Raça</label>
+                            <input type="text" class="form-control" id="raca" v-model="raca"
+                                placeholder="Introduza a raça do seu animal" required>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="tipo">Idade</label>
+                            <select class="form-control" name="idade" id="idade" v-model="idade" required>
+                                <option value="Bebé">Bebé</option>
+                                <option value="Jovem">Jovem</option>
+                                <option value="Adulto">Adulto</option>
+                                <option value="Sénior">Sénior</option>
+                            </select>
+                            <span class="error">Selecione a idade do seu animal.</span>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="sexo">Sexo</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sexo" id="f" value="F" v-model="sexo"
+                                    disabled>
+                                <label style="font-size:1.2em; font-weight:450;" class="form-check-label"
+                                    for="f">Feminino</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="sexo" id="m" value="M" v-model="sexo"
+                                    disabled>
+                                <label style="font-size:1.2em; font-weight:450;" class="form-check-label"
+                                    for="m">Masculino</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="porte">Porte</label>
+                            <select class="form-control" v-model="porte" required>
+                                <option>Pequeno</option>
+                                <option>Médio</option>
+                                <option>Grande</option>
+                                <option>Muito Grande</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group shadow-textarea col-md-6">
+                            <label for="alergias">Alergias</label>
+                            <textarea class="form-control z-depth-1" rows="3" id="alergias" v-model="alergias"
+                                placeholder="O seu animal tem alergias? Quais?"></textarea>
+                        </div>
+                        <div class="form-group shadow-textarea col-md-6">
+                            <label for="doencas">Doenças</label>
+                            <textarea class="form-control z-depth-1" rows="3" id="doencas" v-model="doencas"
+                                placeholder="O seu animal tem doenças? Quais?"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group shadow-textarea col-md-6">
+                            <label for="comportamento">Comportamentos estranhos</label>
+                            <textarea class="form-control z-depth-1" rows="3" id="comportamento" v-model="comportamento"
+                                placeholder="O seu animal tem comportamentos estranhos? Quais?"></textarea>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="pic">Fotografia</label>
+                            <input type="text" class="form-control" id="pic" v-model="avatar"
+                                placeholder="Introduza o URL da fotografia do seu animal" required>
+                            <span class="error">Introduza um URL válido.</span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="vacinas" v-model="vacinas">
+                            <label class="form-check-label" for="vacinas">
+                                Tem vacinas em dia?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="esterilizacao"
+                                v-model="esterilizacao">
+                            <label class="form-check-label" for="esterilizacao">
+                                É esterilizado?
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" value="" id="desparasitacao"
+                                v-model="desparasitacao">
+                            <label class="form-check-label" for="desparasitacao">
+                                Tem desparasitação em dia?
+                            </label>
+                        </div>
+                    </div>
+                </form>
+                <footer class="footer mt-auto py-3">
+                    <div class="container">
+                        <div class="row">
+                            <div class="text-right col-12">
+                                <div id="animal_edit">
+                                    <button type="button" v-on:click="criarAnimal()" id="darkbluebtn">Guardar</button>
+                                </div>
+                                <div class="modal fade" id="confirmarAnimal" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" style="color: #545871;"
+                                                    id="exampleModalLongTitle">
+                                                    Novo Animal
+                                                </h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img :src=animal.avatar class="my-2"
+                                                    style="overflow:hidden; width:170px; height:170px; border-radius:50%; display: block; margin-left: auto; margin-right: auto;">
+                                                <span class="text-center">
+                                                    <h2 class="text-uppercase"
+                                                        style="font-size:1.7em; font-weight: 500; color: #545871;">
+                                                        {{ animal.nome }}</h2>
+                                                    <p class="text-muted">
+                                                        {{ animal.raca }}</p>
+                                                </span>
+                                                <hr
+                                                    style="margin-top:0; border: 0.5px solid #ebd0ce; width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                                                <div class="text-left"
+                                                    style="width: 90%; display: block; margin-left: auto; margin-right: auto;">
+                                                    <p>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Espécie:
+                                                        </span>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">{{ getTipoNome(animal.tipo) }}
+                                                        </span>
+                                                    </p>
+                                                    <p>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Idade:
+                                                        </span>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">{{ animal.idade }}
+                                                        </span>
+                                                    </p>
+                                                    <p>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Porte:
+                                                        </span>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">{{ animal.porte }}
+                                                        </span>
+                                                    </p>
+                                                    <p>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Sexo:
+                                                        </span>
+                                                        <span v-if="animal.sexo == 'F'"
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">Feminino
+                                                        </span>
+                                                        <span v-else
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">Masculino
+                                                        </span>
+                                                    </p>
+                                                    <p v-if="animal.alergias">
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Alergias:
+                                                        </span>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">{{ animal.alergias }}
+                                                        </span>
+                                                    </p>
+                                                    <p v-if="animal.doencas">
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Doenças:
+                                                        </span>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">{{ animal.doencas }}
+                                                        </span>
+                                                    </p>
+                                                    <p v-if="animal.comportamento">
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Comportamentos
+                                                            estranhos:
+                                                        </span>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">{{ animal.comportamento }}
+                                                        </span>
+                                                    </p>
+                                                    <p>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Vacinado:
+                                                        </span>
+                                                        <span v-if="animal.vacinas == 'true'"
+                                                            style="font-size:1em; font-weight: 500; color: #9597a6;">Sim
+                                                        </span>
+                                                        <span v-else
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">Não
+                                                        </span>
+                                                    </p>
+                                                    <p>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Desparasitado:
+                                                        </span>
+                                                        <span v-if="animal.desparasitacao == 'true'"
+                                                            style="font-size:1em; font-weight: 500; color: #9597a6;">Sim
+                                                        </span>
+                                                        <span v-else
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">Não
+                                                        </span>
+                                                    </p>
+                                                    <p>
+                                                        <span
+                                                            style="font-size:1em; font-weight: 500; color: #545871;">Esterilizado:
+                                                        </span>
+                                                        <span v-if="animal.esterilizacao == 'true'"
+                                                            style="font-size:1em; font-weight: 500; color: #9597a6;">Sim
+                                                        </span>
+                                                        <span v-else
+                                                            style="font-size:1em; font-weight: 400; color: #9597a6;">Não
+                                                        </span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn" id="pinkbtn"
+                                                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                                                    data-dismiss="modal">Voltar</button>
+                                                <button type="button" v-on:click="editarAnimal()"
+                                                    style="font-size: 1em; padding-right: 20px; padding-left: 20px;"
+                                                    id="bluepinkbtn">Confirmar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+    </div>
+    <!-- Snackbar -->
+    <div id="snackbar"></div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="scripts/sidebar.js"></script>
+    <script src="scripts/dono.js"></script>
+    <script src="scripts/validarRegisto.js"></script>
+</body>
+
+</html>

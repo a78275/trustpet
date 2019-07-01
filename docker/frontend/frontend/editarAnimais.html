@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="icon" href="favicon.ico">
+    <title>Trust Pet</title>
+    <link rel="stylesheet" type="text/css" href="style/reset.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.min.css">
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js"
+        integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ"
+        crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js"
+        integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY"
+        crossorigin="anonymous"></script>
+</head>
+
+<style>
+    .table td {
+        border: #ebd0ce solid 1px !important;
+    }
+</style>
+
+<body>
+    <div class="wrapper" id="dono">
+        <!-- Navbar -->
+        <div>
+            <sidebardono></sidebardono>
+        </div>
+        <!-- Page Content -->
+        <div id="content" style="background-color: #f7eceb;">
+            <button type="button" id="sidebarCollapse">
+                <i class="fas fa-align-left"></i>
+            </button>
+
+            <section>
+                <div class="justify-content-center">
+                    <h1 class="px-5 py-2 text-center " style="color:#545871; font-size:2em;">OS SEUS ANIMAIS</h1>
+                    <div v-if="animais.length==0" class="alert alert-danger" role="alert"
+                        style="width:50%; margin-left:auto; margin-right:auto;">
+                        <h4 class="alert-heading">Ainda não tem animais registados!</h4>
+                        <p>Adicione os seus animais para que os nossos petsitters possam cuidar deles.</p>
+                        <hr>
+                        <div class="text-center">
+                            <a href="adicionarAnimal.html"></a><button type="button" id="whitebtn">Adicionar
+                                Animal</button></a>
+                        </div>
+                    </div>
+                    <div class="row mx-1">
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12" v-for="animal in animais"
+                            v-bind:key="animal.id">
+                            <div class="card m-3" style="color:#545871;">
+                                <card-animal v-bind:animal="animal"></card-animal>
+                                <footer class="footer mt-auto py-3">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                <button class="btn" id="pinkbtn" data-toggle="modal"
+                                                    :data-target="`#remover${animal.id}`"
+                                                    style="font-size: 1em;">Remover</button>
+                                            </div>
+                                            <rm-animal :id="`remover${animal.id}`" v-bind:animal="animal"></rm-animal>
+                                            <div class="text-right col-6">
+                                                <button type="button" id="bluepinkbtn"
+                                                    v-on:click="pagEditarAnimal(animal.id)"
+                                                    style="font-size: 1em;">Editar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </footer>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Snackbar -->
+    <div id="snackbar"></div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script src="scripts/sidebar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="scripts/dono.js"></script>
+</body>

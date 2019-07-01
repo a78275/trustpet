@@ -132,7 +132,7 @@ class DonoBehavior(TaskSet):
         else:
             response.failure("Erro")
 
-    @task(40)
+    @task(20)
     def consultarPerfil(self):
         response = self.client.request("GET", "/ConsultarPerfil", catch_response=True,
                                        headers={"Content-Type": "application/x-www-form-urlencoded",
@@ -186,7 +186,7 @@ class DonoBehavior(TaskSet):
         else:
             response.failure("Erro")
 
-    @task(10)
+    @task(20)
     def adicionarAnimal(self):
         packet_data = "{'nome':'Maniche','idade':'Jovem','porte':'Pequeno','sexo':'F','alergias':'a','doencas':'b','comportamento':'c','vacinas':'true','desparasitacao':'true','esterilizacao':'true','raca':'Engodo2','avatar':'','tipo':'1'}"
         response = self.client.request("POST", "/EditarAnimal", catch_response=True, data=packet_data,
@@ -348,7 +348,7 @@ class PetsitterBehavior(TaskSet):
         else:
             response.failure("Erro")
 
-    @task(10)
+    @task(5)
     def editarServicos(self):
         packet_data = "{'servicos':['1:3.5','2:4.7','3:2','4:5']}"
         response = self.client.request("POST", "/EditarServicos", catch_response=True, data=packet_data,
@@ -362,7 +362,7 @@ class PetsitterBehavior(TaskSet):
         else:
             response.failure("Erro")
 
-    @task(10)
+    @task(5)
     def editarHorario(self):
         packet_data = "{'horario':['1:12','1:13','1:14','1:16','1:17','2:12','2:13','2:14','2:16','2:17','3:12','3:13','3:14','3:16','3:17','4:12','4:13','5:12','5:13','6:12','6:13','7:12','7:13']}"
         response = self.client.request("POST", "/EditarHorario", catch_response=True, data=packet_data,
@@ -507,7 +507,7 @@ class WebsiteUser(HttpLocust):
     task_set = IndexBehavior
     min_wait = 3000
     max_wait = 5000
-    host = "http://localhost:8085/trustpet_war_exploded.war"
+    host = "http://localhost:8088/trustpet_war_exploded.war"
 
     def __init__(self):
         super(WebsiteUser, self).__init__()
