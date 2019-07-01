@@ -507,7 +507,7 @@ class WebsiteUser(HttpLocust):
     task_set = IndexBehavior
     min_wait = 3000
     max_wait = 5000
-    host = "http://localhost:8088/trustpet_war_exploded.war"
+    host = "http://localhost:8080/trustpet_war_exploded.war"
 
     def __init__(self):
         super(WebsiteUser, self).__init__()
