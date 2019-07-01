@@ -38,7 +38,7 @@ public class AutenticarServlet extends HttpServlet {
                 mensagem.put("tipo", "dono");
             }
             else {
-                mensagem.put("tipo","wut");
+                mensagem.put("tipo","");
             }
 
             String tokenAtual = FacadeBeans.isAutenticado(email);

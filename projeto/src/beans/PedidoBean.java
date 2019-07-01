@@ -152,9 +152,6 @@ public class PedidoBean implements PedidoBeanLocal {
         String parsedDataFim = format.format(dataFim);
         pedido.setDataFim(parsedDataFim);
 
-        //TODO Tirar
-        pedido.setAtivo(true);
-
         // Save do pedido na BD
         try {
             FacadeDAOs.savePedido(pedido);
@@ -375,8 +372,6 @@ public class PedidoBean implements PedidoBeanLocal {
     }
 
     private boolean checkPetsitterHorario(Petsitter petsitter, Date dataInicio, Date dataFim) {
-        //TODO Garantir que isto está correto
-        //TODO Garantir que as horas são medidas em 24horas (e não AM/PM)
         DateFormat horaformat = new SimpleDateFormat("HH");
 
         Calendar calendar = Calendar.getInstance();
@@ -388,7 +383,6 @@ public class PedidoBean implements PedidoBeanLocal {
         int dataFimDia = calendar.get(Calendar.DAY_OF_WEEK);
         int dataFimHora = Integer.parseInt(horaformat.format(dataFim));
 
-        //TODO Mudar fator?
         int fator = 3;
         int diferenca;
 
@@ -557,6 +551,7 @@ public class PedidoBean implements PedidoBeanLocal {
         }
     }
 
+    // TODO Apagar?
     private boolean setAnimalServicos(Pedido pedido, Map<Integer, List<Integer>> animalServicos) {
         for (Map.Entry<Integer, List<Integer>> e : animalServicos.entrySet()) {
             // Get do animal
