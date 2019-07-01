@@ -630,7 +630,7 @@ var vm = new Vue({
                     this.desparasitacao = animal.desparasitacao
                     this.esterilizacao = animal.esterilizacao
                     this.raca = animal.raca
-                    this.tipo = animal.tipo.id
+                    this.tipo = animal.tipo.id + ""
                     this.id = localStorage.idAnimal
                 }
                 if (window.location.href == "http://localhost/consultarPetsitter.html") {

@@ -323,6 +323,33 @@ body {
   }
 }
 
+.whitebtn {
+    font-weight: 500;
+    border: none;
+    border-radius: 45px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    font-size: 1.2em;
+    text-align: center;
+    margin-left: 2%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
+    background-color: white;
+    color: $dark-blue;
+
+  &:hover{
+    color: white;
+    background-color: $dark-blue;
+    text-decoration: none;
+    box-shadow: 0px 5px 5px rgba(2, 29, 44, 0.705);
+    transform: translateY(-5px);
+  }
+}
+
 #darkbluebtn {
     font-weight: 500;
     border: none;

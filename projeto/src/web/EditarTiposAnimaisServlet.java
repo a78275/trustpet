@@ -27,6 +27,7 @@ public class EditarTiposAnimaisServlet extends HttpServlet {
         PrintWriter out = response.getWriter();
         JSONObject mensagem = new JSONObject();
         JSONObject parameters = Util.parseBody(request.getReader());
+
         List<Integer> tipos = Util.parseTiposAnimaisArray(parameters);
 
         String token = request.getHeader("Token");
