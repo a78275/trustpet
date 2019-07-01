@@ -82,7 +82,7 @@ Vue.component('avaliar-petsitter', {
     },
     methods: {
         avaliar: async function (id) {
-            if(this.pontuacao == 0){
+            if (this.pontuacao == 0) {
                 this.snackbar("Selecione uma classificação.")
             }
             else {
@@ -598,6 +598,7 @@ var vm = new Vue({
                 }
                 if (window.location.href == "http://localhost/selPetsitter.html") {
                     this.petsitters = JSON.parse(localStorage.petsitters)
+                    console.log(this.petsitters)
                 }
                 if (window.location.href == "http://localhost/editarDadosDono.html") {
                     let date = this.perfil.dataNasc.split("/")
@@ -1001,12 +1002,12 @@ var vm = new Vue({
             var filtrados = this.petsitters
 
             // Filtrar por concelho
-            if(this.selConcelho != "Todos"){
+            if (this.selConcelho != "Todos") {
                 filtrados = filtrados.filter(p => p.concelho == this.selConcelho)
             }
 
             // Filtrar por distrito
-            if(this.selDistrito != "Todos"){
+            if (this.selDistrito != "Todos") {
                 filtrados = filtrados.filter(p => p.distrito == this.selDistrito)
             }
 
@@ -1021,19 +1022,19 @@ var vm = new Vue({
             }
 
             // Ordenação
-            if(this.ordenacao == "Ascendente" || this.ordenacao == "Classificação Asc."){
+            if (this.ordenacao == "Ascendente" || this.ordenacao == "Classificação Asc.") {
                 var sorting = -1
                 filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
             }
-            else if (this.ordenacao == "Descendente" || this.ordenacao == "Classificação Desc."){
+            else if (this.ordenacao == "Descendente" || this.ordenacao == "Classificação Desc.") {
                 var sorting = 1
                 filtrados.sort((a, b) => a.avaliacaoMedia < b.avaliacaoMedia ? sorting : -sorting)
             }
-            else if (this.ordenacao == "Preço Asc."){
+            else if (this.ordenacao == "Preço Asc.") {
                 var sorting = -1
                 filtrados.sort((a, b) => a.preco < b.preco ? sorting : -sorting)
             }
-            else if (this.ordenacao == "Preço Desc."){
+            else if (this.ordenacao == "Preço Desc.") {
                 var sorting = 1
                 filtrados.sort((a, b) => a.preco < b.preco ? sorting : -sorting)
             }
